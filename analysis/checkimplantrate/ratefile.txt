@@ -1,0 +1,15 @@
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3108.root	Sn136	0.708724
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3051.root	Sn136	0.0596043
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3052.root	Sn136	0.0589901
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3053.root	Sn137	0.0344897
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3054.root	Sn137	0.0418142
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3055.root	Sn138	0.0103748
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3056.root	Sn138	0.0104379
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3057.root	Sn139	0.00168613
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3058.root	Sn139	inf
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3059.root	Sn140	-nan
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3060.root	Sn140	-nan
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3061.root	Sn141	-nan
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3062.root	Sn141	-nan
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3063.root	Sn142	-nan
+/home/phong/rootfiles/decaysep_0.5cps/final_decay_brips3066.root	Sn142	-nan

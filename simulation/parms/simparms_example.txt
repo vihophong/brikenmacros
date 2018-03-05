@@ -21,7 +21,7 @@ betaneutronmodtime 0.000021
 #Beam Neutron background moderation time in second
 beamneutronmodtime 0.000027
 
-#DeltaXY limited correlation area
+#DeltaXY limited correlation area (set very large value, say 100000 to select all)
 deltaxy 2.5
 #DeltaXY sigma
 deltaxysigma 0.625
@@ -50,6 +50,6 @@ ybetabkgsigma 32.
 
 # Offset in timestamp
 tsoffset 3600
-# Percentage of neutron correlated with beam
+# Percentage of neutron correlated with beam, set to 0 if this background neutron is not considered
 neuwbeamperctg 40
 

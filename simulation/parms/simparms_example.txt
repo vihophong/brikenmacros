@@ -1,0 +1,55 @@
+#Beam time
+beamtime 3601
+#Beam rate rate
+beamrate 1.3
+#Isotope percentage
+isoperctg 60.
+#Beta gaussian distributed background rate
+betabkgrateg 1.
+#Beta uniform distributed background rate
+betabkgrateu 1.
+#External neutron bakground rate
+neubkgrate 1.
+#Percentage of neutron correlated with beta background gassian
+randbetaneuperctg 7.
+#Beta efficiency
+betaeff 51.
+#Neutron efficiency
+neueff 69.
+#Beta Neutron moderation time in second
+betaneutronmodtime 0.000021
+#Beam Neutron background moderation time in second
+beamneutronmodtime 0.000027
+
+#DeltaXY limited correlation area
+deltaxy 2.5
+#DeltaXY sigma
+deltaxysigma 0.625
+
+#max-min of implantation profile
+xmin 0.
+xmax 128.
+ymin 0.
+ymax 128.
+#Mean X of implant profile
+ximpmean 64.
+#Mean Y of implant profile
+yimpmean 64.
+#Sigma X of implant profile
+ximpsigma 32.
+#Sigma Y of implant profile
+yimpsigma 32.
+#Mean X of gassian distributed background profile
+xbetabkgmean 64.
+#Mean Y of gassian distributed backgroundprofile
+ybetabkgmean 64.
+#Sigma X of gassian distributed backgroundprofile
+xbetabkgsigma 32.
+#Sigma Y of gassian distributed backgroundprofile
+ybetabkgsigma 32.
+
+# Offset in timestamp
+tsoffset 3600
+# Percentage of neutron correlated with beam
+neuwbeamperctg 40
+

@@ -1,0 +1,52 @@
+#include "stdio.h"
+#include "string.h"
+#include "TROOT.h"
+#include "TString.h"
+#include "TH1.h"
+#include "TH1F.h"
+#include "TFile.h"
+#include "TCanvas.h"
+#include "TLegend.h"
+#include "TGraph.h"
+void offlinemakemlhtreeri(char* input)
+{
+    TString ri[100];
+    Int_t nri=21;
+    ri[0]="Sn134";
+    ri[1]="Sn135";
+    ri[2]="Sn136";
+    ri[3]="Sn137";
+    ri[4]="Sn138";
+    ri[5]="Sn139";
+    ri[6]="In131";
+    ri[7]="In132";
+    ri[8]="In133";
+    ri[9]="In134";
+    ri[10]="In135";
+    ri[11]="In136";
+    ri[12]="Cd129";
+    ri[13]="Cd130";
+    ri[14]="Cd131";
+    ri[15]="Cd132";
+    ri[16]="Cd133";
+    ri[17]="Cd134";
+    ri[18]="Ag130";
+    ri[19]="Ag131";
+    ri[20]="Ag132";
+
+    gROOT->ProcessLine(".L makemlhtree.C");
+    for (Int_t i=0;i<nri;i++){
+        char tempchar1[1000];
+        sprintf(tempchar1,"outree%s.root",(char*)ri[i].Data());
+        cout<<Form("makemlhtree o%d(\"%s\",\"%s\");",i,input,(char*)ri[i].Data())<<endl;
+        gROOT->ProcessLine(Form("makemlhtree o%d(\"%s\",\"%s\");",i,input,(char*)ri[i].Data()));
+        gROOT->ProcessLine(Form("o%d.Loop(\"fittrees/%s\");",i,tempchar1));
+    }
+}
+
+void offlinemakemlhtree(char* input,char* output)
+{
+    gROOT->ProcessLine(".L makemlhtree.C");
+    gROOT->ProcessLine(Form("makemlhtree obj(\"%s\",\"\");",input));
+    gROOT->ProcessLine(Form("obj.Loop(\"%s\");",output));
+}

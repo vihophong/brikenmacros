@@ -1,0 +1,62 @@
+root [2] r1ncoin=39239./1704074.;
+root [3] r2ncoin=3765./1704074.
+(double) 0.00220941
+root [4] rgt0ncoin=43126./1704074.;
+root [5]  treeb->Draw("x>>h1(500,-10,10)","nfwd==2&&breal==1")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+(Long64_t) 1227
+root [6]  treeb->Draw("x>>h2(500,-10,10)","nbwd==2&&breal==1")
+(Long64_t) 26
+root [7] treeb->Draw("x>>h3(500,-10,10)","breal==1&&btype==6&&nrealflag==2")
+(Long64_t) 1000
+root [8] h1->Add(h2,-1)
+(Bool_t) true
+root [9] h1->Add(h3,-1)
+(Bool_t) true
+root [10] h1->Draw();
+root [11] treeb->Draw("x>>h4(500,-10,10)","breal==1&&btype==4&&nrealflag==1")
+(Long64_t) 9946
+root [12] h4->Scale(r1ncoin);
+root [13] treeb->Draw("x>>h5(500,-10,10)","breal==1&&btype==6&&nrealflag==1")
+(Long64_t) 917
+root [14] h5->Scale(r1ncoin);
+root [15] h1->Add(h4,-1)
+(Bool_t) true
+root [16] h1->Add(h5,-1)
+(Bool_t) true
+root [17] h1->Draw();
+root [18] treeb->Draw("x>>h6(500,-10,10)","breal==1&&btype==6&&nrealflag==2")
+(Long64_t) 1000
+root [19] treeb->Draw("x>>h7(500,-10,10)","breal==1&&btype==6&&nrealflag==2")
+(Long64_t) 1000
+root [20] h6->Scale(r2ncoin)
+root [21] h7->Scale(rgt0ncoin)
+root [22] treeb->Draw("x>>h8(500,-10,10)","breal==1&&btype==4&&nrealflag==1")
+(Long64_t) 9946
+root [23] treeb->Draw("x>>h9(500,-10,10)","breal==1&&btype==4&&nrealflag==1")
+(Long64_t) 9946
+root [24] h8->Scale(r1ncoin)
+root [25] h8->Scale(rgt0ncoin)
+root [26] h9->Scale(r2ncoin)
+root [27] treeb->Draw("x>>h5(500,-10,10)","breal==1&&btype==6&&nrealflag==1")
+(Long64_t) 917
+root [28] treeb->Draw("x>>h10(500,-10,10)","breal==1&&btype==6&&nrealflag==1")
+(Long64_t) 917
+root [29] treeb->Draw("x>>h11(500,-10,10)","breal==1&&btype==6&&nrealflag==1")
+(Long64_t) 917
+root [30] h10->Scale(r1ncoin)
+root [31] h10->Scale(rgt0ncoin)
+root [32] h11->Scale(r2ncoin)
+root [33] h1->Add(h6)
+(Bool_t) true
+root [34] h1->Add(h7)
+(Bool_t) true
+root [35] h1->Add(h8)
+(Bool_t) true
+root [36] h1->Add(h9)
+(Bool_t) true
+root [37] h1->Add(h10)
+(Bool_t) true
+root [38] h1->Add(h11)
+(Bool_t) true
+root [39] h1->Draw();

@@ -35,6 +35,7 @@ void checkimprate::Loop(Int_t selectz)
 
    Long64_t tsstart = 0;
    Long64_t tsend = 0;
+
    Int_t nimplant = 0;
    cout<<nentries<<endl;
 
@@ -52,6 +53,6 @@ void checkimprate::Loop(Int_t selectz)
    }
    std::ofstream ofs("ratefile.txt", std::ofstream::out | std::ofstream::app);
    Double_t rate=(Double_t)nimplant/(Double_t)(tsend-tsstart)*1e9;
-   ofs<<identifier<<"\t"<<selectz<<"\t"<<rate<<endl;
+   ofs<<identifier<<"\t"<<selectz<<"\t"<<rate<<"\t"<<(Double_t)(tsend-tsstart)/1e9<<endl;
    cout<<"implantation rate = "<<rate<<endl;
 }

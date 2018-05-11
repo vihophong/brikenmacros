@@ -11,7 +11,7 @@
 
 void chainallimplant(char* listfile){
   char pid[500];
-  sprintf(pid,"impall");
+  sprintf(pid,"implant");
   char tempchar1[1000];
   sprintf(tempchar1,"tree%s",pid);
   TChain* ch = new TChain(tempchar1);

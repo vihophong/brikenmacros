@@ -31,8 +31,15 @@ Double_t ymin=0;Double_t ymax=128;
 Double_t tsoffset=3600; //! there is a bug on this offset (don't now why -> to be fixed later)
 Double_t neuwbeamperctg=40.;
 
+Int_t isSpatialDistFromHist=0;
+TH1F* hhdx=NULL;
+TH1F* hhdy=NULL;
+
+
+
 typedef struct {
     double T; 	 // Calibrated time
+    double Tcorr; //correlated time
     double x,y,z;// number of pixel for AIDA, or number of tube for BELEN
     int type;
     int type2;//neutron index
@@ -41,11 +48,12 @@ typedef struct {
 
 void copydata(datatype* datain,datatype &dataout){
     dataout.T=datain->T;
+    dataout.Tcorr=datain->Tcorr;
     dataout.x=datain->x;
     dataout.y=datain->y;
     dataout.z=datain->z;
     dataout.type=datain->type;
-    dataout.type2=datain->type2;
+    dataout.Tcorr=datain->Tcorr;
     dataout.evt=datain->evt;
 }
 
@@ -54,6 +62,7 @@ bool gendecay(TRandom3 *rseed,Double_t ximp,Double_t yimp,Double_t tsin,Double_t
     bflag=-1;
     nflag=-1;
     sim.T=-1.;
+    sim.Tcorr=-1.;
     sim.x=-1.;
     sim.y=-1.;
     sim.z=0.;
@@ -64,7 +73,14 @@ bool gendecay(TRandom3 *rseed,Double_t ximp,Double_t yimp,Double_t tsin,Double_t
     //!gen decay start here!
     Double_t dxbeta=rseed->Gaus(dxbetamean,dxbetasigma);
     Double_t dybeta=rseed->Gaus(dybetamean,dybetasigma);
+
+    if (isSpatialDistFromHist!=0){
+        dxbeta=hhdx->GetRandom();
+        dybeta=hhdy->GetRandom();
+    }
+
     Double_t decayt=rseed->Exp(halflife/log(2));
+    sim.Tcorr=decayt;
     sim.T=tsin+decayt;
     Double_t xbeta=dxbeta+ximp;
     Double_t ybeta=dybeta+yimp;
@@ -97,6 +113,7 @@ bool genneutron(TRandom3 *rseed,Double_t tsin,datatype &sim, Int_t &nflag){
     //! Reset value (just to stay in the safe side)
     nflag=-1;
     sim.T=-1.;
+    sim.Tcorr=0;
     sim.x=-1.;
     sim.y=-1.;
     sim.z=0.;
@@ -107,6 +124,7 @@ bool genneutron(TRandom3 *rseed,Double_t tsin,datatype &sim, Int_t &nflag){
     Double_t pneu=rseed->Rndm()*100;
     Double_t dtneu=rseed->Exp(betaneutronmodtime/log(2));
     sim.T=tsin+dtneu;
+    sim.Tcorr=dtneu;
     sim.x=0;
     sim.y=0;
     sim.z=0;
@@ -118,8 +136,9 @@ bool genneutronwithbkg(Double_t prob,TRandom3 *rseed,Double_t tsin,datatype &sim
     //! Reset value (just to stay in the safe side)
     nflag=-1;
     sim.T=-1.;
-    sim.x=-1.;
-    sim.y=-1.;
+    sim.Tcorr=0;
+    sim.x=0.;
+    sim.y=0.;
     sim.z=0.;
     sim.type=-1.;
     sim.type2=-1.;
@@ -128,15 +147,54 @@ bool genneutronwithbkg(Double_t prob,TRandom3 *rseed,Double_t tsin,datatype &sim
     Double_t pneu=rseed->Rndm()*100;
     Double_t dtneu=rseed->Exp(betaneutronmodtime/log(2));
     sim.T=tsin+dtneu;
-    sim.x=0;
-    sim.y=0;
-    sim.z=0;
+    sim.Tcorr=dtneu;
+
+    if (pneu<=prob) nflag=1; else nflag=0;
+    return true;
+}
+bool gen2neutronwithbkg(Double_t prob,TRandom3 *rseed,Double_t tsin,datatype &simneu1,datatype &simneu2, Int_t &nflag){
+    //! Reset value (just to stay in the safe side)
+    nflag=-1;
+    simneu1.T=-1.;
+    simneu1.Tcorr=0;
+    simneu1.x=0.;
+    simneu1.y=0.;
+    simneu1.z=0.;
+    simneu1.type=-1.;
+    simneu1.type2=-1.;
+    simneu1.evt=-1;
+
+    simneu2.T=-1.;
+    simneu2.Tcorr=0;
+    simneu1.x=0.;
+    simneu1.y=0.;
+    simneu1.z=0.;
+    simneu2.type=-1.;
+    simneu2.type2=-1.;
+    simneu2.evt=-1;
+
+    Double_t pneu=rseed->Rndm()*100;
+
+
+    //! 1st neutron
+    Double_t dtneu=rseed->Exp(betaneutronmodtime/log(2));
+    simneu1.T=tsin+dtneu;
+    simneu1.Tcorr=dtneu;
+
+    //! 2nd neutron
+    dtneu=rseed->Exp(betaneutronmodtime/log(2));
+    simneu2.T=tsin+dtneu;
+    simneu2.Tcorr=dtneu;
+
     if (pneu<=prob) nflag=1; else nflag=0;
     return true;
 }
 
-void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_example.txt" )
+void simulatedecay(char* decaychainparmsfile, char* simparmsfile)
 {
+
+    Int_t isFixImplantPosition = 0;
+    Int_t isSpatialDistFromHist = 0;
 
     //! some default rate values
     Double_t BeamTime=3600;
@@ -144,8 +202,12 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
     Double_t isoperctg=60.;
     Double_t betabkgrateg=1.;
     Double_t betabkgrateu=1.;
-    Double_t extbneukgrate=1.;
+    Double_t neurndbkgrate=1.;//random single neutron background  per second
+    Double_t r2neurndbkgrate=1.;//random 2 neutron background per second
+
     Double_t percentage_bkgnb=7.;
+    Double_t percentage_bkg2nb=1.;
+
 
     //! reading beam condition files
     std::ifstream ifscond(simparmsfile);
@@ -161,13 +223,19 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
         if (line_head.at(0)=='#') continue;
         ss>>line_val;
         //cout<<line_head<<"-"<<line_val<<endl;
+
+        if (line_head=="isfiximppos") isFixImplantPosition=(Int_t)line_val;
+        if (line_head=="ishistgausbkg") isSpatialDistFromHist=(Int_t)line_val;
+
         if (line_head=="beamtime") BeamTime=line_val;
         if (line_head=="beamrate") rate=line_val;
         if (line_head=="isoperctg") isoperctg=line_val;
         if (line_head=="betabkgrateg") betabkgrateg=line_val;
         if (line_head=="betabkgrateu") betabkgrateu=line_val;
-        if (line_head=="neubkgrate") neubkgrate=line_val;
+        if (line_head=="neubkgrate") neurndbkgrate=line_val;
+        if (line_head=="r2neubkgrate") r2neurndbkgrate=line_val;
         if (line_head=="randbetaneuperctg") percentage_bkgnb=line_val;
+        if (line_head=="randbeta2neuperctg") percentage_bkg2nb=line_val;
         if (line_head=="betaeff") betaeff=line_val;
         if (line_head=="neueff") neutroneff=line_val;
         if (line_head=="betaneutronmodtime") betaneutronmodtime=line_val;
@@ -183,6 +251,12 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
         if (line_head=="yimpmean") yimpmean=line_val;
         if (line_head=="yimpsigma") yimpsigma=line_val;
 
+        if (line_head=="deltaxylimit") deltaxy=line_val;
+        if (line_head=="dxbetamean") dxbetamean=line_val;
+        if (line_head=="dxbetasigma") dxbetasigma=line_val;
+        if (line_head=="dybetamean") dxbetamean=line_val;
+        if (line_head=="dybetasigma") dxbetasigma=line_val;
+
 
         if (line_head=="xbetabkgmean") xbetabkgmean=line_val;
         if (line_head=="xbetabkgsigma") xbetabkgsigma=line_val;
@@ -192,16 +266,19 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
 
         if (line_head=="tsoffset") tsoffset=line_val;
         if (line_head=="neuwbeamperctg") neuwbeamperctg=line_val;
-
     }
 
     cout<<"*****************\nSimulation parameters:\n"<<endl;
+    cout<<"Fix implant position?  "<<isFixImplantPosition<<endl;
     cout<<"Beam time = "<<BeamTime<<endl;
     cout<<"Beam rate = "<<rate<<endl;
     cout<<"Isotope percentage = "<<isoperctg<<endl;
     cout<<"Beta Gaussian background = "<<betabkgrateg<<endl;
     cout<<"Beta Uniform background = "<<betabkgrateu<<endl;
+    cout<<"Neutron background = "<<neurndbkgrate<<endl;
+    cout<<"2 Neutron background = "<<r2neurndbkgrate<<endl;
     cout<<"Percentage of neutron correlated with random beta background = "<<percentage_bkgnb<<endl;
+    cout<<"Percentage of 2 neutron correlated with random beta background = "<<percentage_bkg2nb<<endl;
     cout<<"Beta Efficiency = "<<betaeff<<endl;
     cout<<"Neutron Efficiency = "<<neutroneff<<endl;
     cout<<"Beta neutron moderation time = "<<betaneutronmodtime<<endl;
@@ -217,6 +294,12 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
     cout<<"yimpmean = "<<yimpmean<<endl;
     cout<<"yimpsigma = "<<yimpsigma<<endl;
 
+    cout<<"deltaxylimit = "<<deltaxy<<endl;
+    cout<<"dxbetamean = "<<dxbetamean<<endl;
+    cout<<"dxbetasigma = "<<dxbetasigma<<endl;
+    cout<<"dybetamean = "<<dybetamean<<endl;
+    cout<<"dybetasigma = "<<dybetasigma<<endl;
+
 
     cout<<"xbetabkgmean = "<<ximpmean<<endl;
     cout<<"xbetabkgsigma = "<<ximpsigma<<endl;
@@ -231,9 +314,29 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
 
     cout<<"*****************\n"<<endl;
 
-    return;
-    //! stuff for simulation neutron background (ignore for now)
-    Double_t neurndbkgrate=extbneukgrate;//random background neutron per second
+
+    TH1F* hhx=NULL;
+    TH1F* hhy=NULL;
+    TH1F* hhimpx=NULL;
+    TH1F* hhimpy=NULL;
+
+
+    if (isSpatialDistFromHist!=0){
+        cout<<"reading histograms hy.root, hx.root, himpx.root, himpy.root, hdx.root and hdy.root for beta background distribution"<<endl;
+        TFile* f1x = TFile::Open("hx.root");
+        hhx=(TH1F*)f1x->Get("hx");
+        TFile* f1y = TFile::Open("hy.root");
+        hhy=(TH1F*)f1y->Get("hy");
+        TFile* f1impx = TFile::Open("himpx.root");
+        hhimpx=(TH1F*)f1impx->Get("himpx");
+        TFile* f1impy = TFile::Open("himpy.root");
+        hhimpy=(TH1F*)f1impy->Get("himpy");
+        TFile* f1hdx = TFile::Open("hdx.root");
+        hhdx=(TH1F*)f1hdx->Get("hdx");
+        TFile* f1hdy = TFile::Open("hdy.root");
+        hhdy=(TH1F*)f1hdy->Get("hdy");
+    }
+    //return;
 
     //! declare default parameters
     Double_t halflife=0.128;//half life parent in second
@@ -314,7 +417,7 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
     p1n9=decayparms[8][1]*100;//pn value of grand-daugter in 1 delayed neutron branch %
 
     cout<<"P2n="<<p2n<<endl;
-  Bool_t enableFlag[17]={true,//1
+   Bool_t enableFlag[17]={true,//1
                          true,//2
                          true,//3
                          true,//4
@@ -332,14 +435,29 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
                          true,//16
                          true};//17
 
+   /*
+   for (Int_t i=0;i<17;i++) enableFlag[i]=false;
+  enableFlag[0]=true;
+  enableFlag[3]=true;
+  enableFlag[5]=true;
+*/
 
-  Bool_t neutronEnableFlag[21];for (int i=0;i<21;i++) neutronEnableFlag[i]=false;
-  neutronEnableFlag[4]=true;neutronEnableFlag[3]=true;
+  Bool_t neutronEnableFlag[24];for (int i=0;i<24;i++) neutronEnableFlag[i]=false;
+  neutronEnableFlag[4]=true;
+  neutronEnableFlag[6]=true;
+
+  neutronEnableFlag[3]=true;
   neutronEnableFlag[8]=true;neutronEnableFlag[10]=true;
-  neutronEnableFlag[14]=true;neutronEnableFlag[6]=true;
+  neutronEnableFlag[14]=true;
   neutronEnableFlag[16]=true;neutronEnableFlag[17]=true;
   neutronEnableFlag[0]=false;//beam induced neutron
+
+
   neutronEnableFlag[20]=true;//constant neutron background
+  neutronEnableFlag[21]=true;//correlated neutron background with beta background
+  neutronEnableFlag[22]=true;//corrlated 2neutron background with beta background
+  neutronEnableFlag[23]=true;//corrlated 2neutron background within unknown source
+
 
 
   std::multimap < double, datatype > betaMap;
@@ -356,6 +474,7 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
   ofile->cd();
   datatype ion;
   ion.T=0;
+  ion.Tcorr=0;
   ion.x=0;
   ion.y=0;
   ion.z=0;
@@ -364,6 +483,7 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
   ion.evt=-1;
   datatype beta;
   beta.T=0;
+  beta.Tcorr=0;
   beta.x=0;
   beta.y=0;
   beta.z=0;
@@ -372,6 +492,7 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
   beta.evt=-1;
   datatype neu;
   neu.T=0;
+  neu.Tcorr=0;
   neu.x=0;
   neu.y=0;
   neu.z=0;
@@ -381,6 +502,7 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
 
   datatype veto;
   veto.T=0;
+  veto.Tcorr=0;
   veto.x=0;
   veto.y=0;
   veto.z=0;
@@ -392,10 +514,10 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
   TTree* treeion=new TTree("ion","aida tree ion");
   TTree* treebeta=new TTree("beta","aida tree beta");
   TTree* treeneu=new TTree("neutron","neutron");
-  treeion->Branch("ion",&ion,"T/D:x/D:y/D:z/D:type/I:type2/I:evt/I");
-  treebeta->Branch("beta",&beta,"T/D:x/D:y/D:z/D:type/I:type2/I:evt/I");
-  treeneu->Branch("neutron",&neu,"T/D:x/D:y/D:z/D:type/I:type2/I:evt/I");
-  treeneu->Branch("veto",&veto,"T/D:x/D:y/D:z/D:type/I:type2/I:evt/I");
+  treeion->Branch("ion",&ion,"T/D:Tcorr/D:x/D:y/D:z/D:type/I:type2/I:evt/I");
+  treebeta->Branch("beta",&beta,"T/D:Tcorr/D:x/D:y/D:z/D:type/I:type2/I:evt/I");
+  treeneu->Branch("neutron",&neu,"T/D:Tcorr/D:x/D:y/D:z/D:type/I:type2/I:evt/I");
+  treeneu->Branch("veto",&veto,"T/D:Tcorr/D:x/D:y/D:z/D:type/I:type2/I:evt/I");
 
 
   TH1F* hdtimp=new TH1F("hdtimp","hdtimp",2000,0,0.1);
@@ -421,6 +543,8 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
 
   TH1F* hdecayall=new TH1F("hdecayall","hdecayall",2000,-10e9,10e9);
   TH1F* hdecayw1neu=new TH1F("hdecayw1neu","hdecayw1neu",2000,-10e9,10e9);
+  TH1F* hdecayw1neu4=new TH1F("hdecayw1neu4","hdecayw1neu4",2000,-10e9,10e9);
+
   TH1F* hdecayw2neu=new TH1F("hdecayw2neu","hdecayw2neu",2000,-10e9,10e9);
   TH1F* hdecayw1neu2neu=new TH1F("hdecayw1neu2neu","hdecayw1neu2neu",2000,-10e9,10e9);
 
@@ -436,6 +560,16 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
       Double_t ximp=r->Gaus(ximpmean,ximpsigma);
       Double_t yimp=r->Gaus(yimpmean,yimpsigma);
 
+      if (isFixImplantPosition!=0){
+          ximp=ximpmean;
+          yimp=yimpmean;
+      }
+
+      if (isSpatialDistFromHist!=0) {
+          ximp=hhimpx->GetRandom();
+          yimp=hhimpy->GetRandom();
+      }
+
       if (ximp<xmax&&yimp<ymax&&ximp>=xmin&&yimp>=ymin){
           Double_t dtimp=r->Exp(1/rate);
           tsimp=dtimp+tsimp;//time stamp implantation
@@ -447,6 +581,7 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
           if (p1neui<neuwbeamperctg){//note this neuwbeamperctg includes the efficiency
               Double_t tsneunsi=tsneu;
               datatype aida;
+              aida.Tcorr=dtp1neui;
               aida.x=0;
               aida.y=0;
               aida.z=0;
@@ -457,25 +592,20 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
               neuMap.insert(make_pair(tsneunsi,aida));
           }
 
-
-
           //! beam inside aida
           Double_t pimp=r->Rndm()*100;
           if (pimp<isoperctg){
               hdbemneu->Fill(dtp1neui);
-
               //!isotope after PID gate
               hxyimp->Fill(ximp,yimp);
               hdtimp->Fill(dtimp);
               hpimp->Fill(pimp);
-
               ion.T=tsimp;
               ion.x=ximp;
               ion.y=yimp;
               ion.type=0;
               ion.evt=nimplant;
               treeion->Fill();
-
 
               //! Parent decay
               datatype ri1;Int_t bflag1;Int_t nflag1;
@@ -594,7 +724,6 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
                       }
                       if (bflag2>0&&bd1nflag2>0) hdecayw1neu->Fill(ri2.T*1e9-ion.T*1e9);
 
-
                       //! decay in 1 neutron branch
                       datatype ri5;Int_t bflag5;Int_t nflag5;
                       gendecay(r,ximp,yimp,ri2.T,halflife5,p1n5,0.,ri5,bflag5,nflag5);
@@ -645,14 +774,12 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
                               neuMap.insert(make_pair(neu.T,neu));
                           }
                           if (bflag5>0&&bd1nflag5>0) hdecayw1neu->Fill(ri5.T*1e9-ion.T*1e9);
-
                           //!
                           //!nothing go up to here
                           //!
                       }else{ cout<<"sth wrong"<<endl;}// I will leave it here and don't say anything
 
                   }else{ cout<<"sth wrong"<<endl;}// I will leave it here and don't say anything
-
 
               }else if (nflag1==1){//delayed 1 neutron
                   Double_t betat;
@@ -680,7 +807,10 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
                       hdbetaimpwneu4->Fill(ri1.T-ion.T);
                       if (bflag1>0) hdbetaneu4->Fill(neu.T-betat);
                   }
-                  if (bflag1>0&&bd1nflag1>0) hdecayw1neu->Fill(ri1.T*1e9-ion.T*1e9);
+                  if (bflag1>0&&bd1nflag1>0) {
+                      hdecayw1neu->Fill(ri1.T*1e9-ion.T*1e9);
+                      hdecayw1neu4->Fill(ri1.T*1e9-ion.T*1e9);
+                  }
 
                   //! daugter decay in 1 neutron emission branch
                   datatype ri3;Int_t bflag3;Int_t nflag3;
@@ -942,10 +1072,17 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
   Double_t tsbetabkgg=tsoffset;
   Int_t iloopbkgg=0;
   Int_t nassociatedneu=0;
+  Int_t nassociated2neu=0;
   while (tsbetabkgg<tend){
       Double_t xbetabkgg=r->Gaus(xbetabkgmean,xbetabkgsigma);
       Double_t ybetabkgg=r->Gaus(ybetabkgmean,ybetabkgsigma);
-      if (xbetabkgg<128&&ybetabkgg<128&&xbetabkgg>=0&&ybetabkgg>=0){
+
+      if (isSpatialDistFromHist!=0) {
+          xbetabkgg=hhx->GetRandom();
+          ybetabkgg=hhy->GetRandom();
+      }
+
+      if (xbetabkgg<xmax&&ybetabkgg<ymax&&xbetabkgg>=xmin&&ybetabkgg>=ymin){
           Double_t dtbetabkgg=r->Exp(1/betabkgrateg);
           tsbetabkgg=dtbetabkgg+tsbetabkgg;
           iloopbkgg++;
@@ -957,52 +1094,81 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
           aida.y=ybetabkgg;
           aida.z=0;
           aida.T=tsbetabkgg;
+          aida.Tcorr=-1;
           aida.type=20;
           aida.evt=-1;
           betaMap.insert(make_pair(tsbetabkgg,aida));
 
+          //! single neutron associated with background beta
           Int_t bbkgd1nflag;
           datatype bd1nbkg;
           genneutronwithbkg(percentage_bkgnb,r,tsbetabkgg,bd1nbkg,bbkgd1nflag);
           if (bbkgd1nflag>0){
               datatype neu;
               copydata(&bd1nbkg,neu);
-              neu.type=20;
+              neu.Tcorr=-1;
+              neu.type=21;
               neu.type2=-1;
-              neu.evt=2;
+              neu.evt=-2;
               neuMap.insert(make_pair(neu.T,neu));
               nassociatedneu++;
           }
+
+          //! 2 neutron associated with background beta
+          Int_t bbkgd2nflag;
+          datatype bd2nbkg1;
+          datatype bd2nbkg2;
+          gen2neutronwithbkg(percentage_bkg2nb,r,tsbetabkgg,bd2nbkg1,bd2nbkg2,bbkgd2nflag);
+          if (bbkgd2nflag>0){
+              //! register 1st neutron
+              datatype neu1;
+              copydata(&bd2nbkg1,neu1);
+              neu1.Tcorr=-1;
+              neu1.type=22;
+              neu1.type2=-1;
+              neu1.evt=-2;
+              neuMap.insert(make_pair(neu1.T,neu1));
+              //! register 2nd neutron
+              datatype neu2;
+              copydata(&bd2nbkg2,neu2);
+              neu2.Tcorr=-1;
+              neu2.type=22;
+              neu2.type2=-1;
+              neu2.evt=-2;
+              neuMap.insert(make_pair(neu2.T,neu2));
+              nassociated2neu++;
+          }
+
       }
   }
 
   cout<<"bkg rate gaussian = "<<(Double_t)iloopbkgg/(tend-tsoffset)<<endl;
   cout<<"neutron rate asssociated with bkg rate gaussian = "<<(Double_t)nassociatedneu/(tend-tsoffset)<<endl;
+  cout<<"2neutron rate asssociated with bkg rate gaussian = "<<(Double_t)nassociated2neu/(tend-tsoffset)<<endl;
 
   //! generate beta backgroud with uniform distribution
   Double_t tsbetabkgu=tsoffset;
   Int_t iloopbkgu=0;
   while (tsbetabkgu<tend){
-      Double_t xbetabkgu=r->Rndm()*128;
-      Double_t ybetabkgu=r->Rndm()*128;
+      Double_t xbetabkgu=xmin+r->Rndm()*(xmax-xmin);
+      Double_t ybetabkgu=ymin+r->Rndm()*(ymax-ymin);
       Double_t dtbetabkgu=r->Exp(1/betabkgrateu);
       tsbetabkgu=dtbetabkgu+tsbetabkgu;
       iloopbkgu++;
-
       hxybetabkgu->Fill(xbetabkgu,ybetabkgu);
-
       datatype aida;
       aida.x=xbetabkgu;
       aida.y=ybetabkgu;
       aida.z=0;
       aida.T=tsbetabkgu;
+      aida.Tcorr=-1;
       aida.type=21;
       aida.evt=-1;
       betaMap.insert(make_pair(tsbetabkgu,aida));
   }
   cout<<"bkg rate uniform = "<<(Double_t)iloopbkgu/(tend-tsoffset)<<endl;
 
-  //! generate neutron backgroud
+  //! generate random neutron backgroud
   Double_t tsneubkg=tsoffset;
   Int_t iloopneubkg=0;
 
@@ -1010,20 +1176,57 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
       Double_t dtneubkg=r->Exp(1/neurndbkgrate);
       tsneubkg=dtneubkg+tsneubkg;
       iloopneubkg++;
-      //unsigned long long tsneubkgns=(unsigned long long)(tsneubkg*1e9);
       datatype aida;
       aida.x=0;
       aida.y=0;
       aida.z=0;
       aida.T=tsneubkg;
+      aida.Tcorr=-1;
       aida.type=20;
       aida.type2=-1;
-      aida.evt=2;//associated with nothing
+      aida.evt=-2;//associated with nothing
       neuMap.insert(make_pair(tsneubkg,aida));
   }
   cout<<"bkg rate random neutron = "<<(Double_t)iloopneubkg/(tend-tsoffset)<<endl;
 
+  //! generate random 2 neutron backgroud with unknown source
+  tsneubkg=tsoffset;
+  iloopneubkg=0;
 
+  while (tsneubkg<tend){
+      //! timming of the unknown source
+      Double_t dtneubkg=r->Exp(1/r2neurndbkgrate);
+      tsneubkg=dtneubkg+tsneubkg;
+      iloopneubkg++;
+      //! correlated neutron
+
+      //! 1st neutron
+      Double_t dtneu=r->Exp(beamneutronmodtime/log(2));//assume unknown source from upstream having different moderation time
+      datatype simneu1;
+      simneu1.T=tsneubkg+dtneu;
+      simneu1.Tcorr=dtneu;
+      simneu1.x=0;
+      simneu1.y=0;
+      simneu1.z=0;
+      simneu1.type=23;
+      simneu1.type2=-1;
+      simneu1.evt=-2;//associated with nothing
+      neuMap.insert(make_pair(simneu1.T,simneu1));
+
+      //! 2nd neutron
+      dtneu=r->Exp(beamneutronmodtime/log(2));
+      datatype simneu2;
+      simneu2.T=tsneubkg+dtneu;
+      simneu2.Tcorr=dtneu;
+      simneu2.x=0;
+      simneu2.y=0;
+      simneu2.z=0;
+      simneu2.type=23;
+      simneu2.type2=-1;
+      simneu2.evt=-2;//associated with nothing
+      neuMap.insert(make_pair(simneu2.T,simneu2));
+  }
+  cout<<"bkg rate random 2 neutron = "<<(Double_t)iloopneubkg/(tend-tsoffset)<<endl;
 
 
   //! go through all entries in BETA map and fill tree
@@ -1033,6 +1236,7 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
       beta.y=mbeta.y;
       beta.z=mbeta.z;
       beta.T=mbeta.T;
+      beta.Tcorr=mbeta.Tcorr;
       beta.type=mbeta.type;
       beta.type2=-1;
       beta.evt=mbeta.evt;
@@ -1051,6 +1255,7 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
       neu.y=mneu.y;
       neu.z=mneu.z;
       neu.T=mneu.T;
+      neu.Tcorr=mneu.Tcorr;
       neu.type=mneu.type;
       neu.type2=mneu.type2;
       neu.evt=mneu.evt;
@@ -1060,7 +1265,6 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
   cout<<"\ntotal number of implant = "<<nimplant<<endl;
   cout<<"total number of beta = "<<treebeta->GetEntries()<<endl;
   cout<<"total number of neutron = "<<treeneu->GetEntries()<<endl;
-
 
   TCanvas* c1=new TCanvas("c1","c1",900,900);
   c1->Divide(3,3);
@@ -1103,8 +1307,10 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile="simparms_examp
 
   hdecayall->Write();
   hdecayw1neu->Write();
+  hdecayw1neu4->Write();
   hdecayw2neu->Write();
   hdecayw1neu2neu->Write();
+
 
   hdbetaimpwneu4->Write();
   hdtbetaimp->Write();

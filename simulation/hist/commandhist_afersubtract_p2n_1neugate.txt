@@ -1,0 +1,53 @@
+root [2] treeb->Draw("x>>h2(500,-10,10)","nbwd==1&&breal==1")
+(Long64_t) 428
+root [3] treeb->Draw("x>>h3(500,-10,10)","breal==1&&btype==4&&nrealflag==1")
+(Long64_t) 9946
+root [4] treeb->Draw("x>>h4(500,-10,10)","breal==1&&btype==4&&nrealflag==1")
+(Long64_t) 9946
+root [5] treeb->Draw("x>>h5(500,-10,10)","breal==1&&btype==4&&nrealflag==1")
+(Long64_t) 9946
+root [6] treeb->Draw("x>>h6(500,-10,10)","breal==1&&btype==6&&nrealflag==1")
+(Long64_t) 917
+root [7] treeb->Draw("x>>h7(500,-10,10)","breal==1&&btype==6&&nrealflag==1")
+(Long64_t) 917
+root [8] treeb->Draw("x>>h8(500,-10,10)","breal==1&&btype==6&&nrealflag==1")
+(Long64_t) 917
+root [9] treeb->Draw("x>>h9(500,-10,10)","breal==1&&btype==6&&nrealflag==2")
+(Long64_t) 1000
+root [10] r1ncoin=39239./1704074.;
+root [11] r1ncoin
+(double) 0.0230266
+root [12] r2ncoin=3765./1704074.
+(double) 0.00220941
+root [13] r2ncoin
+(double) 0.00220941
+root [14] rgt0ncoin=43126./1704074.;
+root [15] rgt0ncoin
+(double) 0.0253076
+root [16] h4->Scale(r1ncoin);
+root [17] h5->Scale(rgt0ncoin);
+root [18] h4->Draw();
+root [19] h7->Scale(r1ncoin)
+root [20] h8->Scale(rgt0ncoin)
+root [21] h9->Scale(r1ncoin)
+root [22] h1->Add(h2);
+root [23]  treeb->Draw("x>>h11(500,-10,10)","nfwd==1&&breal==1")
+(Long64_t) 10724
+root [24] h11->Add(h2,-1)
+(Bool_t) true
+root [25] h11->Add(h3,-1)
+(Bool_t) true
+root [26] h11->Add(h6,-1)
+(Bool_t) true
+root [27] h11->Draw();
+root [28] h11->Add(h4)
+(Bool_t) true
+root [29] h11->Add(h5)
+(Bool_t) true
+root [30] h11->Add(h7)
+(Bool_t) true
+root [31] h11->Add(h8)
+(Bool_t) true
+root [32] h11->Add(h9)
+(Bool_t) true
+root [33] h11->Draw();

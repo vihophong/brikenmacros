@@ -887,7 +887,8 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    fSB->SetLineColor(kRed);
    fSB->SetNpx(binning);
    hSB->GetListOfFunctions()->Add(fSB);
-   hSB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   //hSB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   hSB->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
    hSB->SetMarkerStyle(20);
    hSB->SetMarkerSize(1);
    hSB->Draw("P0");
@@ -896,7 +897,8 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    gPad->SetBottomMargin(0.1);
    gPad->SetTopMargin(0.001);
    gPad->SetRightMargin(0.01);
-   histcomphSB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   //histcomphSB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   histcomphSB->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
    histcomphSB->Draw("hist");
 
 
@@ -916,7 +918,9 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    fSB2->SetNpx(binning);
    hSB2->GetListOfFunctions()->Add(fSB2);
    hSB2->Draw();
-   hSB2->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   //hSB2->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   hSB2->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
+
    hSB2->SetMarkerStyle(20);
    hSB2->SetMarkerSize(1);
    hSB2->Draw("P0");

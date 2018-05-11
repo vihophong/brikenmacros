@@ -37,9 +37,9 @@ const Int_t kmaxpar=5;
 const Int_t kmaxndecay=10;
 const Int_t kmaxpaths=100;
 //Double_t neueff=0.66*(100-0.8)/100;
-Double_t neueff=0.68;
+Double_t neueff=0.62;
 
-Bool_t reject=false;
+Bool_t reject=true;
 Double_t rejectrange=0.05;//first 50 ms
 
 //! variable

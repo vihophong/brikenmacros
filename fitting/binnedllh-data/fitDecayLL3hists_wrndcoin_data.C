@@ -869,7 +869,8 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    gPad->SetBottomMargin(0.1);
    gPad->SetTopMargin(0.001);
    gPad->SetRightMargin(0.01);
-   histcomphB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   //histcomphB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   histcomphB->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
    histcomphB->Draw("hist");
 
    sprintf(tempchar1,"Simfit1%s",fitname);

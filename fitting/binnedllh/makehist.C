@@ -37,9 +37,9 @@ const Int_t kmaxpar=5;
 const Int_t kmaxndecay=10;
 const Int_t kmaxpaths=100;
 //Double_t neueff=0.66*(100-0.8)/100;
-Double_t neueff=0.62;
+Double_t neueff=0.68;
 
-Bool_t reject=true;
+Bool_t reject=false;
 Double_t rejectrange=0.05;//first 50 ms
 
 //! variable
@@ -147,6 +147,7 @@ Double_t corefcn(Int_t ndecay,Int_t* decaymap,Int_t* nneu, Double_t* b1n,Double_
             if (j!=i) factor2ij=factor2ij*(lamda[decaymap[j]-1]-lamda[decaymap[i]-1]);
         factor2=factor2+factor2i/factor2ij;
     }
+
     fcnret=factor1*N0*factor2;
     return fcnret;
 }
@@ -566,8 +567,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     TFile *f = TFile::Open(infile);
 
     char tempchar1[1000];
-
-    /*
     sprintf(tempchar1,"treeb");
     TTree* treeb=(TTree*) f->Get(tempchar1);
     cout<<entrybegin<<"\tEEE\t"<<nentries<<endl;
@@ -587,7 +586,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     treeb->Draw(Form("x>>h2ncomp2(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==2&&btype==6&&nfwd==2","goff",nentries,entrybegin);
     treeb->Draw(Form("x>>h2ncomp3(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype!=6&&nfwd==2","goff",nentries,entrybegin);
     treeb->Draw(Form("x>>h2ncomp4(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype==6&&nfwd==2","goff",nentries,entrybegin);
-
 
 
 
@@ -616,22 +614,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     sprintf(tempchar1,"h2ncomp4");
     TH1F* h2ncomp4=(TH1F*) gDirectory->Get(tempchar1);
 
-
-    sprintf(tempchar1,"hdecay1nbwd");
-    TH1F* hdecay1nbwd=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaygt0nbwd");
-    TH1F* hdecaygt0nbwd=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecay2nbwd");
-    TH1F* hdecay2nbwd=(TH1F*) gDirectory->Get(tempchar1);
-    */
-
-    sprintf(tempchar1,"hdecay");
-    TH1F* hdecay=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecay1n");
-    TH1F* hdecay1n=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecay2n");
-    TH1F* hdecay2n=(TH1F*) gDirectory->Get(tempchar1);
-
     sprintf(tempchar1,"hdecay1nbwd");
     TH1F* hdecay1nbwd=(TH1F*) gDirectory->Get(tempchar1);
     sprintf(tempchar1,"hdecaygt0nbwd");
@@ -656,344 +638,41 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     cout<<"count = "<<n1nbwd<<"\t"<<gt0nbwd<<"\t"<<n2nbwd<<"\t"<<nball<<endl;
     cout<<"parameter error = "<<parmserr[knri*2+5]<<"\t"<<parmserr[knri*2+6]<<"\t"<<parmserr[knri*2+7]<<endl;
 
-   TH1F * hB = (TH1F*) hdecay->Clone();
-   TH1F * hSB = (TH1F*) hdecay1n->Clone();
-   TH1F * hSB2 = (TH1F*) hdecay2n->Clone();
+    //!****************************GET HISTOGRAM FROM FILE********************
+    //! book file and tree
+    TFile* fout=new TFile(outfile,"recreate");
+    Double_t outparms[knri*2+8];
+    Double_t outparmserr[knri*2+8];
+    Int_t isvary[knri*2+6];
+
+    for (int i=0;i<knri*2+6;i++){
+        outparms[i]=0;
+        outparmserr[i]=0;
+        isvary[i]=0;
+        if (isparmsfix[i]&&(parmserr[i]>0)){
+            if(i<knri*2) isvary[i]=1;
+        }
+    }
+
+    sprintf(tempchar1,"tree%s",fitname);
+    TTree* treeout=new TTree(tempchar1,tempchar1);
+    treeout->Branch("outparms",outparms,Form("outparms[%d]/D",knri*2+8));
+    treeout->Branch("outparmserr",outparmserr,Form("outparmserr[%d]/D",knri*2+8));
+    treeout->Branch("isvary",outparmserr,Form("isvary[%d]/I",knri*2+8));
 
 
-   //!****************************GET HISTOGRAM FROM FILE********************
-   //! book file and tree
-   TFile* fout=new TFile(outfile,"recreate");
-   Double_t outparms[knri*2+8];
-   Double_t outparmserr[knri*2+8];
-   Int_t isvary[knri*2+6];
-
-   for (int i=0;i<knri*2+6;i++){
-       outparms[i]=0;
-       outparmserr[i]=0;
-       isvary[i]=0;
-       if (isparmsfix[i]&&(parmserr[i]>0)){
-           if(i<knri*2) isvary[i]=1;
-       }
-   }
-
-   sprintf(tempchar1,"tree%s",fitname);
-   TTree* treeout=new TTree(tempchar1,tempchar1);
-   treeout->Branch("outparms",outparms,Form("outparms[%d]/D",knri*2+8));
-   treeout->Branch("outparmserr",outparmserr,Form("outparmserr[%d]/D",knri*2+8));
-   treeout->Branch("isvary",outparmserr,Form("isvary[%d]/I",knri*2+8));
-
-
-   ROOT::Math::WrappedMultiTF1 wfB(*fB,1);
-   ROOT::Math::WrappedMultiTF1 wfSB(*fSB,1);
-   ROOT::Math::WrappedMultiTF1 wfSB2(*fSB2,1);
-
-   ROOT::Fit::DataOptions opt;
-
-   //! limit within the fitting range
-   opt.fUseRange  =true;
-   // set the data range
-
-   ROOT::Fit::DataRange rangeB;
-   rangeB.SetRange(lowerlimit,upperlimit);
-   ROOT::Fit::BinData dataB(opt,rangeB);
-   ROOT::Fit::FillData(dataB, hB);
-
-   ROOT::Fit::DataRange rangeSB;
-   rangeSB.SetRange(lowerlimit,upperlimit);
-   ROOT::Fit::BinData dataSB(opt,rangeSB);
-   ROOT::Fit::FillData(dataSB, hSB);
-
-   ROOT::Fit::DataRange rangeSB2;
-   rangeSB2.SetRange(lowerlimit,upperlimit);
-   ROOT::Fit::BinData dataSB2(opt,rangeSB2);
-   ROOT::Fit::FillData(dataSB2, hSB2);
-
-   ROOT::Fit::PoissonLLFunction chi2_B(dataB, wfB);
-   ROOT::Fit::PoissonLLFunction chi2_SB(dataSB, wfSB);
-   ROOT::Fit::PoissonLLFunction chi2_SB2(dataSB2, wfSB2);
-   GlobalChi2 globalChi2(chi2_B, chi2_SB, chi2_SB2);
-
-
-   ROOT::Fit::Fitter fitter;
-
-   // create before the parameter settings in order to fix or set range on them
-
-   cout<<"\n\n*****SETTING PARAMETERS......\n"<<endl;
-   fitter.Config().SetParamsSettings(knri*2+8,parms);
-   for (int i=0;i<knri*2+8;i++){
-       if (parmserr[i]==0||isparmsfix[i]){
-          cout<<"fixed value p"<<i<<"\tval="<<parms[i]<<endl;
-          fitter.Config().ParSettings(i).Fix();
-       }else{
-          fitter.Config().ParSettings(i).SetLimits(parmsmin[i],parmsmax[i]);
-          cout<<"variable value p"<<i<<"\tval "<<parms[i]<<"\tmin="<<parmsmin[i]<<"\tmax="<<parmsmax[i]<<endl;
-       }
-   }
-
-   fitter.Config().MinimizerOptions().SetPrintLevel(0);
-   fitter.Config().SetMinimizer("Minuit2","Migrad");
-   //fitter.Config().SetMinosErrors();
-
-   if (fitter.Config().MinosErrors()) cout<<"minos enabled"<<endl;
-
-   cout<<"\n\n************FITTING.........."<<endl;
-   //! fit FCN function directly
-   // (specify optionally data size and flag to indicate that is a chi2 fit)
-   for (int i=0;i<knri*2+8;i++) mcparms[i]=parms[i];
-
-   for(int i=0;i<ninterations;i++) {
-       cout<<"mc "<<i+1<<endl;
-       mc(rseed);       
-       fitter.Config().SetParamsSettings(knri*2+8,mcparms);
-       if (parmserr[i]==0||isparmsfix[i]){
-          fitter.Config().ParSettings(i).Fix();
-       }else{
-          fitter.Config().ParSettings(i).SetLimits(parmsmin[i],parmsmax[i]);
-       }
-       fitter.FitFCN(knri*2+8,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
-       const Double_t* resultpar=fitter.Result().GetParams();
-       const Double_t* resulterr=fitter.Result().GetErrors();
-       for (unsigned int i=0;i<knri*2+8;i++){
-           outparms[i]=resultpar[i];
-           outparmserr[i]=resulterr[i];
-       }
-       treeout->Fill();
-   }
-
-
-   fitter.Config().SetParamsSettings(knri*2+8,parms);
-   fitter.FitFCN(knri*2+8,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
-
-   ROOT::Fit::FitResult result = fitter.Result();
-   cout<<"\n*******PRINTING RESULT**********\n"<<endl;
-   //result.Print(std::cout);
-   const Double_t* resultpar=result.GetParams();
-   const Double_t* resulterr=result.GetErrors();
-   for (unsigned int i=0;i<result.NPar();i++){
-       cout<<"p"<<i<<" = "<<resultpar[i]<<" +/- "<<resulterr[i]<<" le= "<<result.LowerError(i)<<" ue= "<<result.UpperError(i)<<endl;
-   }
-
-   cout<<"\n*****************\n"<<endl;
-   Double_t nimplants=1;
-
-   cout<<"Number of implantations = "<<nimplants<<endl;
-   cout<<"Efficiency = "<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100.<<" %"<<endl;
-   cout<<"t1/2\terr\tp1n\terr\tp2n\terr"<<endl;
-   cout<<log(2)/resultpar[0]<<"\t"<<log(2)/resultpar[0]/resultpar[0]*resulterr[0]<<"\t"<<resultpar[9]<<"\t"<<resulterr[9]<<"\t"<<resultpar[18]<<"\t"<<resulterr[18]<<endl;
-   cout<<"\n*****************\n"<<endl;
-   cout<<log(2)/resultpar[0]<<"\t"<<log(2)/resultpar[0]/resultpar[0]*resulterr[0]<<endl;
-   cout<<resultpar[9]<<"\t"<<resulterr[9]<<endl;
-   cout<<resultpar[18]<<"\t"<<resulterr[18]<<endl;
-   cout<<"\n*****************\n"<<endl;
-   cout<<log(2)/resultpar[0]<<"\t"<<log(2)/resultpar[0]/resultpar[0]*resulterr[0]<<"\t";
-   cout<<resultpar[9]<<"\t"<<resulterr[9]<<"\t";
-   cout<<resultpar[18]<<"\t"<<resulterr[18]<<"\t"<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100<<endl;
-   cout<<log(2)/resultpar[0]<<"\t"<<log(2)/resultpar[0]/resultpar[0]*resulterr[0]<<"\t";
-   cout<<resultpar[9]<<"\t"<<resulterr[9]<<"\t";
-   cout<<resultpar[18]<<"\t"<<resulterr[18]<<"\t"<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100<<endl;
-   cout<<"\n*****************\n"<<endl;
-
-
-   //! write to text file
-   std::ofstream ofs("x2fitresult.txt", std::ofstream::out | std::ofstream::app);
-   ofs<<fitname<<",";
-   ofs<<log(2)/resultpar[0]<<","<<log(2)/resultpar[0]/resultpar[0]*resulterr[0]<<",";
-   ofs<<resultpar[9]<<","<<resulterr[9]<<",";
-   ofs<<resultpar[18]<<","<<resulterr[18]<<","<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100<<","<<binning<<","<<lowerlimit<<","<<upperlimit<<endl;
-
-
-   TH1F* histcomphBcomb=new TH1F("hist_of_residual_decay","hist of residual decay",50,-10,10);
-   TH1F* histcomphB=new TH1F("residual_decay","residual decay",hB->GetNbinsX(),hB->GetXaxis()->GetXmin(),hB->GetXaxis()->GetXmax());
-   for (Int_t i=0;i<hB->GetNbinsX();i++){
-       double res;
-       //if (hB->GetBinError(i+1)<0.001)
-       //res=  0;
-       //else
-       res=  (hB->GetBinContent(i+1)- fB->Eval( hB->GetBinCenter(i+1) ) )/hB->GetBinError(i+1);
-
-       histcomphB->SetBinContent(i+1,res);
-       histcomphB->SetBinError(i+1,0);
-
-       histcomphBcomb->Fill(res);
-   }
-   TH1F* histcomphSBcomb=new TH1F("hist_of_residual_decay1neu","hist of residual decay 1neu",50,-10,10);
-   TH1F* histcomphSB=new TH1F("residual_decay1neu","residual decay 1 neutron",hSB->GetNbinsX(),hSB->GetXaxis()->GetXmin(),hSB->GetXaxis()->GetXmax());
-   for (Int_t i=0;i<hSB->GetNbinsX();i++){
-       double res;
-       //if (hSB->GetBinError(i+1)<0.001)
-       // res =  0;
-       //else
-        res =  (hSB->GetBinContent(i+1)- fSB->Eval( hSB->GetBinCenter(i+1) ) )/hSB->GetBinError(i+1);
-       histcomphSB->SetBinContent(i+1,res);
-       histcomphSB->SetBinError(i+1,0);
-       histcomphSBcomb->Fill(res);
-   }
-
-   TH1F* histcomphSB2comb=new TH1F("hist_of_residual_decay2neu","hist of residual decay 2neu",50,-10,10);
-   TH1F* histcomphSB2=new TH1F("residual_decay2neu","residual decay 2 neutrons",hSB2->GetNbinsX(),hSB2->GetXaxis()->GetXmin(),hSB2->GetXaxis()->GetXmax());
-   for (Int_t i=0;i<hSB2->GetNbinsX();i++){
-       double res;
-       //if (hSB2->GetBinError(i+1)<0.001)
-        //res =  0;
-       //else
-        res =  (hSB2->GetBinContent(i+1)- fSB2->Eval( hSB2->GetBinCenter(i+1) ) )/hSB2->GetBinError(i+1);
-       histcomphSB2->SetBinContent(i+1,res);
-       histcomphSB2->SetBinError(i+1,0);
-       histcomphSB2comb->Fill(res);
-   }
-
-
-   sprintf(tempchar1,"Simfit%s",fitname);
-   TCanvas * c1 = new TCanvas(tempchar1,"Simultaneous fit of 3 histograms",
-                              10,10,800,600);
-
-   c1->Divide(1,2,0,0);
-   c1->cd(1);
-   gPad->SetBottomMargin(0.001);
-   gPad->SetTopMargin(0.01);
-   gPad->SetRightMargin(0.01);
-
-   gStyle->SetOptFit(1111);
-   fB->SetFitResult( result, iparB);
-   fB->SetRange(rangeB().first, rangeB().second);
-   fB->SetLineColor(kBlue);
-   fB->SetNpx(binning);
-   hB->GetListOfFunctions()->Add(fB);
-   hB->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
-   hB->SetMarkerStyle(20);
-   hB->SetMarkerSize(1);
-   hB->Draw("P0");
-
-   c1->cd(2);
-   gPad->SetBottomMargin(0.1);
-   gPad->SetTopMargin(0.001);
-   gPad->SetRightMargin(0.01);
-   //histcomphB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
-   histcomphB->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
-   histcomphB->Draw("hist");
-
-   sprintf(tempchar1,"Simfit1%s",fitname);
-   TCanvas * c2 = new TCanvas(tempchar1,"Simultaneous fit of 3 histograms",
-                              10,10,800,600);
-
-   c2->Divide(1,2,0,0);
-   c2->cd(1);
-   gPad->SetBottomMargin(0.001);
-   gPad->SetTopMargin(0.01);
-   gPad->SetRightMargin(0.01);
-
-   fSB->SetFitResult( result, iparSB);
-   fSB->SetRange(rangeSB().first, rangeSB().second);
-   fSB->SetLineColor(kRed);
-   fSB->SetNpx(binning);
-   hSB->GetListOfFunctions()->Add(fSB);
-   //hSB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
-   hSB->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
-   hSB->SetMarkerStyle(20);
-   hSB->SetMarkerSize(1);
-   hSB->Draw("P0");
-
-   c2->cd(2);
-   gPad->SetBottomMargin(0.1);
-   gPad->SetTopMargin(0.001);
-   gPad->SetRightMargin(0.01);
-   //histcomphSB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
-   histcomphSB->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
-   histcomphSB->Draw("hist");
-
-
-   sprintf(tempchar1,"Simfit2%s",fitname);
-   TCanvas * c3 = new TCanvas(tempchar1,"Simultaneous fit of 3 histograms",
-                              10,10,800,600);
-
-   c3->Divide(1,2,0,0);
-   c3->cd(1);
-   gPad->SetBottomMargin(0.001);
-   gPad->SetTopMargin(0.01);
-   gPad->SetRightMargin(0.01);
-
-   fSB2->SetFitResult( result, iparSB2);
-   fSB2->SetRange(rangeSB2().first, rangeSB2().second);
-   fSB2->SetLineColor(kGreen);
-   fSB2->SetNpx(binning);
-   hSB2->GetListOfFunctions()->Add(fSB2);
-   hSB2->Draw();
-   //hSB2->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
-   hSB2->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
-
-   hSB2->SetMarkerStyle(20);
-   hSB2->SetMarkerSize(1);
-   hSB2->Draw("P0");
-
-   c3->cd(2);
-   gPad->SetBottomMargin(0.1);
-   gPad->SetTopMargin(0.001);
-   gPad->SetRightMargin(0.01);
-   //histcomphSB2->Rebin(5);
-   histcomphSB2->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
-   histcomphSB2->Draw("hist");
-
-
-   sprintf(tempchar1,"Simfit3%s",fitname);
-   TCanvas * c4 = new TCanvas(tempchar1,"Combined residuals histograms",
-                              10,10,800,1200);
-
-
-   c4->Divide(1,3);
-   c4->cd(1);
-   histcomphBcomb->Draw();
-   c4->cd(2);
-   histcomphSBcomb->Draw();
-   c4->cd(3);
-   histcomphSB2comb->Draw();
 
    fout->cd();
-   c1->Write();
-   c2->Write();
-   c3->Write();
-   c4->Write();
-   histcomphBcomb->Write();
-   histcomphB->Write();
-   histcomphSBcomb->Write();
-   histcomphSB->Write();
-   histcomphSB2comb->Write();
-   histcomphSB2->Write();
 
-   /*
-   h1ncomp1->Write();
-   h1ncomp2->Write();
-   h1ncomp3->Write();
 
-   h2ncomp1->Write();
-   h2ncomp2->Write();
-   h2ncomp3->Write();
-   h2ncomp4->Write();
-   */
+   hdecay->Write();
+   hdecay1n->Write();
+   hdecay2n->Write();
 
-   TF1* fSBc1=new TF1("fSBc1",fcn_gen_wneutronc1,lowerlimit,upperlimit,21);
-   TF1* fSBc2=new TF1("fSBc2",fcn_gen_wneutronc2,lowerlimit,upperlimit,21);
-   TF1* fSBc3=new TF1("fSBc3",fcn_gen_wneutronc3,lowerlimit,upperlimit,21);
+   hdecay1nbwd->Write();
+   hdecaygt0nbwd->Write();
+   hdecay2nbwd->Write();
 
-   fSBc1->SetNpx(binning);
-   fSBc2->SetNpx(binning);
-   fSBc3->SetNpx(binning);
-
-   for (Int_t i=0;i<21;i++){
-       fSBc1->FixParameter(i,fSB->GetParameter(i));
-       fSBc2->FixParameter(i,fSB->GetParameter(i));
-       fSBc3->FixParameter(i,fSB->GetParameter(i));
-   }
-   fB->Write();
-   fSB->Write();
-   fSBc1->Write();
-   fSBc2->Write();
-   fSBc3->Write();
-   fSB2->Write();
-
-   hB->Write();
-   hSB->Write();
-   hSB2->Write();
    treeout->Write();
    fout->Close();
 }

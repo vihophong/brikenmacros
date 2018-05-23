@@ -728,10 +728,12 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
        cout<<"mc "<<i+1<<endl;
        mc(rseed);       
        fitter.Config().SetParamsSettings(knri*2+8,mcparms);
-       if (parmserr[i]==0||isparmsfix[i]){
-          fitter.Config().ParSettings(i).Fix();
-       }else{
-          fitter.Config().ParSettings(i).SetLimits(parmsmin[i],parmsmax[i]);
+       for (unsigned int j=0;j<knri*2+8;i++){
+           if (parmserr[j]==0||isparmsfix[j]){
+              fitter.Config().ParSettings(i).Fix();
+           }else{
+              fitter.Config().ParSettings(i).SetLimits(parmsmin[j],parmsmax[j]);
+           }
        }
        fitter.FitFCN(knri*2+8,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
        const Double_t* resultpar=fitter.Result().GetParams();

@@ -40,7 +40,7 @@ Double_t neueff=0.68;
 Double_t neueff_mean=0.68;
 Double_t neueff_err=0.01;
 
-Bool_t reject=false;
+Bool_t reject=true;
 Double_t rejectrange=0.05;//first 50 ms
 
 //! variable

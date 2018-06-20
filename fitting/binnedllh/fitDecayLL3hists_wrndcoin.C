@@ -139,6 +139,7 @@ Double_t corefcn(Int_t ndecay,Int_t* decaymap,Int_t* nneu, Double_t* b1n,Double_
             factor1=factor1 * b2n[decaymap[i]-1]*lamda[decaymap[i]-1];
         }
     }
+
     Double_t factor2=0;
     for (int i=0;i<ndecay;i++){
         Double_t factor2i=exp(-lamda[decaymap[i]-1]*t);
@@ -151,7 +152,6 @@ Double_t corefcn(Int_t ndecay,Int_t* decaymap,Int_t* nneu, Double_t* b1n,Double_
     fcnret=factor1*N0*factor2;
     return fcnret;
 }
-
 
 //! Global function
 Double_t fcn_gen(Double_t *x, Double_t *par) {
@@ -179,6 +179,196 @@ Double_t fcn_gen(Double_t *x, Double_t *par) {
     }
     return returnval;
 }
+
+
+//! Global function
+Double_t fcn_gen_bkg(Double_t *x, Double_t *par) {
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return bkg;
+    Double_t returnval=bkg;
+    return returnval;
+}
+
+
+
+Double_t fcn_gennuc1(Double_t *x, Double_t *par) {
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+    //! Parent nuclei
+    returnval+=lamda[0]*N0*exp(-lamda[0]*x[0]);
+
+    //for (Int_t i=0;i<npaths;i++){
+        //returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0]);
+    //}
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+Double_t fcn_gennuc2(Double_t *x, Double_t *par) {
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+
+    for (Int_t i=0;i<npaths;i++){
+        if (i==0)
+        returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0]);
+    }
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+Double_t fcn_gennuc3(Double_t *x, Double_t *par) {
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+
+    for (Int_t i=0;i<npaths;i++){
+        if (i==3)
+        returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0]);
+    }
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+Double_t fcn_gennuc6(Double_t *x, Double_t *par) {
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+
+    for (Int_t i=0;i<npaths;i++){
+        if (i==4)
+        returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0]);
+    }
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+
+Double_t fcn_gennuc4(Double_t *x, Double_t *par) {
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+
+    for (Int_t i=0;i<npaths;i++){
+        if (i==1)
+        returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0]);
+    }
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+Double_t fcn_gennuc5(Double_t *x, Double_t *par) {
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+
+    for (Int_t i=0;i<npaths;i++){
+        if (i==5||i==6)
+        returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0]);
+    }
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+Double_t fcn_gennuc9(Double_t *x, Double_t *par) {
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+    for (Int_t i=0;i<npaths;i++){
+        if (i==7||i==8)
+        returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0]);
+    }
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+
+
 
 //! Global function
 Double_t fcn_gen_wneutron(Double_t *x, Double_t *par) {
@@ -264,7 +454,7 @@ Double_t fcn_gen_wneutronc3(Double_t *x, Double_t *par) {
     Double_t N0=par[knri*2+1]/par[0];
 
     //! decay with 1 neutron of parent
-    returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinf1n-randcoinfgt0n);
+    returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinfgt0n);
 
     //! reject 50 ms bump
     if (reject && x[0] > 0 && x[0] < rejectrange) {
@@ -313,6 +503,15 @@ Double_t fcn_gen_wneutronc1(Double_t *x, Double_t *par) {
     }
     return returnval;
 }
+Double_t fcn_gen_wneutron_bkg(Double_t *x, Double_t *par) {
+    Double_t randcoinfgt0n=par[knri*2+4];
+    Double_t randcoinf1n=par[knri*2+3];
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return bkg;
+    Double_t returnval=bkg;
+    return returnval;
+}
+
 
 
 //! Global function
@@ -356,6 +555,147 @@ Double_t fcn_gen_w2neutron(Double_t *x, Double_t *par) {
     }
     return returnval;
 }
+
+//! component 1 of delayed two neutron
+Double_t fcn_gen_w2neutronc1(Double_t *x, Double_t *par) {
+    Double_t randcoinf2n=par[knri*2+5];
+    Double_t randcoinfgt0n=par[knri*2+4];
+    Double_t randcoinf1n=par[knri*2+3];
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+    //! parent
+    //! decay with 2 neutron from P2n of parent
+    returnval-=neueff*neueff*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf2n;
+
+    //! random 1n decay of parent
+    returnval-=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf2n;
+    //! decay with 1 neutron from P2n of parent
+    returnval-=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf2n;
+
+    //! random coinc part
+    returnval+=lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf2n;
+
+    for (Int_t i=0;i<npaths;i++){
+        //! random coinc of beta decay of daugter
+        returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*randcoinf2n;
+        //! random 1n decay of daugter
+        returnval-=neueff*pn[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*randcoinf2n;
+    }
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+//! component 2 of delayed two neutron
+Double_t fcn_gen_w2neutronc2(Double_t *x, Double_t *par) {
+    Double_t randcoinf2n=par[knri*2+5];
+    Double_t randcoinfgt0n=par[knri*2+4];
+    Double_t randcoinf1n=par[knri*2+3];
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+    //! parent
+    //! decay with 2 neutron from P2n of parent
+    returnval+=neueff*neueff*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinfgt0n);
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+
+//! component 3 of delayed 2 neutron
+Double_t fcn_gen_w2neutronc3(Double_t *x, Double_t *par) {
+    Double_t randcoinf2n=par[knri*2+5];
+    Double_t randcoinfgt0n=par[knri*2+4];
+    Double_t randcoinf1n=par[knri*2+3];
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+    //! parent
+
+    //! random 1n decay of parent
+    returnval+=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(randcoinf1n*(1-randcoinfgt0n));
+
+    for (Int_t i=0;i<npaths;i++){
+        //! random 1n decay of daugter
+        returnval+=neueff*pn[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*(randcoinf1n*(1-randcoinfgt0n));
+    }
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+//! Global function
+Double_t fcn_gen_w2neutronc4(Double_t *x, Double_t *par) {
+    Double_t randcoinf2n=par[knri*2+5];
+    Double_t randcoinfgt0n=par[knri*2+4];
+    Double_t randcoinf1n=par[knri*2+3];
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return 0;
+    Double_t returnval=0;
+
+    Double_t* pn=&par[knri];
+    Double_t* lamda=par;
+    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
+    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+1]/par[0];
+
+
+    //! decay with 1 neutron from P2n of parent
+    returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(randcoinf1n*(1-randcoinfgt0n));
+
+    //! reject 50 ms bump
+    if (reject && x[0] > 0 && x[0] < rejectrange) {
+       TF1::RejectPoint();
+       return 0;
+    }
+    return returnval;
+}
+
+Double_t fcn_gen_w2neutron_bkg(Double_t *x, Double_t *par) {
+    Double_t randcoinf2n=par[knri*2+5];
+    Double_t randcoinfgt0n=par[knri*2+4];
+    Double_t randcoinf1n=par[knri*2+3];
+    Double_t bkg=par[knri*2+2];
+    if (x[0]<0) return bkg;
+    Double_t returnval=bkg;
+    return returnval;
+}
+
 
 // definition of shared parameter
 // background function
@@ -417,6 +757,8 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     Double_t lowerlimit=-10;
     Double_t upperlimit=10;
     Double_t nsigma=2.;
+
+    Double_t plotrange[]={0.,4.};
 
     TRandom3* rseed=new TRandom3;
 
@@ -570,7 +912,18 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     sprintf(tempchar1,"treeb");
     TTree* treeb=(TTree*) f->Get(tempchar1);
     cout<<entrybegin<<"\tEEE\t"<<nentries<<endl;
+    if (nentries<0) nentries=treeb->GetEntries();
     treeb->Draw(Form("x>>hdecay(%d,%f,%f)",binning,-10.,10.),"","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc1(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==4||btype==6||btype==1)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc2(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==2||btype==3)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc3(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==5||btype==10)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc4(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==7||btype==8)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc5(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==9||btype==14)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc6(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==11||btype==16)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc9(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==15||btype==17)","goff",nentries,entrybegin);
+
+    treeb->Draw(Form("x>>hdecaybkg(%d,%f,%f)",binning,-10.,10.),"breal==0","goff",nentries,entrybegin);
+
     treeb->Draw(Form("x>>hdecay1n(%d,%f,%f)",binning,-10.,10.),"nfwd==1","goff",nentries,entrybegin);
     treeb->Draw(Form("x>>hdecay2n(%d,%f,%f)",binning,-10.,10.),"nfwd==2","goff",nentries,entrybegin);
 
@@ -581,17 +934,37 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     treeb->Draw(Form("x>>h1ncomp1(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==0&&nfwd==1","goff",nentries,entrybegin);
     treeb->Draw(Form("x>>h1ncomp2(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype!=6&&nfwd==1","goff",nentries,entrybegin);
     treeb->Draw(Form("x>>h1ncomp3(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype==6&&nfwd==1","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>h1nbkg(%d,%f,%f)",binning,-10.,10.),"breal==0&&nfwd==1","goff",nentries,entrybegin);
+
 
     treeb->Draw(Form("x>>h2ncomp1(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==0&&nfwd==2","goff",nentries,entrybegin);
     treeb->Draw(Form("x>>h2ncomp2(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==2&&btype==6&&nfwd==2","goff",nentries,entrybegin);
     treeb->Draw(Form("x>>h2ncomp3(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype!=6&&nfwd==2","goff",nentries,entrybegin);
     treeb->Draw(Form("x>>h2ncomp4(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype==6&&nfwd==2","goff",nentries,entrybegin);
-
-
+    treeb->Draw(Form("x>>h2nbkg(%d,%f,%f)",binning,-10.,10.),"breal==0&&nfwd==2","goff",nentries,entrybegin);
 
 
     sprintf(tempchar1,"hdecay");
     TH1F* hdecay=(TH1F*) gDirectory->Get(tempchar1);
+
+    sprintf(tempchar1,"hdecaynuc1");
+    TH1F* hdecaynuc1=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc2");
+    TH1F* hdecaynuc2=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc3");
+    TH1F* hdecaynuc3=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc4");
+    TH1F* hdecaynuc4=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc5");
+    TH1F* hdecaynuc5=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc6");
+    TH1F* hdecaynuc6=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc9");
+    TH1F* hdecaynuc9=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaybkg");
+    TH1F* hdecaybkg=(TH1F*) gDirectory->Get(tempchar1);
+
+
     sprintf(tempchar1,"hdecay1n");
     TH1F* hdecay1n=(TH1F*) gDirectory->Get(tempchar1);
     sprintf(tempchar1,"hdecay2n");
@@ -603,6 +976,8 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     TH1F* h1ncomp2=(TH1F*) gDirectory->Get(tempchar1);
     sprintf(tempchar1,"h1ncomp3");
     TH1F* h1ncomp3=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"h1nbkg");
+    TH1F* h1nbkg=(TH1F*) gDirectory->Get(tempchar1);
 
 
     sprintf(tempchar1,"h2ncomp1");
@@ -613,6 +988,8 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     TH1F* h2ncomp3=(TH1F*) gDirectory->Get(tempchar1);
     sprintf(tempchar1,"h2ncomp4");
     TH1F* h2ncomp4=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"h2nbkg");
+    TH1F* h2nbkg=(TH1F*) gDirectory->Get(tempchar1);
 
     sprintf(tempchar1,"hdecay1nbwd");
     TH1F* hdecay1nbwd=(TH1F*) gDirectory->Get(tempchar1);
@@ -787,8 +1164,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    ofs<<resultpar[18]<<","<<resulterr[18]<<","<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100<<","<<binning<<","<<lowerlimit<<","<<upperlimit<<endl;
 
 
-
-
    TH1F* histcomphBcomb=new TH1F("hist_of_residual_decay","hist of residual decay",50,-10,10);
    TH1F* histcomphB=new TH1F("residual_decay","residual decay",hB->GetNbinsX(),hB->GetXaxis()->GetXmin(),hB->GetXaxis()->GetXmax());
    for (Int_t i=0;i<hB->GetNbinsX();i++){
@@ -800,7 +1175,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
        histcomphB->SetBinContent(i+1,res);
        histcomphB->SetBinError(i+1,0);
-
+       if (hB->GetBinCenter(i+1)<plotrange[1]&&hB->GetBinCenter(i+1)>plotrange[0])
        histcomphBcomb->Fill(res);
    }
    TH1F* histcomphSBcomb=new TH1F("hist_of_residual_decay1neu","hist of residual decay 1neu",50,-10,10);
@@ -813,6 +1188,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
         res =  (hSB->GetBinContent(i+1)- fSB->Eval( hSB->GetBinCenter(i+1) ) )/hSB->GetBinError(i+1);
        histcomphSB->SetBinContent(i+1,res);
        histcomphSB->SetBinError(i+1,0);
+       if (hSB->GetBinCenter(i+1)<plotrange[1]&&hSB->GetBinCenter(i+1)>plotrange[0])
        histcomphSBcomb->Fill(res);
    }
 
@@ -826,6 +1202,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
         res =  (hSB2->GetBinContent(i+1)- fSB2->Eval( hSB2->GetBinCenter(i+1) ) )/hSB2->GetBinError(i+1);
        histcomphSB2->SetBinContent(i+1,res);
        histcomphSB2->SetBinError(i+1,0);
+       if (hSB2->GetBinCenter(i+1)<plotrange[1]&&hSB2->GetBinCenter(i+1)>plotrange[0])
        histcomphSB2comb->Fill(res);
    }
 
@@ -846,7 +1223,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    fB->SetLineColor(kBlue);
    fB->SetNpx(binning);
    hB->GetListOfFunctions()->Add(fB);
-   hB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   hB->GetXaxis()->SetRangeUser(plotrange[0],plotrange[1]);
    hB->SetMarkerStyle(20);
    hB->SetMarkerSize(1);
    hB->Draw("P0");
@@ -855,7 +1232,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    gPad->SetBottomMargin(0.1);
    gPad->SetTopMargin(0.001);
    gPad->SetRightMargin(0.01);
-   histcomphB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   histcomphB->GetXaxis()->SetRangeUser(plotrange[0],plotrange[1]);
    histcomphB->Draw("hist");
 
    sprintf(tempchar1,"Simfit1%s",fitname);
@@ -873,7 +1250,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    fSB->SetLineColor(kRed);
    fSB->SetNpx(binning);
    hSB->GetListOfFunctions()->Add(fSB);
-   hSB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   hSB->GetXaxis()->SetRangeUser(plotrange[0],plotrange[1]);
    hSB->SetMarkerStyle(20);
    hSB->SetMarkerSize(1);
    hSB->Draw("P0");
@@ -882,7 +1259,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    gPad->SetBottomMargin(0.1);
    gPad->SetTopMargin(0.001);
    gPad->SetRightMargin(0.01);
-   histcomphSB->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   histcomphSB->GetXaxis()->SetRangeUser(plotrange[0],plotrange[1]);
    histcomphSB->Draw("hist");
 
 
@@ -902,7 +1279,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    fSB2->SetNpx(binning);
    hSB2->GetListOfFunctions()->Add(fSB2);
    hSB2->Draw();
-   hSB2->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   hSB2->GetXaxis()->SetRangeUser(plotrange[0],plotrange[1]);
    hSB2->SetMarkerStyle(20);
    hSB2->SetMarkerSize(1);
    hSB2->Draw("P0");
@@ -912,7 +1289,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    gPad->SetTopMargin(0.001);
    gPad->SetRightMargin(0.01);
    //histcomphSB2->Rebin(5);
-   histcomphSB2->GetXaxis()->SetRangeUser(lowerlimit,upperlimit);
+   histcomphSB2->GetXaxis()->SetRangeUser(plotrange[0],plotrange[1]);
    histcomphSB2->Draw("hist");
 
 
@@ -941,34 +1318,119 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    histcomphSB2comb->Write();
    histcomphSB2->Write();
 
+   hdecaynuc1->Write();
+   hdecaynuc2->Write();
+   hdecaynuc3->Write();
+   hdecaynuc4->Write();
+   hdecaynuc5->Write();
+   hdecaynuc6->Write();
+   hdecaynuc9->Write();
+   hdecaybkg->Write();
+
    h1ncomp1->Write();
    h1ncomp2->Write();
    h1ncomp3->Write();
+   h1nbkg->Write();
 
    h2ncomp1->Write();
    h2ncomp2->Write();
    h2ncomp3->Write();
    h2ncomp4->Write();
+   h2nbkg->Write();
+
+   TF1* fbBnuc1=new TF1("fbBnuc1",fcn_gennuc1,lowerlimit,upperlimit,knri*2+3);
+   TF1* fbBnuc2=new TF1("fbBnuc2",fcn_gennuc2,lowerlimit,upperlimit,knri*2+3);
+   TF1* fbBnuc3=new TF1("fbBnuc3",fcn_gennuc3,lowerlimit,upperlimit,knri*2+3);
+   TF1* fbBnuc4=new TF1("fbBnuc4",fcn_gennuc4,lowerlimit,upperlimit,knri*2+3);
+   TF1* fbBnuc5=new TF1("fbBnuc5",fcn_gennuc5,lowerlimit,upperlimit,knri*2+3);
+   TF1* fbBnuc6=new TF1("fbBnuc6",fcn_gennuc6,lowerlimit,upperlimit,knri*2+3);
+   TF1* fbBnuc9=new TF1("fbBnuc9",fcn_gennuc9,lowerlimit,upperlimit,knri*2+3);
+   TF1* fBcbkg=new TF1("fBcbkg",fcn_gen_bkg,lowerlimit,upperlimit,knri*2+3);
+
+   TF1* fSBc1=new TF1("fSBc1",fcn_gen_wneutronc1,lowerlimit,upperlimit,knri*2+5);
+   TF1* fSBc2=new TF1("fSBc2",fcn_gen_wneutronc2,lowerlimit,upperlimit,knri*2+5);
+   TF1* fSBc3=new TF1("fSBc3",fcn_gen_wneutronc3,lowerlimit,upperlimit,knri*2+5);
+   TF1* fSBcbkg=new TF1("fSBcbkg",fcn_gen_wneutron_bkg,lowerlimit,upperlimit,knri*2+5);
+
+   TF1* fSB2c1=new TF1("fSB2c1",fcn_gen_w2neutronc1,lowerlimit,upperlimit,knri*2+6);
+   TF1* fSB2c2=new TF1("fSB2c2",fcn_gen_w2neutronc2,lowerlimit,upperlimit,knri*2+6);
+   TF1* fSB2c3=new TF1("fSB2c3",fcn_gen_w2neutronc3,lowerlimit,upperlimit,knri*2+6);
+   TF1* fSB2c4=new TF1("fSB2c4",fcn_gen_w2neutronc4,lowerlimit,upperlimit,knri*2+6);
+   TF1* fSB2cbkg=new TF1("fSB2cbkg",fcn_gen_w2neutron_bkg,lowerlimit,upperlimit,knri*2+5);
 
 
-   TF1* fSBc1=new TF1("fSBc1",fcn_gen_wneutronc1,lowerlimit,upperlimit,21);
-   TF1* fSBc2=new TF1("fSBc2",fcn_gen_wneutronc2,lowerlimit,upperlimit,21);
-   TF1* fSBc3=new TF1("fSBc3",fcn_gen_wneutronc3,lowerlimit,upperlimit,21);
+
+
+   fbBnuc1->SetNpx(binning);
+   fbBnuc2->SetNpx(binning);
+   fbBnuc3->SetNpx(binning);
+   fbBnuc4->SetNpx(binning);
+   fbBnuc5->SetNpx(binning);
+   fbBnuc6->SetNpx(binning);
+   fbBnuc9->SetNpx(binning);
 
    fSBc1->SetNpx(binning);
    fSBc2->SetNpx(binning);
    fSBc3->SetNpx(binning);
+   fSBcbkg->SetNpx(binning);
 
-   for (Int_t i=0;i<21;i++){
+   fSB2c1->SetNpx(binning);
+   fSB2c2->SetNpx(binning);
+   fSB2c3->SetNpx(binning);
+   fSB2c4->SetNpx(binning);
+
+   for (Int_t i=0;i<knri*2+5;i++){
+       if (i<knri*2+3){
+           fbBnuc1->FixParameter(i,fB->GetParameter(i));
+           fbBnuc2->FixParameter(i,fB->GetParameter(i));
+           fbBnuc3->FixParameter(i,fB->GetParameter(i));
+           fbBnuc4->FixParameter(i,fB->GetParameter(i));
+           fbBnuc5->FixParameter(i,fB->GetParameter(i));
+           fbBnuc6->FixParameter(i,fB->GetParameter(i));
+           fbBnuc9->FixParameter(i,fB->GetParameter(i));
+       }
+
        fSBc1->FixParameter(i,fSB->GetParameter(i));
        fSBc2->FixParameter(i,fSB->GetParameter(i));
        fSBc3->FixParameter(i,fSB->GetParameter(i));
+       fSBcbkg->FixParameter(i,fSB->GetParameter(i));
+
+       fSB2c1->FixParameter(i,fSB2->GetParameter(i));
+       fSB2c2->FixParameter(i,fSB2->GetParameter(i));
+       fSB2c3->FixParameter(i,fSB2->GetParameter(i));
+       fSB2c4->FixParameter(i,fSB2->GetParameter(i));
+       fSB2cbkg->FixParameter(i,fSB2->GetParameter(i));
    }
+   fSB2c1->FixParameter(knri*2+5,fSB2->GetParameter(knri*2+5));
+   fSB2c2->FixParameter(knri*2+5,fSB2->GetParameter(knri*2+5));
+   fSB2c3->FixParameter(knri*2+5,fSB2->GetParameter(knri*2+5));
+   fSB2c4->FixParameter(knri*2+5,fSB2->GetParameter(knri*2+5));
+   fSB2cbkg->FixParameter(knri*2+5,fSB2->GetParameter(knri*2+5));
+
    fB->Write();
+   fbBnuc1->Write();
+   fbBnuc2->Write();
+   fbBnuc3->Write();
+   fbBnuc4->Write();
+   fbBnuc5->Write();
+   fbBnuc6->Write();
+   fbBnuc9->Write();
+   fBcbkg->Write();
+
+
    fSB->Write();
    fSBc1->Write();
    fSBc2->Write();
    fSBc3->Write();
+   fSBcbkg->Write();
+
+   fSB2c1->Write();
+   fSB2c2->Write();
+   fSB2c3->Write();
+   fSB2c4->Write();
+   fSB2cbkg->Write();
+
+
    fSB2->Write();
 
    hB->Write();

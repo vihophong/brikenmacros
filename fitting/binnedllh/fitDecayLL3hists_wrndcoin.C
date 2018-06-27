@@ -757,8 +757,9 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     Double_t lowerlimit=-10;
     Double_t upperlimit=10;
     Double_t nsigma=2.;
+    Double_t bkgactmaxmin=0.20; //*100% of max min bkg or initial activity
 
-    Double_t plotrange[]={0.,4.};
+    Double_t plotrange[]={0.,10.};
 
     TRandom3* rseed=new TRandom3;
 
@@ -820,6 +821,156 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
 
     getparms(parms,parmserr,parmsmax,parmsmin,isparmsfix,parmsfile,nsigma);
+
+    //!****************************GET HISTOGRAM FROM FILE********************
+    //!
+    //!
+    TFile *f = TFile::Open(infile);
+    char tempchar1[1000];
+    sprintf(tempchar1,"treeb");
+    TTree* treeb=(TTree*) f->Get(tempchar1);
+    cout<<entrybegin<<"\tEEE\t"<<nentries<<endl;
+    if (nentries<0) nentries=treeb->GetEntries();
+    treeb->Draw(Form("x>>hdecay(%d,%f,%f)",binning,-10.,10.),"","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc1(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==4||btype==6||btype==1)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc2(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==2||btype==3)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc3(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==5||btype==10)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc4(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==7||btype==8)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc5(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==9||btype==14)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc6(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==11||btype==16)","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaynuc9(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==15||btype==17)","goff",nentries,entrybegin);
+
+    treeb->Draw(Form("x>>hdecaybkg(%d,%f,%f)",binning,-10.,10.),"breal==0","goff",nentries,entrybegin);
+
+    treeb->Draw(Form("x>>hdecay1n(%d,%f,%f)",binning,-10.,10.),"nfwd==1","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecay2n(%d,%f,%f)",binning,-10.,10.),"nfwd==2","goff",nentries,entrybegin);
+
+    treeb->Draw(Form("x>>hdecay1nbwd(%d,%f,%f)",binning,-10.,10.),"nbwd==1","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecaygt0nbwd(%d,%f,%f)",binning,-10.,10.),"nbwd>0","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>hdecay2nbwd(%d,%f,%f)",binning,-10.,10.),"nbwd==2","goff",nentries,entrybegin);
+
+    treeb->Draw(Form("x>>h1ncomp1(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==0&&nfwd==1","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>h1ncomp2(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype!=6&&nfwd==1","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>h1ncomp3(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype==6&&nfwd==1","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>h1nbkg(%d,%f,%f)",binning,-10.,10.),"breal==0&&nfwd==1","goff",nentries,entrybegin);
+
+
+    treeb->Draw(Form("x>>h2ncomp1(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==0&&nfwd==2","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>h2ncomp2(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==2&&btype==6&&nfwd==2","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>h2ncomp3(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype!=6&&nfwd==2","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>h2ncomp4(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype==6&&nfwd==2","goff",nentries,entrybegin);
+    treeb->Draw(Form("x>>h2nbkg(%d,%f,%f)",binning,-10.,10.),"breal==0&&nfwd==2","goff",nentries,entrybegin);
+
+
+    sprintf(tempchar1,"hdecay");
+    TH1F* hdecay=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc1");
+    TH1F* hdecaynuc1=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc2");
+    TH1F* hdecaynuc2=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc3");
+    TH1F* hdecaynuc3=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc4");
+    TH1F* hdecaynuc4=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc5");
+    TH1F* hdecaynuc5=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc6");
+    TH1F* hdecaynuc6=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaynuc9");
+    TH1F* hdecaynuc9=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaybkg");
+    TH1F* hdecaybkg=(TH1F*) gDirectory->Get(tempchar1);
+
+
+    sprintf(tempchar1,"hdecay1n");
+    TH1F* hdecay1n=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecay2n");
+    TH1F* hdecay2n=(TH1F*) gDirectory->Get(tempchar1);
+
+    sprintf(tempchar1,"h1ncomp1");
+    TH1F* h1ncomp1=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"h1ncomp2");
+    TH1F* h1ncomp2=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"h1ncomp3");
+    TH1F* h1ncomp3=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"h1nbkg");
+    TH1F* h1nbkg=(TH1F*) gDirectory->Get(tempchar1);
+
+
+    sprintf(tempchar1,"h2ncomp1");
+    TH1F* h2ncomp1=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"h2ncomp2");
+    TH1F* h2ncomp2=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"h2ncomp3");
+    TH1F* h2ncomp3=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"h2ncomp4");
+    TH1F* h2ncomp4=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"h2nbkg");
+    TH1F* h2nbkg=(TH1F*) gDirectory->Get(tempchar1);
+
+    sprintf(tempchar1,"hdecay1nbwd");
+    TH1F* hdecay1nbwd=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaygt0nbwd");
+    TH1F* hdecaygt0nbwd=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecay2nbwd");
+    TH1F* hdecay2nbwd=(TH1F*) gDirectory->Get(tempchar1);
+
+    Double_t n1nbwd=(Double_t) hdecay1nbwd->GetEntries();
+    Double_t gt0nbwd=(Double_t) hdecaygt0nbwd->GetEntries();
+    Double_t n2nbwd=(Double_t) hdecay2nbwd->GetEntries();
+    Double_t nball=(Double_t) hdecay->GetEntries();
+
+    parms[knri*2+5]=n1nbwd/nball;
+    parms[knri*2+6]=gt0nbwd/nball;
+    parms[knri*2+7]=n2nbwd/nball;
+
+    //! background parameter estimation
+    //! background as average of several first bin
+    Int_t bincnt=0;
+    Double_t bkgsum=0;
+    for (Int_t i=hdecay->GetXaxis()->FindBin(-5);i<hdecay->GetXaxis()->FindBin(-0.5);i++){
+        bkgsum+=hdecay->GetBinContent(i);
+        bincnt++;
+    }
+    parms[knri*2+2]=bkgsum/((Double_t)bincnt);
+    parmserr[knri*2+2]=parms[knri*2+2]*bkgactmaxmin;
+    parmsmin[knri*2+2]=parms[knri*2+2]-parms[knri*2+2]*bkgactmaxmin;
+    parmsmax[knri*2+2]=parms[knri*2+2]+parms[knri*2+2]*bkgactmaxmin;
+
+    //activity
+    parms[knri*2+1]=hdecay->GetBinContent(hdecay->GetXaxis()->FindBin(rejectrange))-parms[knri*2+2];
+    parmsmin[knri*2+1]=parms[knri*2+1]-parms[knri*2+1]*bkgactmaxmin;
+    parmsmax[knri*2+1]=parms[knri*2+1]+parms[knri*2+1]*bkgactmaxmin;
+
+    bincnt=0;
+    bkgsum=0;
+    for (Int_t i=hdecay1n->GetXaxis()->FindBin(-5);i<hdecay1n->GetXaxis()->FindBin(-0.5);i++){
+        bkgsum+=hdecay1n->GetBinContent(i);
+        bincnt++;
+    }
+    parms[knri*2+3]=bkgsum/((Double_t)bincnt);
+    parmsmin[knri*2+3]=parms[knri*2+3]-parms[knri*2+3]*bkgactmaxmin;
+    parmsmax[knri*2+3]=parms[knri*2+3]+parms[knri*2+3]*bkgactmaxmin;
+
+    bincnt=0;
+    bkgsum=0;
+    for (Int_t i=hdecay2n->GetXaxis()->FindBin(-5);i<hdecay2n->GetXaxis()->FindBin(-0.5);i++){
+        bkgsum+=hdecay2n->GetBinContent(i);
+        bincnt++;
+    }
+    parms[knri*2+4]=bkgsum/((Double_t)bincnt);
+    parmsmin[knri*2+4]=parms[knri*2+4]-parms[knri*2+4]*bkgactmaxmin;
+    parmsmax[knri*2+4]=parms[knri*2+4]+parms[knri*2+4]*bkgactmaxmin;
+
+
+    //! error of this parameters:
+    //parmserr[knri*2+5]=n1nbwd/nball*sqrt(1/n1nbwd/n1nbwd+1/nball/nball);
+    //parmserr[knri*2+6]=gt0nbwd/nball*sqrt(1/gt0nbwd/gt0nbwd+1/nball/nball);
+    //parmserr[knri*2+7]=n2nbwd/nball*sqrt(1/n2nbwd/n2nbwd+1/nball/nball);
+
+    cout<<"count = "<<n1nbwd<<"\t"<<gt0nbwd<<"\t"<<n2nbwd<<"\t"<<nball<<endl;
+    cout<<"parameter error = "<<parmserr[knri*2+5]<<"\t"<<parmserr[knri*2+6]<<"\t"<<parmserr[knri*2+7]<<endl;
+
 
     //!******************************************Define All BETA decay function
     TF1* fB=new TF1("fB",fcn_gen,lowerlimit,upperlimit,21);
@@ -903,117 +1054,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
     cout<<fSB2->Eval(1.)<<endl;
 
-    //!****************************GET HISTOGRAM FROM FILE********************
-    //!
-    //!
-    TFile *f = TFile::Open(infile);
-
-    char tempchar1[1000];
-    sprintf(tempchar1,"treeb");
-    TTree* treeb=(TTree*) f->Get(tempchar1);
-    cout<<entrybegin<<"\tEEE\t"<<nentries<<endl;
-    if (nentries<0) nentries=treeb->GetEntries();
-    treeb->Draw(Form("x>>hdecay(%d,%f,%f)",binning,-10.,10.),"","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecaynuc1(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==4||btype==6||btype==1)","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecaynuc2(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==2||btype==3)","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecaynuc3(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==5||btype==10)","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecaynuc4(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==7||btype==8)","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecaynuc5(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==9||btype==14)","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecaynuc6(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==11||btype==16)","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecaynuc9(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==15||btype==17)","goff",nentries,entrybegin);
-
-    treeb->Draw(Form("x>>hdecaybkg(%d,%f,%f)",binning,-10.,10.),"breal==0","goff",nentries,entrybegin);
-
-    treeb->Draw(Form("x>>hdecay1n(%d,%f,%f)",binning,-10.,10.),"nfwd==1","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecay2n(%d,%f,%f)",binning,-10.,10.),"nfwd==2","goff",nentries,entrybegin);
-
-    treeb->Draw(Form("x>>hdecay1nbwd(%d,%f,%f)",binning,-10.,10.),"nbwd==1","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecaygt0nbwd(%d,%f,%f)",binning,-10.,10.),"nbwd>0","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>hdecay2nbwd(%d,%f,%f)",binning,-10.,10.),"nbwd==2","goff",nentries,entrybegin);
-
-    treeb->Draw(Form("x>>h1ncomp1(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==0&&nfwd==1","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>h1ncomp2(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype!=6&&nfwd==1","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>h1ncomp3(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype==6&&nfwd==1","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>h1nbkg(%d,%f,%f)",binning,-10.,10.),"breal==0&&nfwd==1","goff",nentries,entrybegin);
-
-
-    treeb->Draw(Form("x>>h2ncomp1(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==0&&nfwd==2","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>h2ncomp2(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==2&&btype==6&&nfwd==2","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>h2ncomp3(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype!=6&&nfwd==2","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>h2ncomp4(%d,%f,%f)",binning,-10.,10.),"breal==1&&nrealflag==1&&btype==6&&nfwd==2","goff",nentries,entrybegin);
-    treeb->Draw(Form("x>>h2nbkg(%d,%f,%f)",binning,-10.,10.),"breal==0&&nfwd==2","goff",nentries,entrybegin);
-
-
-    sprintf(tempchar1,"hdecay");
-    TH1F* hdecay=(TH1F*) gDirectory->Get(tempchar1);
-
-    sprintf(tempchar1,"hdecaynuc1");
-    TH1F* hdecaynuc1=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaynuc2");
-    TH1F* hdecaynuc2=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaynuc3");
-    TH1F* hdecaynuc3=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaynuc4");
-    TH1F* hdecaynuc4=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaynuc5");
-    TH1F* hdecaynuc5=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaynuc6");
-    TH1F* hdecaynuc6=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaynuc9");
-    TH1F* hdecaynuc9=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaybkg");
-    TH1F* hdecaybkg=(TH1F*) gDirectory->Get(tempchar1);
-
-
-    sprintf(tempchar1,"hdecay1n");
-    TH1F* hdecay1n=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecay2n");
-    TH1F* hdecay2n=(TH1F*) gDirectory->Get(tempchar1);
-
-    sprintf(tempchar1,"h1ncomp1");
-    TH1F* h1ncomp1=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"h1ncomp2");
-    TH1F* h1ncomp2=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"h1ncomp3");
-    TH1F* h1ncomp3=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"h1nbkg");
-    TH1F* h1nbkg=(TH1F*) gDirectory->Get(tempchar1);
-
-
-    sprintf(tempchar1,"h2ncomp1");
-    TH1F* h2ncomp1=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"h2ncomp2");
-    TH1F* h2ncomp2=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"h2ncomp3");
-    TH1F* h2ncomp3=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"h2ncomp4");
-    TH1F* h2ncomp4=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"h2nbkg");
-    TH1F* h2nbkg=(TH1F*) gDirectory->Get(tempchar1);
-
-    sprintf(tempchar1,"hdecay1nbwd");
-    TH1F* hdecay1nbwd=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaygt0nbwd");
-    TH1F* hdecaygt0nbwd=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecay2nbwd");
-    TH1F* hdecay2nbwd=(TH1F*) gDirectory->Get(tempchar1);
-
-    Double_t n1nbwd=(Double_t) hdecay1nbwd->GetEntries();
-    Double_t gt0nbwd=(Double_t) hdecaygt0nbwd->GetEntries();
-    Double_t n2nbwd=(Double_t) hdecay2nbwd->GetEntries();
-    Double_t nball=(Double_t) hdecay->GetEntries();
-
-    parms[knri*2+5]=n1nbwd/nball;
-    parms[knri*2+6]=gt0nbwd/nball;
-    parms[knri*2+7]=n2nbwd/nball;
-
-    //! error of this parameters:
-    //parmserr[knri*2+5]=n1nbwd/nball*sqrt(1/n1nbwd/n1nbwd+1/nball/nball);
-    //parmserr[knri*2+6]=gt0nbwd/nball*sqrt(1/gt0nbwd/gt0nbwd+1/nball/nball);
-    //parmserr[knri*2+7]=n2nbwd/nball*sqrt(1/n2nbwd/n2nbwd+1/nball/nball);
-
-    cout<<"count = "<<n1nbwd<<"\t"<<gt0nbwd<<"\t"<<n2nbwd<<"\t"<<nball<<endl;
-    cout<<"parameter error = "<<parmserr[knri*2+5]<<"\t"<<parmserr[knri*2+6]<<"\t"<<parmserr[knri*2+7]<<endl;
 
    TH1F * hB = (TH1F*) hdecay->Clone();
    TH1F * hSB = (TH1F*) hdecay1n->Clone();

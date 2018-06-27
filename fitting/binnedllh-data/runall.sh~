@@ -1,0 +1,3 @@
+#!/bin/bash                                                                   
+./offlinefitall.sh 100 In134
+./offlinefitall.sh 100 In134

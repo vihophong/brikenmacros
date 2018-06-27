@@ -38,11 +38,7 @@ const Int_t kmaxndecay=10;
 const Int_t kmaxpaths=100;
 Double_t neueff=0.62;
 Double_t neueff_mean=0.62;
-<<<<<<< Updated upstream
-Double_t neueff_err=0.01;
-=======
 Double_t neueff_err=0.02;
->>>>>>> Stashed changes
 
 Bool_t reject=true;
 Double_t rejectrange=0.05;//first 50 ms
@@ -106,36 +102,25 @@ void getparms(Double_t* parms,Double_t* parmserr, Double_t* parmsmax, Double_t* 
     //! read p2n parrent
     parms[knri*2]=decayparms[0][2];
     parmserr[knri*2]=decayparms_err[0][2];
-    parms[knri*2]=decayparms[0][2];
     parmsmin[knri*2]=0;parmsmax[knri*2]=1;
     isparmsfix[knri*2]=flagfix[0][2];
 
-    //! read initial activity, background and random coincidence factors
-    for (int i=0;i<7;i++){
-        ifs>>parms[knri*2+i+1]>>parmsmin[knri*2+i+1]>>parmsmax[knri*2+i+1];
-        parmserr[knri*2+i+1]=parms[knri*2+i+1]-parmsmin[knri*2+i+1];
-        cout<<knri*2+i+1<<"\t"<<parms[knri*2+i+1]<<"\t"<<parmsmin[knri*2+i+1]<<"\t"<<parmsmax[knri*2+i+1]<<endl;
-        isparmsfix[knri*2+i+1]=false;
-        if (i>3) {
-            parmsmin[knri*2+i+1]=0;parmsmax[knri*2+i+1]=1;
-            if (parms[knri*2+i+1]>=0){
-                isparmsfix[knri*2+i+1]=true;
-            }else{
-                parms[knri*2+i+1]=-parms[knri*2+i+1];
-                isparmsfix[knri*2+i+1]=false;
-            }
-        }
-    }
+    //! read p2n daugter
+    parms[knri*2+1]=decayparms[1][2];
+    parmserr[knri*2+1]=decayparms_err[1][2];
+    parmsmin[knri*2+1]=0;parmsmax[knri*2+1]=1;
+    isparmsfix[knri*2+1]=flagfix[1][2];
+
+    //! read neutron efficiency
     ifs>>neueff_mean>>neueff_err;
 }
-
 
 //! Global Bateaman function
 Double_t corefcn(Int_t ndecay,Int_t* decaymap,Int_t* nneu, Double_t* b1n,Double_t* b2n,Double_t* lamda,Double_t N0,Double_t t){
     Double_t fcnret=0;
 
     Double_t factor1=1.;
-    //only parrent decay p2n
+    //only parrent decay p2n + daugter decay p2n
     for (int i=0;i<ndecay-1;i++){
         if (nneu[i]==0){
             factor1=factor1 * (1-b1n[decaymap[i]-1]-b2n[decaymap[i]-1])*lamda[decaymap[i]-1];
@@ -157,18 +142,19 @@ Double_t corefcn(Int_t ndecay,Int_t* decaymap,Int_t* nneu, Double_t* b1n,Double_
     return fcnret;
 }
 
-
 //! Global function
 Double_t fcn_gen(Double_t *x, Double_t *par) {
-    Double_t bkg=par[knri*2+2];
+    Double_t bkg=par[knri*2+3];//offset
+    Double_t bkg1=par[knri*2+4];//slope
     if (x[0]<0) return bkg;
-    Double_t returnval=bkg;
+    Double_t returnval=bkg+bkg1*x[0];
 
     Double_t* pn=&par[knri];
     Double_t* lamda=par;
     Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
     p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
-    Double_t N0=par[knri*2+1]/par[0];
+    p2n[1]=par[knri*2+1];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+2]/par[0];
 
     //! Parent nuclei
     returnval+=lamda[0]*N0*exp(-lamda[0]*x[0]);
@@ -187,11 +173,12 @@ Double_t fcn_gen(Double_t *x, Double_t *par) {
 
 //! Global function
 Double_t fcn_gen_wneutron(Double_t *x, Double_t *par) {
-    Double_t randcoinfgt0n=par[knri*2+4];
-    Double_t randcoinf1n=par[knri*2+3];
-    Double_t bkg=par[knri*2+2];
+    Double_t randcoinfgt0n=par[knri*2+5];
+    Double_t randcoinf1n=par[knri*2+4];
+    Double_t bkg=par[knri*2+2];//offset
+    Double_t bkg1=par[knri*2+3];//slope
     if (x[0]<0) return bkg;
-    Double_t returnval=bkg;
+    Double_t returnval=bkg+bkg1*x[0];
 
     Double_t* pn=&par[knri];
     Double_t* lamda=par;
@@ -226,114 +213,23 @@ Double_t fcn_gen_wneutron(Double_t *x, Double_t *par) {
     return returnval;
 }
 
-Double_t fcn_gen_wneutronc2(Double_t *x, Double_t *par) {
-    Double_t randcoinfgt0n=par[knri*2+4];
-    Double_t bkg=par[knri*2+2];
-    if (x[0]<0) return 0;
-    Double_t returnval=0;
-
-    Double_t* pn=&par[knri];
-    Double_t* lamda=par;
-    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
-    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
-    Double_t N0=par[knri*2+1]/par[0];
-
-    //! Parent nuclei
-    //! decay with 1 neutron of parent
-    returnval+=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinfgt0n);
-
-    for (Int_t i=0;i<npaths;i++){
-        //! decay with 1 neutron part of daugter nuclei
-        returnval+=neueff*pn[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*(1-randcoinfgt0n);
-    }
-
-    //! reject 50 ms bump
-    if (reject && x[0] > 0 && x[0] < rejectrange) {
-       TF1::RejectPoint();
-       return 0;
-    }
-    return returnval;
-}
-
-Double_t fcn_gen_wneutronc3(Double_t *x, Double_t *par) {
-    Double_t randcoinfgt0n=par[knri*2+4];
-    Double_t randcoinf1n=par[knri*2+3];
-    Double_t bkg=par[knri*2+2];
-    if (x[0]<0) return 0;
-    Double_t returnval=0;
-
-    Double_t* pn=&par[knri];
-    Double_t* lamda=par;
-    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
-    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
-    Double_t N0=par[knri*2+1]/par[0];
-
-    //! decay with 1 neutron of parent
-    returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinf1n-randcoinfgt0n);
-
-    //! reject 50 ms bump
-    if (reject && x[0] > 0 && x[0] < rejectrange) {
-       TF1::RejectPoint();
-       return 0;
-    }
-    return returnval;
-}
-
-Double_t fcn_gen_wneutronc1(Double_t *x, Double_t *par) {
-    Double_t randcoinfgt0n=par[knri*2+4];
-    Double_t randcoinf1n=par[knri*2+3];
-    Double_t bkg=par[knri*2+2];
-    if (x[0]<0) return 0;
-    Double_t returnval=0;
-
-    Double_t* pn=&par[knri];
-    Double_t* lamda=par;
-    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
-    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
-    Double_t N0=par[knri*2+1]/par[0];
-
-    //! Parent nuclei
-    //! decay with 1 neutron of parent
-    returnval-=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf1n;
-    //! decay with 1 neutron of parent
-    returnval-=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf1n;
-
-    //! decay with 2 neutron of parent (not random 1 neutron)
-    returnval-=neueff*neueff*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf1n;
-
-    //! random coinc part
-    returnval+=lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf1n;
-
-    for (Int_t i=0;i<npaths;i++){
-        //! random coinc of beta decay of daugter
-        returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*randcoinf1n;
-        //! decay with 1 neutron part of daugter nuclei
-        returnval-=neueff*pn[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*randcoinf1n;
-    }
-
-    //! reject 50 ms bump
-    if (reject && x[0] > 0 && x[0] < rejectrange) {
-       TF1::RejectPoint();
-       return 0;
-    }
-    return returnval;
-}
-
 
 //! Global function
 Double_t fcn_gen_w2neutron(Double_t *x, Double_t *par) {
-    Double_t randcoinf2n=par[knri*2+5];
-    Double_t randcoinfgt0n=par[knri*2+4];
-    Double_t randcoinf1n=par[knri*2+3];
-    Double_t bkg=par[knri*2+2];
+    Double_t randcoinf2n=par[knri*2+7];
+    Double_t randcoinfgt0n=par[knri*2+6];
+    Double_t randcoinf1n=par[knri*2+5];
+    Double_t bkg=par[knri*2+3];
+    Double_t bkg1=par[knri*2+4];//slope
     if (x[0]<0) return bkg;
-    Double_t returnval=bkg;
+    Double_t returnval=bkg+bkg1*x[0];
 
     Double_t* pn=&par[knri];
     Double_t* lamda=par;
     Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
     p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
-    Double_t N0=par[knri*2+1]/par[0];
+    p2n[1]=par[knri*2+1];//special for p2n of parrent, to be develope later
+    Double_t N0=par[knri*2+2]/par[0];
 
     //! parent
     //! decay with 2 neutron from P2n of parent
@@ -352,6 +248,12 @@ Double_t fcn_gen_w2neutron(Double_t *x, Double_t *par) {
         returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*randcoinf2n;
         //! random 1n decay of daugter
         returnval+=neueff*pn[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n);
+
+        //! decay with 1 neutron from P2n of parent
+
+        //! random 2n decay of daugter
+        returnval+=neueff*neueff*p2n[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*(1-randcoinf2n-randcoinfgt0n);
+
     }
 
     //! reject 50 ms bump
@@ -400,12 +302,12 @@ struct GlobalChi2 {
 };
 
 
-Double_t parms[knri*2+8];
-Double_t parmserr[knri*2+8];
-Double_t parmsmax[knri*2+8];
-Double_t parmsmin[knri*2+8];
-Bool_t isparmsfix[knri*2+8];
-Double_t mcparms[knri*2+8];
+Double_t parms[knri*2+11];
+Double_t parmserr[knri*2+11];
+Double_t parmsmax[knri*2+11];
+Double_t parmsmin[knri*2+11];
+Bool_t isparmsfix[knri*2+11];
+Double_t mcparms[knri*2+11];
 
 void mc(TRandom3* rseed)
 {
@@ -421,8 +323,7 @@ void mc(TRandom3* rseed)
 }
 
 void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t ninterations, char* outfile){
-
-    Double_t lowerlimit=-10;
+    Double_t lowerlimit=0.1;
     Double_t upperlimit=10;
     Double_t nsigma=2.;
     Double_t bkgactmaxmin=0.20; //*100% of max min bkg or initial activity
@@ -430,7 +331,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     TRandom3* rseed=new TRandom3;
 
     //! define decay map
-    npaths=12;
+    npaths=13;
     //! path 1(go for ri2)
     ndecay[0]=2;
     decaymap[0][0]=1;decaymap[0][1]=2;
@@ -447,6 +348,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     ndecay[3]=2;
     decaymap[3][0]=1;decaymap[3][1]=3;
     nneu[3][0]=1;
+
     //!path5(go for ri6)
     ndecay[4]=2;
     decaymap[4][0]=1;decaymap[4][1]=6;
@@ -456,6 +358,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     ndecay[5]=3;
     decaymap[5][0]=1;decaymap[5][1]=2;decaymap[5][2]=5;
     nneu[5][0]=0;nneu[5][1]=1;
+
     //! path7(go for ri5-route 2)
     ndecay[6]=3;
     decaymap[6][0]=1;decaymap[6][1]=3;decaymap[6][2]=5;
@@ -465,33 +368,37 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     ndecay[7]=3;
     decaymap[7][0]=1;decaymap[7][1]=3;decaymap[7][2]=9;
     nneu[7][0]=1;nneu[7][1]=1;
+
     //! path9 (go for ri9-route 2)
     ndecay[8]=3;
     decaymap[8][0]=1;decaymap[8][1]=6;decaymap[8][2]=9;
     nneu[8][0]=2;nneu[8][1]=0;
 
-    //! path10 (go for ri8-route 1)
-    ndecay[9]=4;
-    decaymap[9][0]=1;decaymap[9][1]=2;decaymap[9][2]=4;decaymap[9][3]=8;
-    nneu[9][0]=0;nneu[9][1]=0;nneu[9][2]=1;
+    //! path10 (go for ri9-route 3)
+    ndecay[9]=3;
+    decaymap[9][0]=1;decaymap[9][1]=2;decaymap[9][2]=9;
+    nneu[9][0]=0;nneu[9][1]=2;
 
-    //! path11 (go for ri8-route 2)
+    //! path11 (go for ri8-route 1)
     ndecay[10]=4;
-    decaymap[10][0]=1;decaymap[10][1]=2;decaymap[10][2]=5;decaymap[10][3]=8;
-    nneu[10][0]=0;nneu[10][1]=1;nneu[10][2]=0;
+    decaymap[10][0]=1;decaymap[10][1]=2;decaymap[10][2]=4;decaymap[10][3]=8;
+    nneu[10][0]=0;nneu[10][1]=0;nneu[10][2]=1;
 
-    //! path12 (go for ri8-route 3)
+    //! path12 (go for ri8-route 2)
     ndecay[11]=4;
-    decaymap[11][0]=1;decaymap[11][1]=3;decaymap[11][2]=5;decaymap[11][3]=8;
-    nneu[11][0]=1;nneu[11][1]=0;nneu[11][2]=0;
+    decaymap[11][0]=1;decaymap[11][1]=2;decaymap[11][2]=5;decaymap[11][3]=8;
+    nneu[11][0]=0;nneu[11][1]=1;nneu[11][2]=0;
 
+    //! path13 (go for ri8-route 3)
+    ndecay[12]=4;
+    decaymap[12][0]=1;decaymap[12][1]=3;decaymap[12][2]=5;decaymap[12][3]=8;
+    nneu[12][0]=1;nneu[12][1]=0;nneu[12][2]=0;
 
     getparms(parms,parmserr,parmsmax,parmsmin,isparmsfix,parmsfile,nsigma);
     //!****************************GET HISTOGRAM FROM FILE********************
     //!
     //!
     TFile *f = TFile::Open(infile);
-
     char tempchar1[1000];
 
     sprintf(tempchar1,"hdecay");
@@ -515,10 +422,13 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     Double_t n2nbwd=(Double_t) hdecay2nbwd->GetEntries();
     Double_t nball=(Double_t) hdecay->GetEntries();
 
-    parms[knri*2+5]=n1nbwd/nball;
-    parms[knri*2+6]=gt0nbwd/nball;
-    parms[knri*2+7]=n2nbwd/nball;
+    parms[knri*2+5]=1.;
+    parms[knri*2+6]=1.;
+    parms[knri*2+7]=1.;
 
+    parms[knri*2+8]=n1nbwd/nball;
+    parms[knri*2+9]=gt0nbwd/nball;
+    parms[knri*2+10]=n2nbwd/nball;
 
     //! background parameter estimation
     //! background as average of several first bin
@@ -536,7 +446,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     //activity
     parms[knri*2+1]=hdecay->GetBinContent(hdecay->GetXaxis()->FindBin(rejectrange))-parms[knri*2+2];
     parmsmin[knri*2+1]=parms[knri*2+1]-parms[knri*2+1]*bkgactmaxmin;
-    parmsmax[knri*2+1]=parms[knri*2+1]*2+parms[knri*2+1]*bkgactmaxmin;
+    parmsmax[knri*2+1]=parms[knri*2+1]+parms[knri*2+1]*bkgactmaxmin;
 
     bincnt=0;
     bkgsum=0;
@@ -620,7 +530,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     fSB->SetParLimits(knri*2+4,0.,1.);//random coincidence 2 neutron factor
 
     cout<<fSB->Eval(1.)<<endl;
-
 
     //!******************************************Delayed 2 Neutron decay function
     //! read input and get parameters
@@ -850,7 +759,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    }
 
 
-   sprintf(tempchar1,"Simfit");
+   sprintf(tempchar1,"Simfit%s",fitname);
    TCanvas * c1 = new TCanvas(tempchar1,"Simultaneous fit of 3 histograms",
                               10,10,800,600);
 
@@ -879,7 +788,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    histcomphB->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
    histcomphB->Draw("hist");
 
-   sprintf(tempchar1,"Simfit1");
+   sprintf(tempchar1,"Simfit1%s",fitname);
    TCanvas * c2 = new TCanvas(tempchar1,"Simultaneous fit of 3 histograms",
                               10,10,800,600);
 
@@ -909,7 +818,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    histcomphSB->Draw("hist");
 
 
-   sprintf(tempchar1,"Simfit2");
+   sprintf(tempchar1,"Simfit2%s",fitname);
    TCanvas * c3 = new TCanvas(tempchar1,"Simultaneous fit of 3 histograms",
                               10,10,800,600);
 

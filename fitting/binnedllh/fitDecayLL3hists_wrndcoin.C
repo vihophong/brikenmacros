@@ -962,7 +962,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     parmsmin[knri*2+4]=parms[knri*2+4]-parms[knri*2+4]*bkgactmaxmin;
     parmsmax[knri*2+4]=parms[knri*2+4]+parms[knri*2+4]*bkgactmaxmin;
 
-sss
     //! error of this parameters:
     //parmserr[knri*2+5]=n1nbwd/nball*sqrt(1/n1nbwd/n1nbwd+1/nball/nball);
     //parmserr[knri*2+6]=gt0nbwd/nball*sqrt(1/gt0nbwd/gt0nbwd+1/nball/nball);

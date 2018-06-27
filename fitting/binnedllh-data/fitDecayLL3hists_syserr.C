@@ -36,8 +36,8 @@ const Int_t knri=9;
 const Int_t kmaxpar=5;
 const Int_t kmaxndecay=10;
 const Int_t kmaxpaths=100;
-Double_t neueff=0.68;
-Double_t neueff_mean=0.68;
+Double_t neueff=0.62;
+Double_t neueff_mean=0.62;
 Double_t neueff_err=0.01;
 
 Bool_t reject=true;

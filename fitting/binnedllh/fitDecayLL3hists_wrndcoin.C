@@ -829,7 +829,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     char tempchar1[1000];
     sprintf(tempchar1,"treeb");
     TTree* treeb=(TTree*) f->Get(tempchar1);
-    cout<<entrybegin<<"\tEEE\t"<<nentries<<endl;
+    cout<<entrybegin<<"\t EEE\t"<<nentries<<endl;
     if (nentries<0) nentries=treeb->GetEntries();
     treeb->Draw(Form("x>>hdecay(%d,%f,%f)",binning,-10.,10.),"","goff",nentries,entrybegin);
     treeb->Draw(Form("x>>hdecaynuc1(%d,%f,%f)",binning,-10.,10.),"breal!=0&&(btype==4||btype==6||btype==1)","goff",nentries,entrybegin);

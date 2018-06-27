@@ -38,11 +38,7 @@ const Int_t kmaxndecay=10;
 const Int_t kmaxpaths=100;
 Double_t neueff=0.62;
 Double_t neueff_mean=0.62;
-<<<<<<< Updated upstream
 Double_t neueff_err=0.01;
-=======
-Double_t neueff_err=0.02;
->>>>>>> Stashed changes
 
 Bool_t reject=true;
 Double_t rejectrange=0.05;//first 50 ms
@@ -425,7 +421,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     Double_t lowerlimit=-10;
     Double_t upperlimit=10;
     Double_t nsigma=2.;
-    Double_t bkgactmaxmin=0.20; //*100% of max min bkg or initial activity
 
     TRandom3* rseed=new TRandom3;
 
@@ -487,84 +482,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
 
     getparms(parms,parmserr,parmsmax,parmsmin,isparmsfix,parmsfile,nsigma);
-    //!****************************GET HISTOGRAM FROM FILE********************
-    //!
-    //!
-    TFile *f = TFile::Open(infile);
-
-    char tempchar1[1000];
-
-    sprintf(tempchar1,"hdecay");
-    TH1F* hdecay=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecay1n");
-    TH1F* hdecay1n=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecay2n");
-    TH1F* hdecay2n=(TH1F*) gDirectory->Get(tempchar1);
-
-    sprintf(tempchar1,"hdecay1nbwd");
-    TH1F* hdecay1nbwd=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecaygt0nbwd");
-    TH1F* hdecaygt0nbwd=(TH1F*) gDirectory->Get(tempchar1);
-    sprintf(tempchar1,"hdecay2nbwd");
-    TH1F* hdecay2nbwd=(TH1F*) gDirectory->Get(tempchar1);
-
-    Int_t binning=hdecay->GetNbinsX();
-
-    Double_t n1nbwd=(Double_t) hdecay1nbwd->GetEntries();
-    Double_t gt0nbwd=(Double_t) hdecaygt0nbwd->GetEntries();
-    Double_t n2nbwd=(Double_t) hdecay2nbwd->GetEntries();
-    Double_t nball=(Double_t) hdecay->GetEntries();
-
-    parms[knri*2+5]=n1nbwd/nball;
-    parms[knri*2+6]=gt0nbwd/nball;
-    parms[knri*2+7]=n2nbwd/nball;
-
-
-    //! background parameter estimation
-    //! background as average of several first bin
-    Int_t bincnt=0;
-    Double_t bkgsum=0;
-    for (Int_t i=hdecay->GetXaxis()->FindBin(-5);i<hdecay->GetXaxis()->FindBin(-0.5);i++){
-        bkgsum+=hdecay->GetBinContent(i);
-        bincnt++;
-    }
-    parms[knri*2+2]=bkgsum/((Double_t)bincnt);
-    parmserr[knri*2+2]=parms[knri*2+2]*bkgactmaxmin;
-    parmsmin[knri*2+2]=parms[knri*2+2]-parms[knri*2+2]*bkgactmaxmin;
-    parmsmax[knri*2+2]=parms[knri*2+2]+parms[knri*2+2]*bkgactmaxmin;
-
-    //activity
-    parms[knri*2+1]=hdecay->GetBinContent(hdecay->GetXaxis()->FindBin(rejectrange))-parms[knri*2+2];
-    parmsmin[knri*2+1]=parms[knri*2+1]-parms[knri*2+1]*bkgactmaxmin;
-    parmsmax[knri*2+1]=parms[knri*2+1]*2+parms[knri*2+1]*bkgactmaxmin;
-
-    bincnt=0;
-    bkgsum=0;
-    for (Int_t i=hdecay1n->GetXaxis()->FindBin(-5);i<hdecay1n->GetXaxis()->FindBin(-0.5);i++){
-        bkgsum+=hdecay1n->GetBinContent(i);
-        bincnt++;
-    }
-    parms[knri*2+3]=bkgsum/((Double_t)bincnt);
-    parmsmin[knri*2+3]=parms[knri*2+3]-parms[knri*2+3]*bkgactmaxmin;
-    parmsmax[knri*2+3]=parms[knri*2+3]+parms[knri*2+3]*bkgactmaxmin;
-
-    bincnt=0;
-    bkgsum=0;
-    for (Int_t i=hdecay2n->GetXaxis()->FindBin(-5);i<hdecay2n->GetXaxis()->FindBin(-0.5);i++){
-        bkgsum+=hdecay2n->GetBinContent(i);
-        bincnt++;
-    }
-    parms[knri*2+4]=bkgsum/((Double_t)bincnt);
-    parmsmin[knri*2+4]=parms[knri*2+4]-parms[knri*2+4]*bkgactmaxmin;
-    parmsmax[knri*2+4]=parms[knri*2+4]+parms[knri*2+4]*bkgactmaxmin;
-
-    //! error of this parameters:
-    //parmserr[knri*2+5]=n1nbwd/nball*sqrt(1/n1nbwd/n1nbwd+1/nball/nball);
-    //parmserr[knri*2+6]=gt0nbwd/nball*sqrt(1/gt0nbwd/gt0nbwd+1/nball/nball);
-    //parmserr[knri*2+7]=n2nbwd/nball*sqrt(1/n2nbwd/n2nbwd+1/nball/nball);
-
-    cout<<"count = "<<n1nbwd<<"\t"<<gt0nbwd<<"\t"<<n2nbwd<<"\t"<<nball<<endl;
-    cout<<"parameter error = "<<parmserr[knri*2+5]<<"\t"<<parmserr[knri*2+6]<<"\t"<<parmserr[knri*2+7]<<endl;
 
     //!******************************************Define All BETA decay function
     TF1* fB=new TF1("fB",fcn_gen,lowerlimit,upperlimit,21);
@@ -648,6 +565,45 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
     cout<<fSB2->Eval(1.)<<endl;
 
+    //!****************************GET HISTOGRAM FROM FILE********************
+    //!
+    //!
+    TFile *f = TFile::Open(infile);
+
+    char tempchar1[1000];
+
+    sprintf(tempchar1,"hdecay");
+    TH1F* hdecay=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecay1n");
+    TH1F* hdecay1n=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecay2n");
+    TH1F* hdecay2n=(TH1F*) gDirectory->Get(tempchar1);
+
+    sprintf(tempchar1,"hdecay1nbwd");
+    TH1F* hdecay1nbwd=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaygt0nbwd");
+    TH1F* hdecaygt0nbwd=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecay2nbwd");
+    TH1F* hdecay2nbwd=(TH1F*) gDirectory->Get(tempchar1);
+
+    Int_t binning=hdecay->GetNbinsX();
+
+    Double_t n1nbwd=(Double_t) hdecay1nbwd->GetEntries();
+    Double_t gt0nbwd=(Double_t) hdecaygt0nbwd->GetEntries();
+    Double_t n2nbwd=(Double_t) hdecay2nbwd->GetEntries();
+    Double_t nball=(Double_t) hdecay->GetEntries();
+
+    parms[knri*2+5]=n1nbwd/nball;
+    parms[knri*2+6]=gt0nbwd/nball;
+    parms[knri*2+7]=n2nbwd/nball;
+
+    //! error of this parameters:
+    //parmserr[knri*2+5]=n1nbwd/nball*sqrt(1/n1nbwd/n1nbwd+1/nball/nball);
+    //parmserr[knri*2+6]=gt0nbwd/nball*sqrt(1/gt0nbwd/gt0nbwd+1/nball/nball);
+    //parmserr[knri*2+7]=n2nbwd/nball*sqrt(1/n2nbwd/n2nbwd+1/nball/nball);
+
+    cout<<"count = "<<n1nbwd<<"\t"<<gt0nbwd<<"\t"<<n2nbwd<<"\t"<<nball<<endl;
+    cout<<"parameter error = "<<parmserr[knri*2+5]<<"\t"<<parmserr[knri*2+6]<<"\t"<<parmserr[knri*2+7]<<endl;
 
    TH1F * hB = (TH1F*) hdecay->Clone();
    TH1F * hSB = (TH1F*) hdecay1n->Clone();
@@ -742,7 +698,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
    for(int i=0;i<ninterations;i++) {
        cout<<"mc "<<i+1<<endl;
-       mc(rseed);       
+       mc(rseed);
        fitter.Config().SetParamsSettings(knri*2+8,mcparms);
 
        for (int j=0;j<knri*2+8;j++){
@@ -850,7 +806,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    }
 
 
-   sprintf(tempchar1,"Simfit");
+   sprintf(tempchar1,"Simfit%s",fitname);
    TCanvas * c1 = new TCanvas(tempchar1,"Simultaneous fit of 3 histograms",
                               10,10,800,600);
 
@@ -879,7 +835,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    histcomphB->GetXaxis()->SetRangeUser(rejectrange,upperlimit);
    histcomphB->Draw("hist");
 
-   sprintf(tempchar1,"Simfit1");
+   sprintf(tempchar1,"Simfit1%s",fitname);
    TCanvas * c2 = new TCanvas(tempchar1,"Simultaneous fit of 3 histograms",
                               10,10,800,600);
 
@@ -909,7 +865,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    histcomphSB->Draw("hist");
 
 
-   sprintf(tempchar1,"Simfit2");
+   sprintf(tempchar1,"Simfit2%s",fitname);
    TCanvas * c3 = new TCanvas(tempchar1,"Simultaneous fit of 3 histograms",
                               10,10,800,600);
 

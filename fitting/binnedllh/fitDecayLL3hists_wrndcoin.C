@@ -924,6 +924,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     parms[knri*2+6]=gt0nbwd/nball;
     parms[knri*2+7]=n2nbwd/nball;
 
+    /*
     //! background parameter estimation
     //! background as average of several first bin
     Int_t bincnt=0;
@@ -961,6 +962,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     parms[knri*2+4]=bkgsum/((Double_t)bincnt);
     parmsmin[knri*2+4]=parms[knri*2+4]-parms[knri*2+4]*bkgactmaxmin;
     parmsmax[knri*2+4]=parms[knri*2+4]+parms[knri*2+4]*bkgactmaxmin;
+    */
 
     //! error of this parameters:
     //parmserr[knri*2+5]=n1nbwd/nball*sqrt(1/n1nbwd/n1nbwd+1/nball/nball);

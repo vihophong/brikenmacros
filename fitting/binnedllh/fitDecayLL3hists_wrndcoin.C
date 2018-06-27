@@ -940,7 +940,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     //activity
     parms[knri*2+1]=hdecay->GetBinContent(hdecay->GetXaxis()->FindBin(rejectrange))-parms[knri*2+2];
     parmsmin[knri*2+1]=parms[knri*2+1]-parms[knri*2+1]*bkgactmaxmin;
-    parmsmax[knri*2+1]=parms[knri*2+1]+parms[knri*2+1]*bkgactmaxmin;
+    parmsmax[knri*2+1]=parms[knri*2+1]*2+parms[knri*2+1]*bkgactmaxmin;
 
     bincnt=0;
     bkgsum=0;

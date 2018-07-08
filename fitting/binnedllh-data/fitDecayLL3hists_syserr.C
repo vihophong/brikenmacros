@@ -38,7 +38,7 @@ const Int_t kmaxndecay=10;
 const Int_t kmaxpaths=100;
 Double_t neueff=0.62;
 Double_t neueff_mean=0.62;
-Double_t neueff_err=0.01;
+Double_t neueff_err=-0.01;
 
 Bool_t reject=true;
 Double_t rejectrange=0.05;//first 50 ms
@@ -686,7 +686,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    }
 
    fitter.Config().MinimizerOptions().SetPrintLevel(0);
-   fitter.Config().SetMinimizer("Minuit2","Migrad");
+   //fitter.Config().SetMinimizer("Minuit2","Migrad");
    //fitter.Config().SetMinosErrors();
 
    if (fitter.Config().MinosErrors()) cout<<"minos enabled"<<endl;

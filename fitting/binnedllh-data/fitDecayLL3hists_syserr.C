@@ -783,10 +783,10 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    TH1F* histcomphSB=new TH1F("residual_decay1neu","residual decay 1 neutron",hSB->GetNbinsX(),hSB->GetXaxis()->GetXmin(),hSB->GetXaxis()->GetXmax());
    for (Int_t i=0;i<hSB->GetNbinsX();i++){
        double res;
-       //if (hSB->GetBinError(i+1)<0.001)
-       // res =  0;
-       //else
-        res =  (hSB->GetBinContent(i+1)- fSB->Eval( hSB->GetBinCenter(i+1) ) )/hSB->GetBinError(i+1);
+       if (hSB->GetBinError(i+1)<0.001)
+        res =  0;
+       else
+       res =  (hSB->GetBinContent(i+1)- fSB->Eval( hSB->GetBinCenter(i+1) ) )/hSB->GetBinError(i+1);
        histcomphSB->SetBinContent(i+1,res);
        histcomphSB->SetBinError(i+1,0);
        histcomphSBcomb->Fill(res);
@@ -796,9 +796,9 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    TH1F* histcomphSB2=new TH1F("residual_decay2neu","residual decay 2 neutrons",hSB2->GetNbinsX(),hSB2->GetXaxis()->GetXmin(),hSB2->GetXaxis()->GetXmax());
    for (Int_t i=0;i<hSB2->GetNbinsX();i++){
        double res;
-       //if (hSB2->GetBinError(i+1)<0.001)
-        //res =  0;
-       //else
+       if (hSB2->GetBinError(i+1)<0.001)
+        res =  0;
+       else
         res =  (hSB2->GetBinContent(i+1)- fSB2->Eval( hSB2->GetBinCenter(i+1) ) )/hSB2->GetBinError(i+1);
        histcomphSB2->SetBinContent(i+1,res);
        histcomphSB2->SetBinError(i+1,0);

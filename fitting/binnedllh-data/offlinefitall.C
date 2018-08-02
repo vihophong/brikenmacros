@@ -11,6 +11,6 @@
 void offlinefitall(char* thr, char* ri)
 {
   gROOT->ProcessLine(".L fitDecayLL3hists_syserr.C");
-  gROOT->ProcessLine(Form("fitDecayLL3hists_wrndcoin(\"%s_%s\",\"../../../brikenmacros-rootfiles/fitting/fithistslowin/histlowin%s_%s.root\",\"parms/parms%s.txt\",0,\"fitresults/%s_%skeV.root\")",ri,thr,ri,thr,ri,ri,thr));
+  gROOT->ProcessLine(Form("fitDecayLL3hists_wrndcoin(\"%s_%s\",\"../../../brikenmacros-rootfiles/fitting/fithistslowin/histlowin%s_%s.root\",\"parms/parms%s.txt\",10000,\"fitresults/%s_%skeV.root\")",ri,thr,ri,thr,ri,ri,thr));
   //cout<<Form("fitDecayLL3hists_wrndcoin(\"%s_%s\",\"../../../brikenmacros-rootfiles/fitting/fithistslowin/histlowin%s_%s.root\",\"parms/parms%slowin.txt\",0,\"fitresults/%s_%skeV.root\")",ri,thr,ri,thr,ri,ri,thr)<<endl;
 }

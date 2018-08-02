@@ -36,6 +36,9 @@ TH1F* hhdx=NULL;
 TH1F* hhdy=NULL;
 
 
+TH2F* hbetadxy;
+
+
 
 typedef struct {
     double T; 	 // Calibrated time
@@ -78,6 +81,8 @@ bool gendecay(TRandom3 *rseed,Double_t ximp,Double_t yimp,Double_t tsin,Double_t
         dxbeta=hhdx->GetRandom();
         dybeta=hhdy->GetRandom();
     }
+
+    hbetadxy->Fill(dxbeta,dybeta);
 
     Double_t decayt=rseed->Exp(halflife/log(2));
     sim.Tcorr=decayt;
@@ -524,7 +529,7 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile)
   TH2F* hxyimp=new TH2F("hxyimp","hxyimp",148,-10,138,148,-10,138);
   TH1F* hpimp=new TH1F("hpimp","hpimp",100,0,100);
 
-  TH2F* hbetadxy=new TH2F("hbetadxy","hbetadxy",200,-4,4,200,-4,4);
+  hbetadxy=new TH2F("hbetadxy","hbetadxy",200,-4,4,200,-4,4);
   TH1F* hpbeta=new TH1F("hpbeta","hpbeta",100,0,100);
   TH2F* hxybeta=new TH2F("hxybeta","hxybeta",148,-10,138,148,-10,138);
   //TH1F* hdtbetaimp=new TH1F("hdtbetaimp","hdtbetaimp",2000,0,halflife*20);
@@ -1304,6 +1309,13 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile)
 
   c1->Write();
   c2->Write();
+
+
+  hxyimp->Write();
+  hbetadxy->Write();
+  hxybetabkgg->Write();
+  hxybetabkgu->Write();
+
 
   hdecayall->Write();
   hdecayw1neu->Write();

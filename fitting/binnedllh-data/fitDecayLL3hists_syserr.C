@@ -1147,7 +1147,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    ofs<<fitname<<",";
    ofs<<log(2)/resultpar[0]<<","<<log(2)/resultpar[0]/resultpar[0]*resulterr[0]<<",";
    ofs<<resultpar[9]<<","<<resulterr[9]<<",";
-   ofs<<resultpar[18]<<","<<resulterr[18]<<","<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100<<","<<binning<<","<<lowerlimit<<","<<upperlimit<<endl;
+   ofs<<resultpar[18]<<","<<resulterr[18]<<","<<resultpar[23]<<","<<resultpar[24]<<","<<resultpar[25]<<","<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100<<","<<binning<<","<<lowerlimit<<","<<upperlimit<<endl;
 
 
    TH1F* histcomphBcomb=new TH1F("hist_of_residual_decay","hist of residual decay",50,-10,10);

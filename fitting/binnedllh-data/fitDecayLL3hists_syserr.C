@@ -1005,11 +1005,14 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    TFile* fout=new TFile(outfile,"recreate");
    Double_t outparms[knri*2+8];
    Double_t outparmserr[knri*2+8];
+   Int_t iparms[knri*2+8];
+
    Int_t isvary[knri*2+6];
 
    for (int i=0;i<knri*2+6;i++){
        outparms[i]=0;
        outparmserr[i]=0;
+       iparms[i]=i;
        isvary[i]=0;
        if (isparmsfix[i]&&(parmserr[i]>0)){
            if(i<knri*2) isvary[i]=1;
@@ -1020,6 +1023,8 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    TTree* treeout=new TTree(tempchar1,tempchar1);
    treeout->Branch("outparms",outparms,Form("outparms[%d]/D",knri*2+8));
    treeout->Branch("outparmserr",outparmserr,Form("outparmserr[%d]/D",knri*2+8));
+   treeout->Branch("iparms",iparms,Form("iparms[%d]/I",knri*2+8));
+   treeout->Branch("neueff",&neueff,"neueff/D");
    treeout->Branch("isvary",outparmserr,Form("isvary[%d]/I",knri*2+8));
 
 

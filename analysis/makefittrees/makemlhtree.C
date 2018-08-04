@@ -111,7 +111,7 @@ void makemlhtree::Loop(char* outfile, Int_t binning)
    delete pz;
    delete pb;
 }
-void makemlhtree::PlotNeuHitPattern(char* outfile)
+void makemlhtree::PlotNeuHitPattern(char* outfile,Double_t decaytmin,Double_t decaytmax)
 {
 
     Double_t fHe3Id2posX[MaxID];
@@ -181,7 +181,7 @@ void makemlhtree::PlotNeuHitPattern(char* outfile)
                Double_t xx=fHe3Id2posX[neu_ch[i]]/10;
                Double_t yy=fHe3Id2posY[neu_ch[i]]/10;
                //cout<<xx<<"\t"<<yy<<endl;
-               if (decay_t>0&&decay_t<1) {
+               if (decay_t>decaytmin&&decay_t<decaytmin) {
                    h1->Fill(xx*xx+yy*yy);
                    h3->Fill(decay_t);
                }

@@ -156,7 +156,7 @@ public :
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
    virtual void     Loop(char* outfile, Int_t binning=1200);
-   virtual void     PlotNeuHitPattern(char* outfile);
+   virtual void     PlotNeuHitPattern(char* outfile,Double_t decaytmin=0.05,Double_t decaytmax=1);
 
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);

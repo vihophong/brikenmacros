@@ -24,7 +24,7 @@ void makedeadtimehist(char* listfile){
 
   TFile *fileso[nfiles];
   TH1F *histsnpulser[nfiles];
-  TH2F* hist2dpulser=new TH2F("h2dtpulser","h2dtpulser",nfiles,0,nfiles,2000,0,10);
+  //TH2F* hist2dpulser=new TH2F("h2dtpulser","h2dtpulser",nfiles,0,nfiles,2000,0,10);
 
   TH1F *hists[nfiles];
   TH2F* hist2d=new TH2F("h2","h2",nfiles,0,nfiles,2000,0,20);
@@ -32,7 +32,7 @@ void makedeadtimehist(char* listfile){
   TH1F *hists2[nfiles];
   TH2F* hist2d2=new TH2F("h22","h22",nfiles,0,nfiles,2000,0,20);
 
-  TVectorD* deadtimecontainer[nfiles];
+  //TVectorD* deadtimecontainer[nfiles];
 
   for (Int_t i=0;i<nfiles;i++){
       fileso[i]=TFile::Open((char*)filelist[i].c_str());

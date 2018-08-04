@@ -362,4 +362,92 @@ void plotneudists(char* outfilename)
 }
 
 
+void ploteff(char* infile,char* infile_ariel)
+{
+    std::ifstream inpf(infile);
+    Double_t temp[500][12];
+    Int_t nlines=0;
+    while (inpf.good()){
+        for (Int_t i=0;i<12;i++){
+            inpf>>temp[nlines][i];
+            cout<<temp[nlines][i]<<"\t";
+        }
+        nlines++;
+        cout<<endl;
+    }
+    cout<<"\n\n"<<endl;
+    TCanvas* c2=new TCanvas("c2","c2",900,900);
+    c2->Divide(1,2);
+    c2->cd(1);
+    c2->cd(1)->SetLogx();
+    c2->cd(1)->SetGrid();
+    Double_t enearr[]={0.1,1,10,100,500,1000,2000,3000,4000,5000};
+    Double_t effarr[10];
+    for (Int_t i=0;i<12;i++){
+        cout<<temp[nlines-2][i]<<"\t";
+        if (i>1){
+            effarr[i-2]=temp[nlines-2][i];
+        }
+    }
+    TGraph* gr=new TGraph(10,enearr,effarr);
+    gr->SetMarkerStyle(20);
+    gr->SetMarkerColor(2);
+    gr->SetLineColor(2);
+    gr->SetMarkerSize(1.2);
+    gr->SetLineWidth(2);
+    gr->GetYaxis()->SetRangeUser(0,90);
+    gr->Draw("APL");
+    cout<<endl;
 
+    std::ifstream inpf2(infile_ariel);
+
+    Double_t enearr2[1000];
+    Double_t effarr2[1000];
+
+    Double_t tempnum=0;
+    nlines=0;
+    while (inpf2.good()){
+        inpf2>>tempnum>>tempnum>>tempnum>>enearr2[nlines]>>effarr2[nlines]>>tempnum;
+        nlines++;
+    }
+    nlines--;
+    cout<<nlines<<endl;
+    for (Int_t i=0;i<nlines;i++){
+        enearr2[i]=enearr2[i]*1000;
+        effarr2[i]=effarr2[i]*100;
+    }
+
+
+    TGraph* gr2=new TGraph(nlines,enearr2,effarr2);
+    //gr2->SetMarkerStyle(21);
+    //gr2->SetMarkerColor(3);
+    gr2->SetLineColor(3);
+    //gr2->SetMarkerSize(1.2);
+    gr2->SetLineWidth(2);
+    gr2->Draw("L SAME");
+
+
+    c2->cd(2);
+    c2->cd(2)->SetLogx();
+    c2->cd(2)->SetGrid();
+
+    Double_t effcomparr[10];
+    for(Int_t i=0;i<10;i++){
+        for(Int_t j=0;j<nlines;j++){
+            if (enearr[i]==enearr2[j]){
+                effcomparr[i]=effarr2[j]-effarr[i];
+            }
+        }
+    }
+
+    TGraph* gr3=new TGraph(10,enearr,effcomparr);
+    gr3->SetMarkerStyle(20);
+    gr3->SetMarkerColor(1);
+    gr3->SetLineColor(1);
+    gr3->SetMarkerSize(1.2);
+    gr3->SetLineWidth(2);
+    gr3->GetYaxis()->SetRangeUser(-4,4);
+    gr3->Draw("APL");
+    cout<<endl;
+
+}

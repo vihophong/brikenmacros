@@ -763,7 +763,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     Double_t lowerlimit=-10;
     Double_t upperlimit=10;
     Double_t nsigma=2.;
-    Double_t bkgactmaxmin=0.20; //*100% of max min bkg or initial activity
+    Double_t bkgactmaxmin=0.50; //*100% of max min bkg or initial activity
 
     Double_t plotrange[]={0.,10.};
 

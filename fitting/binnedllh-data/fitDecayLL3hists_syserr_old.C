@@ -609,7 +609,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    TH1F * hSB = (TH1F*) hdecay1n->Clone();
    TH1F * hSB2 = (TH1F*) hdecay2n->Clone();
 
-   //!Rebinned
+   //!Rebin
    hB->Rebin(rebin);
    hSB->Rebin(rebin);
    hSB2->Rebin(rebin);

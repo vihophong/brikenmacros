@@ -43,7 +43,7 @@ Double_t neueff_mean=0.605;
 Double_t neueff_err=0.053;
 
 Bool_t reject=false;
-Double_t rejectrange=0.05;//first 50 ms
+Double_t rejectrange=0.075;//first 0.075 ms
 
 //! variable
 Int_t npaths=100;
@@ -755,7 +755,8 @@ void mc(TRandom3* rseed)
     }
     //! mc for neutron efficiency?
     if (neueff_err>0){// only if there is error
-        neueff=neueff_mean-neueff_err+rseed->Rndm()*neueff_err*2;
+      //neueff=neueff_mean-neueff_err+rseed->Rndm()*neueff_err*2;//for uniform distribution
+      neueff=rseed->Gaus(neueff_mean,neueff_err);
     }
 }
 
@@ -766,7 +767,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     Double_t nsigma=2.;
     Double_t bkgactmaxmin=0.50; //*100% of max min bkg or initial activity
 
-    Double_t plotrange[]={0.05,10.};
+    Double_t plotrange[]={0.075,10.};
 
     TRandom3* rseed=new TRandom3;
 
@@ -1094,6 +1095,15 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    for (int i=0;i<knri*2+8;i++) mcparms[i]=parms[i];
 
 
+   fitter.Config().SetParamsSettings(knri*2+8,parms);
+   fitter.FitFCN(knri*2+8,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
+
+   ROOT::Fit::FitResult result = fitter.Result();
+   cout<<"\n*******PRINTING RESULT**********\n"<<endl;
+   //result.Print(std::cout);                                                                                                                                                                               
+   const Double_t* resultpar=result.GetParams();
+   const Double_t* resulterr=result.GetErrors();
+   //cout<<"eee"<<resultpar[9]<<endl;
    
    for(int i=0;i<ninterations;i++) {
        cout<<"mc "<<i+1<<endl;
@@ -1121,18 +1131,11 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    }
 
 
-   fitter.Config().MinimizerOptions().SetPrintLevel(1);
+   //fitter.Config().MinimizerOptions().SetPrintLevel(1);
    fitter.Config().SetParamsSettings(knri*2+8,parms);
    fitter.FitFCN(knri*2+8,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
 
-
-
-   ROOT::Fit::FitResult result = fitter.Result();
-   cout<<"\n*******PRINTING RESULT**********\n"<<endl;
-   //result.Print(std::cout);
-   const Double_t* resultpar=result.GetParams();
-   const Double_t* resulterr=result.GetErrors();
-
+   //cout<<"ee"<<resultpar[9]<<endl;
    for (unsigned int i=0;i<knri*2+8;i++){
      outparms[i]=resultpar[i];
      outparmserr[i]=resulterr[i];
@@ -1177,9 +1180,9 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    TH1F* histcomphB=new TH1F("residual_decay","residual decay",hB->GetNbinsX(),hB->GetXaxis()->GetXmin(),hB->GetXaxis()->GetXmax());
    for (Int_t i=0;i<hB->GetNbinsX();i++){
        double res;
-       //if (hB->GetBinError(i+1)<0.001)
-       //res=  0;
-       //else
+       if (hB->GetBinError(i+1)<0.001)
+	 res=  0;
+       else
        res=  (hB->GetBinContent(i+1)- fB->Eval( hB->GetBinCenter(i+1) ) )/hB->GetBinError(i+1);
 
        histcomphB->SetBinContent(i+1,res);
@@ -1191,9 +1194,9 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    TH1F* histcomphSB=new TH1F("residual_decay1neu","residual decay 1 neutron",hSB->GetNbinsX(),hSB->GetXaxis()->GetXmin(),hSB->GetXaxis()->GetXmax());
    for (Int_t i=0;i<hSB->GetNbinsX();i++){
        double res;
-       //if (hSB->GetBinError(i+1)<0.001)
-       // res =  0;
-       //else
+       if (hSB->GetBinError(i+1)<0.001)
+        res =  0;
+       else
         res =  (hSB->GetBinContent(i+1)- fSB->Eval( hSB->GetBinCenter(i+1) ) )/hSB->GetBinError(i+1);
        histcomphSB->SetBinContent(i+1,res);
        histcomphSB->SetBinError(i+1,0);
@@ -1205,9 +1208,9 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    TH1F* histcomphSB2=new TH1F("residual_decay2neu","residual decay 2 neutrons",hSB2->GetNbinsX(),hSB2->GetXaxis()->GetXmin(),hSB2->GetXaxis()->GetXmax());
    for (Int_t i=0;i<hSB2->GetNbinsX();i++){
        double res;
-       //if (hSB2->GetBinError(i+1)<0.001)
-        //res =  0;
-       //else
+       if (hSB2->GetBinError(i+1)<0.001)
+        res =  0;
+       else
         res =  (hSB2->GetBinContent(i+1)- fSB2->Eval( hSB2->GetBinCenter(i+1) ) )/hSB2->GetBinError(i+1);
        histcomphSB2->SetBinContent(i+1,res);
        histcomphSB2->SetBinError(i+1,0);

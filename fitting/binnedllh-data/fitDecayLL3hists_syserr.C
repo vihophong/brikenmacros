@@ -1,3 +1,4 @@
+
 /// \file
 /// \ingroup tutorial_fit
 /// \notebook
@@ -765,7 +766,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     Double_t nsigma=2.;
     Double_t bkgactmaxmin=0.50; //*100% of max min bkg or initial activity
 
-    Double_t plotrange[]={0.,10.};
+    Double_t plotrange[]={0.05,10.};
 
     TRandom3* rseed=new TRandom3;
 
@@ -847,6 +848,14 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     TH1F* hdecaygt0nbwd=(TH1F*) gDirectory->Get(tempchar1);
     sprintf(tempchar1,"hdecay2nbwd");
     TH1F* hdecay2nbwd=(TH1F*) gDirectory->Get(tempchar1);
+
+   //!Rebin
+   hdecay->Rebin(rebin);
+   hdecay1n->Rebin(rebin);
+   hdecay2n->Rebin(rebin);
+   TH1F * hB = (TH1F*) hdecay->Clone();
+   TH1F * hSB = (TH1F*) hdecay1n->Clone();
+   TH1F * hSB2 = (TH1F*) hdecay2n->Clone();
 
     Int_t binning=hdecay->GetNbinsX();
 
@@ -990,15 +999,12 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
     cout<<fSB2->Eval(1.)<<endl;
 
+   
 
-   TH1F * hB = (TH1F*) hdecay->Clone();
-   TH1F * hSB = (TH1F*) hdecay1n->Clone();
-   TH1F * hSB2 = (TH1F*) hdecay2n->Clone();
 
-   //!Rebin
-   hB->Rebin(rebin);
-   hSB->Rebin(rebin);
-   hSB2->Rebin(rebin);
+
+
+
 
    //!****************************GET HISTOGRAM FROM FILE********************
    //! book file and tree
@@ -1075,7 +1081,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
        }
    }
 
-   fitter.Config().MinimizerOptions().SetPrintLevel(1);
+
    //fitter.Config().SetMinimizer("Minuit2","Migrad");
    //fitter.Config().SetMinosErrors();
 
@@ -1087,18 +1093,22 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    // (specify optionally data size and flag to indicate that is a chi2 fit)
    for (int i=0;i<knri*2+8;i++) mcparms[i]=parms[i];
 
+
+   
    for(int i=0;i<ninterations;i++) {
        cout<<"mc "<<i+1<<endl;
        mc(rseed);
        fitter.Config().SetParamsSettings(knri*2+8,mcparms);
-       for (unsigned int j=0;j<knri*2+8;i++){
+       for (unsigned int j=0;j<knri*2+8;j++){
            if (parmserr[j]==0||isparmsfix[j]){
-              fitter.Config().ParSettings(i).Fix();
+              fitter.Config().ParSettings(j).Fix();
            }else{
-              fitter.Config().ParSettings(i).SetLimits(parmsmin[j],parmsmax[j]);
+              fitter.Config().ParSettings(j).SetLimits(parmsmin[j],parmsmax[j]);
            }
        }
+       
        fitter.FitFCN(knri*2+8,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
+       
        const Double_t* resultpar=fitter.Result().GetParams();
        const Double_t* resulterr=fitter.Result().GetErrors();
        for (unsigned int i=0;i<knri*2+8;i++){
@@ -1106,17 +1116,30 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
            outparmserr[i]=resulterr[i];
        }
        treeout->Fill();
+       
+       
    }
 
 
+   fitter.Config().MinimizerOptions().SetPrintLevel(1);
    fitter.Config().SetParamsSettings(knri*2+8,parms);
    fitter.FitFCN(knri*2+8,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
+
+
 
    ROOT::Fit::FitResult result = fitter.Result();
    cout<<"\n*******PRINTING RESULT**********\n"<<endl;
    //result.Print(std::cout);
    const Double_t* resultpar=result.GetParams();
    const Double_t* resulterr=result.GetErrors();
+
+   for (unsigned int i=0;i<knri*2+8;i++){
+     outparms[i]=resultpar[i];
+     outparmserr[i]=resulterr[i];
+   }
+   neueff=neueff_mean;
+   treeout->Fill();
+
    for (unsigned int i=0;i<result.NPar();i++){
        cout<<"p"<<i<<" = "<<resultpar[i]<<" +/- "<<resulterr[i]<<" le= "<<result.LowerError(i)<<" ue= "<<result.UpperError(i)<<endl;
    }

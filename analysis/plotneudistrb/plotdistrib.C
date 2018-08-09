@@ -125,6 +125,9 @@ void makeoutputfiles(){
         ofile[i]->Close();
     }
 }
+
+
+
 void plotdistrib(char* outfilename){
 
     TString* legentryname[11];
@@ -449,5 +452,52 @@ void ploteff(char* infile,char* infile_ariel)
     gr3->GetYaxis()->SetRangeUser(-4,4);
     gr3->Draw("APL");
     cout<<endl;
+
+}
+
+
+void plotdistribcompare(char* geant4input,char* neudistrbinput){
+    TFile* filegeant4=TFile::Open(geant4input);
+    TTree* treegeant4=(TTree*)filegeant4->Get("BRIKEN");
+    treegeant4->Draw("sqrt(x*x+y*y)>>htheory(200,0,45)","","goff");
+    TH1F* htheory=(TH1F*)gDirectory->Get("htheory");
+
+    TFile*  fileexp=TFile::Open(neudistrbinput);
+    TTree* treeexp=(TTree*)fileexp->Get("BRIKEN");
+    treeexp->Draw("sqrt(x*x+y*y)>>htheory(200,0,45)","","goff");
+
+    TH1F* hexp=(TH1F*)gDirectory->Get("hexp");
+    htheory->Draw("same");
+    hexp->Draw("same");
+
+
+    TCanvas* c1=new TCanvas("c1","c1",900,700);
+    TLegend* leg = new TLegend(0.2, 0.2, .8, .8);
+    Double_t bin8countsnorm=10000.;
+    Double_t bin8counts;
+
+    Double_t gxx[200];
+    Double_t gyy[200];
+    Int_t gnpoints=0;
+    bin8counts=(Double_t)hists[i]->GetBinContent(8);
+    hexp->Scale(bin8countsnorm/bin8counts);
+    for (Int_t j=0;j<200;j++){
+        if (hexp->GetBinContent(j+1)>0){
+            gxx[gnpoints]=hexp->GetXaxis()->GetBinCenter(j+1);
+            gyy[gnpoints]=hexp->GetBinContent(j+1);
+            gnpoints++;
+        }
+    }
+    TGraph* grexp=new TGraph(gnpoints,gxx,gyy);
+    grexp->SetMarkerStyle(kFullCircle);
+    grexp->SetFillColor(0);
+    grexp->SetMarkerColor(2);
+    grexp->SetLineColor(2);
+    grexp->SetMarkerColor(2);
+    grexp->SetLineColor(2);
+
+    grexp->Draw("APL");
+
+
 
 }

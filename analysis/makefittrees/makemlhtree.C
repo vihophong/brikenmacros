@@ -181,7 +181,8 @@ void makemlhtree::PlotNeuHitPattern(char* outfile,Double_t decaytmin,Double_t de
                Double_t xx=fHe3Id2posX[neu_ch[i]]/10;
                Double_t yy=fHe3Id2posY[neu_ch[i]]/10;
                //cout<<xx<<"\t"<<yy<<endl;
-               if (decay_t>decaytmin&&decay_t<decaytmin) {
+               if (decay_t>decaytmin&&decay_t<decaytmax) {
+		 //cout<<xx<<"\t"<<yy<<endl;
                    h1->Fill(xx*xx+yy*yy);
                    h3->Fill(decay_t);
                }

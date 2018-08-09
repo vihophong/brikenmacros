@@ -493,9 +493,32 @@ void plotdistribcompare(char* geant4input,char* neudistrbinput){
     grexp->SetLineColor(2);
     grexp->SetMarkerColor(2);
     grexp->SetLineColor(2);
-
     grexp->Draw("APL");
 
+    for (Int_t j=0;j<200;j++){
+        gxx[j]=0;
+        gyy[j]=0;
+    }
+    gnpoints=0;
 
+
+    bin8counts=(Double_t)htheory->GetBinContent(8);
+    htheory->Scale(bin8countsnorm/bin8counts);
+    for (Int_t j=0;j<200;j++){
+        if (hexp->GetBinContent(j+1)>0){
+            gxx[gnpoints]=htheory->GetXaxis()->GetBinCenter(j+1);
+            gyy[gnpoints]=htheory->GetBinContent(j+1);
+            gnpoints++;
+        }
+    }
+
+    TGraph* grtheory=new TGraph(gnpoints,gxx,gyy);
+    grtheory->SetMarkerStyle(kFullCircle);
+    grtheory->SetFillColor(0);
+    grtheory->SetMarkerColor(3);
+    grtheory->SetLineColor(3);
+    grtheory->SetMarkerColor(3);
+    grtheory->SetLineColor(3);
+    grtheory->Draw("PL SAME");
 
 }

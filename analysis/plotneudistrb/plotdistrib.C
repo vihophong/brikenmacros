@@ -479,7 +479,7 @@ void plotdistribcompare(char* geant4input,char* neudistrbinput){
     Double_t gxx[200];
     Double_t gyy[200];
     Int_t gnpoints=0;
-    bin8counts=(Double_t)hists[i]->GetBinContent(8);
+    bin8counts=(Double_t)hexp->GetBinContent(8);
     hexp->Scale(bin8countsnorm/bin8counts);
     for (Int_t j=0;j<200;j++){
         if (hexp->GetBinContent(j+1)>0){

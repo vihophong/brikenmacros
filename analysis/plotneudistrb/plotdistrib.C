@@ -466,7 +466,7 @@ void plotdistribcompare(char* geant4input,char* neudistrbinput){
     TTree* treeexp=(TTree*)fileexp->Get("BRIKEN");
     treeexp->Draw("sqrt(x*x+y*y)>>htheory(200,0,45)","","goff");
 
-    TH1F* hexp=(TH1F*)gDirectory->Get("hexp");
+    TH1F* hexp=(TH1F*)gDirectory->Get("h1");
     htheory->Draw("same");
     hexp->Draw("same");
 

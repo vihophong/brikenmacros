@@ -64,6 +64,7 @@ void geterror(Int_t parmsno, Int_t nbins,Double_t range,char* infile,char* rinam
    TMarker meanmarker;   
    meanmarker.SetMarkerStyle(22);
    meanmarker.SetMarkerColor(2);
+   meanmarker.SetMarkerSize(2);
    meanmarker.DrawMarker(meanval,h1->GetBinContent(binmean));
 
    Double_t nminus=0;
@@ -82,6 +83,7 @@ void geterror(Int_t parmsno, Int_t nbins,Double_t range,char* infile,char* rinam
    TMarker minusmarker;   
    minusmarker.SetMarkerStyle(23);
    minusmarker.SetMarkerColor(4);
+   minusmarker.SetMarkerSize(2);
    minusmarker.DrawMarker(minus,h1->GetBinContent(binminus));
    Int_t nplus=0;
    for (Int_t i=binmean+1;i<h1->GetNbinsX();i++) nplus+=h1->GetBinContent(i);
@@ -99,6 +101,7 @@ void geterror(Int_t parmsno, Int_t nbins,Double_t range,char* infile,char* rinam
    TMarker plusmarker;
    plusmarker.SetMarkerStyle(23);
    plusmarker.SetMarkerColor(4);
+   plusmarker.SetMarkerSize(2);
    plusmarker.DrawMarker(plus,h1->GetBinContent(binplus));
 
    //! Gaussian fitting to the data

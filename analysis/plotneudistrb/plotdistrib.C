@@ -264,7 +264,7 @@ void plotdistrib(char* outfilename){
 
 
 
-void plotneudists(char* outfilename)
+void plotneudists(char* outfilename,char* neudistrbinput)
 {
     Int_t colorcode[]={1,2,3,4,5,6,7,9,11,12,13,14,15,16,17,18,19,20,21,22,23};
     TString ri[100];
@@ -293,8 +293,8 @@ void plotneudists(char* outfilename)
     flag[1]=true;
     flag[2]=true;
     flag[3]=true;
-    flag[4]=true;
-    flag[5]=true;
+    flag[4]=false;
+    flag[5]=false;
     TFile *fileso[nri];
     TH1F *hists[nri];
     TGraph *grhists[nri];
@@ -354,7 +354,35 @@ void plotneudists(char* outfilename)
             ncolor++;
         }
     }
-    leg->Draw();
+    //leg->Draw();
+
+    TFile*  fileexp=TFile::Open(neudistrbinput);    
+
+    TH1F* hexp=(TH1F*)fileexp->Get("h1");
+    Double_t gxx[200];
+    Double_t gyy[200];
+    Int_t gnpoints=0;
+    bin8counts=(Double_t)hexp->GetBinContent(8);
+    hexp->Scale(bin8countsnorm/bin8counts);
+    for (Int_t j=0;j<200;j++){
+        if (hexp->GetBinContent(j+1)>0){
+            gxx[gnpoints]=hexp->GetXaxis()->GetBinCenter(j+1);
+            gyy[gnpoints]=hexp->GetBinContent(j+1);
+            gnpoints++;
+        }
+    }
+    TGraph* grexp=new TGraph(gnpoints,gxx,gyy);
+    grexp->SetMarkerStyle(kFullSquare);
+    grexp->SetLineWidth(2);
+    grexp->SetMarkerSize(1.2);
+    grexp->SetFillColor(1);
+    grexp->SetMarkerColor(1);
+    grexp->SetLineColor(1);
+    grexp->SetMarkerColor(1);
+    grexp->SetLineColor(1);
+    grexp->Draw("PLSAME");
+    
+
     TFile* ofile=new TFile(outfilename,"recreate");
     ofile->cd();
     c1->Write();
@@ -456,21 +484,21 @@ void ploteff(char* infile,char* infile_ariel)
 }
 
 
-void plotdistribcompare(char* geant4input,char* neudistrbinput){
+void plotdistribcompare(char* geant4input,char* neudistrbinput,char* nameri){
     TFile* filegeant4=TFile::Open(geant4input);
     TTree* treegeant4=(TTree*)filegeant4->Get("BRIKEN");
-    treegeant4->Draw("sqrt(x*x+y*y)>>htheory(200,0,45)","","goff");
+    treegeant4->Draw("x2*x2+y2*y2>>htheory(200,0,2000)","","goff");
     TH1F* htheory=(TH1F*)gDirectory->Get("htheory");
 
     TFile*  fileexp=TFile::Open(neudistrbinput);    
 
     TH1F* hexp=(TH1F*)fileexp->Get("h1");
-    htheory->Draw("same");
-    hexp->Draw("same");
+    //htheory->Draw("same");
+    //hexp->Draw("same");
 
 
-    TCanvas* c1=new TCanvas("c1","c1",900,700);
-    TLegend* leg = new TLegend(0.2, 0.2, .8, .8);
+    TCanvas* c1=new TCanvas("c1","c1",800,600);
+    TLegend* leg = new TLegend(0.7, 0.7, .9, .9);
     Double_t bin8countsnorm=10000.;
     Double_t bin8counts;
 
@@ -487,6 +515,7 @@ void plotdistribcompare(char* geant4input,char* neudistrbinput){
         }
     }
     TGraph* grexp=new TGraph(gnpoints,gxx,gyy);
+    grexp->SetTitle(nameri);
     grexp->SetMarkerStyle(kFullCircle);
     grexp->SetFillColor(0);
     grexp->SetMarkerColor(2);
@@ -494,7 +523,7 @@ void plotdistribcompare(char* geant4input,char* neudistrbinput){
     grexp->SetMarkerColor(2);
     grexp->SetLineColor(2);
     grexp->Draw("APL");
-
+    grexp->GetXaxis()->SetTitle("R^{2}");
     for (Int_t j=0;j<200;j++){
         gxx[j]=0;
         gyy[j]=0;
@@ -521,4 +550,8 @@ void plotdistribcompare(char* geant4input,char* neudistrbinput){
     grtheory->SetLineColor(3);
     grtheory->Draw("PL SAME");
 
+    //    auto leg=new TLegend(0.7,0.7,0.9,0.8);
+      leg->AddEntry(grtheory,"Simulation");
+    leg->AddEntry(grexp,"Experiment");
+    leg->Draw();
 }

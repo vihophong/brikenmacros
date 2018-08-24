@@ -1,0 +1,206 @@
+/control/execute run2.mac
+/geo/parms 1 1.02
+/control/execute run2.mac
+/geo/parms 1 1.04
+/control/execute run2.mac
+/geo/parms 1 1.06
+/control/execute run2.mac
+/geo/parms 1 1.08
+/control/execute run2.mac
+/geo/parms 1 1.1
+/control/execute run2.mac
+/geo/parms 1 1.12
+/control/execute run2.mac
+/geo/parms 1 1.14
+/control/execute run2.mac
+/geo/parms 1 1.16
+/control/execute run2.mac
+/geo/parms 1 1.18
+/control/execute run2.mac
+/geo/parms 1 1.20
+/control/execute run2.mac
+/geo/parms 1 1.22
+/control/execute run2.mac
+/geo/parms 1 1.24
+/control/execute run2.mac
+/geo/parms 1 1.26
+/control/execute run2.mac
+/geo/parms 1 1.28
+/control/execute run2.mac
+/geo/parms 1 1.3
+/control/execute run2.mac
+/geo/parms 1 1.32
+/control/execute run2.mac
+/geo/parms 1 1.34
+/control/execute run2.mac
+/geo/parms 1 1.36
+/control/execute run2.mac
+/geo/parms 1 1.38
+/control/execute run2.mac
+/geo/parms 1 1.40
+/control/execute run2.mac
+/geo/parms 1 1.42
+/control/execute run2.mac
+/geo/parms 1 1.44
+/control/execute run2.mac
+/geo/parms 1 1.46
+/control/execute run2.mac
+/geo/parms 1 1.48
+/control/execute run2.mac
+/geo/parms 1 1.50
+/control/execute run2.mac
+/geo/parms 1 1.52
+/control/execute run2.mac
+/geo/parms 1 1.54
+/control/execute run2.mac
+/geo/parms 1 1.56
+/control/execute run2.mac
+/geo/parms 1 1.58
+/control/execute run2.mac
+/geo/parms 1 1.60
+/control/execute run2.mac
+/geo/parms 1 1.62
+/control/execute run2.mac
+/geo/parms 1 1.64
+/control/execute run2.mac
+/geo/parms 1 1.66
+/control/execute run2.mac
+/geo/parms 1 1.68
+/control/execute run2.mac
+/geo/parms 1 1.70
+/control/execute run2.mac
+/geo/parms 1 1.72
+/control/execute run2.mac
+/geo/parms 1 1.74
+/control/execute run2.mac
+/geo/parms 1 1.76
+/control/execute run2.mac
+/geo/parms 1 1.78
+/control/execute run2.mac
+/geo/parms 1 1.80
+/control/execute run2.mac
+/geo/parms 1 1.82
+/control/execute run2.mac
+/geo/parms 1 1.84
+/control/execute run2.mac
+/geo/parms 1 1.86
+/control/execute run2.mac
+/geo/parms 1 1.88
+/control/execute run2.mac
+/geo/parms 1 1.90
+/control/execute run2.mac
+/geo/parms 1 1.92
+/control/execute run2.mac
+/geo/parms 1 1.94
+/control/execute run2.mac
+/geo/parms 1 1.96
+/control/execute run2.mac
+/geo/parms 1 1.98
+/control/execute run2.mac
+/geo/parms 1 2.0
+/control/execute run2.mac
+# --------------- he so offset h0=1 ----------
+
+/geo/parms 1.02 1.0
+/control/execute run2.mac
+/geo/parms 1.02 1.02
+/control/execute run2.mac
+/geo/parms 1.02 1.04
+/control/execute run2.mac
+/geo/parms 1.02 1.06
+/control/execute run2.mac
+/geo/parms 1.02 1.08
+/control/execute run2.mac
+/geo/parms 1.02 1.1
+/control/execute run2.mac
+/geo/parms 1.02 1.12
+/control/execute run2.mac
+/geo/parms 1.02 1.14
+/control/execute run2.mac
+/geo/parms 1.02 1.16
+/control/execute run2.mac
+/geo/parms 1.02 1.18
+/control/execute run2.mac
+/geo/parms 1.02 1.20
+/control/execute run2.mac
+/geo/parms 1.02 1.22
+/control/execute run2.mac
+/geo/parms 1.02 1.24
+/control/execute run2.mac
+/geo/parms 1.02 1.26
+/control/execute run2.mac
+/geo/parms 1.02 1.28
+/control/execute run2.mac
+/geo/parms 1.02 1.3
+/control/execute run2.mac
+/geo/parms 1.02 1.32
+/control/execute run2.mac
+/geo/parms 1.02 1.34
+/control/execute run2.mac
+/geo/parms 1.02 1.36
+/control/execute run2.mac
+/geo/parms 1.02 1.38
+/control/execute run2.mac
+/geo/parms 1.02 1.40
+/control/execute run2.mac
+/geo/parms 1.02 1.42
+/control/execute run2.mac
+/geo/parms 1.02 1.44
+/control/execute run2.mac
+/geo/parms 1.02 1.46
+/control/execute run2.mac
+/geo/parms 1.02 1.48
+/control/execute run2.mac
+/geo/parms 1.02 1.50
+/control/execute run2.mac
+/geo/parms 1.02 1.52
+/control/execute run2.mac
+/geo/parms 1.02 1.54
+/control/execute run2.mac
+/geo/parms 1.02 1.56
+/control/execute run2.mac
+/geo/parms 1.02 1.58
+/control/execute run2.mac
+/geo/parms 1.02 1.60
+/control/execute run2.mac
+/geo/parms 1.02 1.62
+/control/execute run2.mac
+/geo/parms 1.02 1.64
+/control/execute run2.mac
+/geo/parms 1.02 1.66
+/control/execute run2.mac
+/geo/parms 1.02 1.68
+/control/execute run2.mac
+/geo/parms 1.02 1.70
+/control/execute run2.mac
+/geo/parms 1.02 1.72
+/control/execute run2.mac
+/geo/parms 1.02 1.74
+/control/execute run2.mac
+/geo/parms 1.02 1.76
+/control/execute run2.mac
+/geo/parms 1.02 1.78
+/control/execute run2.mac
+/geo/parms 1.02 1.80
+/control/execute run2.mac
+/geo/parms 1.02 1.82
+/control/execute run2.mac
+/geo/parms 1.02 1.84
+/control/execute run2.mac
+/geo/parms 1.02 1.86
+/control/execute run2.mac
+/geo/parms 1.02 1.88
+/control/execute run2.mac
+/geo/parms 1.02 1.90
+/control/execute run2.mac
+/geo/parms 1.02 1.92
+/control/execute run2.mac
+/geo/parms 1.02 1.94
+/control/execute run2.mac
+/geo/parms 1.02 1.96
+/control/execute run2.mac
+/geo/parms 1.02 1.98
+/control/execute run2.mac
+/geo/parms 1.02 2.0
+/control/execute run2.mac
+# --------------- he so offset h0=1.02 -----------

@@ -1,0 +1,386 @@
+//
+// ********************************************************************
+// * License and Disclaimer                                           *
+// *                                                                  *
+// * The  Geant4 software  is  copyright of the Copyright Holders  of *
+// * the Geant4 Collaboration.  It is provided  under  the terms  and *
+// * conditions of the Geant4 Software License,  included in the file *
+// * LICENSE and available at  http://cern.ch/geant4/license .  These *
+// * include a list of copyright holders.                             *
+// *                                                                  *
+// * Neither the authors of this software system, nor their employing *
+// * institutes,nor the agencies providing financial support for this *
+// * work  make  any representation or  warranty, express or implied, *
+// * regarding  this  software system or assume any liability for its *
+// * use.  Please see the license in the file  LICENSE  and URL above *
+// * for the full disclaimer and the limitation of liability.         *
+// *                                                                  *
+// * This  code  implementation is the result of  the  scientific and *
+// * technical work of the GEANT4 collaboration.                      *
+// * By using,  copying,  modifying or  distributing the software (or *
+// * any work based  on the software)  you  agree  to acknowledge its *
+// * use  in  resulting  scientific  publications,  and indicate your *
+// * acceptance of all terms of the Geant4 Software license.          *
+// ********************************************************************
+//
+// $Id: B3DetectorConstruction.cc 71323 2013-06-13 16:54:23Z gcosmo $
+//
+/// \file B3DetectorConstruction.cc
+/// \brief Implementation of the B3DetectorConstruction class
+
+#include "B3DetectorConstruction.hh"
+
+#include "G4NistManager.hh"
+#include "G4Box.hh"
+#include "G4Tubs.hh"
+#include "G4LogicalVolume.hh"
+#include "G4PVPlacement.hh"
+#include "G4RotationMatrix.hh"
+#include "G4Transform3D.hh"
+#include "G4SDManager.hh"
+#include "G4MultiFunctionalDetector.hh"
+#include "G4VPrimitiveScorer.hh"
+#include "G4PSEnergyDeposit.hh"
+#include "G4PSDoseDeposit.hh"
+#include "G4VisAttributes.hh"
+#include "G4PhysicalConstants.hh"
+#include "G4SystemOfUnits.hh"
+
+#include <fstream>
+#include <stdio.h>
+
+#include "Clover.hh"
+using namespace std;	 
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+B3DetectorConstruction::B3DetectorConstruction()
+: G4VUserDetectorConstruction(),
+  fCheckOverlaps(true),
+	nofTubes(0)
+{
+	detGroup=new G4int[1000];
+	tubeGroup=new G4int[1000];
+	x=new G4double[1000];
+	y=new G4double[1000];
+	z=new G4double[1000];
+//Read input Geo--
+	char infilename[100];
+	cout<<"Enter input Geometry:"<<endl;
+	cin>>infilename;
+	ifstream infile(infilename);
+	infile>>nofTubes;
+	G4int tempd;
+	for(G4int i=0; i<nofTubes; i++){
+	infile>>tempd>>tubeGroup[i]>>x[i]>>y[i]>>z[i]>>detGroup[i];
+}
+infile.close();
+//--
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+B3DetectorConstruction::~B3DetectorConstruction()
+{ }
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+G4VPhysicalVolume* B3DetectorConstruction::Construct()
+{  
+
+	//Temperature for all
+	G4double temperature=298.15*kelvin;
+	//-------------------Material used---------------
+	G4NistManager* nist = G4NistManager::Instance();
+  G4Material* default_mat = nist->FindOrBuildMaterial("G4_AIR");
+
+  //
+  //  define Vacuum
+  //
+  G4Material* Vacuum = new G4Material("Galactic", 1., 1.01*g/mole, 
+				      1.e-25*g/cm3,kStateGas,2.73*kelvin,3.e-18*pascal);
+
+
+	G4Isotope* He3 = new G4Isotope("He3",2,3, 3.016*g/mole);
+	G4Element* elHe3  = new G4Element("He3 enriched", "He",1);
+	elHe3->AddIsotope(He3, 100.*perCent);
+	
+	G4Element* elC  = nist->FindOrBuildElement("C");
+	G4Element* elTSH = new G4Element( "TS_H_of_Polyethylene","H_POLYETHYLENE" , 1.0 , 1.0079*g/mole ); 
+	G4Material* CH2mat= new G4Material( "Polyethylene_TS" ,0.95*g/cm3 ,2);//, kStateUndefined, temperature); 
+	CH2mat -> AddElement(elTSH,2);
+	CH2mat -> AddElement(elC,1);
+
+	G4Element* elS  = nist->FindOrBuildElement("S");
+	G4Element* elMn  = nist->FindOrBuildElement("Mn");
+	G4Element* elCr  = nist->FindOrBuildElement("Cr");
+	G4Element* elP  = nist->FindOrBuildElement("P");
+	G4Element* elSi  = nist->FindOrBuildElement("Si");
+	G4Element* elNi  = nist->FindOrBuildElement("Ni");
+	G4Element* elN  = nist->FindOrBuildElement("N");
+	G4Element* elFe  = nist->FindOrBuildElement("Fe");
+	G4Material* STL= new G4Material( "StainlessSteel" ,8.03*g/cm3 ,9, kStateUndefined, temperature); 
+	STL -> AddElement(elC,0.08*perCent);
+	STL -> AddElement(elS,0.03*perCent);
+	STL -> AddElement(elMn,2.*perCent);
+	STL -> AddElement(elCr,18.*perCent);
+	STL -> AddElement(elP,0.045*perCent);
+	STL -> AddElement(elSi,0.75*perCent);
+	STL -> AddElement(elNi,8.*perCent);
+	STL -> AddElement(elN,0.1*perCent);
+	STL -> AddElement(elFe,70.995*perCent);
+
+	//-------------------Define Geometry---------------
+
+	G4double moderator_sizeX=90*cm;
+	G4double moderator_sizeY=90*cm;
+	G4double moderator_sizeZ=90*cm;
+  //     
+  // World
+  //
+  G4double world_sizeX = 1.2*moderator_sizeX;
+  G4double world_sizeY = 1.2*moderator_sizeY;
+  G4double world_sizeZ = 1.2*moderator_sizeZ;
+  
+  G4Box* solidWorld =    
+    new G4Box("World",                       //its name
+       0.5*world_sizeX, 0.5*world_sizeY, 0.5*world_sizeZ); //its size
+      
+  G4LogicalVolume* logicWorld =                         
+    new G4LogicalVolume(solidWorld,          //its solid
+                        Vacuum,         //its material
+                        "World");            //its name
+                                   
+  G4VPhysicalVolume* physWorld = 
+    new G4PVPlacement(0,                     //no rotation
+                      G4ThreeVector(),       //at (0,0,0)
+                      logicWorld,            //its logical volume
+                      "World",               //its name
+                      0,                     //its mother  volume
+                      false,                 //no boolean operation
+                      0,                     //copy number
+                      fCheckOverlaps);       // checking overlaps 
+  //
+	//Moderator Polyethylene
+	//
+	G4Box* solidModerator =    
+    new G4Box("Moderator",                       //its name
+       0.5*moderator_sizeX, 0.5*moderator_sizeY, 0.5*moderator_sizeZ); //its size
+  G4LogicalVolume* logicModerator =                         
+    new G4LogicalVolume(solidModerator,          //its solid
+                        CH2mat,         //its material
+                        "ModeratorLogic");            //its name
+	// Place Moderator in the world
+  G4VPhysicalVolume* physModerator = 
+  new G4PVPlacement(0,                       //no rotation
+                    G4ThreeVector(),         //at (0,0,0)
+                    "ModeratorLogic",               //its name
+                    logicModerator,            //its logical volume
+                    physWorld,              //its mother  volume
+                    false,                   //no boolean operation
+                    0,                       //copy number
+                    fCheckOverlaps);         // checking overlaps
+
+  //
+  // AIDA
+  //
+  G4double AIDA_XY = 11*cm;
+  G4double AIDA_Z = 90*cm;  
+   
+	G4Box* solidAIDA =    
+    new G4Box("AIDA",                       //its name
+       0.5*AIDA_XY, 0.5*AIDA_XY, 0.5*AIDA_Z); //its size
+   
+  G4LogicalVolume* logicAIDA =                         
+    new G4LogicalVolume(solidAIDA,        //its solid
+                        Vacuum,         //its material
+                        "AIDALV");        //its name
+               
+  //
+  // place AIDA in the Moderator
+  //                    
+  G4VPhysicalVolume* physAIDA=new G4PVPlacement(0,                       //no rotation
+                    G4ThreeVector(),         //at (0,0,0)
+									  "AIDA",               //its name
+                    logicAIDA,            //its logical volume                    
+                    physModerator,              //its mother  volume
+                    false,                   //no boolean operation
+                    0,                       //copy number
+                    fCheckOverlaps);         // checking overlaps 
+
+  //
+  //Place Clover in Moderator
+  //
+  /*  
+  Clover* clv=new Clover();
+  G4ThreeVector clvPos=G4ThreeVector(0,0,5*cm);
+  G4RotationMatrix clvRot;
+  clvRot.set(0,0,0);
+  clvRot.invert();
+  clv->SetPosition(clvPos);
+  clv->SetRotation(clvRot);
+  //clv->CreateSolids();
+  clv->Placement(0,physAIDA);
+  */
+
+
+  //
+  // Place He3 rings in the Moderator
+  //	
+	G4double temp=3.01603/(temperature/kelvin)/82.05746;
+	G4Material* He3matp10 = new G4Material("He3matp10", (10.0*temp)*g/cm3, 1, kStateUndefined, temperature, 10.0*atmosphere);
+	He3matp10->AddElement(elHe3,100*perCent);
+	G4Material* He3matp8 = new G4Material("He3matp8", (8.0*temp)*g/cm3, 1, kStateUndefined, temperature, 8.0*atmosphere);
+	He3matp8->AddElement(elHe3,100*perCent);
+	G4Material* He3matp5 = new G4Material("He3matp5", (5.0*temp)*g/cm3, 1, kStateUndefined, temperature, 5.0*atmosphere);
+	He3matp5->AddElement(elHe3,100*perCent);
+	G4Material* He3matp4 = new G4Material("He3matp4", (4.0*temp)*g/cm3, 1, kStateUndefined, temperature, 4.0*atmosphere);
+	He3matp4->AddElement(elHe3,100*perCent);
+
+//---- Place tube in moderator----
+
+for (G4int i=0;i<nofTubes;i++)
+{
+//--- Define Detector Group --
+//--------------------------------------------------------------
+	G4LogicalVolume* He3Tube;
+	switch (tubeGroup[i]){
+	case 0: //UPC
+	{
+		G4LogicalVolume* He3Tube3=B3DetectorConstruction::DefineTubeGroup(i, 60.*cm,64.4*cm, 2.438/2*cm, 2.75/2*cm, 0.*cm, He3matp8, STL);
+		//DefineTubeGroup(G4int nTube, G4double He3Z,G4double Outer_Z, G4double He3R, G4double Outer_R, G4double He3OffsetPos, G4Material* He3mat, G4Material* Outermat)
+		He3Tube=He3Tube3;
+		break;
+	}
+	case 1: //GSI
+	{
+		G4LogicalVolume* He3Tube3=B3DetectorConstruction::DefineTubeGroup(i, 60.*cm,64.4*cm, 2.438/2*cm, 2.75/2*cm, 0.*cm, He3matp10, STL);
+		He3Tube=He3Tube3;
+		break;
+	}
+	case 2: //ORNL 1 inch
+	{
+		G4LogicalVolume* He3Tube3=B3DetectorConstruction::DefineTubeGroup(i, 60.96*cm,67.26*cm, 2.438/2*cm, 2.75/2*cm, 0.*cm, He3matp10,  STL);
+		He3Tube=He3Tube3;
+		break;
+	}
+	case 3: //ORNL 2 inch
+	{
+		G4LogicalVolume* He3Tube3=B3DetectorConstruction::DefineTubeGroup(i, 60.96*cm,65.36*cm, 4.978/2*cm, 5.3/2*cm, 0.*cm, He3matp10,  STL);
+		He3Tube=He3Tube3;
+		break;
+	}
+	case 4: //RIKEN
+	{
+		G4LogicalVolume* He3Tube3=B3DetectorConstruction::DefineTubeGroup(i, 30.0*cm,34.4*cm, 2.438/2*cm, 2.75/2*cm, 0.*cm, He3matp5,  STL);
+		He3Tube=He3Tube3;
+		break;
+	}
+	case 5: //JINR
+	{
+		G4LogicalVolume* He3Tube3=B3DetectorConstruction::DefineTubeGroup(i, 50.0*cm,55.0*cm, 3.0/2*cm, 3.2/2*cm, 0.*cm, He3matp4,  STL);
+		He3Tube=He3Tube3;
+		break;
+	}
+	}
+
+	G4ThreeVector position=G4ThreeVector(x[i]*cm,y[i]*cm,z[i]*cm);                    
+  new G4PVPlacement(0,
+											position,             //position
+                      "PhysicsTube",             //its name
+                      He3Tube,            //its logical volume
+                      physModerator,             //its mother  volume
+                      false,                 //no boolean operation
+                      i,                 //copy number
+                      fCheckOverlaps);       // checking overlaps
+
+}
+                                        
+
+  // Print materials
+  G4cout << *(G4Material::GetMaterialTable()) << G4endl; 
+
+  //always return the physical World
+  //
+  return physWorld;
+}
+
+
+G4LogicalVolume* B3DetectorConstruction::DefineTubeGroup(G4int nTube, G4double He3Z,G4double Outer_Z, G4double He3R, G4double Outer_R, G4double He3OffsetPos, G4Material* He3mat, G4Material* Outermat)
+{
+
+	char tempname[50];
+	sprintf(tempname,"_%d",nTube);
+	G4String identifier=(G4String) tempname;
+
+	//     
+  // Define He3s
+  //
+  G4Tubs* solidHe3 =
+    new G4Tubs("He3", 0, He3R, 0.5*He3Z, 0., twopi);
+  G4LogicalVolume* logicHe3 = 
+    new G4LogicalVolume(solidHe3,          //its solid
+                        He3mat,         //its material
+                        "Tube"+identifier);        //its name
+  //     
+  // Define Outer(TUBE)
+  //
+  G4Tubs* solidHe3Outer =
+    new G4Tubs("He3out", 0, Outer_R, 0.5*Outer_Z, 0., twopi);
+                     
+	G4LogicalVolume* tubeLogic = 
+    new G4LogicalVolume(solidHe3Outer,          //its solid
+                        Outermat,         //its material
+                        "Outertube"+identifier);        //its name
+	
+	//
+	// Define Inactive region
+	//
+	G4double inactive_lengthL=0.5*(Outer_Z-He3Z)-(Outer_R-He3R)+He3OffsetPos;
+	G4double inactive_lengthR=0.5*(Outer_Z-He3Z)-(Outer_R-He3R)-He3OffsetPos;
+
+	G4Tubs* solidOuterInactiveL =
+    new G4Tubs("He3outIn", 0, He3R, 0.5*inactive_lengthL, 0., twopi);
+                     
+  G4LogicalVolume* logicOuterInactiveL = 
+    new G4LogicalVolume(solidOuterInactiveL,          //its solid
+                        Outermat,         //its material
+                        "OuterInactiveL"+identifier);        //its name
+	G4Tubs* solidOuterInactiveR =
+    new G4Tubs("He3outIn", 0, He3R, 0.5*inactive_lengthR, 0., twopi);
+                     
+  G4LogicalVolume* logicOuterInactiveR = 
+    new G4LogicalVolume(solidOuterInactiveR,          //its solid
+                        Outermat,         //its material
+                        "OuterInactiveR"+identifier);        //its name
+	
+
+    new G4PVPlacement(0,
+											G4ThreeVector(),             //position
+                      logicHe3,            //its logical volume
+											"He3Physical"+identifier,             //its name			
+                      tubeLogic,             //its mother  volume
+                      false,                 //no boolean operation
+                      0,                 //copy number
+                      fCheckOverlaps);       // checking overlaps
+
+		G4ThreeVector positionInactiveL=G4ThreeVector(0,0,-0.5*(He3Z+inactive_lengthL)+He3OffsetPos); 
+    new G4PVPlacement(0,
+											positionInactiveL,             //position
+                      logicOuterInactiveL,            //its logical volume
+                      "OuterInactiveL"+identifier,             //its name
+                      tubeLogic,             //its mother  volume
+                      false,                 //no boolean operation
+                      0,                 //copy number
+                      fCheckOverlaps);       // checking overlaps
+		G4ThreeVector positionInactiveR=G4ThreeVector(0,0,0.5*(He3Z+inactive_lengthR)+He3OffsetPos); 
+    new G4PVPlacement(0,
+											positionInactiveR,             //position
+                      logicOuterInactiveR,            //its logical volume
+                      "OuterInactiveR"+identifier,             //its name
+                      tubeLogic,             //its mother  volume
+                      false,                 //no boolean operation
+                      0,                 //copy number
+                      fCheckOverlaps);       // checking overlaps
+	 return tubeLogic;
+}
+

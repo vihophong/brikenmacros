@@ -5,7 +5,7 @@
 #include <TStyle.h>
 #include <TCanvas.h>
 
-void makemlhtree::Loop(char* outfile, Int_t binning)
+void makemlhtree::Loop(char* outfile, Int_t binning, Int_t layer)
 {
     Double_t lowlimit=-10;
     Double_t uplimit=20;
@@ -66,12 +66,12 @@ void makemlhtree::Loop(char* outfile, Int_t binning)
       *px=decay_t;
       *pz=decay_z;
 
-      if (neu_hit<3){
-          *py=neu_hit;
-          *pb=neub_hit;
-          otree->Fill();
-      }
+      
+      cout<<decay_z<<endl;
       //if (decay_ey>100){
+      if (layer>=0){
+	if (decay_z!=layer) continue;
+      }
       hdecay->Fill(decay_t);
       if (neu_hit==1) hdecay1n->Fill(decay_t);
       if (neu_hit==2) hdecay2n->Fill(decay_t);
@@ -79,9 +79,12 @@ void makemlhtree::Loop(char* outfile, Int_t binning)
       if (neub_hit==1) hdecay1nbwd->Fill(decay_t);
       if (neub_hit==2) hdecay2nbwd->Fill(decay_t);
       if (neub_hit>0) hdecaygt0nbwd->Fill(decay_t);
+      if (neu_hit<3){
+          *py=neu_hit;
+          *pb=neub_hit;
+          otree->Fill();
+      }
 
-
-      otree->Fill();
       //}
    }
    TTree* otreeimp = new TTree("treeimp","treeimp") ;

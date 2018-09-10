@@ -1,0 +1,8 @@
+/home/phong/data/briken2017/brikenmacros/geant4/build-BRIKENhybrid-Imported_Kit_86ca46-Default/CMakeFiles/install/strip.dir
+/home/phong/data/briken2017/brikenmacros/geant4/build-BRIKENhybrid-Imported_Kit_86ca46-Default/CMakeFiles/install/local.dir
+/home/phong/data/briken2017/brikenmacros/geant4/build-BRIKENhybrid-Imported_Kit_86ca46-Default/CMakeFiles/install.dir
+/home/phong/data/briken2017/brikenmacros/geant4/build-BRIKENhybrid-Imported_Kit_86ca46-Default/CMakeFiles/list_install_components.dir
+/home/phong/data/briken2017/brikenmacros/geant4/build-BRIKENhybrid-Imported_Kit_86ca46-Default/CMakeFiles/rebuild_cache.dir
+/home/phong/data/briken2017/brikenmacros/geant4/build-BRIKENhybrid-Imported_Kit_86ca46-Default/CMakeFiles/edit_cache.dir
+/home/phong/data/briken2017/brikenmacros/geant4/build-BRIKENhybrid-Imported_Kit_86ca46-Default/CMakeFiles/B3.dir
+/home/phong/data/briken2017/brikenmacros/geant4/build-BRIKENhybrid-Imported_Kit_86ca46-Default/CMakeFiles/BRIKEN.dir

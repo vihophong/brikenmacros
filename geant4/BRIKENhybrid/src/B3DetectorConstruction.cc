@@ -59,6 +59,7 @@
 #include <stdio.h>
 
 #include "Clover.hh"
+#include "DSSD.hh"
 using namespace std;	 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -640,10 +641,10 @@ G4VPhysicalVolume* B3DetectorConstruction::Construct()
 	G4Box* solidAIDA4 =    
     new G4Box("AIDA4",                       //its name
        0.5*AIDA_Z2, 0.5*AIDA_XY2, 0.5*AIDA_XY2); //its size
-G4UnionSolid* solidAIDA_Sum=new G4UnionSolid("solidAIDA",solidAIDA,solidAIDA2,0,G4ThreeVector(0,0,0));
- G4UnionSolid* solidAIDA_Sum2=new G4UnionSolid("solidAIDAsum2",solidAIDA_Sum,solidAIDA3,0,G4ThreeVector((24+15.2/2+11.6/2)*cm,0,0));
- G4UnionSolid* solidAIDA_Sum3=new G4UnionSolid("solidAIDAsum3",solidAIDA_Sum2,solidAIDA4,0,G4ThreeVector(-(24+15.2/2+11.6/2)*cm,0,0));
-  G4LogicalVolume* logicAIDA =                         
+    G4UnionSolid* solidAIDA_Sum=new G4UnionSolid("solidAIDA",solidAIDA,solidAIDA2,0,G4ThreeVector(0,0,0));
+    G4UnionSolid* solidAIDA_Sum2=new G4UnionSolid("solidAIDAsum2",solidAIDA_Sum,solidAIDA3,0,G4ThreeVector((24+15.2/2+11.6/2)*cm,0,0));
+    G4UnionSolid* solidAIDA_Sum3=new G4UnionSolid("solidAIDAsum3",solidAIDA_Sum2,solidAIDA4,0,G4ThreeVector(-(24+15.2/2+11.6/2)*cm,0,0));
+    G4LogicalVolume* logicAIDA =
     new G4LogicalVolume(solidAIDA_Sum3,        //its solid
                         Vacuum,         //its material
                         "AIDALV");        //its name
@@ -687,8 +688,17 @@ G4UnionSolid* solidAIDA_Sum=new G4UnionSolid("solidAIDA",solidAIDA,solidAIDA2,0,
   clv2->Placement(0,physAIDA);
 
 
+  //
+  //Place DSSD in Moderator
+  //
+  G4ThreeVector dssdPos=G4ThreeVector(0,0,0);
+  G4RotationMatrix dssdRot;
+  clvRot.set(0,0,0);
 
-
+  DSSD* dssdstack=new DSSD();
+  dssdstack->SetPosition(dssdPos);
+  dssdstack->SetRotation(clvRot);
+  dssdstack->Placement(0,physAIDA);
 
   /*
       

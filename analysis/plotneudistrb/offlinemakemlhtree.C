@@ -8,78 +8,6 @@
 #include "TCanvas.h"
 #include "TLegend.h"
 #include "TGraph.h"
-void offlinemakemlhtree(char* input)
-{
-    TString ri[100];
-    Int_t nri=21;
-    ri[0]="Sn134";
-    ri[1]="Sn135";
-    ri[2]="Sn136";
-    ri[3]="Sn137";
-    ri[4]="Sn138";
-    ri[5]="Sn139";
-    ri[6]="In131";
-    ri[7]="In132";
-    ri[8]="In133";
-    ri[9]="In134";
-    ri[10]="In135";
-    ri[11]="In136";
-    ri[12]="Cd129";
-    ri[13]="Cd130";
-    ri[14]="Cd131";
-    ri[15]="Cd132";
-    ri[16]="Cd133";
-    ri[17]="Cd134";
-    ri[18]="Ag130";
-    ri[19]="Ag131";
-    ri[20]="Ag132";
-
-    gROOT->ProcessLine(".L makemlhtree.C");
-    for (Int_t i=0;i<nri;i++){
-        char tempchar1[1000];
-        sprintf(tempchar1,"outree%s.root",(char*)ri[i].Data());
-        cout<<Form("makemlhtree o%d(\"%s\",\"%s\");",i,input,(char*)ri[i].Data())<<endl;
-        gROOT->ProcessLine(Form("makemlhtree o%d(\"%s\",\"%s\");",i,input,(char*)ri[i].Data()));
-        gROOT->ProcessLine(Form("o%d.Loop(\"fittrees/%s\");",i,tempchar1));
-    }
-
-}
-void offlineplotneutrondist(char* input)
-{
-    TString ri[100];
-    Int_t nri=21;
-    ri[0]="Sn134";
-    ri[1]="Sn135";
-    ri[2]="Sn136";
-    ri[3]="Sn137";
-    ri[4]="Sn138";
-    ri[5]="Sn139";
-    ri[6]="In131";
-    ri[7]="In132";
-    ri[8]="In133";
-    ri[9]="In134";
-    ri[10]="In135";
-    ri[11]="In136";
-    ri[12]="Cd129";
-    ri[13]="Cd130";
-    ri[14]="Cd131";
-    ri[15]="Cd132";
-    ri[16]="Cd133";
-    ri[17]="Cd134";
-    ri[18]="Ag130";
-    ri[19]="Ag131";
-    ri[20]="Ag132";
-
-    gROOT->ProcessLine(".L makemlhtree.C");
-    for (Int_t i=0;i<nri;i++){
-        char tempchar1[1000];
-        sprintf(tempchar1,"neuhit%s.root",(char*)ri[i].Data());
-        cout<<Form("makemlhtree o%d(\"%s\",\"%s\");",i,input,(char*)ri[i].Data())<<endl;
-        gROOT->ProcessLine(Form("makemlhtree o%d(\"%s\",\"%s\");",i,input,(char*)ri[i].Data()));
-        gROOT->ProcessLine(Form("o%d.PlotNeuHitPattern(\"neutron_distr/%s\");",i,tempchar1));
-    }
-
-}
 
 void plotneudists(char* outfilename,Int_t isnorml=0)
 {
@@ -87,32 +15,32 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
     TString ri[100];
     Bool_t flag[100];
     Int_t nri=21;
-    //ri[0]="Sn134";
-    //ri[1]="Sn135";
-    //ri[2]="Sn136";
-    ri[0]="1000keV";
-    ri[1]="2000keV";
-    ri[2]="3000keV";
+    ri[0]="Sn134";
+    ri[1]="Sn135";
+    ri[2]="Sn136";
+    //ri[0]="1000keV";
+    //ri[1]="2000keV";
+    //ri[2]="3000keV";
 
     ri[3]="Sn137";
     ri[4]="Sn138";
-    ri[5]="Sn139";
+    ri[5]="Sn138";
     ri[6]="In131";
     ri[7]="In132";
     ri[8]="In133";
     ri[9]="In134";
     ri[10]="In135";
-    ri[11]="In136";
-    ri[12]="Cd129";
+    ri[11]="In135";
+    ri[12]="Cd130";
     ri[13]="Cd130";
     ri[14]="Cd131";
     ri[15]="Cd132";
     ri[16]="Cd133";
-    ri[17]="Cd134";
+    ri[17]="Cd133";
     ri[18]="Ag130";
     ri[19]="Ag131";
-    ri[20]="Ga83";
-    //ri[20]="Ag132";
+    //ri[20]="Ag131";
+    ri[20]="Ag131";
 
     flag[0]=true;
     flag[1]=true;
@@ -165,7 +93,7 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
         Int_t gnpoints=0;
 
         char tempchar1[1000];
-        sprintf(tempchar1,"neutron_distr/neuhit%s.root",(char*)ri[i].Data());
+        sprintf(tempchar1,"neuhit/%shit.root",(char*)ri[i].Data());
         fileso[i]=TFile::Open(tempchar1);
         hists[i]=(TH1F*)gDirectory->Get("h1");
         hists[i]->SetName((char*)ri[i].Data());
@@ -226,40 +154,3 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
     ofile->Close();
 }
 
-
-void testtscorr()
-{
-    unsigned long long tsarr[]={6616109261992	,
-    6616109262192	,
-    6616109262392	,
-    6616109262592	,
-    6616109262792	,
-    6616109262992	,
-    6616109263192	,
-    6616109263392	,
-    6616109263592	,
-    6616109263792	,
-    6616109263992	,
-    6616109264192	,
-    6616109264392	,
-    6616109264592	,
-    6616109264792	,
-    6616109264992
-                               };
-    unsigned long long fprev_ASICS_ts=0;
-    unsigned long long ffirst_ASICS_ts=0;
-    unsigned short fprev_ASICS_cnt=0;
-
-    for (Int_t i=0;i<16;i++){
-        if ((tsarr[i]-fprev_ASICS_ts)==200){
-            if(ffirst_ASICS_ts==0){
-                ffirst_ASICS_ts=fprev_ASICS_ts;
-            }
-            cout<<tsarr[i]<<"-"<<ffirst_ASICS_ts<<endl;
-            fprev_ASICS_cnt++;
-        }else{
-            fprev_ASICS_cnt=0;
-        }
-        fprev_ASICS_ts=tsarr[i];
-    }
-}

@@ -133,16 +133,16 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
     TString ri[100];
     Bool_t flag[100];
     Int_t nri=21;
-    ri[0]="Sn134";
-    ri[1]="Sn135";
+    //ri[0]="Sn134";
+    //ri[1]="Sn135";
+    ri[0]="1000keV";
+    ri[1]="2000keV";
     ri[2]="Sn136";
-    //ri[0]="1000keV";
-    //ri[1]="2000keV";
-    //ri[2]="3000keV";
 
     ri[3]="Sn137";
     ri[4]="Sn138";
-    ri[5]="Sn138";
+    ri[5]="3000keV";
+
     ri[6]="In131";
     ri[7]="In132";
     ri[8]="In133";
@@ -160,12 +160,12 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
     //ri[20]="Ag131";
     ri[20]="Ag131";
 
-    flag[0]=false;
-    flag[1]=false;
+    flag[0]=true;
+    flag[1]=true;
     flag[2]=true;
     flag[3]=true;
     flag[4]=true;
-    flag[5]=false;
+    flag[5]=true;
     flag[6]=false;
     flag[7]=false;
     flag[8]=true;

@@ -42,27 +42,27 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
     //ri[20]="Ag131";
     ri[20]="Ag131";
 
-    flag[0]=true;
-    flag[1]=true;
+    flag[0]=false;
+    flag[1]=false;
     flag[2]=true;
-    flag[3]=false;
-    flag[4]=false;
+    flag[3]=true;
+    flag[4]=true;
     flag[5]=false;
     flag[6]=false;
     flag[7]=false;
-    flag[8]=false;
-    flag[9]=false;
-    flag[10]=false;
+    flag[8]=true;
+    flag[9]=true;
+    flag[10]=true;
     flag[11]=false;
     flag[12]=false;
     flag[13]=false;
-    flag[14]=false;
+    flag[14]=true;
     flag[15]=true;
     flag[16]=false;
     flag[17]=false;
     flag[18]=false;
     flag[19]=false;
-    flag[20]=true;
+    flag[20]=false;
     /*
     for (Int_t i=0;i<21;i++) {
         if (i<4)

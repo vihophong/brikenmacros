@@ -72,6 +72,7 @@ void checksimulation()
     Double_t tp1n=0;
     Double_t tp2n=0;
     Double_t tall=0;
+    Double_t mult=0;
     Int_t nflag=0;
     Int_t nrealflag=0;
     Int_t nfwd=0;
@@ -99,6 +100,11 @@ void checksimulation()
     treep1n->Branch("x",&tp1n,"x/D");
     TTree* treep2n=new TTree("treep2n","treep2n");
     treep2n->Branch("x",&tp2n,"x/D");
+
+    TTree* treemlh=new TTree("tree","tree");
+    treemlh->Branch("x",&tall,"x/D");
+    treemlh->Branch("y",&mult,"y/D");
+
 
 
 
@@ -408,6 +414,8 @@ void checksimulation()
                 btype=betatype;
                 treeb->Fill();
 
+                mult=ndelayedneutronf;
+                treemlh->Fill();
             }
             fimplantMap_it++;
         }
@@ -478,6 +486,7 @@ void checksimulation()
     treep1n->Write();
     treep2n->Write();
     treeptmp->Write();
+    treemlh->Write();
 
     fout->Close();
 }

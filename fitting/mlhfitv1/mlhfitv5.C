@@ -61,6 +61,11 @@
 using namespace RooFit ;
 using namespace RooStats;
 
+Double_t p_deadtime=0.0001;
+Double_t p_timerange=10.0;
+Double_t nsigma=10;
+
+
 void getparms(Double_t* parms,Double_t* parmserr, Double_t* parmsmax, Double_t* parmsmin, Bool_t* isparmsfix,char* infile,Double_t nsig=10.)
 {
     std::ifstream ifs(infile);
@@ -136,44 +141,29 @@ void getparms(Double_t* parms,Double_t* parmserr, Double_t* parmsmax, Double_t* 
     }
 }
 
+
 void getbackground(RooRealVar* nsig,RooRealVar* nbkg1,RooRealVar* nbkg2, char* infile)
 {
-    //! parameters
-    Double_t p_deadtime=-10.0;
-    Double_t p_timerange=-0.0001;
-
-    RooRealVar* x=new RooRealVar("x","x",p_deadtime,p_timerange) ;
-    RooCategory* y=new RooCategory("y","y");
-    y->defineType("0neu",0);
-    y->defineType("1neu",1);
-    y->defineType("2neu",2);
-
-    fitFbkg model("bkgfit","bkgfit",*x,*y,*nbkg1,*nbkg2);
-
-    RooExtendPdf modelext("bkgext","bkgext p.d.f",model,*nsig) ;
-
-    // Sample 100000 events in (x,y) from the model
-    //RooDataSet* modelData = model.generate(RooArgSet(x,y),10000) ;
-
-    // I m p o r t i n g   i n t e g e r   T T r e e   b r a n c h e s
-    // ---------------------------------------------------------------
-
-    // Import integer tree branch as RooCategory
-    // will be imported as those are the only defined states
     TFile *f=TFile::Open(infile);
     TTree* tree;
     f->GetObject("tree",tree);
-    RooDataSet* data=new RooDataSet("data","data",RooArgSet(*y,*x),Import(*tree)) ;
-    data->Print() ;
+    Double_t nall=tree->Draw("x",Form("x<%f&&x>%f",-p_deadtime,-p_timerange),"goff");
+    Double_t n1ngate=tree->Draw("x",Form("x<%f&&x>%f&&y==1",-p_deadtime,-p_timerange),"goff");
+    Double_t n2ngate=tree->Draw("x",Form("x<%f&&x>%f&&y==2",-p_deadtime,-p_timerange),"goff");
+    nbkg1->setVal(n1ngate/nall);
+    nbkg1->setMax(n1ngate/nall+n1ngate/nall*nsigma);
+    nbkg1->setMin(n1ngate/nall-n1ngate/nall*nsigma);
+    nbkg1->setError(n1ngate/nall*sqrt(1/n1ngate+1/nall));
 
-    // P e r f o r m   f i t s   i n   i n d i v i d u a l   s i d e b a n d   r e g i o n s
-    // -------------------------------------------------------------------------------------
+    nbkg2->setVal(n2ngate/n1ngate);
+    nbkg2->setMax(n2ngate/n1ngate+n2ngate/n1ngate*nsigma);
+    nbkg2->setMin(n2ngate/n1ngate-n2ngate/n1ngate*nsigma);
+    nbkg2->setError(n2ngate/n1ngate*sqrt(1/n2ngate+1/n1ngate));
 
-
-    modelext.fitTo(*data,Extended(),NumCPU(8),Save()) ;
-    delete data;
-    delete x;
-    delete y;
+    nsig->setVal(nall);
+    nsig->setMax(nall+nall*nsigma);
+    nsig->setMin(nall-nall*nsigma);
+    nsig->setError(sqrt(nall));
     f->Close();
 }
 void getbackgroundcheck(char* infile){
@@ -186,13 +176,10 @@ void getbackgroundcheck(char* infile){
     cout<<"bkg2ratio = "<<bkgratio2.getVal()<<" +/- "<<bkgratio2.getError()<<endl;
 }
 
+
 void mlhfitv5(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fitoption=0)
 {
     //! parameters
-    Double_t p_deadtime=0.0001;
-    Double_t p_timerange=10.0;
-    Double_t nsigma=10;
-
     Double_t parms[knri*2+6];
     Double_t parmserr[knri*2+6];
     Double_t parmsmax[knri*2+6];
@@ -222,9 +209,6 @@ void mlhfitv5(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
             cout<<"variable value p"<<i<<"\tval "<<parms[i]<<"\tmin="<<parmsmin[i]<<"\tmax="<<parmsmax[i]<<endl;
         }
     }
-
-
-
 
     //! define discrete variable y
     RooCategory y("y","y");
@@ -284,6 +268,10 @@ void mlhfitv5(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     RooRealVar bkgratio2("bkg2","bkg2 nevt",0.5,0.,1.);
 
     getbackground(&ntotalbkg,&bkgratio1,&bkgratio2,infile);
+    //cout<<"BACKGROUND!"<<endl;
+
+
+    /*
     //! add constrain here!
     RooGaussian* pconstrtotalbkg=new RooGaussian("pconstrtotalbkg","pconstrtotalbkg",ntotalbkg,RooConst(ntotalbkg.getVal()),RooConst(ntotalbkg.getError()));
     RooGaussian* pconstrbkgratio1=new RooGaussian("pconstrbkgratio1","pconstrbkgratio1",bkgratio1,RooConst(bkgratio1.getVal()),RooConst(bkgratio1.getError()));
@@ -291,13 +279,14 @@ void mlhfitv5(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     constronlydecaywbkg.add(*pconstrtotalbkg);
     constronlydecaywbkg.add(*pconstrbkgratio1);
     constronlydecaywbkg.add(*pconstrbkgratio2);
+    */
 
     //! fix negative background
-    /*
+
     ntotalbkg.setConstant(kTRUE);
     bkgratio1.setConstant(kTRUE);
     bkgratio2.setConstant(kTRUE);
-    */
+
 
     //! define p.d.f fit model
     fitF model("signal","signal",x,y,neueff,*p[0],*p[1],*p[2],*p[3],*p[4],*p[5],*p[6],*p[7],*p[8],*p[9],*p[10],*p[11],*p[12],*p[13],*p[14],*p[15],*p[16],*p[17],*p[18],*p[19],*p[20],*p[21],*p[22],*p[23]);
@@ -329,12 +318,15 @@ void mlhfitv5(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
 
 
     RooFitResult* fitres;
+
+
     if (fitoption==1)
-        fitres=final_pdf.fitTo(*data,Extended(),ExternalConstraints(constronlydecay),NumCPU(8),Save()) ;
+        fitres=final_pdf.fitTo(*data,Extended(),ExternalConstraints(constronlydecay),NumCPU(4),Save()) ;
     else if (fitoption==2)
-        fitres=final_pdf.fitTo(*data,Extended(),ExternalConstraints(constronlydecaywbkg),NumCPU(8),Save()) ;
-    else
-        fitres=final_pdf.fitTo(*data,Extended(),NumCPU(16),Save()) ;
+        fitres=final_pdf.fitTo(*data,Extended(),ExternalConstraints(constronlydecaywbkg),NumCPU(4),Save()) ;
+    else if (fitoption==0)
+        fitres=final_pdf.fitTo(*data,Extended(),NumCPU(4),Save()) ;
+
 
      // Print results for comparison
     //r_sb1->Print() ;
@@ -391,7 +383,6 @@ void mlhfitv5(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     cout<<"P1n= "<<p[9]->getVal()<<" +/- "<<p[9]->getError()<<endl;
     cout<<"P2n= "<<p[18]->getVal()<<" +/- "<<p[18]->getError()<<endl;
     cout<<endl;
-
 
     cout<<log(2)/p[0]->getVal()<<"\t"<<log(2)/p[0]->getVal()/p[0]->getVal()*p[0]->getError()<<endl;
     cout<<p[9]->getVal()<<"\t"<<p[9]->getError()<<endl;

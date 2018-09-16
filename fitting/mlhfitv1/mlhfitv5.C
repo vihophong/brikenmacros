@@ -307,7 +307,7 @@ void mlhfitv5(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     TFile *f=TFile::Open(infile);
     TTree* tree;
     f->GetObject("tree",tree);
-    RooDataSet* data=new RooDataSet("data","data",RooArgSet(y,x),Import(*tree)) ;
+    RooDataSet* data=new RooDataSet("data","data",RooArgSet(x,y),Import(*tree)) ;
     data->Print() ;
 
     // P e r f o r m   f i t s   i n   i n d i v i d u a l   s i d e b a n d   r e g i o n s

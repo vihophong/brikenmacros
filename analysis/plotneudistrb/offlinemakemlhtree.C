@@ -53,11 +53,11 @@ void makeoutputfiles(){
         sprintf(tempname,"tempHist%d.root",i);
         fileso[i]=TFile::Open(tempname);
         treeo[i]=(TTree*)fileso[i]->Get("BRIKEN");
-        treeo[i]->Draw(Form("sqrt(x*x+y*y)>>hcont%s(200,0,2000)",(char*)entryname[i]->Data()),"","goff");
+        treeo[i]->Draw(Form("x*x+y*y>>hcont%s(200,0,2000)",(char*)entryname[i]->Data()),"","goff");
 
         sprintf(tempname,"hcont%s",(char*)entryname[i]->Data());
         hists[i]=(TH1F*)gDirectory->Get(tempname);
-        treeo[i]->Draw(Form("sqrt(x2*x2+y2*y2)>>hdisc%s(200,0,2000)",(char*)entryname[i]->Data()),"","goff");
+        treeo[i]->Draw(Form("x2*x2+y2*y2>>hdisc%s(200,0,2000)",(char*)entryname[i]->Data()),"","goff");
         sprintf(tempname,"hdisc%s",(char*)entryname[i]->Data());
         hists2[i]=(TH1F*)gDirectory->Get(tempname);
 
@@ -129,36 +129,56 @@ void makeoutputfiles(){
 
 void plotneudists(char* outfilename,Int_t isnorml=0)
 {
-    Int_t colorcode[]={1,2,3,4,5,6,7,9,11,12,13,14,15,16,17,18,19,20,21,22,23};
+    Int_t colorcode[]={1,2,3,4,5,6,7,9,28,30,38,40,41,42,43,44,45,46,47,48,49};
     TString ri[100];
     Bool_t flag[100];
     Int_t nri=21;
-    //ri[0]="Sn134";
-    //ri[1]="Sn135";
-    ri[0]="1000keV";
-    ri[1]="2000keV";
-    ri[2]="Sn136";
-
-    ri[3]="Sn137";
-    ri[4]="Sn138";
-    ri[5]="3000keV";
-
-    ri[6]="In131";
-    ri[7]="In132";
+    ri[0]="500keV";
+    ri[1]="1000keV";
+    ri[2]="2000keV";
+    ri[3]="3000keV";
+    ri[4]="4000keV";
+    ri[5]="Sn136";
+    ri[6]="Sn137";
+    ri[7]="Sn138";
     ri[8]="In133";
     ri[9]="In134";
     ri[10]="In135";
-    ri[11]="In135";
-    ri[12]="Cd130";
-    ri[13]="Cd130";
-    ri[14]="Cd131";
-    ri[15]="Cd132";
-    ri[16]="Cd133";
-    ri[17]="Cd133";
+    ri[11]="Cd131";
+    ri[12]="Cd132";
+    ri[13]="Cd133";
+
+    ri[14]="Sn135";
+    ri[15]="In131";
+    ri[16]="In132";
+    ri[17]="Cd130";
     ri[18]="Ag130";
     ri[19]="Ag131";
-    //ri[20]="Ag131";
-    ri[20]="Ag131";
+    ri[20]="100keV";
+
+    TString riname[100];
+    riname[0]="500 keV neutrons";
+    riname[1]="1000 keV neutrons";
+    riname[2]="2000 keV neutrons";
+    riname[3]="3000 keV neutrons";
+    riname[4]="4000 keV neutrons";
+    riname[5]="^{136}Sn";
+    riname[6]="^{137}Sn";
+    riname[7]="^{138}Sn";
+    riname[8]="^{133}In";
+    riname[9]="^{134}In";
+    riname[10]="^{135}In";
+    riname[11]="^{131}Cd";
+    riname[12]="^{132}Cd";
+    riname[13]="^{133}Cd";
+
+    riname[14]="^{135}Sn";
+    riname[15]="^{131}In";
+    riname[16]="^{132}In";
+    riname[17]="^{130}Cd";
+    riname[18]="^{130}Ag";
+    riname[19]="^{131}Ag";
+    riname[20]="100 keV neutrons";
 
     flag[0]=true;
     flag[1]=true;
@@ -166,16 +186,16 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
     flag[3]=true;
     flag[4]=true;
     flag[5]=true;
-    flag[6]=false;
-    flag[7]=false;
+    flag[6]=true;
+    flag[7]=true;
     flag[8]=true;
     flag[9]=true;
     flag[10]=true;
-    flag[11]=false;
-    flag[12]=false;
+    flag[11]=true;
+    flag[12]=true;
     flag[13]=false;
-    flag[14]=true;
-    flag[15]=true;
+    flag[14]=false;
+    flag[15]=false;
     flag[16]=false;
     flag[17]=false;
     flag[18]=false;
@@ -256,7 +276,12 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
             hists[i]->SetLineColor(colorcode[ncolor]);
             grhists[i]->SetMarkerColor(colorcode[ncolor]);
             grhists[i]->SetLineColor(colorcode[ncolor]);
-            leg->AddEntry(grhists[i],(char*)ri[i].Data());
+            if (i<5){
+                grhists[i]->SetLineStyle(2);
+                grhists[i]->SetLineWidth(4);
+                grhists[i]->SetMarkerSize(0.1);
+            }
+            leg->AddEntry(grhists[i],(char*)riname[i].Data());
             if (ncolor==0) grhists[i]->Draw("APL");
             else grhists[i]->Draw("PLSAME");
             ncolor++;

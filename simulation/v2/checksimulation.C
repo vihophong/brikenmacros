@@ -72,7 +72,7 @@ void checksimulation()
     Double_t tp1n=0;
     Double_t tp2n=0;
     Double_t tall=0;
-    Double_t mult=0;
+    Int_t mult=0;
     Int_t nflag=0;
     Int_t nrealflag=0;
     Int_t nfwd=0;
@@ -103,7 +103,7 @@ void checksimulation()
 
     TTree* treemlh=new TTree("tree","tree");
     treemlh->Branch("x",&tall,"x/D");
-    treemlh->Branch("y",&mult,"y/D");
+    treemlh->Branch("y",&mult,"y/I");
 
 
 

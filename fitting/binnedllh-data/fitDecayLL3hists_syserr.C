@@ -439,13 +439,12 @@ Double_t fcn_gen_wneutronnuc1(Double_t *x, Double_t *par) {
     //! decay with 1 neutron of parent
     returnval+=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinf1n-randcoinfgt0n);
 
-    /*
     //! decay with 1 neutron of parent
     returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinf1n-randcoinfgt0n);
 
     //! decay with 2 neutron of parent (not random 1 neutron)
     returnval-=neueff*neueff*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf1n;
-    
+    /*
     //! random coinc part
     returnval+=lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf1n;
     
@@ -1590,6 +1589,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    fBcbkg->Write();
 
    fbSBdes->Write();
+   fbSBnuc1->Write();
    fSB->Write();
    fSBc1->Write();
    fSBc2->Write();

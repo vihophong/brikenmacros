@@ -129,14 +129,14 @@ void makeoutputfiles(){
 
 void plotneudists(char* outfilename,Int_t isnorml=0)
 {
-    Int_t colorcode[]={1,2,3,4,5,6,7,9,28,30,38,40,41,42,43,44,45,46,47,48,49};
+    Int_t colorcode[]={37,38,39,40,2,3,4,5,9,28,30,38,40,41,42,43,44,45,46,47,48};
     TString ri[100];
     Bool_t flag[100];
     Int_t nri=21;
-    ri[0]="500keV";
-    ri[1]="1000keV";
-    ri[2]="2000keV";
-    ri[3]="3000keV";
+    ri[0]="3000keV";
+    ri[1]="2000keV";
+    ri[2]="1000keV";
+    ri[3]="500keV";
     ri[4]="4000keV";
     ri[5]="Sn136";
     ri[6]="Sn137";
@@ -157,19 +157,19 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
     ri[20]="100keV";
 
     TString riname[100];
-    riname[0]="500 keV neutrons";
-    riname[1]="1000 keV neutrons";
-    riname[2]="2000 keV neutrons";
-    riname[3]="3000 keV neutrons";
+    riname[0]="3000 keV neutrons";
+    riname[1]="2000 keV neutrons";
+    riname[2]="1000 keV neutrons";
+    riname[3]="500 keV neutrons";
     riname[4]="4000 keV neutrons";
     riname[5]="^{136}Sn";
     riname[6]="^{137}Sn";
-    riname[7]="^{138}Sn";
-    riname[8]="^{133}In";
+    riname[7]="^{138}Sn";//
+    riname[8]="^{133}In";//
     riname[9]="^{134}In";
     riname[10]="^{135}In";
     riname[11]="^{131}Cd";
-    riname[12]="^{132}Cd";
+    riname[12]="^{132}Cd";//
     riname[13]="^{133}Cd";
 
     riname[14]="^{135}Sn";
@@ -184,14 +184,14 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
     flag[1]=true;
     flag[2]=true;
     flag[3]=true;
-    flag[4]=true;
-    flag[5]=true;
-    flag[6]=true;
+    flag[4]=false;
+    flag[5]=false;
+    flag[6]=false;
     flag[7]=true;
     flag[8]=true;
-    flag[9]=true;
-    flag[10]=true;
-    flag[11]=true;
+    flag[9]=false;
+    flag[10]=false;
+    flag[11]=false;
     flag[12]=true;
     flag[13]=false;
     flag[14]=false;
@@ -280,10 +280,21 @@ void plotneudists(char* outfilename,Int_t isnorml=0)
                 grhists[i]->SetLineStyle(2);
                 grhists[i]->SetLineWidth(4);
                 grhists[i]->SetMarkerSize(0.1);
+            }else{
+                grhists[i]->SetMarkerSize(2);
+                grhists[i]->SetLineWidth(2);
             }
             leg->AddEntry(grhists[i],(char*)riname[i].Data());
-            if (ncolor==0) grhists[i]->Draw("APL");
-            else grhists[i]->Draw("PLSAME");
+            if (i<4){
+                grhists[i]->SetFillColor(colorcode[ncolor]);
+
+                if (ncolor==0) grhists[i]->Draw("AB1");
+                else grhists[i]->Draw("B1 SAME");
+            }else{
+                if (ncolor==0) grhists[i]->Draw("APL");
+                else grhists[i]->Draw("PLSAME");
+            }
+
             ncolor++;
         }
     }

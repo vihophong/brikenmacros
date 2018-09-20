@@ -17,7 +17,6 @@
 #define kmaxpar 5
 #define kmaxndecay 10
 #define kmaxpaths 100
-//#define neueff 0.613384
  
 class fitF : public RooAbsPdf {
 public:
@@ -48,8 +47,7 @@ public:
 	      RooAbsReal& _p19,
 	      RooAbsReal& _p20,
 	      RooAbsReal& _p21,
-              RooAbsReal& _p22,
-              RooAbsReal& _p23);
+              RooAbsReal& _p22);
   fitF(const fitF& other, const char* name=0) ;
   virtual TObject* clone(const char* newname) const { return new fitF(*this,newname); }
   inline virtual ~fitF() { }
@@ -82,7 +80,6 @@ protected:
   RooRealProxy p20 ;
   RooRealProxy p21 ;
   RooRealProxy p22 ;
-  RooRealProxy p23 ;
   
   Double_t evaluate() const ;
 

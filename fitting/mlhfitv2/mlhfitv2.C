@@ -26,6 +26,7 @@
 #include "RooCategory.h"
 #include "TRandom3.h"
 #include "TFile.h"
+#include "TTree.h"
 #include "fitF.cxx"
 #include "RooGaussian.h"
 #include "RooConstVar.h"
@@ -195,8 +196,9 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     //! define variables
     RooRealVar x("x","x",p_deadtime,p_timerange) ;
 
-    RooRealVar* p[knri*2+6];
-    for (int i=0;i<knri*2+6;i++){
+    //! define half-life pn values
+    RooRealVar* p[knri*2+5];
+    for (int i=0;i<knri*2+1;i++){
         p[i]=new RooRealVar(Form("p%d",i),Form("p%d",i),parms[i],parmsmin[i],parmsmax[i]);
         if ((fitoption!=1&&fitoption!=2)||parmserr[i]==0){
             if (isparmsfix[i]){
@@ -221,14 +223,6 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     RooRealVar neueff("neueff","neueff",0.68,0.,1.) ;
     neueff.setConstant(kTRUE);
 
-    //! define random coincidence factor
-    /*
-    p[knri*2+5]=new RooRealVar(Form("p%d",knri*2+5),Form("p%d",knri*2+5),parms[knri*2+5],0,1);
-    if (parms[knri*2+5]>=0){
-        p[knri*2+5]->setVal(parms[knri*2+5]);
-        p[knri*2+5]->setConstant(kTRUE);
-    }*/
-
     //! define roogaussian for error propagation
     RooGaussian* pconstr[19];
 
@@ -248,19 +242,42 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     p[19]->setMin(0);
     p[19]->setMax(2);
     p[19]->setVal(1);
-    p[20]->setMin(-1);
-    p[20]->setMax(1);
-    p[20]->setVal(0);
-    p[21]->setMin(-1);
-    p[21]->setMax(1);
-    p[21]->setVal(0);
-    p[22]->setMin(-1);
-    p[22]->setMax(1);
-    p[22]->setVal(0);
     p[19]->setConstant(kTRUE);
+
+
+    //! Set random coindicence factor (for simulation)
+    TFile *f = TFile::Open(infile);
+    char tempchar1[1000];
+    sprintf(tempchar1,"treeb");
+    TTree* treeb=(TTree*) f->Get(tempchar1);
+    treeb->Draw(Form("x>>hdecay(%d,%f,%f)",200,-10.,10.),"","goff");
+    treeb->Draw(Form("x>>hdecay1nbwd(%d,%f,%f)",200,-10.,10.),"nbwd==1","goff");
+    treeb->Draw(Form("x>>hdecaygt0nbwd(%d,%f,%f)",200,-10.,10.),"nbwd>0","goff");
+    treeb->Draw(Form("x>>hdecay2nbwd(%d,%f,%f)",200,-10.,10.),"nbwd==2","goff");
+
+    sprintf(tempchar1,"hdecay");
+    TH1F* hdecay=(TH1F*) gDirectory->Get(tempchar1);
+    TH1F* hdecay2n=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecay1nbwd");
+    TH1F* hdecay1nbwd=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecaygt0nbwd");
+    TH1F* hdecaygt0nbwd=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hdecay2nbwd");
+    TH1F* hdecay2nbwd=(TH1F*) gDirectory->Get(tempchar1);
+
+    Double_t n1nbwd=(Double_t) hdecay1nbwd->GetEntries();
+    Double_t gt0nbwd=(Double_t) hdecaygt0nbwd->GetEntries();
+    Double_t n2nbwd=(Double_t) hdecay2nbwd->GetEntries();
+    Double_t nball=(Double_t) hdecay->GetEntries();
+
+    p[20]->setVal(n1nbwd/nball);
+    p[21]->setVal(gt0nbwd/nball);
+    p[22]->setVal(n2nbwd/nball);
     p[20]->setConstant(kTRUE);
     p[21]->setConstant(kTRUE);
     p[22]->setConstant(kTRUE);
+
+
 
     RooRealVar nsignal("nsignal","number of nsignal events",parms[19],parmsmin[19],parmsmax[19]);
     RooRealVar ntotalbkg("ntotalbkg","number of bkgs events",parms[20],parmsmin[20],parmsmax[20]);
@@ -289,7 +306,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
 
 
     //! define p.d.f fit model
-    fitF model("signal","signal",x,y,neueff,*p[0],*p[1],*p[2],*p[3],*p[4],*p[5],*p[6],*p[7],*p[8],*p[9],*p[10],*p[11],*p[12],*p[13],*p[14],*p[15],*p[16],*p[17],*p[18],*p[19],*p[20],*p[21],*p[22],*p[23]);
+    fitF model("signal","signal",x,y,neueff,*p[0],*p[1],*p[2],*p[3],*p[4],*p[5],*p[6],*p[7],*p[8],*p[9],*p[10],*p[11],*p[12],*p[13],*p[14],*p[15],*p[16],*p[17],*p[18],*p[19],*p[20],*p[21],*p[22]);
 
     fitFbkg bkgmodel("bkgmodel","bkgmodel",x,y,bkgratio1,bkgratio2);
 
@@ -304,7 +321,8 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
 
     // Import integer tree branch as RooCategory
     // will be imported as those are the only defined states
-    TFile *f=TFile::Open(infile);
+
+   //TFile *f=TFile::Open(infile);
     TTree* tree;
     f->GetObject("tree",tree);
     RooDataSet* data=new RooDataSet("data","data",RooArgSet(x,y),Import(*tree)) ;
@@ -325,7 +343,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     else if (fitoption==2)
         fitres=final_pdf.fitTo(*data,Extended(),ExternalConstraints(constronlydecaywbkg),NumCPU(24),Save()) ;
     else if (fitoption==0)
-        fitres=final_pdf.fitTo(*data,Extended(),NumCPU(4),Save()) ;
+        fitres=final_pdf.fitTo(*data,Extended(),NumCPU(24),Save()) ;
 
 
      // Print results for comparison
@@ -364,7 +382,6 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     fout->cd();
     // Make canvas and draw RooPlots
 
-    char tempchar1[500];
     sprintf(tempchar1,"mlhfitresult%s",fitname);
     TCanvas *c = new TCanvas(tempchar1,tempchar1,1200, 800);
     c->Divide(2,3);
@@ -396,7 +413,6 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     ofs<<p[18]->getVal()<<","<<p[18]->getError()<<","<<p_deadtime<<","<<p_timerange<<endl;
 
     cout<<p[18]->getErrorLo()<<" -EEE- "<<p[18]->getErrorHi()<<endl;
-
 }
 
 

@@ -42,8 +42,7 @@ ClassImp(fitF)
                         RooAbsReal& _p19,
                         RooAbsReal& _p20,
                         RooAbsReal& _p21,
-                        RooAbsReal& _p22,
-                        RooAbsReal& _p23) :
+                        RooAbsReal& _p22) :
    RooAbsPdf(name,title), 
    x("x","x",this,_x),
    y("y","y",this,_y),
@@ -70,8 +69,7 @@ ClassImp(fitF)
    p19("p19","p19",this,_p19),
    p20("p20","p20",this,_p20),
    p21("p21","p21",this,_p21),
-   p22("p22","p22",this,_p22),
-   p23("p23","p23",this,_p23)
+   p22("p22","p22",this,_p22)
  { 
  } 
 
@@ -103,8 +101,7 @@ ClassImp(fitF)
    p19("p19",this,other.p19),
    p20("p20",this,other.p20),
    p21("p21",this,other.p21),
-   p22("p22",this,other.p22),
-   p23("p23",this,other.p23)
+   p22("p22",this,other.p22)
  { 
  } 
 
@@ -133,8 +130,6 @@ ClassImp(fitF)
      par0[17]=p17;
      par0[18]=p18;
      par0[19]=p19;
-     par0[20]=p20;
-     par0[21]=p23;
 
      Double_t par1[22];
      par1[0]=p0;
@@ -157,10 +152,10 @@ ClassImp(fitF)
      par1[17]=p17;
      par1[18]=p18;
      par1[19]=p19;
-     par1[20]=p21;
-     par1[21]=p23;
+     par1[20]=p20;
+     par1[21]=p21;
 
-     Double_t par2[22];
+     Double_t par2[23];
      par2[0]=p0;
      par2[1]=p1;
      par2[2]=p2;
@@ -181,16 +176,17 @@ ClassImp(fitF)
      par2[17]=p17;
      par2[18]=p18;
      par2[19]=p19;
-     par2[20]=p22;
-     par2[21]=p23;
+     par2[20]=p20;
+     par2[21]=p21;
+     par2[22]=p22;
 
      Double_t ret=0;
      if (y==0){
-         ret = fcn_gen(x,par0)-fcn_gen_w1neutron(x,par1)-fcn_gen_w2neutron(x,par2)+p20;
+         ret = fcn_gen(x,par0)-fcn_gen_w1neutron(x,par1)-fcn_gen_w2neutron(x,par2);
      }else if (y==1){
-         ret = fcn_gen_w1neutron(x,par1)+p21;
+         ret = fcn_gen_w1neutron(x,par1);
      }else{
-         ret = fcn_gen_w2neutron(x,par2)+p22;
+         ret = fcn_gen_w2neutron(x,par2);
      }
      return ret ;
  } 
@@ -340,12 +336,9 @@ ClassImp(fitF)
      decaymap[11][0]=1;decaymap[11][1]=3;decaymap[11][2]=5;decaymap[11][3]=8;
      nneu[11][0]=1;nneu[11][1]=0;nneu[11][2]=0;
 
+     Double_t randcoinfgt0n=par[knri*2+3];//old is with index 4
+     Double_t randcoinf1n=par[knri*2+2];
 
-     Double_t randcoinf=par[knri*2+3];
-     //Double_t bkg=par[knri*2+2];
-     //if (t<0) return bkg;
-     //Double_t returnval=bkg;
-     //if (t<0) return 0;
      Double_t returnval=0;
 
      Double_t* pn=&par[knri];
@@ -354,13 +347,25 @@ ClassImp(fitF)
      p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
      Double_t N0=par[knri*2+1]/par[0];
 
+     //! Parent nuclei
+     //! decay with 1 neutron of parent
+     returnval+=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*t)*(1-randcoinf1n-randcoinfgt0n);
+     //! decay with 1 neutron of parent
+     returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*t)*(1-randcoinf1n-randcoinfgt0n);
+
+     //! decay with 2 neutron of parent (not random 1 neutron)
+     returnval-=neueff*neueff*p2n[0]*lamda[0]*N0*exp(-lamda[0]*t)*randcoinf1n;
+
+     //! random coinc part
+     returnval+=lamda[0]*N0*exp(-lamda[0]*t)*randcoinf1n;
+
      for (Int_t i=0;i<npaths;i++){
-         returnval+=neueff*pn[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,t)*(1-randcoinf);
+         //! random coinc of beta decay of daugter
+         returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,t)*randcoinf1n;
+         //! decay with 1 neutron part of daugter nuclei
+         returnval+=neueff*pn[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,t)*(1-randcoinf1n-randcoinfgt0n);
      }
 
-     //! decay with neutron part
-     returnval+=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*t)*(1-randcoinf);
-     returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*t)*(1-randcoinf);
      return returnval;
  }
 
@@ -426,12 +431,11 @@ ClassImp(fitF)
      decaymap[11][0]=1;decaymap[11][1]=3;decaymap[11][2]=5;decaymap[11][3]=8;
      nneu[11][0]=1;nneu[11][1]=0;nneu[11][2]=0;
 
+     Double_t randcoinf2n=par[knri*2+4];
+     Double_t randcoinfgt0n=par[knri*2+3];
+     Double_t randcoinf1n=par[knri*2+2];
 
-     Double_t randcoinf=par[knri*2+3];
      //Double_t bkg=par[knri*2+2];
-     //if (t<0) return bkg;
-     //Double_t returnval=bkg;
-     //if (t<0) return 0;
      Double_t returnval=0;
 
      Double_t* pn=&par[knri];
@@ -440,16 +444,26 @@ ClassImp(fitF)
      p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
      Double_t N0=par[knri*2+1]/par[0];
 
-     for (Int_t i=0;i<npaths;i++){
-         returnval+=neueff*pn[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,t)*randcoinf;
-     }
+     //! parent
+     //! decay with 2 neutron from P2n of parent
+     returnval+=neueff*neueff*p2n[0]*lamda[0]*N0*exp(-lamda[0]*t)*(1-randcoinf2n-randcoinfgt0n);
 
-     //! decay with neutron part
-     returnval+=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*t)*randcoinf;
-     returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*t)*randcoinf;
-     //! decay with 2 neutron part
-     returnval+=neueff*neueff*p2n[0]*lamda[0]*N0*exp(-lamda[0]*t);
+     //! random 1n decay of parent
+     returnval+=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*t)*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n);
+     //! decay with 1 neutron from P2n of parent
+     returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*t)*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n);
+
+     //! random coinc part
+     returnval+=lamda[0]*N0*exp(-lamda[0]*t)*randcoinf2n;
+
+     for (Int_t i=0;i<npaths;i++){
+         //! random coinc of beta decay of daugter
+         returnval+=lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,t)*randcoinf2n;
+         //! random 1n decay of daugter
+         returnval+=neueff*pn[decaymap[i][ndecay[i]-1]-1]*lamda[decaymap[i][ndecay[i]-1]-1]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,t)*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n);
+     }
      return returnval;
+
  }
 
 

@@ -212,6 +212,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
         }
     }
 
+
     //! define discrete variable y
     RooCategory y("y","y");
     y.defineType("0neu",0);
@@ -228,7 +229,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
 
     RooArgSet constronlydecay;
     RooArgSet constronlydecaywbkg;
-
+    
     for (int i=0;i<knri*2+1;i++){
         pconstr[i]=new RooGaussian(Form("p%dconstr",i),Form("p%dconstr",i),*p[i],RooConst(parms[i]),RooConst(parmserr[i]));
         if (isparmsfix[i]&&parmserr[i]>0&&(fitoption==1||fitoption==2)){
@@ -238,13 +239,12 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
         }
     }
 
+
     //! fix val for extended model
-    p[19]->setMin(0);
-    p[19]->setMax(2);
-    p[19]->setVal(1);
+    p[19]=new RooRealVar("p19","p19",1,0,2);
     p[19]->setConstant(kTRUE);
 
-
+    cout<<"finished here"<<endl;
     //! Set random coindicence factor (for simulation)
     TFile *f = TFile::Open(infile);
     char tempchar1[1000];
@@ -270,9 +270,10 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     Double_t n2nbwd=(Double_t) hdecay2nbwd->GetEntries();
     Double_t nball=(Double_t) hdecay->GetEntries();
 
-    p[20]->setVal(n1nbwd/nball);
-    p[21]->setVal(gt0nbwd/nball);
-    p[22]->setVal(n2nbwd/nball);
+    p[20]=new RooRealVar("p20","p20",n1nbwd/nball,n1nbwd/nball-1,n1nbwd/nball+1);
+    p[21]=new RooRealVar("p21","p21",gt0nbwd/nball,gt0nbwd/nball-1,gt0nbwd/nball+1);
+    p[22]=new RooRealVar("p22","p22",n2nbwd/nball,n2nbwd/nball-1,n2nbwd/nball+1);
+
     p[20]->setConstant(kTRUE);
     p[21]->setConstant(kTRUE);
     p[22]->setConstant(kTRUE);
@@ -285,7 +286,6 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     RooRealVar bkgratio2("bkg2","bkg2 nevt",0.5,0.,1.);
 
     getbackground(&ntotalbkg,&bkgratio1,&bkgratio2,infile);
-    //cout<<"BACKGROUND!"<<endl;
 
 
     /*

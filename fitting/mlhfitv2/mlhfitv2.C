@@ -323,7 +323,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     if (fitoption==1)
         fitres=final_pdf.fitTo(*data,Extended(),ExternalConstraints(constronlydecay),NumCPU(24),Save()) ;
     else if (fitoption==2)
-        fitres=final_pdf.fitTo(*data,Extended(),ExternalConstraints(constronlydecaywbkg),NumCPU(24),Save()) ;
+        fitres=final_pdf.fitTo(*data,Extended(),ExternalConstraints(constronlydecaywbkg),NumCPU(34),Save()) ;
     else if (fitoption==0)
         fitres=final_pdf.fitTo(*data,Extended(),NumCPU(4),Save()) ;
 

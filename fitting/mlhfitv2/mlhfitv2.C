@@ -241,7 +241,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
 
 
     //! fix val for extended model
-    p[19]=new RooRealVar("p19","p19",1,0,2);
+    p[19]=new RooRealVar("p19","p19",1.,0.,2.);
     p[19]->setConstant(kTRUE);
 
     cout<<"finished here"<<endl;
@@ -412,7 +412,10 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     ofs<<p[9]->getVal()<<","<<p[9]->getError()<<",";
     ofs<<p[18]->getVal()<<","<<p[18]->getError()<<","<<p_deadtime<<","<<p_timerange<<endl;
 
-    cout<<p[18]->getErrorLo()<<" -EEE- "<<p[18]->getErrorHi()<<endl;
+    for (Int_t i=0;i<knri*2+5;i++){
+        cout<<"p"<<i<<" = "<<p[i]->getVal()<<" +/- "<<p[i]->getError()<<endl;
+    }
+
 }
 
 

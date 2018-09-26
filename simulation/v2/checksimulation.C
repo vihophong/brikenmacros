@@ -17,7 +17,7 @@ typedef struct {
     int evt;
 } datatype;
 
-void checksimulation()
+void checksimulation(char* outfile)
 {
     TRandom3 r;
     //! read back data
@@ -68,7 +68,7 @@ void checksimulation()
     readbacktreeneu->SetBranchAddress("neutron",&readbackneu);
 
 
-    TFile* fout=new TFile("outhist.root","RECREATE");
+    TFile* fout=new TFile(outfile,"RECREATE");
     Double_t tp1n=0;
     Double_t tp2n=0;
     Double_t tall=0;

@@ -62,7 +62,7 @@
 using namespace RooFit ;
 using namespace RooStats;
 
-Double_t p_deadtime=0.0001;
+Double_t p_deadtime=0.0;
 Double_t p_timerange=10.0;
 Double_t nsigma=10;
 

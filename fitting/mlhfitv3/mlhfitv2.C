@@ -62,7 +62,7 @@
 using namespace RooFit ;
 using namespace RooStats;
 
-Double_t p_deadtime=0.0;
+Double_t p_deadtime=0.0001;
 Double_t p_timerange=10.0;
 Double_t nsigma=10;
 
@@ -300,9 +300,9 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
 
     //! fix negative background
 
-    //ntotalbkg.setConstant(kTRUE);
-    //bkgratio1.setConstant(kTRUE);
-    //bkgratio2.setConstant(kTRUE);
+    ntotalbkg.setConstant(kTRUE);
+    bkgratio1.setConstant(kTRUE);
+    bkgratio2.setConstant(kTRUE);I
 
 
     //! define p.d.f fit model
@@ -415,7 +415,6 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     for (Int_t i=0;i<knri*2+5;i++){
         cout<<"p"<<i<<" = "<<p[i]->getVal()<<" +/- "<<p[i]->getError()<<endl;
     }
-
 }
 
 

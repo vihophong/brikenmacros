@@ -221,7 +221,8 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
 
     //! define variable for neutron detection efficinecy
     //RooRealVar neueff("neueff","neueff",0.613384,0.,1.) ;
-    RooRealVar neueff("neueff","neueff",0.68,0.,1.) ;
+    //RooRealVar neueff("neueff","neueff",0.68,0.,1.) ;
+    RooRealVar neueff("neueff","neueff",0.62,0.,1.) ;
     neueff.setConstant(kTRUE);
 
     //! define roogaussian for error propagation
@@ -288,7 +289,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     getbackground(&ntotalbkg,&bkgratio1,&bkgratio2,infile);
 
 
-    /*
+    
     //! add constrain here!
     RooGaussian* pconstrtotalbkg=new RooGaussian("pconstrtotalbkg","pconstrtotalbkg",ntotalbkg,RooConst(ntotalbkg.getVal()),RooConst(ntotalbkg.getError()));
     RooGaussian* pconstrbkgratio1=new RooGaussian("pconstrbkgratio1","pconstrbkgratio1",bkgratio1,RooConst(bkgratio1.getVal()),RooConst(bkgratio1.getError()));
@@ -296,13 +297,13 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     constronlydecaywbkg.add(*pconstrtotalbkg);
     constronlydecaywbkg.add(*pconstrbkgratio1);
     constronlydecaywbkg.add(*pconstrbkgratio2);
-    */
+    
 
     //! fix negative background
 
-    //ntotalbkg.setConstant(kTRUE);
-    //bkgratio1.setConstant(kTRUE);
-    //bkgratio2.setConstant(kTRUE);
+    ntotalbkg.setConstant(kTRUE);
+    bkgratio1.setConstant(kTRUE);
+    bkgratio2.setConstant(kTRUE);
 
 
     //! define p.d.f fit model
@@ -349,6 +350,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
      // Print results for comparison
     //r_sb1->Print() ;
 
+    
     // Plot x distribution of data and projection of model on x = Int(dy) model(x,y)
     RooPlot* xframe0 = x.frame(Title("0 neutron fit")) ;
     //modelData->plotOn(xframe0,Cut("y==y::0neu")) ;
@@ -394,7 +396,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     c->Write();
     fout->Close();
     c->Close();
-
+    
     cout<<"\n********************SUMARRY***************"<<endl;
     cout<<"T1/2= "<<log(2)/p[0]->getVal()<<" +/- "<<log(2)/p[0]->getVal()/p[0]->getVal()*p[0]->getError()<<endl;
     cout<<"P1n= "<<p[9]->getVal()<<" +/- "<<p[9]->getError()<<endl;

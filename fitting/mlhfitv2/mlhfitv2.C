@@ -288,7 +288,7 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     getbackground(&ntotalbkg,&bkgratio1,&bkgratio2,infile);
 
 
-    /*
+
     //! add constrain here!
     RooGaussian* pconstrtotalbkg=new RooGaussian("pconstrtotalbkg","pconstrtotalbkg",ntotalbkg,RooConst(ntotalbkg.getVal()),RooConst(ntotalbkg.getError()));
     RooGaussian* pconstrbkgratio1=new RooGaussian("pconstrbkgratio1","pconstrbkgratio1",bkgratio1,RooConst(bkgratio1.getVal()),RooConst(bkgratio1.getError()));
@@ -296,13 +296,13 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     constronlydecaywbkg.add(*pconstrtotalbkg);
     constronlydecaywbkg.add(*pconstrbkgratio1);
     constronlydecaywbkg.add(*pconstrbkgratio2);
-    */
+
 
     //! fix negative background
 
-    //ntotalbkg.setConstant(kTRUE);
-    //bkgratio1.setConstant(kTRUE);
-    //bkgratio2.setConstant(kTRUE);
+    ntotalbkg.setConstant(kTRUE);
+    bkgratio1.setConstant(kTRUE);
+    bkgratio2.setConstant(kTRUE);
 
 
     //! define p.d.f fit model

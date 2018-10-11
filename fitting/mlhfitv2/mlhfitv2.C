@@ -288,12 +288,6 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
 
     getbackground(&ntotalbkg,&bkgratio1,&bkgratio2,infile);
 
-
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> b0ebaaca41f11175c755e2ec099effe570cc2208
     //! add constrain here!
     RooGaussian* pconstrtotalbkg=new RooGaussian("pconstrtotalbkg","pconstrtotalbkg",ntotalbkg,RooConst(ntotalbkg.getVal()),RooConst(ntotalbkg.getError()));
     RooGaussian* pconstrbkgratio1=new RooGaussian("pconstrbkgratio1","pconstrbkgratio1",bkgratio1,RooConst(bkgratio1.getVal()),RooConst(bkgratio1.getError()));
@@ -301,11 +295,6 @@ void mlhfitv2(char* fitname, char* infile,char* parmsfile,char* outfile,Int_t fi
     constronlydecaywbkg.add(*pconstrtotalbkg);
     constronlydecaywbkg.add(*pconstrbkgratio1);
     constronlydecaywbkg.add(*pconstrbkgratio2);
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> b0ebaaca41f11175c755e2ec099effe570cc2208
 
     //! fix negative background
 

@@ -47,10 +47,13 @@ Int_t decaymap[kmaxpaths][kmaxndecay];
 Int_t nneu[kmaxpaths][kmaxndecay];
 Int_t knri=200;
 
+Int_t parms[kmaxparms];
+Int_t parmsmin[kmaxparms];
+Int_t parmsmax[kmaxparms];
+
+
 Bool_t reject=false;
 Double_t rejectrange=0.05;//first 50 ms
-
-Int_t parms[kmaxparms];
 
 typedef struct {
     // idendification
@@ -375,6 +378,9 @@ Double_t fcn_decay(Double_t *x, Double_t *par) {
 
 void fitter()
 {
+
+    //!construct params
+
     Double_t lowerlimit=-10;
     Double_t upperlimit=30;
 
@@ -389,7 +395,6 @@ void fitter()
     //! initializing parameters
     fB->SetParameter(i,parms[i]);
     fB->SetParLimits(i,parmsmin[i],parmsmax[i]);
-
 
 }
 

@@ -47,10 +47,12 @@ Int_t decaymap[kmaxpaths][kmaxndecay];
 Int_t nneu[kmaxpaths][kmaxndecay];
 Int_t knri=200;
 
-Int_t parms[kmaxparms];
-Int_t parmsmin[kmaxparms];
-Int_t parmsmax[kmaxparms];
-
+Double_t parms[kmaxparms];
+Double_t parmserr[kmaxparms];
+Double_t parmsmax[kmaxparms];
+Double_t parmsmin[kmaxparms];
+Int_t isparmsfix[kmaxparms];
+Double_t mcparms[kmaxparms];
 
 Bool_t reject=false;
 Double_t rejectrange=0.05;//first 50 ms
@@ -267,19 +269,40 @@ void makepath(char* inputfile)
             npaths++;
         }
     }
+    // number of ri
     knri=listofdecaymember.size();
-
 
     Int_t k=0;
     // put in parms variable
     for (listofdecaymember_it = listofdecaymember.begin(); listofdecaymember_it != listofdecaymember.end(); listofdecaymember_it++)
     {
-        cout<<"ID = "<<(*listofdecaymember_it)->id<< "\tRI = "<<(*listofdecaymember_it)->name<<(*listofdecaymember_it)->z+(*listofdecaymember_it)->n<<" : "<<endl;
-        cout<<"npath="<<(*listofdecaymember_it)->path.size()<<endl;
-        cout<<"nneupath="<<(*listofdecaymember_it)->nneupath.size()<<endl;
+        parms[k]=(*listofdecaymember_it)->decay_lamda;
+        parms[knri+k]=(*listofdecaymember_it)->decay_p1n;
+        parms[knri*2+k]=(*listofdecaymember_it)->decay_p2n;
+
+
+        parmserr[k]=(*listofdecaymember_it)->decay_lamdaerr;
+        parmserr[knri+k]=(*listofdecaymember_it)->decay_p1nerr;
+        parmserr[knri*2+k]=(*listofdecaymember_it)->decay_p2nerr;
+
+        parmsmin[k]=(*listofdecaymember_it)->decay_lamdalow;
+        parmsmin[knri+k]=(*listofdecaymember_it)->decay_p1nlow;
+        parmsmin[knri*2+k]=(*listofdecaymember_it)->decay_p2nlow;
+
+        parmsmax[k]=(*listofdecaymember_it)->decay_lamdaup;
+        parmsmax[knri+k]=(*listofdecaymember_it)->decay_p1nup;
+        parmsmax[knri*2+k]=(*listofdecaymember_it)->decay_p2nup;
+
+        isparmsfix[k]=(*listofdecaymember_it)->is_decay_lamda_fix;
+        isparmsfix[knri+k]=(*listofdecaymember_it)->is_decay_p1n_fix;
+        isparmsfix[knri*2+k]=(*listofdecaymember_it)->is_decay_p2n_fix;
         k++;
     }
 
+    for (Int_t i=0;i<knri*3;i++){
+        cout<<"parms "<<i<<" : ";
+        cout<<parms[i]<<"\t"<<parmserr[i]<<"\t"<<parmsmin[i]<<"\t"<<parmsmax[i]<<"\t"<<isparmsfix[i]<<endl;
+    }
 
     /*
     for (Int_t i=0;i<npaths;i++){
@@ -290,6 +313,7 @@ void makepath(char* inputfile)
         cout<<endl;
     }
     */
+
 
 
 
@@ -351,15 +375,14 @@ Double_t corefcn(Int_t ndecay,Int_t* decaymap,Int_t* nneu, Double_t* b1n,Double_
 
 //! Global function
 Double_t fcn_decay(Double_t *x, Double_t *par) {
-    Double_t bkg=par[knri*2+2];
+    Double_t bkg=par[knri*3+1];
     if (x[0]<0) return bkg;
     Double_t returnval=bkg;
 
     Double_t* pn=&par[knri];
     Double_t* lamda=par;
-    Double_t p2n[knri]={0.,0.,0.,0.,0.,0.,0.,0.,0.};
-    p2n[0]=par[knri*2];//special for p2n of parrent, to be develope later
-    Double_t N0=par[knri*2+1]/par[0];
+    Double_t* p2n=&par[knri*2];
+    Double_t N0=par[knri*3]/par[0];
 
     //! Parent nuclei
     returnval+=lamda[0]*N0*exp(-lamda[0]*x[0]);
@@ -379,22 +402,22 @@ Double_t fcn_decay(Double_t *x, Double_t *par) {
 void fitter()
 {
 
-    //!construct params
+    //! construct params
 
     Double_t lowerlimit=-10;
     Double_t upperlimit=30;
 
     makepath("testinput.txt");
     //! define function
-    TF1* fB=new TF1("fB",fcn_gen,lowerlimit,upperlimit,knri*3+2);
+    TF1* fB=new TF1("fB",fcn_decay,lowerlimit,upperlimit,knri*3+2);
 
     fB->SetNpx(2000);
     fB->SetLineWidth(2);
     fB->SetLineColor(8);
 
     //! initializing parameters
-    fB->SetParameter(i,parms[i]);
-    fB->SetParLimits(i,parmsmin[i],parmsmax[i]);
+    //fB->SetParameter(i,parms[i]);
+    //fB->SetParLimits(i,parmsmin[i],parmsmax[i]);
 
 }
 

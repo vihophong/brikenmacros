@@ -69,8 +69,6 @@ Double_t parmsmin[kmaxparms];
 Int_t isparmsfix[kmaxparms];
 Double_t mcparms[kmaxparms];
 
-Bool_t reject=false;
-Double_t rejectrange=0.05;//first 50 ms
 
 typedef struct {
     // idendification
@@ -319,19 +317,6 @@ void makepath(char* inputfile)
         cout<<parms[i]<<"\t"<<parmserr[i]<<"\t"<<parmsmin[i]<<"\t"<<parmsmax[i]<<"\t"<<isparmsfix[i]<<endl;
     }
 
-    /*
-    for (Int_t i=0;i<npaths;i++){
-        cout<<"path "<<i<<" : ";
-        for (Int_t j=0;j<ndecay[i];j++){
-            cout<<decaymap[i][j]<<"\t";
-        }
-        cout<<endl;
-    }
-    */
-
-
-
-
 /*
     // display information of the decay members
     cout<<"\n\n"<<endl;
@@ -357,85 +342,6 @@ void makepath(char* inputfile)
         cout<<"***************************\n"<<endl;
     }
 */
+
+
 }
-
-//! Global Bateaman function
-Double_t corefcn(Int_t ndecay,Int_t* decaymap,Int_t* nneu, Double_t* b1n,Double_t* b2n,Double_t* lamda,Double_t N0,Double_t t){
-    Double_t fcnret=0;
-
-    Double_t factor1=1.;
-    //only parrent decay p2n
-    for (int i=0;i<ndecay-1;i++){
-        if (nneu[i]==0){
-            factor1=factor1 * (1-b1n[decaymap[i]]-b2n[decaymap[i]])*lamda[decaymap[i]];
-        }else if (nneu[i]==1){
-            factor1=factor1 * b1n[decaymap[i]]*lamda[decaymap[i]];
-        }else{
-            factor1=factor1 * b2n[decaymap[i]]*lamda[decaymap[i]];
-        }
-    }
-
-    Double_t factor2=0;
-    for (int i=0;i<ndecay;i++){
-        Double_t factor2i=exp(-lamda[decaymap[i]]*t);
-        Double_t factor2ij=1;
-        for (int j=0;j<ndecay;j++)
-            if (j!=i) factor2ij=factor2ij*(lamda[decaymap[j]]-lamda[decaymap[i]]);
-        factor2=factor2+factor2i/factor2ij;
-    }
-
-    fcnret=factor1*N0*factor2;
-    return fcnret;
-}
-
-//! Global function
-Double_t fcn_decay(Double_t *x, Double_t *par) {
-    Double_t bkg=par[knri*3+1];
-    if (x[0]<0) return bkg;
-    Double_t returnval=bkg;
-
-    Double_t* pn=&par[knri];
-    Double_t* lamda=par;
-    Double_t* p2n=&par[knri*2];
-    Double_t N0=par[knri*3]/par[0];
-
-    //! Parent nuclei
-    returnval+=lamda[0]*N0*exp(-lamda[0]*x[0]);
-
-    for (Int_t i=0;i<npaths;i++){
-        returnval+=lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0]);
-    }
-
-    //! reject 50 ms bump
-    if (reject && x[0] > 0 && x[0] < rejectrange) {
-       TF1::RejectPoint();
-       return 0;
-    }
-    return returnval;
-}
-
-void fitter()
-{
-    //! construct params
-    Double_t lowerlimit=-10;
-    Double_t upperlimit=30;
-
-    makepath("testinput.txt");
-    //! define function
-    TF1* fB=new TF1("fB",fcn_decay,lowerlimit,upperlimit,knri*3+2);
-
-    fB->SetNpx(2000);
-    fB->SetLineWidth(2);
-    fB->SetLineColor(8);
-
-    //! initializing parameters
-    for (Int_t i=0;i<knri*3;i++){
-        fB->SetParameter(i,parms[i]);
-        fB->SetParLimits(i,parmsmin[i],parmsmax[i]);
-        if (!isparmsfix[i]) fB->FixParameter(i,parms[i]);
-    }
-    fB->SetParameter(knri*3,1000);
-    fB->SetParameter(knri*3+1,2000);
-    fB->Draw();
-}
-

@@ -1,0 +1,17 @@
+# Note should start from #, non-zero upper value indicate varying variable														
+# RI should be in the sequences of increasing Z and decreasing A for each isotropic row														
+#Name	Z	A	Half-life	Abs Error Half-life	lowerHL	upperHL	P1n	Abs Error P1n	lowerP1n	upperP1n	P2n	Abs Error P2n	lowerP2n	upperP2n
+#Parent														
+Cd	48	130	-0.162	0.007	0.05	0.5	-50	0	0	100	-50	0	0	100
+#Z+1														
+In	49	130	0.29	0.02	0.145	0.58	0.93	0.13	0	100	0	0	0	100
+In	49	129	0.611	0.005	0.3055	1.222	0.23	0.07	0	100	0	0	0	100
+In	49	128	0.84	0.06	0.42	1.68	0	0	0	100	0	0	0	100
+#Z+2														
+Sn	50	130	223.2	4.2	111.6	446.4	0	0	0	100	0	0	0	100
+Sn	50	129	133.8	2.4	66.9	267.6	0	0	0	100	0	0	0	100
+Sn	50	128	3544.2	8.4	1772.1	7088.4	0	0	0	100	0	0	0	100
+#Z+3														
+Sb	51	130	2370	48	1185	4740	0	0	0	100	0	0	0	100
+Sb	51	129	15717.6	93.6	7858.8	31435.2	0	0	0	100	0	0	0	100
+

@@ -50,7 +50,7 @@ Double_t fcn_decay(Double_t *x, Double_t *par) {
     //! Parent nuclei
     returnval+=lamda[0]*N0*exp(-lamda[0]*x[0]);
 
-    for (Int_t i=0;i<npaths;i++){
+    for (Int_t i=0;i<npaths;i++){        
         returnval+=lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0]);
     }
 
@@ -77,24 +77,27 @@ Double_t fcn_1ndecay(Double_t *x, Double_t *par) {
     Double_t N0=par[knri*3]/par[0];
 
     //! Parent nuclei
+
+    //! random coinc of beta decay of parent
+    returnval+=lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf1n;
     //! decay with 1 neutron of parent
     returnval+=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinf1n-randcoinfgt0n);
-    //! decay with 1 neutron of parent
+
+    //! decay with 1 neutron of parent from p2n
     returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinf1n-randcoinfgt0n);
-
-
     //! decay with 2 neutron of parent (not random 1 neutron)
     returnval-=neueff*neueff*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf1n;
-
-    //! random coinc part
-    returnval+=lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf1n;
-
 
     for (Int_t i=0;i<npaths;i++){
         //! random coinc of beta decay of daugter
         returnval+=lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*randcoinf1n;
-        //! decay with 1 neutron part of daugter nuclei
+        //! decay with 1 neutron of daugter nuclei
         returnval+=neueff*pn[decaymap[i][ndecay[i]-1]]*lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*(1-randcoinf1n-randcoinfgt0n);
+
+        //! decay with 1 neutron of daugter from p2n
+        returnval+=2*(neueff*(1-neueff))*p2n[decaymap[i][ndecay[i]-1]]*lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*(1-randcoinf1n-randcoinfgt0n);
+        //! decay with 2 neutron of parent (not random 1 neutron)
+        returnval-=neueff*neueff*p2n[decaymap[i][ndecay[i]-1]]*lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*randcoinf1n;
     }
 
 
@@ -126,19 +129,24 @@ Double_t fcn_2ndecay(Double_t *x, Double_t *par) {
     //! decay with 2 neutron from P2n of parent
     returnval+=neueff*neueff*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(1-randcoinf2n-randcoinfgt0n);
 
+    //! random coinc of beta decay of parent
+    returnval+=lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf2n;
     //! random 1n decay of parent
     returnval+=neueff*pn[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n);
-    //! decay with 1 neutron from P2n of parent
+
+    //! decay with 1 neutron from P2n of parent - randomly correlated
     returnval+=2*(neueff*(1-neueff))*p2n[0]*lamda[0]*N0*exp(-lamda[0]*x[0])*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n);
 
-    //! random coinc part
-    returnval+=lamda[0]*N0*exp(-lamda[0]*x[0])*randcoinf2n;
-
     for (Int_t i=0;i<npaths;i++){
+        //! decay with 2 neutron from P2n of daugter
+        returnval+=neueff*neueff*p2n[decaymap[i][ndecay[i]-1]]*lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*(1-randcoinf2n-randcoinfgt0n);
         //! random coinc of beta decay of daugter
         returnval+=lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*randcoinf2n;
         //! random 1n decay of daugter
         returnval+=neueff*pn[decaymap[i][ndecay[i]-1]]*lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n);
+
+        //! decay with 1 neutron from P2n of daugter - randomly correlated
+        returnval+=2*(neueff*(1-neueff))*p2n[decaymap[i][ndecay[i]-1]]*lamda[decaymap[i][ndecay[i]-1]]*corefcn(ndecay[i],decaymap[i],nneu[i],pn,p2n,lamda,N0,x[0])*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n);
     }
 
     //! reject 50 ms bump
@@ -150,13 +158,14 @@ Double_t fcn_2ndecay(Double_t *x, Double_t *par) {
 }
 
 
-void fitter()
+void fitter(char* infile)
 {
     //! construct params
     Double_t lowerlimit=-10;
-    Double_t upperlimit=10;
+    Double_t upperlimit=30;
 
-    makepath("testinput.txt");
+    makepath(infile);
+
     //! Define function without neutron gate
     TF1* fB=new TF1("fB",fcn_decay,lowerlimit,upperlimit,knri*3+2);
     fB->SetNpx(2000);
@@ -231,6 +240,8 @@ void fitter()
     cout<<fSB->Eval(1.)<<endl;
     cout<<fSB2->Eval(1.)<<endl;
 
+    /*
+    TFile* outfile=new TFile("testout.root","recreate");
     TCanvas* c1=new TCanvas("c1","c1",900,1200);
     c1->Divide(1,3);
     c1->cd(1);
@@ -239,5 +250,10 @@ void fitter()
     fSB->Draw();
     c1->cd(3);
     fSB2->Draw();
+    fB->Write();
+    fSB->Write();
+    fSB2->Write();
+    outfile->Close();
+    */
 }
 

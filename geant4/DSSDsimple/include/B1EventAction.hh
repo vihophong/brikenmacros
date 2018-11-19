@@ -62,6 +62,10 @@ class B1EventAction : public G4UserEventAction
 		G4double* x;
 		G4double* y;
 		G4double* z;
+
+        G4double* det_x;
+        G4double* det_y;
+        G4double* det_z;
     G4double fTime[1000];
 		G4double fEdep[1000];
 };

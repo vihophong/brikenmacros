@@ -20,7 +20,7 @@ const Int_t kmaxpar=5;
 const Int_t kmaxndecay=10;
 const Int_t kmaxpaths=100;
 //Double_t neueff=0.66*(100-0.8)/100;
-Double_t neueff=0.62;//changed to 62 %
+Double_t neueff=0.605;//changed to 62 %
 
 Bool_t reject=false;
 Double_t rejectrange=0.05;//first 50 ms
@@ -404,6 +404,8 @@ void fitter()
     cout<<fB->Eval(1.)<<endl;
     cout<<fSB->Eval(1.)<<endl;
     cout<<fSB2->Eval(1.)<<endl;
+
+
 
     TCanvas* c1=new TCanvas("c1","c1",900,1200);
     c1->Divide(1,3);

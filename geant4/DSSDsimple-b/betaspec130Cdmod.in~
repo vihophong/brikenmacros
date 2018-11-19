@@ -1,0 +1,79 @@
+# isotopically
+#
+
+/gps/verbose 0
+/gps/particle e-
+/run/setCut 0.1 mm
+
+
+#position
+/gps/pos/type Point
+/gps/pos/centre 0 0 -4 cm
+#Angle
+/gps/ang/type iso
+
+#
+# Energy
+
+/gps/ene/type Arb
+/gps/hist/type arb
+
+#                Energy (MeV)  Rel. Yield
+#
+/gps/hist/point	0.167	7.98865
+/gps/hist/point	0.334	11.9074
+/gps/hist/point	0.501	16.3749
+/gps/hist/point	0.668	21.2895
+/gps/hist/point	0.835	26.5544
+/gps/hist/point	1.002	32.0778
+/gps/hist/point	1.169	37.7726
+/gps/hist/point	1.336	43.5566
+/gps/hist/point	1.503	49.3524
+/gps/hist/point	1.67	55.0875
+/gps/hist/point	1.837	60.6942
+/gps/hist/point	2.004	66.1097
+/gps/hist/point	2.171	71.2759
+/gps/hist/point	2.338	76.1398
+/gps/hist/point	2.505	80.653
+/gps/hist/point	2.672	84.7721
+/gps/hist/point	2.839	88.4585
+/gps/hist/point	3.006	91.6783
+/gps/hist/point	3.173	94.4027
+/gps/hist/point	3.34	96.6077
+/gps/hist/point	3.507	98.2738
+/gps/hist/point	3.674	99.3869
+/gps/hist/point	3.841	99.9372
+/gps/hist/point	4.008	99.9202
+/gps/hist/point	4.175	99.336
+/gps/hist/point	4.342	98.1895
+/gps/hist/point	4.509	96.4906
+/gps/hist/point	4.676	94.254
+/gps/hist/point	4.843	91.4992
+/gps/hist/point	5.01	88.2506
+/gps/hist/point	5.177	84.5373
+/gps/hist/point	5.344	80.3935
+/gps/hist/point	5.511	75.858
+/gps/hist/point	5.678	70.9746
+/gps/hist/point	5.845	65.7919
+/gps/hist/point	6.012	60.3633
+/gps/hist/point	6.179	54.7471
+/gps/hist/point	6.346	49.0064
+/gps/hist/point	6.513	43.2092
+/gps/hist/point	6.68	37.4283
+/gps/hist/point	6.847	31.7414
+/gps/hist/point	7.014	26.231
+/gps/hist/point	7.181	20.9844
+/gps/hist/point	7.348	16.0938
+/gps/hist/point	7.515	11.6563
+/gps/hist/point	7.682	7.7737
+/gps/hist/point	7.849	4.55278
+/gps/hist/point	8.016	2.10511
+/gps/hist/point	8.183	0.547093
+
+/gps/hist/inter Lin
+#
+# commands below are independent of gps
+#
+
+
+

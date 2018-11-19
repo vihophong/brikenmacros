@@ -2,9 +2,9 @@
 # RI should be in the sequences of increasing Z and decreasing A for each isotropic row														
 #Name	Z	A	Half-life	Abs Error Half-life	lowerHL	upperHL	P1n	Abs Error P1n	lowerP1n	upperP1n	P2n	Abs Error P2n	lowerP2n	upperP2n
 #Parent														
-Cd	48	130	-0.162	0.007	0.05	0.5	-50	0	0	100	-25	0	0	100
+Cd	48	130	-0.162	0.007	0.055	0.269	-50	0	0	100	-50	0	0	100
 #Z+1														
-In	49	130	0.29	0.02	0.145	0.58	0.93	0.13	0	100	50	0	0	100
+In	49	130	0.29	0.02	0.145	0.58	0.93	0.13	0	100	0	0	0	100
 In	49	129	0.611	0.005	0.3055	1.222	0.23	0.07	0	100	0	0	0	100
 In	49	128	0.84	0.06	0.42	1.68	0	0	0	100	0	0	0	100
 #Z+2														

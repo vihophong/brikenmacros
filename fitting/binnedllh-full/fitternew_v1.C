@@ -2,7 +2,7 @@
 
 
 //Double_t neueff=0.66*(100-0.8)/100;
-Double_t neueff=0.62;//changed to 62 %
+Double_t neueff=0.605;//changed to 62 %
 Bool_t reject=false;
 Double_t rejectrange=0.05;//first 50 ms
 
@@ -158,13 +158,16 @@ Double_t fcn_2ndecay(Double_t *x, Double_t *par) {
 }
 
 
-void fitter(char* infile)
-{
+
+void fitter(char* infilename,char* outfilename)
+{    
+
     //! construct params
     Double_t lowerlimit=-10;
     Double_t upperlimit=30;
 
-    makepath(infile);
+    makepath(infilename);
+
 
     //! Define function without neutron gate
     TF1* fB=new TF1("fB",fcn_decay,lowerlimit,upperlimit,knri*3+2);
@@ -240,8 +243,11 @@ void fitter(char* infile)
     cout<<fSB->Eval(1.)<<endl;
     cout<<fSB2->Eval(1.)<<endl;
 
-    /*
-    TFile* outfile=new TFile("testout.root","recreate");
+
+    //!
+
+
+    TFile* outfile=new TFile(outfilename,"recreate");
     TCanvas* c1=new TCanvas("c1","c1",900,1200);
     c1->Divide(1,3);
     c1->cd(1);
@@ -254,6 +260,6 @@ void fitter(char* infile)
     fSB->Write();
     fSB2->Write();
     outfile->Close();
-    */
+
 }
 

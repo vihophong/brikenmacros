@@ -1,0 +1,36 @@
+#include "iostream"
+#include "TH1F.h"
+#include "TF1.h"
+#include "TMath.h"
+
+const Double_t ee=0.511;//electron rest mass energy in MeV
+const Double_t fc=137.036;//fine-structure constant
+Double_t Z=48;//Atomic number
+Double_t Qbeta=8;//Qbeta in MeV
+
+Double_t myFunc(double x) {
+
+    return sqrt(x*x+2*x*ee)*(x+ee)*(Qbeta-x)*(Qbeta-x)*(2.*TMath::Pi()*(Z*(x+ee)*fc/sqrt((x+ee)*(x+ee)-ee*ee)))/(1-exp(-2.*TMath::Pi()*(Z*(x+ee)*fc/sqrt((x+ee)*(x+ee)-ee*ee))));
+}
+
+void genBeta(Double_t startp, Int_t npoints, Double_t fZ, Double_t fQbeta,Double_t maxval=100.)
+{
+    Z=fZ;
+    Qbeta=fQbeta;
+    TF1 *fnc = new TF1("fnc","myFunc(x)",0,Qbeta);
+
+    Double_t normf=maxval/fnc->GetMaximum(0.1,Qbeta);
+
+    TH1F* h1=new TH1F("h1","h1",npoints,0,Qbeta);
+
+    Double_t binw=Qbeta/(Double_t)npoints;
+    Double_t ke=startp;
+    for (int i=0;i<npoints-1;i++){
+
+        Double_t p=fnc->Eval(ke)*normf;
+        cout<<"/gps/hist/point\t"<<ke<<"\t"<<p<<endl;
+        h1->SetBinContent(i+1,p);
+        ke+=binw;
+    }
+    h1->Draw();
+}

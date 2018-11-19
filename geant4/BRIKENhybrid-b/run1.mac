@@ -1,0 +1,20 @@
+/gun/energy 100 eV
+/run/beamOn 10000
+/gun/energy 1 keV
+/run/beamOn 10000
+/gun/energy 10 keV
+/run/beamOn 10000
+/gun/energy 100 keV
+/run/beamOn 10000
+/gun/energy 500 keV
+/run/beamOn 10000
+/gun/energy 1000 keV
+/run/beamOn 10000
+/gun/energy 2000 keV
+/run/beamOn 10000
+/gun/energy 3000 keV
+/run/beamOn 10000
+/gun/energy 4000 keV
+/run/beamOn 10000
+/gun/energy 5000 keV
+/run/beamOn 10000

@@ -93,6 +93,16 @@ void B3RunAction::BeginOfRunAction(const G4Run* run)
   mann->CreateH1("4","distance3pixel", 1000,0,10000);
   mann->CreateH1("5","multiplicity", 100,0,100);
 
+
+  mann->CreateNtuple("BRIKEN","BRIKEN");
+  mann->CreateNtupleDColumn("x");
+  mann->CreateNtupleDColumn("y");
+  mann->CreateNtupleDColumn("multx");
+  mann->CreateNtupleDColumn("multy");
+  mann->CreateNtupleDColumn("E");
+  mann->CreateNtupleDColumn("kE");
+  mann->FinishNtuple();
+
   // Open an output file
 //char temp[50];
 //sprintf(temp,"Hist%d",run->GetRunID());

@@ -48,6 +48,20 @@ B1EventAction::B1EventAction()
     nofTube = detectorConstruction->GetnofTube();
 		detGroup= detectorConstruction->GetDetGroup();
 		tubeGroup= detectorConstruction->GetTubeGroup();
+
+        G4double* xtemp= detectorConstruction->Getx();
+        G4double* ytemp= detectorConstruction->Gety();
+        G4double* ztemp= detectorConstruction->Getz();
+
+        det_x=new G4double[nofTube];
+        det_y=new G4double[nofTube];
+        det_z=new G4double[nofTube];
+
+        for (G4int i=0;i<nofTube;i++){
+            det_x[i]=xtemp[i];
+            det_y[i]=ytemp[i];
+            det_z[i]=ztemp[i];
+        }
 		x=new G4double[nofTube];
 		y=new G4double[nofTube];
 		z=new G4double[nofTube];
@@ -62,6 +76,9 @@ B1EventAction::~B1EventAction()
   delete[] x;
   delete[] y;
   delete[] z;
+    delete[] det_x;
+    delete[] det_y;
+    delete[] det_z;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -103,13 +120,32 @@ void B1EventAction::AddZ(G4int nTube,G4double fZ)
 
 void B1EventAction::EndOfEventAction(const G4Event* event)
 {
-G4AnalysisManager* mann = G4AnalysisManager::Instance();
+
 
   G4PrimaryParticle* primaryParticle = event->GetPrimaryVertex()->GetPrimary();
   G4double ke = primaryParticle->GetKineticEnergy();
 
+
+  G4AnalysisManager* mann = G4AnalysisManager::Instance();
+
   G4int mult=0;
-  G4double dssdedep=0;
+
+  G4double sumexx=0;
+  G4double sumex=0;
+
+  G4double sumeyy=0;
+  G4double sumey=0;
+
+  G4int multx=0;
+  G4int multy=0;
+
+  G4double EX[17];
+  G4double EY[17];
+  for (G4int i=0;i<17;i++){
+      EX[i]=0;
+      EY[i]=0;
+  }
+
   for (G4int i=0;i<nofTube;i++)
 	{
 			if (fEdep[i]>0.)
@@ -132,15 +168,15 @@ G4AnalysisManager* mann = G4AnalysisManager::Instance();
               if (i==147){
                   //mann->FillH1(4,fEdep[i]);
               }
-              if (i<289) {
-                  dssdedep+=fEdep[i];
-                  mult++;
+
+              if (fEdep[i]>100){
+                  EX[(G4int)det_x[i]+8]=fEdep[i];
+                  EY[(G4int)det_y[i]+8]=fEdep[i];
               }
 
-
-			  /*
+              /*
 				mann->FillNtupleDColumn(0,i);
-	  		mann->FillNtupleDColumn(1,detGroup[i]);
+            mann->FillNtupleDColumn(1,detGroup[i]);
 				mann->FillNtupleDColumn(2,tubeGroup[i]);
 				mann->FillNtupleDColumn(3,x[i]);
 				mann->FillNtupleDColumn(4,y[i]);
@@ -149,10 +185,36 @@ G4AnalysisManager* mann = G4AnalysisManager::Instance();
 	  		mann->FillNtupleDColumn(7,fTime[i]);
 	  		mann->FillNtupleDColumn(8,ke/MeV);
 				mann->AddNtupleRow();
-				*/
+                */
 			}
 	}
-   mann->FillH1(4,dssdedep);
+
+  for (G4int i=0;i<17;i++){
+      if (EX[i]>0){
+          sumexx+=EX[i]*i;
+          sumex+=EX[i];
+          multx++;
+      }
+      if (EY[i]>0){
+          sumeyy+=EY[i]*i;
+          sumey+=EY[i];
+          multy++;
+      }
+  }
+
+
+
+    if (sumey>0&&sumex>0){
+        mann->FillNtupleDColumn(0,sumexx/sumex-8);//x
+        mann->FillNtupleDColumn(1,sumeyy/sumey-8);//y
+        mann->FillNtupleDColumn(2,multx);//multiplicity
+        mann->FillNtupleDColumn(3,multy);//multiplicity
+        mann->FillNtupleDColumn(4,sumey);//E
+        mann->FillNtupleDColumn(5,ke/keV);//primary e- kinetic energy
+        mann->AddNtupleRow();
+    }
+
+   mann->FillH1(4,sumey);
    mann->FillH1(5,mult);
 
 

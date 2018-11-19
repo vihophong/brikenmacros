@@ -1,0 +1,51 @@
+/run/verbose 2
+/control/execute vis.mac
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+/vis/drawVolume
+/vis/scene/create
+/vis/scene/add/volume world
+/vis/sceneHandler/attach
+/vis/viewer/zoom 1.4
+/vis/scene/add/trajectories smooth
+/tracking/storeTrajectory 2
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 1
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/scene/endOfEventAction accumulate
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings
+/control/execute exgps.in
+/gps/verbose 0
+/gps/particle neutron
+/gps/pos/type Point
+/gps/pos/centre 0 0 0 cm
+/gps/ang/type iso
+/control/execute runalle.mac
+/gps/ene/type Mono
+/gps/ene/mono 100 eV
+/run/beamOn 1000000
+/vis/scene/notifyHandlers scene-0
+/gps/ene/mono 1 keV
+/run/beamOn 1000000
+/gps/ene/mono 10 keV
+/run/beamOn 1000000
+/gps/ene/mono 100 keV
+/run/beamOn 1000000
+/gps/ene/mono 500 keV
+/run/beamOn 1000000
+/gps/ene/mono 1000 keV
+/run/beamOn 1000000
+/gps/ene/mono 2000 keV
+/run/beamOn 1000000
+/gps/ene/mono 3000 keV
+/run/beamOn 1000000
+/gps/ene/mono 4000 keV
+/run/beamOn 1000000
+/gps/ene/mono 5000 keV
+/run/beamOn 1000000

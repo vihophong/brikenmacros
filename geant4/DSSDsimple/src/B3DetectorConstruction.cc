@@ -609,7 +609,7 @@ G4VPhysicalVolume* B3DetectorConstruction::Construct()
        0.5*moderator_sizeX, 0.5*moderator_sizeY, 0.5*moderator_sizeZ); //its size
   G4LogicalVolume* logicModerator =
     new G4LogicalVolume(solidModerator,          //its solid
-                        Vacuum,         //its material
+                        default_mat,         //its material
                         "ModeratorLogic");            //its name
     // Place Moderator in the world
   G4VPhysicalVolume* physModerator =
@@ -795,7 +795,8 @@ G4LogicalVolume* B3DetectorConstruction::DefineTubeGroup(G4int nTube, G4double H
   // Define Outer(TUBE)
   //
     G4Box* solidHe3Outer =
-      new G4Box("He3out", (1./2.)*mm, (1./2.)*mm, (1./2.)*mm);
+      new G4Box("He3out", (1./2.)*mm, (1./2.)*mm, (1./2.)*mm); // dssd 0.5mm junction
+      //new G4Box("He3out", (10)*mm, (10)*mm, (10)*mm); // dssd single pad
 
     G4LogicalVolume* tubeLogic =
     new G4LogicalVolume(solidHe3Outer,          //its solid

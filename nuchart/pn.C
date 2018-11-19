@@ -16,13 +16,10 @@ void pn(Int_t choice)
   gStyle->SetOptStat(0);
 
   Int_t NumRI;
-  char RI[6];
+
   Int_t nprot;
   Int_t nneut;
   Int_t nmass;
-  Double_t dum1;
-  Double_t dum2;
-  Double_t life;
   Double_t qval;
   Double_t pn0;
   Double_t pn1; 
@@ -47,10 +44,6 @@ void pn(Int_t choice)
   TH2F *hchartP1 = new TH2F("hist1","",185,-0.5,184.5,127,-0.5,126.5);
   TH2F *hchartP2 = new TH2F("hist2","",185,-0.5,184.5,127,-0.5,126.5);
   TH2F *hchartP3 = new TH2F("hist3","",185,-0.5,184.5,127,-0.5,126.5);
-  //  TH2F *hchart = new TH2F("hist","",20,40.5,60.5,15,23.5,38.5);
-  //  TH2F *hchart = new TH2F("hist","",28,60.5,88.5,16,36.5,52.5);
-  //    TH2F *hchart = new TH2F("hist","",36,69.5,105.5,17,45.5,62.5);
-  //  TH2F *hchart = new TH2F("hist","",26,104.5,130.5,20,55.5,75.5);
   
 
   for (Int_t i=0; i<NumRI; i++) {
@@ -493,6 +486,7 @@ void pn(Int_t choice)
 
 
 
+
   ifstream fdat3;
   fdat3.open("Moller_FRDM_tpnff.dat");
 
@@ -500,10 +494,10 @@ void pn(Int_t choice)
     fdat3 >> nprot >> nneut >> qval >> pn0 >> pn1 >> pn2 >> pn3;
     nmass = nneut+nprot;
     //    if (nprot>40 && nprot<52 && nneut>60 && nneut<110) {
-    
+
     pn = pn0*0. + pn1*1. + pn2*2. + pn3*3.;
     //cout << i << " " << pn << endl;
-    
+
     if (pn>0) {
       TArrow ar(nneut,nprot,nneut-pn-1,nprot+1,0.008,"|>");
       if (nneut-pn-1<xrange[0]||nneut-pn-1>xrange[1]||nprot+1<yrange[0]||nprot+1>yrange[1]||nneut<xrange[0]||nneut>xrange[1]||nprot<yrange[0]||nprot>yrange[1]) continue;
@@ -552,7 +546,7 @@ void pn(Int_t choice)
     for (Int_t j=0;j<15;j++) {
       fscanf (pFile,"%10c",tmp);
       if (j==5) beta2=atof(tmp);
-    } 
+    }
 
     deformChartFRDM->Fill(nneut,nprot,beta2);
   }
@@ -560,15 +554,15 @@ void pn(Int_t choice)
   deformChartFRDM->SetMaximum(0.4);
   if (choice==1) deformChartFRDM->Draw("cont1zsame");
   fclose(pFile);
-  
+
   gStyle->SetHatchesLineWidth(5);
   ifstream fdat2;
   fdat2.open("newPn_setting1.txt");
     cout << "New Pn " << endl;
    TH2F *newPn1 = new TH2F("newPn","",185,-0.5,184.5,127,-0.5,126.5);
   for (Int_t i=0; i<98; i++) {
-	  fdat2 >> nprot >> nneut;
-	  newPn1->Fill(nneut,nprot,1);
+          fdat2 >> nprot >> nneut;
+          newPn1->Fill(nneut,nprot,1);
   }
  newPn1->SetFillColor(1);
  //newPn1->SetLineWidth(3.0);
@@ -581,8 +575,8 @@ ifstream fdat5;
     cout << "New Pn " << endl;
    TH2F *newPn2 = new TH2F("newPn","",185,-0.5,184.5,127,-0.5,126.5);
   for (Int_t i=0; i<98; i++) {
-	  fdat5 >> nprot >> nneut;
-	  newPn2->Fill(nneut,nprot,1);
+          fdat5 >> nprot >> nneut;
+          newPn2->Fill(nneut,nprot,1);
   }
  newPn2->SetFillColor(4);
  //newPn2->SetLineWidth(3.0);
@@ -592,23 +586,18 @@ fdat5.close();
 
   ifstream fdat8;
 
-  
-  
+
+
   //fdat8.open("MeasuredPn.txt");
   fdat8.open("overlap2.txt");
   cout << "measured Pn " << endl;
-  
+
   Double_t xx8[50];
   Double_t yy8[50];
-  
+
   for (Int_t i=0; i<15; i++) {
     fdat8 >> yy8[i] >> xx8[i];
-    /*
-	cout << " i=" << i
-	 << " np=" << yy7[i]
-	 << " nn=" << xx7[i]
-	 << endl;
-	 */
+
   }
     TGraph *gr8 = new TGraph(15,xx8,yy8);
   gr8->SetMarkerStyle(29);

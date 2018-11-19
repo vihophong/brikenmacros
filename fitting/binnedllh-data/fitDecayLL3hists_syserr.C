@@ -1216,7 +1216,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
    ROOT::Fit::FitResult result = fitter.Result();
    cout<<"\n*******PRINTING RESULT**********\n"<<endl;
-   //result.Print(std::cout);                                                                                                                                                                               
+   //result.Print(std::cout);
    const Double_t* resultpar=result.GetParams();
    const Double_t* resulterr=result.GetErrors();
    //cout<<"eee"<<resultpar[9]<<endl;
@@ -1234,7 +1234,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
        }
        
        fitter.FitFCN(knri*2+8,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
-       
+
        const Double_t* resultpar=fitter.Result().GetParams();
        const Double_t* resulterr=fitter.Result().GetErrors();
        for (unsigned int i=0;i<knri*2+8;i++){

@@ -1,0 +1,24 @@
+# focused beam
+#
+
+/gps/verbose 0
+/gps/particle e-
+/run/setCut 0.1 mm
+#
+#position
+/gps/pos/type Point
+/gps/pos/centre 0 0 0 cm
+#Angle
+/gps/ang/type iso
+
+#
+# Energy
+/gps/ene/type Mono
+/gps/ene/mono 10 MeV
+
+#
+# commands below are independent of gps
+#
+
+
+

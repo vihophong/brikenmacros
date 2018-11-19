@@ -47,14 +47,17 @@
 #include <sstream>
 #include <string>
 
+
+#include "plainPlot.C"
+
 using namespace std;
 
 
 
 //Global variable for core function
-const Int_t kmaxndecay=100;
-const Int_t kmaxpaths=100;
-const Int_t kmaxparms=500;
+const Int_t kmaxndecay=500;
+const Int_t kmaxpaths=500;
+const Int_t kmaxparms=1000;
 
 Int_t npaths=100;
 Int_t ndecay[kmaxpaths];
@@ -267,8 +270,23 @@ void makepath(char* inputfile)
 
     // pass the listofdecaymember to the old arrays used for global function
     npaths=0;
+
+    Double_t minz=100000;
+    Double_t minn=100000;
+    Double_t maxz=0;
+    Double_t maxn=0;
+
+    Double_t expandZ=3;
+    Double_t expandN=3;
+
     for (listofdecaymember_it = listofdecaymember.begin(); listofdecaymember_it != listofdecaymember.end(); listofdecaymember_it++)
     {
+        if ((*listofdecaymember_it)->z<minz) minz=(*listofdecaymember_it)->z;
+        if ((*listofdecaymember_it)->n<minn) minn=(*listofdecaymember_it)->n;
+
+        if ((*listofdecaymember_it)->z>maxz) maxz=(*listofdecaymember_it)->z;
+        if ((*listofdecaymember_it)->n>maxn) maxn=(*listofdecaymember_it)->n;
+
         for (Int_t i=0;i<(*listofdecaymember_it)->path.size();i++){
             ndecay[npaths]=(*listofdecaymember_it)->path[i].size();
             for (Int_t j=0;j<(*listofdecaymember_it)->path[i].size();j++){
@@ -282,6 +300,81 @@ void makepath(char* inputfile)
             npaths++;
         }
     }
+
+    TCanvas* cc=new TCanvas("cc","",900,700) ;
+    Double_t xrange[2]={minn-expandN,maxn+expandN};
+    Double_t yrange[2]={minz-expandZ,maxz+expandZ};
+    plainPlot(cc,xrange,yrange);
+
+    TLatex latex;
+    latex.SetTextAlign(12);
+    latex.SetTextSize(0.025);
+
+    TArrow arr;
+    arr.SetLineColor(6);
+    arr.SetFillColor(2);
+    // Plot the flow
+    npaths=0;
+    for (listofdecaymember_it = listofdecaymember.begin(); listofdecaymember_it != listofdecaymember.end(); listofdecaymember_it++)
+    {
+        cout<<"********* Go for Isotope "<<(*listofdecaymember_it)->id<<" : "<<(*listofdecaymember_it)->n+(*listofdecaymember_it)->z<<(*listofdecaymember_it)->name<<endl;
+        if ((*listofdecaymember_it)->id==0) latex.DrawLatex((*listofdecaymember_it)->n-0.5,(*listofdecaymember_it)->z,Form("^{%d}%s",(*listofdecaymember_it)->z+(*listofdecaymember_it)->n,(*listofdecaymember_it)->name.Data()));
+        for (Int_t i=0;i<(*listofdecaymember_it)->path.size();i++){
+            Double_t prevz=0;
+            Double_t prevn=0;
+            Double_t previd=0;
+            Double_t prevp1n=0;
+            Double_t prevp2n=0;
+
+            cout<<"row "<<i<<" = ";
+
+
+            Bool_t isplot=true;
+
+            for (Int_t j=0;j<(*listofdecaymember_it)->path[i].size();j++){
+                cout<<(*listofdecaymember_it)->path[i][j]<<"-";
+                //! draw arrow
+                for (listofdecaymember_it2 = listofdecaymember.begin(); listofdecaymember_it2 != listofdecaymember.end(); listofdecaymember_it2++)
+                {
+                    if ((*listofdecaymember_it)->path[i][j]==(*listofdecaymember_it2)->id){
+
+                        Double_t presz=(*listofdecaymember_it2)->z;
+                        Double_t presn=(*listofdecaymember_it2)->n;
+                        Double_t presid=(*listofdecaymember_it2)->id;
+
+
+                        if (prevz+prevn==presz+presn){
+                            if ((1-prevp1n+prevp2n)==0) isplot=false;
+                        }else if(presz+presn==prevz+prevn-1){
+                            if (prevp1n==0) isplot=false;
+                        }else if((presz+presn==prevz+prevn-2)){
+                            if (prevp2n==0) isplot=false;
+                        }
+                         cout<<presz+presn<<(*listofdecaymember_it2)->name<<"\t";
+
+                        if (prevz!=0&&isplot){
+                            latex.DrawLatex((*listofdecaymember_it2)->n-0.5,(*listofdecaymember_it2)->z,Form("^{%d}%s",(*listofdecaymember_it2)->z+(*listofdecaymember_it2)->n,(*listofdecaymember_it2)->name.Data()));
+                            arr.DrawArrow(prevn,prevz,presn,presz,0.01,">");
+                            //! A trick for plotting, draw at the end of each track another arrow
+                            arr.DrawArrow(presn,presz,presn-1,presz+1,0.01,">");
+                        }
+
+                        prevz=presz;
+                        prevn=presn;
+                        prevp1n=(*listofdecaymember_it2)->decay_p1n;
+                        prevp2n=(*listofdecaymember_it2)->decay_p2n;
+                        previd=presid;
+                    }
+                }
+
+            }
+            cout<<endl;
+            npaths++;
+        }
+    }
+    cout<<endl;
+
+
     // number of ri
     knri=listofdecaymember.size();
 

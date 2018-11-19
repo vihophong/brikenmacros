@@ -1,0 +1,93 @@
+/run/verbose 2
+/control/execute vis.mac
+/vis/open OGL 600x600-0+0
+/vis/sceneHandler/create OGL
+/vis/viewer/create ! ! 600x600-0+0
+/vis/viewer/refresh
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+/vis/drawVolume
+/vis/scene/create
+/vis/scene/add/volume world
+/vis/sceneHandler/attach
+/vis/viewer/zoom 1.4
+/vis/scene/add/trajectories smooth
+/tracking/storeTrajectory 2
+/vis/scene/notifyHandlers
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 1
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/scene/endOfEventAction accumulate
+/vis/viewer/set/autoRefresh true
+/vis/viewer/refresh
+/vis/verbose warnings
+/vis/viewer/set/background white
+/vis/viewer/refresh
+/vis/viewer/refresh
+/vis/viewer/set/hiddenEdge 1
+/vis/viewer/refresh
+/vis/viewer/refresh
+/control/execute betaspec130Cd.in
+/gps/verbose 0
+/gps/particle e-
+/run/setCut 0.1 mm
+/gps/pos/type Point
+/gps/pos/centre 0 0 0 cm
+/gps/ang/type iso
+/gps/ene/type Arb
+/gps/hist/type arb
+/gps/hist/point 0.001 7.05144
+/gps/hist/point 0.139542 10.9144
+/gps/hist/point 0.278083 15.3819
+/gps/hist/point 0.416625 20.3431
+/gps/hist/point 0.555167 25.6921
+/gps/hist/point 0.693708 31.3286
+/gps/hist/point 0.83225 37.1577
+/gps/hist/point 0.970792 43.0899
+/gps/hist/point 1.10933 49.0409
+/gps/hist/point 1.24788 54.9319
+/gps/hist/point 1.38642 60.6895
+/gps/hist/point 1.52496 66.2457
+/gps/hist/point 1.6635 71.5378
+/gps/hist/point 1.80204 76.5085
+/gps/hist/point 1.94058 81.106
+/gps/hist/point 2.07913 85.2836
+/gps/hist/point 2.21767 89.0002
+/gps/hist/point 2.35621 92.2201
+/gps/hist/point 2.49475 94.9129
+/gps/hist/point 2.63329 97.0536
+/gps/hist/point 2.77183 98.6225
+/gps/hist/point 2.91038 99.6054
+/gps/hist/point 3.04892 99.9934
+/gps/hist/point 3.18746 99.783
+/gps/hist/point 3.326 98.9762
+/gps/hist/point 3.46454 97.5802
+/gps/hist/point 3.60308 95.6076
+/gps/hist/point 3.74163 93.0765
+/gps/hist/point 3.88017 90.0103
+/gps/hist/point 4.01871 86.4378
+/gps/hist/point 4.15725 82.3931
+/gps/hist/point 4.29579 77.9158
+/gps/hist/point 4.43433 73.0509
+/gps/hist/point 4.57288 67.8485
+/gps/hist/point 4.71142 62.3645
+/gps/hist/point 4.84996 56.6598
+/gps/hist/point 4.9885 50.801
+/gps/hist/point 5.12704 44.8599
+/gps/hist/point 5.26558 38.9136
+/gps/hist/point 5.40413 33.0447
+/gps/hist/point 5.54267 27.3413
+/gps/hist/point 5.68121 21.8966
+/gps/hist/point 5.81975 16.8094
+/gps/hist/point 5.95829 12.1839
+/gps/hist/point 6.09683 8.12934
+/gps/hist/point 6.23538 4.76077
+/gps/hist/point 6.37392 2.19838
+/gps/hist/inter Lin
+/run/beamOn 10000
+/vis/scene/notifyHandlers scene-0

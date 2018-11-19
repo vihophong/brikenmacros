@@ -1,0 +1,26 @@
+# isotopically
+#
+
+/gps/verbose 0
+/gps/particle e-
+/run/setCut 0.1 mm
+
+
+#position
+/gps/pos/type Point
+/gps/pos/centre 0 0 0 cm
+#Angle
+/gps/ang/type iso
+
+#
+# Energy
+/gps/ene/type Gauss
+/gps/ene/mono 500 keV
+/gps/ene/sigma 1 keV
+
+#
+# commands below are independent of gps
+#
+
+
+

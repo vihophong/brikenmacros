@@ -38,6 +38,8 @@
 #include "G4RunManager.hh"
 #include "G4LogicalVolume.hh"
 
+#include "Analysis.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 B1SteppingAction::B1SteppingAction(B1EventAction* eventAction)
@@ -64,6 +66,8 @@ void B1SteppingAction::UserSteppingAction(const G4Step* step)
     nofTube = detectorConstruction->GetnofTube();   
   }
 
+  //G4AnalysisManager* mann = G4AnalysisManager::Instance();
+
 
   G4String volumeName = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName();
   G4ThreeVector firePos=step->GetPreStepPoint()->GetPosition();
@@ -72,12 +76,14 @@ void B1SteppingAction::UserSteppingAction(const G4Step* step)
 	G4double edepStep = step->GetTotalEnergyDeposit();
   // collect Global time in this pre step
 	if (edepStep>0.){
-		G4double timeinStep = step->GetPreStepPoint()->GetGlobalTime();
+        G4double timeinStep = step->GetPreStepPoint()->GetGlobalTime();
         fEventAction->AddTime(volumenum,timeinStep/ns);
 		fEventAction->AddEdep(volumenum,edepStep/keV);
-		fEventAction->AddX(volumenum,firePos.x()/cm);
-		fEventAction->AddY(volumenum,firePos.y()/cm);
-		fEventAction->AddZ(volumenum,firePos.z()/cm);
+        fEventAction->AddX(volumenum,firePos.x()/cm);
+        fEventAction->AddY(volumenum,firePos.y()/cm);
+        fEventAction->AddZ(volumenum,firePos.z()/cm);
+
+
     }
 
 }

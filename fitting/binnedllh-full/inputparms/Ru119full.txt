@@ -1,0 +1,26 @@
+# Note should start from #, non-zero upper value indicate varying variable, half-life is in second														
+# RI should be in the sequences of increasing Z and decreasing A for each isotropic row														
+#TimeToSec	1year	31556900	1day	86400	1hour	3600	1Min	60						
+#Name	Z	A	Half-life	Abs Error Half-life	lowerHL	upperHL	P1n	Abs Error P1n	lowerP1n	upperP1n	P2n	Abs Error P2n	lowerP2n	upperP2n
+#Parent														
+Ru	44	119	-0.0695	0.002	0.005	0.2	-50	0	0	100	0	0	0	100
+#Z+1														
+Rh	45	119	0.171	0.018	0.0855	0.342	6.4	1.6	0	100	0	0	0	100
+Rh	45	118	0.266	0.022	0.133	0.532	3.1	1.4	0	100	0	0	0	100
+#Z+2														
+Pd	46	119	0.92	0.01	0.46	1.84	0	0	0	100	0	0	0	100
+Pd	46	118	1.9	0.1	0.95	3.8	0	0	0	100	0	0	0	100
+Pd	46	117	4.3	0.3	2.15	8.6	0	0	0	100	0	0	0	100
+#Z+3														
+Ag	47	119	6	0.5	3	12	0	0	0	100	0	0	0	100
+Ag	47	118	3.76	0.15	1.88	7.52	0	0	0	100	0	0	0	100
+Ag	47	117	72.8	2	36.4	145.6	0	0	0	100	0	0	0	100
+#Z+4														
+Cd	48	119	161.4	1.2	80.7	322.8	0	0	0	100	0	0	0	100
+Cd	48	118	3018	12	1509	6036	0	0	0	100	0	0	0	100
+Cd	48	117	8964	144	4482	17928	0	0	0	100	0	0	0	100
+#Z+5														
+In	49	119	144	6	72	288	0	0	0	100	0	0	0	100
+In	49	118	5	0.5	2.5	10	0	0	0	100	0	0	0	100
+In	49	117	2592	18	1296	5184	0	0	0	100	0	0	0	100
+

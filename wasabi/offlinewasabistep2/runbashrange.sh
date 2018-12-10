@@ -1,0 +1,9 @@
+listfile=list/listwasabi$1to$2.txt
+>  $listfile
+for i in `seq $1 $2`;
+do
+    ./runbash.sh $i >> $listfile
+done 
+
+./dosort.sh $listfile bigrips/run$3.root rootfiles/mergedbrips$3.root
+

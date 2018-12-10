@@ -1,0 +1,2 @@
+beam/beamrun06007.root
+beam/beamrun06008.root

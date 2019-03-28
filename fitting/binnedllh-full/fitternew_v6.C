@@ -17,7 +17,7 @@ Double_t neueff_mean=0.605;
 Double_t neueff_err=0.053;
 
 Bool_t reject=false;
-Double_t rejectrange=0.01;//first 10 ms
+Double_t rejectrange=0.075;//first 10 ms
 
 //! Global Bateaman function
 Double_t corefcn(Int_t ndecay,Int_t* decaymap,Int_t* nneu, Double_t* b1n,Double_t* b2n,Double_t* lamda,Double_t N0,Double_t t){
@@ -424,8 +424,12 @@ void mc(TRandom3* rseed)
 }
 
 
-void fitter(char* infilename,char* parmsfilename,char* outfilename,Int_t ninterations=0,Int_t rebin=1)
+void fitter(char* infilename,char* parmsfilename,char* outfilename,Int_t ninterations=0,Int_t rebin=1,Double_t neutronefficiency=0.605,Double_t neutronefficiency_err=0.053)
 {
+    neueff=neutronefficiency;
+    neueff_mean=neutronefficiency;
+    neueff_err=neutronefficiency_err;
+
     Double_t lowerlimit=-10;
     Double_t upperlimit=20;
 
@@ -768,7 +772,7 @@ void fitter(char* infilename,char* parmsfilename,char* outfilename,Int_t nintera
             }
         }
 
-        fitter.FitFCN(knri*3+10,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
+        if (i>10) fitter.FitFCN(knri*3+10,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
 
         const Double_t* resultparmc=fitter.Result().GetParams();
         const Double_t* resulterrmc=fitter.Result().GetErrors();

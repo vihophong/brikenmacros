@@ -9,7 +9,6 @@
 using namespace std;
 
 
-
 void fitpeaksingle(TH1F* hist,Double_t low, Double_t high,Double_t bkglvl,Double_t sigma=2.)
 {
     TString fdef("pol1(0)+gaus(2)");
@@ -44,6 +43,7 @@ void fitpeaksingle(TH1F* hist,Double_t low, Double_t high,Double_t bkglvl,Double
     fgaus->SetParameter(0,ffinal->GetParameter(2));
     fgaus->SetParameter(1,ffinal->GetParameter(3));
     fgaus->SetParameter(2,ffinal->GetParameter(4));
+    cout<<"Chi-square/NDF = "<<fgaus->GetChisquare()/fgaus->GetNDF()<<endl;
     Double_t peakarea2=fgaus->Integral(low,high);
     cout<<"peak area="<<peakarea<<"\t error="<<peakareaerr<<" rel. err="<<peakareaerr/peakarea<<endl;
 

@@ -1,0 +1,8 @@
+spec/spec1.txt
+spec/spec2.txt
+spec/spec3.txt
+spec/spec4.txt
+spec/spec5.txt
+spec/spec6.txt
+spec/spec7.txt
+spec/spec8.txt

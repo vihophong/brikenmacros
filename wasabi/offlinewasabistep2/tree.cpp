@@ -212,17 +212,28 @@ void tree::GetPosMax()
         data->Tfast=0;
         data->x=xmaxex;
         data->y=ymaxey;
-        data->EX=ex;
-        data->EY=ey;
-        data->E=(ex+ey)/2;
+
+        data->EX=maxex;
+        data->EY=maxey;
+        data->E=(maxex+maxey)/2;
+
+        //data->EX=ex;
+        //data->EY=ey;
+        //data->E=(ex+ey)/2;
+
         data->z=z;
         data->nx=nx;
         data->ny=ny;
         data->nz=0;
         data->ID=fid;
         AddRecoData(data);
-        dssd_EX[z]=ex;
-        dssd_EY[z]=ey;
+
+        dssd_EX[z]=maxex;
+        dssd_EY[z]=maxey;
+
+        //dssd_EX[z]=ex;
+        //dssd_EY[z]=ey;
+
         dssd_NX[z]=nx;
         dssd_NY[z]=ny;
     }

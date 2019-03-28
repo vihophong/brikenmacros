@@ -1,0 +1,8 @@
+spec/spec1ba.txt
+spec/spec2ba.txt
+spec/spec3ba.txt
+spec/spec4ba.txt
+spec/spec5ba.txt
+spec/spec6ba.txt
+spec/spec7ba.txt
+spec/spec8ba.txt

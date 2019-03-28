@@ -1,0 +1,62 @@
+{
+//////////////////////////////////////////////////////////
+//   This file has been automatically generated 
+//     (Tue Dec 18 12:25:35 2018 by ROOT version6.08/00)
+//   from TChain group1/
+//////////////////////////////////////////////////////////
+
+
+//Reset ROOT and connect tree file
+   gROOT->Reset();
+
+#ifdef SINGLE_TREE
+   // The following code should be used if you want this code to access
+   // a single tree instead of a chain
+   TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("Memory Directory");
+   if (!f) {
+      f = new TFile("Memory Directory");
+   }
+    f->GetObject("group1",tree);
+
+#else // SINGLE_TREE
+
+   // The following code should be used if you want this code to access a chain
+   // of trees.
+   TChain *group1 = new TChain("group1","");
+   group1->Add("preparation/prerun00042.root/group1");
+   group1->Add("preparation/prerun00043.root/group1");
+   group1->Add("preparation/prerun00044.root/group1");
+#endif // SINGLE_TREE
+
+//Declaration of leaves types
+   Int_t           evt[128];
+   Double_t        dgtz_e[128];
+   Double_t        dgtz_bl[128];
+   Int_t           dgtz_ch[128];
+   UShort_t        dgtz_nsample[128];
+   ULong64_t       dgtz_ts[128];
+   UShort_t        dgtz_waveform[128][300];
+   UShort_t        dgtz_sample[128][300];
+
+   // Set branch addresses.
+   group1->SetBranchAddress("evt",evt);
+   group1->SetBranchAddress("dgtz_e",dgtz_e);
+   group1->SetBranchAddress("dgtz_bl",dgtz_bl);
+   group1->SetBranchAddress("dgtz_ch",dgtz_ch);
+   group1->SetBranchAddress("dgtz_nsample",dgtz_nsample);
+   group1->SetBranchAddress("dgtz_ts",dgtz_ts);
+   group1->SetBranchAddress("dgtz_waveform",dgtz_waveform);
+   group1->SetBranchAddress("dgtz_sample",dgtz_sample);
+
+//     This is the loop skeleton
+//       To read only selected branches, Insert statements like:
+// group1->SetBranchStatus("*",0);  // disable all branches
+// TTreePlayer->SetBranchStatus("branchname",1);  // activate branchname
+
+   Long64_t nentries = group1->GetEntries();
+
+   Long64_t nbytes = 0;
+//   for (Long64_t i=0; i<nentries;i++) {
+//      nbytes += group1->GetEntry(i);
+//   }
+}

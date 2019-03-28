@@ -26,6 +26,8 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
+
+   // Declaration of leaf types
    ULong64_t       decay_evt;
    ULong64_t       decay_ts;
    Double_t        decay_t;
@@ -39,6 +41,7 @@ public :
    Double_t        decay_ion_ey;
    Double_t        decay_zet;
    Double_t        decay_aoq;
+   Double_t        decay_beta;
    Double_t        decay_deltaxy;
    Short_t         decay_z;
    Short_t         decay_ion_z;
@@ -46,21 +49,25 @@ public :
    Short_t         decay_multy;
    Short_t         decay_multz;
    Short_t         decay_ndecay;
-   Short_t         decay_nbeta;
+   Short_t         decay_isbump;
    Int_t           gc_hit;
-   Double_t        gc_E[6];   //[gc_hit]
-   Double_t        gc_T[6];   //[gc_hit]
-   Int_t           gc_ch[6];   //[gc_hit]
+   Double_t        gc_E[9];   //[gc_hit]
+   Double_t        gc_T[9];   //[gc_hit]
+   Int_t           gc_ch[9];   //[gc_hit]
    Int_t           neu_hit;
-   Double_t        neu_E[5];   //[neu_hit]
-   Double_t        neu_T[5];   //[neu_hit]
-   Int_t           neu_ch[5];   //[neu_hit]
-   Double_t        neu_x[5];   //[neu_hit]
-   Double_t        neu_y[5];   //[neu_hit]
-   Int_t           neub_hit;   
+   Double_t        neu_E[13];   //[neu_hit]
+   Double_t        neu_T[13];   //[neu_hit]
+   Int_t           neu_ch[13];   //[neu_hit]
+   Double_t        neu_x[13];   //[neu_hit]
+   Double_t        neu_y[13];   //[neu_hit]
+   Int_t           neub_hit;
+   Double_t        neub_E[16];   //[neub_hit]
+   Double_t        neub_T[16];   //[neub_hit]
+   Int_t           neub_ch[16];   //[neub_hit]
+   Double_t        neub_x[16];   //[neub_hit]
+   Double_t        neub_y[16];   //[neub_hit]
 
    // List of branches
-
    TBranch        *b_decay;   //!
    TBranch        *b_gc_hit;   //!
    TBranch        *b_gc_E;   //!
@@ -73,8 +80,11 @@ public :
    TBranch        *b_neu_x;   //!
    TBranch        *b_neu_y;   //!
    TBranch        *b_neub_hit;   //!
-
-
+   TBranch        *b_neub_E;   //!
+   TBranch        *b_neub_T;   //!
+   TBranch        *b_neub_ch;   //!
+   TBranch        *b_neub_x;   //!
+   TBranch        *b_neub_y;   //!
 
 
    TTree          *fChainImp;   //!pointer to the analyzed TTree or TChain

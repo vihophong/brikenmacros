@@ -1,0 +1,18 @@
+{
+//========= Macro generated from object: gcut_abEvsT/Graph
+//========= by ROOT version6.08/00
+   
+   TCutG *cutg = new TCutG("gcut_abEvsT",7);
+   cutg->SetVarX("ab_T/1000");
+   cutg->SetVarY("ab_E");
+   cutg->SetTitle("Graph");
+   cutg->SetFillColor(1);
+   cutg->SetPoint(0,0.0611639,1571.52);
+   cutg->SetPoint(1,0.0492874,354.947);
+   cutg->SetPoint(2,0.126485,90.9091);
+   cutg->SetPoint(3,3.99228,97.5936);
+   cutg->SetPoint(4,3.93884,1608.29);
+   cutg->SetPoint(5,3.01841,1588.24);
+   cutg->SetPoint(6,0.0611639,1571.52);
+   cutg->Draw("");
+}

@@ -1,0 +1,19 @@
+TFile* f0=new TFile("hist/timeslewhist.root","recreate");
+treeCd129->Draw("gc1_T:gc1_E>>hslewgc1_1(8000,0,4000,300,-1000,5000)","F11L_T<800&&F11L_T>600&&F11R_T<800&&F11R_T>600&&ion_z>=0&&ion_z<5&&gc1_ch==1","colz") 
+treeCd129->Draw("gc1_T:gc1_E>>hslewgc1_2(8000,0,4000,300,-1000,5000)","F11L_T<800&&F11L_T>600&&F11R_T<800&&F11R_T>600&&ion_z>=0&&ion_z<5&&gc1_ch==2","colz") 
+treeCd129->Draw("gc1_T:gc1_E>>hslewgc1_3(8000,0,4000,300,-1000,5000)","F11L_T<800&&F11L_T>600&&F11R_T<800&&F11R_T>600&&ion_z>=0&&ion_z<5&&gc1_ch==3","colz") 
+treeCd129->Draw("gc1_T:gc1_E>>hslewgc1_4(8000,0,4000,300,-1000,5000)","F11L_T<800&&F11L_T>600&&F11R_T<800&&F11R_T>600&&ion_z>=0&&ion_z<5&&gc1_ch==4","colz") 
+treeCd129->Draw("gc2_T:gc2_E>>hslewgc2_1(8000,0,4000,300,-1000,5000)","F11L_T<800&&F11L_T>600&&F11R_T<800&&F11R_T>600&&ion_z>=0&&ion_z<5&&gc2_ch==1","colz") 
+treeCd129->Draw("gc2_T:gc2_E>>hslewgc2_2(8000,0,4000,300,-1000,5000)","F11L_T<800&&F11L_T>600&&F11R_T<800&&F11R_T>600&&ion_z>=0&&ion_z<5&&gc2_ch==2","colz") 
+treeCd129->Draw("gc2_T:gc2_E>>hslewgc2_3(8000,0,4000,300,-1000,5000)","F11L_T<800&&F11L_T>600&&F11R_T<800&&F11R_T>600&&ion_z>=0&&ion_z<5&&gc2_ch==3","colz") 
+treeCd129->Draw("gc2_T:gc2_E>>hslewgc2_4(8000,0,4000,300,-1000,5000)","F11L_T<800&&F11L_T>600&&F11R_T<800&&F11R_T>600&&ion_z>=0&&ion_z<5&&gc2_ch==4","colz") 
+hslewgc1_1->Write();
+hslewgc1_2->Write();
+hslewgc1_3->Write();
+hslewgc1_4->Write();
+hslewgc2_1->Write();
+hslewgc2_2->Write();
+hslewgc2_3->Write();
+hslewgc2_4->Write();
+f0->Close();
+

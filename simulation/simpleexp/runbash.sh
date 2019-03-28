@@ -1,0 +1,11 @@
+#!/bin/bash                                                                                                                                                             
+./simulatedecay.sh parmsIn134_exp_2.txt simparmsCd130_highin.txt outhist505.root
+./simulatedecay.sh parmsIn134_exp_3.txt simparmsCd130_highin.txt outhist5015.root
+./simulatedecay.sh parmsIn134_exp_4.txt simparmsCd130_highin.txt outhist5035.root
+./simulatedecay.sh parmsIn134_exp_5.txt simparmsCd130_highin.txt outhist5045.root
+./simulatedecay.sh parmsIn134_exp_6.txt simparmsCd130_highin.txt outhist4050.root
+./simulatedecay.sh parmsIn134_exp_7.txt simparmsCd130_highin.txt outhist3050.root
+./simulatedecay.sh parmsIn134_exp_8.txt simparmsCd130_highin.txt outhist2050.root
+./simulatedecay.sh parmsIn134_exp_9.txt simparmsCd130_highin.txt outhist1050.root
+
+

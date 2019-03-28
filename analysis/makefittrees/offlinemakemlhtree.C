@@ -12,5 +12,5 @@ void offlinemakemlhtree(char* input,char* riname,char* output)
 {
   gROOT->ProcessLine(".L makemlhtree.C");
   gROOT->ProcessLine(Form("makemlhtree o(\"%s\",\"%s\");",input,riname));
-  gROOT->ProcessLine(Form("o.Loop(\"%s\",1200,1);",output));
+  gROOT->ProcessLine(Form("o.Loop(\"%s\",1200,-1);",output));
 }

@@ -1,0 +1,39 @@
+    Double_t eunorm[]={4541.3,
+                       4592.5,
+                       4563.3,
+                       4525.3,
+                       4555.6,
+                       4471.2,
+                       4568.6237567806,
+                       4553.7
+};
+    Double_t banorm[]={1073.8,
+                       1154.5,
+                       1067,
+                       1105.2,
+                       1105.2,
+                       1096.2,
+                       1106.3725535747,
+                       1107.3
+};
+normalize("eu152.sou","eu152wact_c1.sou",eunorm[0])
+normalize("eu152.sou","eu152wact_c2.sou",eunorm[1])
+normalize("eu152.sou","eu152wact_c3.sou",eunorm[2])
+normalize("eu152.sou","eu152wact_c4.sou",eunorm[3])
+normalize("eu152.sou","eu152wact_c5.sou",eunorm[4])
+normalize("eu152.sou","eu152wact_c6.sou",eunorm[5])
+normalize("eu152.sou","eu152wact_c7.sou",eunorm[6])
+normalize("eu152.sou","eu152wact_c8.sou",eunorm[7])
+
+normalize("ba133.sou","ba133wact_c1.sou",banorm[0],61260.0,4)
+normalize("ba133.sou","ba133wact_c2.sou",banorm[1])
+normalize("ba133.sou","ba133wact_c3.sou",banorm[2])
+normalize("ba133.sou","ba133wact_c4.sou",banorm[3])
+normalize("ba133.sou","ba133wact_c5.sou",banorm[4])
+normalize("ba133.sou","ba133wact_c6.sou",banorm[5])
+normalize("ba133.sou","ba133wact_c7.sou",banorm[6])
+normalize("ba133.sou","ba133wact_c8.sou",banorm[7])
+
+
+
+

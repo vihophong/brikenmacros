@@ -37,12 +37,18 @@ const Int_t kmaxpar=5;
 const Int_t kmaxndecay=10;
 const Int_t kmaxpaths=100;
 //Double_t neueff=0.66*(100-0.8)/100;
+//Double_t neueff=0.605;//changed to 62 %
+//Double_t neueff_mean=0.605;
+//Double_t neueff_err=0.053;
+
 Double_t neueff=0.605;//changed to 62 %
 Double_t neueff_mean=0.605;
 Double_t neueff_err=0.053;
 
+
 Bool_t reject=true;
 Double_t rejectrange=0.075;//first 0.075 ms
+//Double_t rejectrange=0.2;//first 0.075 ms
 
 //! variable
 Int_t npaths=100;
@@ -854,7 +860,11 @@ void mc(TRandom3* rseed)
     }
 }
 
-void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t ninterations, char* outfile,Int_t rebin=1){
+void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t ninterations, char* outfile,Int_t rebin=1,Double_t neutronefficiency=0.62,Double_t neutronefficiency_err=0.053){
+
+    neueff=neutronefficiency;
+    neueff_mean=neutronefficiency;
+    neueff_err=neutronefficiency_err;
 
     Double_t lowerlimit=-10;
     Double_t upperlimit=20;

@@ -1,0 +1,6 @@
+#!/bin/bash                                                                   
+./offlinefitall.sh 131In 0 2 0.6010322837 0.0668559198
+./offlinefitall.sh 132In 0 1 0.6030961625 0.06708236
+./offlinefitall.sh 133In 0 1 0.561863847 0.062560669
+./offlinefitall.sh 134In 0 1 0.5825569476 0.0648293694
+./offlinefitall.sh 135In 0 2 0.584584618 0.0650517394

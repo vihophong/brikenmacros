@@ -67,7 +67,7 @@ void makemlhtree::Loop(char* outfile, Int_t binning, Int_t layer)
       *pz=decay_z;
 
       
-      cout<<decay_z<<endl;
+      //cout<<"aaa"<<decay_z<<endl;
       //if (decay_ey>100){
       if (layer>=0){
 	if (decay_z!=layer) continue;

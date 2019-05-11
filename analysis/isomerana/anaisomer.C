@@ -42,15 +42,21 @@ void anaisomer::MakeTree(char* outfile)
        Double_t ab_T[2000];   //[ab_hit]
        Int_t ab_ch[2000];   //[ab_hit]
 
+
        Long64_t nentries = fChain->GetEntries();
 
        TFile *rootfile = new TFile(outfile,"RECREATE");
-       TTree *ggtree = new TTree("tree","tree");
-
+       TTree *ggtree = new TTree("treeab","treeab");
        ggtree->Branch("ab_hit",&ab_hit,"ab_hit/I");
        ggtree->Branch("ab_E",ab_E,"ab_E[ab_hit]/D");
        ggtree->Branch("ab_T",ab_T,"ab_T[ab_hit]/D");
        ggtree->Branch("ab_ch",ab_ch,"ab_ch[ab_hit]/I");
+
+       TTree *ggtree2 = new TTree("treegc","treegc");
+       ggtree2->Branch("gc_hit",&gc_hit,"gc_hit/I");
+       ggtree2->Branch("gc_E",gc_E,"gc_E[gc_hit]/D");
+       ggtree2->Branch("gc_T",gc_T,"gc_T[gc_hit]/D");
+       ggtree2->Branch("gc_ch",gc_ch,"gc_ch[gc_hit]/I");
 
 
        Long64_t nbytes = 0, nb = 0;
@@ -77,13 +83,13 @@ void anaisomer::MakeTree(char* outfile)
               ioncnt++;
           }
 
-          //! add ab1 to map
+
           for (Int_t i=0;i<ab1_hit;i++){
               if (isomer_F11L_T<800&&isomer_F11L_T>600&&isomer_F11R_T<800&&isomer_F11R_T>600&&isomer_ion_z>=0&&isomer_ion_z<5&&ab1_mult[i]<4){
                   gammaab* ab=new gammaab;
                   ab->ab_E=ab1_E[i];
                   ab->ab_ch=ab1_ch[i];
-                  ab->ab_T=ab1_T[i]-ab1_Tslew[i];
+                  ab->ab_T=ab1_T[i]-ab1_Tslew[i]-isomer_F11R_T+650;
                   abmap.insert(make_pair(ab->ab_T,ab));
               }
           }
@@ -92,9 +98,16 @@ void anaisomer::MakeTree(char* outfile)
                   gammaab* ab=new gammaab;
                   ab->ab_E=ab2_E[i];
                   ab->ab_ch=ab2_ch[i]+4;
-                  ab->ab_T=ab2_T[i]-ab2_Tslew[i];
+                  ab->ab_T=ab2_T[i]-ab2_Tslew[i]-isomer_F11R_T+650;
                   abmap.insert(make_pair(ab->ab_T,ab));
               }
+          }
+          //Gate condition and time correction for gc tree
+          if (isomer_F11L_T<800&&isomer_F11L_T>600&&isomer_F11R_T<800&&isomer_F11R_T>600&&isomer_ion_z>=0&&isomer_ion_z<5){
+              for (Int_t i=0;i<gc_hit;i++){
+                  gc_T[i]=gc_T[i]-gc_Tslew[i]-isomer_F11R_T+650;
+              }
+              ggtree2->Fill();
           }
 
           //! make gamma-gamma matrix
@@ -118,6 +131,7 @@ void anaisomer::MakeTree(char* outfile)
 
        ioncountcontainer.Write("nions");
        ggtree->Write();
+       ggtree2->Write();
        rootfile->Close();
 }
 

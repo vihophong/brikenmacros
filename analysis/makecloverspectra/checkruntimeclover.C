@@ -36,17 +36,22 @@ void checkruntimeclover::Loop()
 
    Long64_t ts_prev=0;
 
+   Long64_t entrystart=0;
+
    Long64_t entrysep=0;
 
 
 
    Long64_t tsbeg=1e18;
+
    Long64_t tsend=0;
 
 
    Long64_t runtime=0;
 
    Long64_t nbytes = 0, nb = 0;
+
+
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
@@ -54,6 +59,10 @@ void checkruntimeclover::Loop()
       if (ts_prev>fts) {
           cout<<"Time jump at entry number "<< jentry<<endl;
           entrysep=jentry;
+      }
+      if ((Long64_t)fts-ts_prev>0.05e12&&jentry<10000&&jentry!=0) {
+          cout<<"Start entry at "<< jentry<<endl;
+          entrystart=jentry;
       }
       ts_prev=fts;
 
@@ -66,8 +75,12 @@ void checkruntimeclover::Loop()
    TH1F* hts=new TH1F("hts","hts",20000,tsbeg-1e9,tsend+1e9);
 
    TH1F* hclover[8];
+
+   Double_t lowlim[]={1,2,3,4,6205,6600,7,5050};
+   Double_t uplim[]={1,2,3,4,6240,6640,7,5150};
+   Double_t crate[]={0,0,0,0,0,0,0,0};
    for (Int_t i=0;i<8;i++){
-       hclover[i]=new TH1F(Form("h%d",i+1),Form("h%d",i+1),4000,0,2000);
+       hclover[i]=new TH1F(Form("h%d",i+1),Form("h%d",i+1),8000,0,8000);
    }
 
    tsbeg=0;
@@ -78,7 +91,9 @@ void checkruntimeclover::Loop()
    Int_t ncounts=0;
 
    Int_t k=0;
-   for (Long64_t jentry=0; jentry<entrysep;jentry++) {
+
+   if (entrysep==0) entrysep=entrystart;
+   for (Long64_t jentry=entrystart; jentry<entrysep;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
@@ -88,7 +103,10 @@ void checkruntimeclover::Loop()
       // if (Cut(ientry) < 0) continue;
 
       for (Int_t i=0;i<8;i++){
-          if ((fclover==i/4+1)&&(fcloverleaf==i%4+1)) hclover[i]->Fill(fen);
+          if ((fclover==i/4+1)&&(fcloverleaf==i%4+1)) {
+              hclover[i]->Fill(fen);
+              crate[i]+=1.;
+          }
       }
       if (k==0) tsbeg=fts;
       tsend=fts;
@@ -113,20 +131,18 @@ void checkruntimeclover::Loop()
       if (ts_prev>fts) cout<<"2. Time jump at entry number "<< jentry<<endl;
       ts_prev=fts;
 
-      // if (Cut(ientry) < 0) continue;
-      //if (fts>4365e9){
-      if (fts>256e9){
-
-          hts->Fill(fts);
-          for (Int_t i=0;i<8;i++){
-              if ((fclover==i/4+1)&&(fcloverleaf==i%4+1)) hclover[i]->Fill(fen);
+      hts->Fill(fts);
+      for (Int_t i=0;i<8;i++){
+          if ((fclover==i/4+1)&&(fcloverleaf==i%4+1)) {
+              hclover[i]->Fill(fen);
+              crate[i]+=1.;
           }
-
-          if (k==0) tsbeg=fts;
-          tsend=fts;
-          k++;
-          ncounts++;
       }
+
+      if (k==0) tsbeg=fts;
+      tsend=fts;
+      k++;
+      ncounts++;
    }
 
    runtime+=tsend-tsbeg;
@@ -149,11 +165,11 @@ void checkruntimeclover::Loop()
        c1->cd(i+1)->SetLogy();
        hclover[i]->Draw();
        hclover[i]->Write();
+
+       cout<<"live time "<<i<<"\t"<<(Double_t)hclover[i]->Integral(hclover[i]->FindBin(lowlim[i]),hclover[i]->FindBin(uplim[i]))/10/runtime*1e9*100<<"%, rate = "<<crate[i]/runtime*1e9<<" cps"<<endl;
    }
    hts->Write();
    runtimes.Write("runtimes");
    fout->Close();
-
-
 
 }

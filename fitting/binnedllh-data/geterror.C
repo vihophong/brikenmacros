@@ -15,7 +15,7 @@ void geterror(Int_t parmsno, Int_t nbins,Double_t range,char* infile,char* rinam
    }
    TTree* tree;
    char treename[500];
-   sprintf(treename,"tree%s",riname);
+   sprintf(treename,"tree");
    f->GetObject(treename,tree);
 
 //Declaration of leaves types
@@ -105,9 +105,9 @@ void geterror(Int_t parmsno, Int_t nbins,Double_t range,char* infile,char* rinam
    plusmarker.DrawMarker(plus,h1->GetBinContent(binplus));
 
    //! Gaussian fitting to the data
-   h1->Fit("gaus","LR");
-   TF1* f1=h1->GetFunction("gaus");
-   cout<<f1->GetParameter(2)<<endl;
    std::ofstream ofs("resulttable.txt", std::ofstream::out | std::ofstream::app);
-   ofs<<riname<<","<<parmsno<<","<<meanval<<","<<meanval-minus<<","<<plus-meanval<<","<<f1->GetParameter(2)<<","<<staterror<<endl;
+   ofs<<riname<<","<<parmsno<<","<<meanval<<","<<meanval-minus<<","<<plus-meanval<<","<<staterror<<endl;
+   //h1->Fit("gaus","LR");
+   //TF1* f1=h1->GetFunction("gaus");
+   //cout<<f1->GetParameter(2)<<endl;
 }

@@ -195,7 +195,7 @@ bool gen2neutronwithbkg(Double_t prob,TRandom3 *rseed,Double_t tsin,datatype &si
     return true;
 }
 
-void simulatedecay(char* decaychainparmsfile, char* simparmsfile)
+void simulatedecay(char* decaychainparmsfile, char* simparmsfile,char* outfile)
 {
 
     Int_t isFixImplantPosition = 0;
@@ -422,23 +422,24 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile)
     p1n9=decayparms[8][1]*100;//pn value of grand-daugter in 1 delayed neutron branch %
 
     cout<<"P2n="<<p2n<<endl;
-   Bool_t enableFlag[17]={true,//1
-                         true,//2
-                         true,//3
-                         true,//4
-                         true,//5
-                         true,//6
-                         true,//7
-                         true,//8
-                         true,//9
-                         true,//10
-                         true,//11
-                         true,//12
-                         true,//13
-                         true,//14
-                         true,//15
-                         true,//16
-                         true};//17
+    Bool_t enableFlag[17]={true,//1
+                          true,//2
+                          true,//3
+                          true,//4
+                          true,//5
+                          true,//6
+                          true,//7
+                          true,//8
+                          true,//9
+                          true,//10
+                          true,//11
+                          true,//12
+                          true,//13
+                          true,//14
+                          true,//15
+                          true,//16
+                          true};//17
+
 
    /*
    for (Int_t i=0;i<17;i++) enableFlag[i]=false;
@@ -473,9 +474,9 @@ void simulatedecay(char* decaychainparmsfile, char* simparmsfile)
 
   betaMap.clear();
   neuMap.clear();
-  TRandom3 *r = new TRandom3();
+  TRandom3 *r = new TRandom3(0);
 
-  TFile* ofile = new TFile("outtree.root","recreate");
+  TFile* ofile = new TFile(outfile,"recreate");
   ofile->cd();
   datatype ion;
   ion.T=0;

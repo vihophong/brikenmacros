@@ -1,0 +1,7 @@
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-bNoAIDA/CMakeFiles/edit_cache.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-bNoAIDA/CMakeFiles/rebuild_cache.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-bNoAIDA/CMakeFiles/list_install_components.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-bNoAIDA/CMakeFiles/install.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-bNoAIDA/CMakeFiles/install/local.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-bNoAIDA/CMakeFiles/B3.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-bNoAIDA/CMakeFiles/BRIKEN.dir

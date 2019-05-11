@@ -1,0 +1,9 @@
+.L ploteffcurve.C
+ploteffcurve("./",1000000)
+grGC->SaveAs("grGcNoAIDA.root")
+
+
+TCanvas *c2c=(TCanvas*) c2->Clone();
+TFile *_file1 = TFile::Open("grGcNoAIDA.root")
+c2c->Draw();
+grGC->Draw("PL same")

@@ -78,10 +78,10 @@ void caleff(char* infilename,char* sinname,char* sinname2,Double_t norm=1.)
     efff=new TF1("fnc_eff",fnc_eff,1,2000,10);
     for (Int_t i=0;i<9;i++){
         efff->SetParameter(i,arr[i]);
-        cout<<arr[i]<<endl;
     }
+    efff->SetParError(3,arr[9]);
     //! normalized factor
-    efff->SetParameter(9,norm);
+    efff->FixParameter(9,norm);
 
     efff->SetNpx(2000);
 
@@ -171,6 +171,7 @@ void ploteffsingle(Int_t nch,Double_t norm=1.){
 void ploteffall(Double_t inpute=1000.){
 
     Double_t norm[8];
+    Double_t relerreff[8];
     TGraphErrors* grall[8];
     TF1* efffall[8];
 
@@ -186,7 +187,10 @@ void ploteffall(Double_t inpute=1000.){
         grall[i]=(TGraphErrors*)gr->Clone();
         efffall[i]=(TF1*)efff->Clone();
     }
-
+    for (Int_t i=0;i<8;i++) {
+        relerreff[i]=exp(efffall[i]->GetParError(3))-1;
+        cout<<"Percentage of Efficiency error on channel "<<i<<" ="<<relerreff[i]*100<<endl;
+    }
 
 
     TCanvas* d4c=new TCanvas("d4","d4",900,700);
@@ -214,7 +218,6 @@ void ploteffall(Double_t inpute=1000.){
         grall[i]->Draw("AP");
         efffall[i]->Draw("same");
     }
-
 
     Double_t sume[2000];
     Double_t sumeff[2000];
@@ -280,7 +283,6 @@ void ploteffall(Double_t inpute=1000.){
                 }
             }
         }
-
     }
 
     cout<<" Summary"<<endl;
@@ -297,15 +299,16 @@ void ploteffall(Double_t inpute=1000.){
 
     grpntsum->Draw("P same");
 
-
-
-
-
-
     Double_t effeval=0;
+    Double_t deffeval=0;
+
     for (Int_t j=0;j<8;j++){
-        effeval+=efffall[j]->Eval(inpute);
+        Double_t abseff=efffall[j]->Eval(inpute);
+        deffeval+=abseff*relerreff[j]*abseff*relerreff[j];
+        effeval+=abseff;
     }
+    deffeval=sqrt(deffeval);
+
 
     TMarker* mr=new TMarker(inpute,effeval,1);
     mr->SetMarkerSize(2.);
@@ -313,13 +316,13 @@ void ploteffall(Double_t inpute=1000.){
     mr->SetMarkerColor(3);
     mr->Draw("same");
 
-    TLatex* tag=new TLatex(inpute+10.,effeval,Form("%10.2f keV, %.2f %%",inpute,effeval));
+    TLatex* tag=new TLatex(inpute+10.,effeval,Form("%10.2f keV, %.2f %% #pm %.2f",inpute,effeval,deffeval));
     tag->SetTextAngle(90);
     tag->SetTextSize(0.025);
     tag->Draw("same");
 
 
-    cout<<"efficiency at "<<inpute<<" is "<<effeval<<endl;
+    cout<<"efficiency at "<<inpute<<" is "<<effeval<<" +/- "<<deffeval<<endl;
 
     TFile* f0=new TFile("hallgccurve.root","recreate");
     grpntsum->SetName("hgc_exp");
@@ -327,6 +330,7 @@ void ploteffall(Double_t inpute=1000.){
     fcnsum->SetName("fgc_fit");
     fcnsum->Write();
     f0->Close();
+
 }
 
 

@@ -1,0 +1,39 @@
+#include <TROOT.h>
+#include <TH1.h>
+#include <TH1F.h>
+#include <TH2.h>
+#include <TFile.h>
+#include <TTree.h>
+#include <TCanvas.h>
+#include <TRandom3.h>
+using namespace std;
+void plotdistr(){
+Double_t hl=0.128;
+    //Double_t hl=0.5;
+    Double_t p1n=50;
+    Double_t p2n=25;
+    //generate histo with background
+    TH1F* hhl=new TH1F("hhl","hhl",5000,0.1,0.2);
+    TH1F* hp1n=new TH1F("hp1n","hp1n",5000,0,1);
+    TH1F* hp2n=new TH1F("hp2n","hp2n",5000,0,1);
+
+    ifstream ifs("out.txt");
+
+    for (Int_t i=0;i<1000;i++){
+        ifs>>hl>>p1n>>p2n;
+        hl=log(2)/hl;
+        hhl->Fill(hl);
+        hp1n->Fill(p1n);
+        hp2n->Fill(p2n);
+    }
+    TCanvas* c1=new TCanvas("c1","c1",900,700);
+    c1->Divide(2,2);
+    c1->cd(1);
+    hhl->Draw();
+    c1->cd(2);
+    hp1n->Draw();
+    c1->cd(3);
+    hp2n->Draw();
+
+}
+

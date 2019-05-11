@@ -1,4 +1,4 @@
-# Install script for directory: /home/phong/projects/briken/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid
+# Install script for directory: /home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,7 +33,7 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/phong/projects/geant4/BRIKENfinal/newWithDSSD/CMakeFiles/CMakeRelink.dir/BRIKEN")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/CMakeRelink.dir/BRIKEN")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -44,5 +44,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/phong/projects/geant4/BRIKENfinal/newWithDSSD/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

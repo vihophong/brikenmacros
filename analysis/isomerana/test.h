@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Fri Mar 15 16:55:26 2019 by ROOT version 6.08/00
-// from TTree treeIn132/treeIn132
-// found on file: rootfilesexp/decay_brips3103.root
+// Wed Apr  3 14:37:19 2019 by ROOT version 6.08/00
+// from TTree treeIn134/treeIn134
+// found on file: /home/phong/briken17/makerootfiles/rootfiles/decay_isomer_wab_slewcorr_gc/decay_brips3107.root
 //////////////////////////////////////////////////////////
 
 #ifndef test_h
@@ -14,84 +14,86 @@
 
 // Header file for the classes stored in the TTree if any.
 
-
-const Int_t kMaxGamma = 2000;
-const Int_t kMaxNeutron = 200;
-
 class test {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
 
-   // Fixed size dimensions of array or collections stored in the TTree if any.
+// Fixed size dimensions of array or collections stored in the TTree if any.
 
-      // Declaration of leaf types
-      ULong64_t       isomer_evt;
-      ULong64_t       isomer_ts;
-      Double_t        isomer_ion_t;
-      Double_t        isomer_ion_x;
-      Double_t        isomer_ion_y;
-      Double_t        isomer_ion_ex;
-      Double_t        isomer_ion_ey;
-      Double_t        isomer_zet;
-      Double_t        isomer_aoq;
-      Double_t        isomer_beta;
-      Double_t        isomer_F11L_T;
-      Double_t        isomer_F11L_E;
-      Double_t        isomer_F11R_T;
-      Double_t        isomer_F11R_E;
-      Double_t        isomer_F7_T;
-      Double_t        isomer_F7_E;
-      Double_t        isomer_veto_T;
-      Double_t        isomer_veto_E;
-      Double_t        isomer_de_T;
-      Double_t        isomer_de_E;
-      Short_t         isomer_ion_z;
-      Short_t         isomer_multx;
-      Short_t         isomer_multy;
-      Short_t         isomer_multz;
-      Int_t           gc_hit;
-   Double_t        gc_E[kMaxGamma];   //[gc_hit]
-   Double_t        gc_T[kMaxGamma];   //[gc_hit]
-   Int_t           gc_ch[kMaxGamma];   //[gc_hit]
+   // Declaration of leaf types
+   ULong64_t       isomer_evt;
+   ULong64_t       isomer_ts;
+   Double_t        isomer_ion_t;
+   Double_t        isomer_ion_x;
+   Double_t        isomer_ion_y;
+   Double_t        isomer_ion_ex;
+   Double_t        isomer_ion_ey;
+   Double_t        isomer_zet;
+   Double_t        isomer_aoq;
+   Double_t        isomer_beta;
+   Double_t        isomer_F11L_T;
+   Double_t        isomer_F11L_E;
+   Double_t        isomer_F11R_T;
+   Double_t        isomer_F11R_E;
+   Double_t        isomer_F7_T;
+   Double_t        isomer_F7_E;
+   Double_t        isomer_veto_T;
+   Double_t        isomer_veto_E;
+   Double_t        isomer_de_T;
+   Double_t        isomer_de_E;
+   Short_t         isomer_ion_z;
+   Short_t         isomer_multx;
+   Short_t         isomer_multy;
+   Short_t         isomer_multz;
+   Int_t           gc_hit;
+   Double_t        gc_E[8];   //[gc_hit]
+   Double_t        gc_T[8];   //[gc_hit]
+   Double_t        gc_Tslew[8];   //[gc_hit]
+   Int_t           gc_ch[8];   //[gc_hit]
    Int_t           gc1_hit;
-   Double_t        gc1_E[kMaxGamma];   //[gc1_hit]
-   Double_t        gc1_T[kMaxGamma];   //[gc1_hit]
-   Int_t           gc1_ch[kMaxGamma];   //[gc1_hit]
+   Double_t        gc1_E[5];   //[gc1_hit]
+   Double_t        gc1_T[5];   //[gc1_hit]
+   Double_t        gc1_Tslew[5];   //[gc1_hit]
+   Int_t           gc1_ch[5];   //[gc1_hit]
    Int_t           gc2_hit;
-   Double_t        gc2_E[kMaxGamma];   //[gc2_hit]
-   Double_t        gc2_T[kMaxGamma];   //[gc2_hit]
-   Int_t           gc2_ch[kMaxGamma];   //[gc2_hit]
+   Double_t        gc2_E[5];   //[gc2_hit]
+   Double_t        gc2_T[5];   //[gc2_hit]
+   Double_t        gc2_Tslew[5];   //[gc2_hit]
+   Int_t           gc2_ch[5];   //[gc2_hit]
    Int_t           ab1_hit;
-   Double_t        ab1_E[kMaxGamma];   //[ab1_hit]
-   Double_t        ab1_T[kMaxGamma];   //[ab1_hit]
-   Double_t        ab1_Tslew[kMaxGamma];   //[ab1_hit]
-   Int_t           ab1_ch[kMaxGamma];   //[ab1_hit]
-   Short_t         ab1_mult[kMaxGamma];   //[ab1_hit]
+   Double_t        ab1_E[2];   //[ab1_hit]
+   Double_t        ab1_T[2];   //[ab1_hit]
+   Double_t        ab1_Tslew[2];   //[ab1_hit]
+   Int_t           ab1_ch[2];   //[ab1_hit]
+   Short_t         ab1_mult[2];   //[ab1_hit]
    Int_t           ab2_hit;
-   Double_t        ab2_E[kMaxGamma];   //[ab2_hit]
-   Double_t        ab2_T[kMaxGamma];   //[ab2_hit]
-   Double_t        ab2_Tslew[kMaxGamma];   //[ab2_hit]
-   Int_t           ab2_ch[kMaxGamma];   //[ab2_hit]
-   Short_t         ab2_mult[kMaxGamma];   //[ab2_hit]
+   Double_t        ab2_E[3];   //[ab2_hit]
+   Double_t        ab2_T[3];   //[ab2_hit]
+   Double_t        ab2_Tslew[3];   //[ab2_hit]
+   Int_t           ab2_ch[3];   //[ab2_hit]
+   Short_t         ab2_mult[3];   //[ab2_hit]
    Int_t           neu_hit;
-   Double_t        neu_E[kMaxNeutron];   //[neu_hit]
-   Double_t        neu_T[kMaxNeutron];   //[neu_hit]
-   Int_t           neu_ch[kMaxNeutron];   //[neu_hit]s
+   Double_t        neu_E[1];   //[neu_hit]
+   Double_t        neu_T[1];   //[neu_hit]
+   Int_t           neu_ch[1];   //[neu_hit]
 
    // List of branches
    TBranch        *b_isomer;   //!
    TBranch        *b_gc_hit;   //!
    TBranch        *b_gc_E;   //!
    TBranch        *b_gc_T;   //!
+   TBranch        *b_gc_Tslew;   //!
    TBranch        *b_gc_ch;   //!
    TBranch        *b_gc1_hit;   //!
    TBranch        *b_gc1_E;   //!
    TBranch        *b_gc1_T;   //!
+   TBranch        *b_gc1_Tslew;   //!
    TBranch        *b_gc1_ch;   //!
    TBranch        *b_gc2_hit;   //!
    TBranch        *b_gc2_E;   //!
    TBranch        *b_gc2_T;   //!
+   TBranch        *b_gc2_Tslew;   //!
    TBranch        *b_gc2_ch;   //!
    TBranch        *b_ab1_hit;   //!
    TBranch        *b_ab1_E;   //!
@@ -129,11 +131,11 @@ test::test(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("rootfilesexp/decay_brips3103.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/home/phong/briken17/makerootfiles/rootfiles/decay_isomer_wab_slewcorr_gc/decay_brips3107.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("rootfilesexp/decay_brips3103.root");
+         f = new TFile("/home/phong/briken17/makerootfiles/rootfiles/decay_isomer_wab_slewcorr_gc/decay_brips3107.root");
       }
-      f->GetObject("treeIn132",tree);
+      f->GetObject("treeIn134",tree);
 
    }
    Init(tree);
@@ -184,14 +186,17 @@ void test::Init(TTree *tree)
    fChain->SetBranchAddress("gc_hit", &gc_hit, &b_gc_hit);
    fChain->SetBranchAddress("gc_E", gc_E, &b_gc_E);
    fChain->SetBranchAddress("gc_T", gc_T, &b_gc_T);
+   fChain->SetBranchAddress("gc_Tslew", gc_Tslew, &b_gc_Tslew);
    fChain->SetBranchAddress("gc_ch", gc_ch, &b_gc_ch);
    fChain->SetBranchAddress("gc1_hit", &gc1_hit, &b_gc1_hit);
    fChain->SetBranchAddress("gc1_E", gc1_E, &b_gc1_E);
    fChain->SetBranchAddress("gc1_T", gc1_T, &b_gc1_T);
+   fChain->SetBranchAddress("gc1_Tslew", gc1_Tslew, &b_gc1_Tslew);
    fChain->SetBranchAddress("gc1_ch", gc1_ch, &b_gc1_ch);
    fChain->SetBranchAddress("gc2_hit", &gc2_hit, &b_gc2_hit);
    fChain->SetBranchAddress("gc2_E", gc2_E, &b_gc2_E);
    fChain->SetBranchAddress("gc2_T", gc2_T, &b_gc2_T);
+   fChain->SetBranchAddress("gc2_Tslew", gc2_Tslew, &b_gc2_Tslew);
    fChain->SetBranchAddress("gc2_ch", gc2_ch, &b_gc2_ch);
    fChain->SetBranchAddress("ab1_hit", &ab1_hit, &b_ab1_hit);
    fChain->SetBranchAddress("ab1_E", ab1_E, &b_ab1_E);

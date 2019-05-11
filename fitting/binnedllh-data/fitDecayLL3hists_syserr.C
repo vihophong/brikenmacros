@@ -46,7 +46,7 @@ Double_t neueff_mean=0.605;
 Double_t neueff_err=0.053;
 
 
-Bool_t reject=true;
+Bool_t reject=false;
 Double_t rejectrange=0.075;//first 0.075 ms
 //Double_t rejectrange=0.2;//first 0.075 ms
 
@@ -860,8 +860,8 @@ void mc(TRandom3* rseed)
     }
 }
 
-void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t ninterations, char* outfile,Int_t rebin=1,Double_t neutronefficiency=0.62,Double_t neutronefficiency_err=0.053){
-
+void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t ninterations, char* outfile,Double_t irejectrange=0.05, Int_t rebin=1,Double_t neutronefficiency=0.62,Double_t neutronefficiency_err=0.053,Double_t nimplants=1){
+    rejectrange=irejectrange;
     neueff=neutronefficiency;
     neueff_mean=neutronefficiency;
     neueff_err=neutronefficiency_err;
@@ -871,7 +871,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     Double_t nsigma=2.;
     Double_t bkgactmaxmin=0.50; //*100% of max min bkg or initial activity
 
-    Double_t plotrange[]={0.05,10.,-2};
+    Double_t plotrange[]={irejectrange,4.,-2};
 
     TRandom3* rseed=new TRandom3;
 
@@ -961,7 +961,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     TH1F* hdecay2nbwd=(TH1F*) gDirectory->Get(tempchar1);
 
 
-    Int_t binning=hdecay->GetNbinsX();
 
     Double_t n1nbwd=(Double_t) hdecay1nbwd->GetEntries();
     Double_t gt0nbwd=(Double_t) hdecaygt0nbwd->GetEntries();
@@ -990,11 +989,17 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    TH1F * hSB = (TH1F*) hdecay1n->Clone();
    TH1F * hSB2 = (TH1F*) hdecay2n->Clone();
 
+   Int_t binning=hdecay->GetNbinsX();
+
 
        
     //! background parameter estimation
-    //! background as average of several first bin
 
+   hdecay->Fit("pol0","LQRE0","goff",lowerlimit,-rejectrange);
+   parms[knri*2+2]=hdecay->GetFunction("pol0")->GetParameter(0);
+   parmserr[knri*2+2]=hdecay->GetFunction("pol0")->GetParError(0);
+   isparmsfix[knri*2+2]=1;
+/*
     Int_t bincnt=0;
     Double_t bkgsum=0;
     for (Int_t i=hdecay->GetXaxis()->FindBin(-5);i<hdecay->GetXaxis()->FindBin(-0.5);i++){
@@ -1005,6 +1010,8 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     parmserr[knri*2+2]=parms[knri*2+2]*bkgactmaxmin;
     parmsmin[knri*2+2]=parms[knri*2+2]-parms[knri*2+2]*bkgactmaxmin;
     parmsmax[knri*2+2]=parms[knri*2+2]+parms[knri*2+2]*bkgactmaxmin;
+*/
+
 
     //activity
     parms[knri*2+1]=hdecay->GetBinContent(hdecay->GetXaxis()->FindBin(rejectrange))-parms[knri*2+2];
@@ -1012,6 +1019,15 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     parmsmin[knri*2+1]=parms[knri*2+1]-parms[knri*2+1]*bkgactmaxmin;
     parmsmax[knri*2+1]=parms[knri*2+1]*2+parms[knri*2+1]*bkgactmaxmin;
 
+
+
+    //! background decay 1n
+
+    hdecay1n->Fit("pol0","LQRE0","goff",lowerlimit,-rejectrange);
+    parms[knri*2+3]=hdecay1n->GetFunction("pol0")->GetParameter(0);
+    parmserr[knri*2+3]=hdecay1n->GetFunction("pol0")->GetParError(0);
+    isparmsfix[knri*2+3]=1;
+    /*
     bincnt=0;
     bkgsum=0;
     for (Int_t i=hdecay1n->GetXaxis()->FindBin(-5);i<hdecay1n->GetXaxis()->FindBin(-0.5);i++){
@@ -1022,7 +1038,14 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     parmserr[knri*2+3]=parms[knri*2+3]*bkgactmaxmin;
     parmsmin[knri*2+3]=parms[knri*2+3]-parms[knri*2+3]*bkgactmaxmin;
     parmsmax[knri*2+3]=parms[knri*2+3]+parms[knri*2+3]*bkgactmaxmin;
+    */
 
+    //! background decay 2n
+    hdecay2n->Fit("pol0","LQRE0","goff",lowerlimit,-rejectrange);
+    parms[knri*2+4]=hdecay2n->GetFunction("pol0")->GetParameter(0);
+    parmserr[knri*2+4]=hdecay2n->GetFunction("pol0")->GetParError(0);
+    isparmsfix[knri*2+4]=1;
+    /*
     bincnt=0;
     bkgsum=0;
     for (Int_t i=hdecay2n->GetXaxis()->FindBin(-5);i<hdecay2n->GetXaxis()->FindBin(-0.5);i++){
@@ -1033,6 +1056,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     parmserr[knri*2+4]=parms[knri*2+4]*bkgactmaxmin;
     parmsmin[knri*2+4]=parms[knri*2+4]-parms[knri*2+4]*bkgactmaxmin;
     parmsmax[knri*2+4]=parms[knri*2+4]+parms[knri*2+4]*bkgactmaxmin;
+    */
     
 
     //! error of this parameters:
@@ -1048,17 +1072,17 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
 
     //!******************************************Define All BETA decay function
-    TF1* fB=new TF1("fB",fcn_gen,lowerlimit,upperlimit,21);
+    TF1* fB=new TF1("fB",fcn_gen,rejectrange,upperlimit,21);
     fB->SetNpx(2000);
     fB->SetLineWidth(2);
     fB->SetLineColor(8);
     //!******************************************Define Delayed Neutron decay function
-    TF1* fSB=new TF1("fSB",fcn_gen_wneutron,lowerlimit,upperlimit,23);
+    TF1* fSB=new TF1("fSB",fcn_gen_wneutron,rejectrange,upperlimit,23);
     fSB->SetNpx(2000);
     fSB->SetLineWidth(2);
     fSB->SetLineColor(8);
     //!******************************************Define Delayed 2 Neutron decay function
-    TF1* fSB2=new TF1("fSB2",fcn_gen_w2neutron,lowerlimit,upperlimit,24);
+    TF1* fSB2=new TF1("fSB2",fcn_gen_w2neutron,rejectrange,upperlimit,24);
     fSB2->SetNpx(2000);
     fSB2->SetLineWidth(2);
     fSB2->SetLineColor(8);
@@ -1086,7 +1110,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
         fSB->FixParameter(i,parms[i]);
         fSB->SetParameter(i,parms[i]);
         fSB->SetParLimits(i,parmsmin[i],parmsmax[i]);
-        if (parmserr[i]==0||isparmsfix[i]){
+        if (parmserr[i]==0||isparmsfix[i]!=0){
            cout<<"sb fixed value p"<<i<<"\tval="<<parms[i]<<endl;
            fSB->FixParameter(i,parms[i]);
         }else{
@@ -1172,17 +1196,17 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    // set the data range
 
    ROOT::Fit::DataRange rangeB;
-   rangeB.SetRange(lowerlimit,upperlimit);
+   rangeB.SetRange(rejectrange,upperlimit);
    ROOT::Fit::BinData dataB(opt,rangeB);
    ROOT::Fit::FillData(dataB, hB);
 
    ROOT::Fit::DataRange rangeSB;
-   rangeSB.SetRange(lowerlimit,upperlimit);
+   rangeSB.SetRange(rejectrange,upperlimit);
    ROOT::Fit::BinData dataSB(opt,rangeSB);
    ROOT::Fit::FillData(dataSB, hSB);
 
    ROOT::Fit::DataRange rangeSB2;
-   rangeSB2.SetRange(lowerlimit,upperlimit);
+   rangeSB2.SetRange(rejectrange,upperlimit);
    ROOT::Fit::BinData dataSB2(opt,rangeSB2);
    ROOT::Fit::FillData(dataSB2, hSB2);
 
@@ -1209,7 +1233,17 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    }
 
 
-   //fitter.Config().SetMinimizer("Minuit2","Migrad");
+   fitter.Config().SetMinimizer("Minuit2","Migrad");
+/*
+   ROOT::Math::MinimizerOptions *optsminimizer=new ROOT::Math::MinimizerOptions;
+   optsminimizer->SetMinimizerType("Minuit2");
+   cout<<"Default Tolerance = "<<optsminimizer->Tolerance()<<endl;
+   optsminimizer->SetPrintLevel(2);
+   fitter.Config().SetMinimizerOptions(*optsminimizer);
+   */
+
+
+
    //fitter.Config().SetMinosErrors();
 
 
@@ -1226,7 +1260,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
    ROOT::Fit::FitResult result = fitter.Result();
    cout<<"\n*******PRINTING RESULT**********\n"<<endl;
-   //result.Print(std::cout);
+   result.Print(std::cout);
    const Double_t* resultpar=result.GetParams();
    const Double_t* resulterr=result.GetErrors();
    //cout<<"eee"<<resultpar[9]<<endl;
@@ -1274,7 +1308,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    }
 
    cout<<"\n*****************\n"<<endl;
-   Double_t nimplants=1;
 
    cout<<"Number of implantations = "<<nimplants<<endl;
    cout<<"Efficiency = "<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100.<<" %"<<endl;
@@ -1296,7 +1329,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
 
    //! write to text file
    std::ofstream ofs("x2fitresult.txt", std::ofstream::out | std::ofstream::app);
-   ofs<<fitname<<",";
+   ofs<<infile<<",";
    ofs<<log(2)/resultpar[0]<<","<<log(2)/resultpar[0]/resultpar[0]*resulterr[0]<<",";
    ofs<<resultpar[9]<<","<<resulterr[9]<<",";
    ofs<<resultpar[18]<<","<<resulterr[18]<<","<<resultpar[23]<<","<<resultpar[24]<<","<<resultpar[25]<<","<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100<<","<<binning<<","<<lowerlimit<<","<<upperlimit<<endl;

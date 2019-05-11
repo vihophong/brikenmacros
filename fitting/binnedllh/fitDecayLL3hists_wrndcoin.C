@@ -90,7 +90,7 @@ void getparms(Double_t* parms,Double_t* parmserr, Double_t* parmsmax, Double_t* 
             parmserr[j*knri+i]=decayparms_err[i][j];
             parmsmax[j*knri+i]=decayparms[i][j]+decayparms_err[i][j]*nsig;
             if ((decayparms[i][j]-decayparms_err[i][j]*nsig)>0)
-                parmsmin[j*knri+i]=decayparms[i][j]-decayparms_err[i][j]*nsig;
+                parmsmin[j*knri+i]=decayparms[i][j]/nsig;
             else
                 parmsmin[j*knri+i]=log(2)/100000000000;
             //for pn
@@ -757,7 +757,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
     Double_t lowerlimit=-10;
     Double_t upperlimit=10;
     Double_t nsigma=2.;
-    Double_t bkgactmaxmin=0.20; //*100% of max min bkg or initial activity
+    Double_t bkgactmaxmin=0.5; //*100% of max min bkg or initial activity
 
     Double_t plotrange[]={0.,10.};
 
@@ -1132,7 +1132,7 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    }
 
    fitter.Config().MinimizerOptions().SetPrintLevel(1);
-   //fitter.Config().SetMinimizer("Minuit2","Migrad");
+   fitter.Config().SetMinimizer("Minuit2","Migrad");
    //fitter.Config().SetMinosErrors();
 
 

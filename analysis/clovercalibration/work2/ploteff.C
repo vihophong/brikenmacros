@@ -80,6 +80,7 @@ void caleff(char* infilename,char* sinname,char* sinname2,Double_t norm=1.)
         efff->SetParameter(i,arr[i]);
         cout<<arr[i]<<endl;
     }
+    efff->SetParError(3,arr[9]);
     //! normalized factor
     efff->SetParameter(9,norm);
 
@@ -324,9 +325,10 @@ void ploteffall(Double_t inpute=1000.){
 
 }
 
-
-void ploteffaddback(Double_t inpute)
+void ploteffaddback(Double_t inpute,Double_t errpar3_ab1=2.9829532E-02,Double_t errpar3_ab2=3.5369046E-02)
 {
+    Double_t relerreff[2];
+
     Double_t norm[2];
     TGraphErrors* grall[2];
     TF1* efffall[2];
@@ -340,6 +342,8 @@ void ploteffaddback(Double_t inpute)
     grall[1]=(TGraphErrors*) gr1->Clone();
     efffall[1]=(TF1*)_file1->Get("fnc_eff");
 
+    relerreff[0]=exp(errpar3_ab1)-1;
+    relerreff[1]=exp(errpar3_ab2)-1;
 
     for (Int_t i=0;i<2;i++){
         norm[i]=1.;
@@ -443,9 +447,13 @@ void ploteffaddback(Double_t inpute)
 
 
     Double_t effeval=0;
+    Double_t deffeval=0;
     for (Int_t j=0;j<2;j++){
-        effeval+=efffall[j]->Eval(inpute);
+        Double_t abseff=efffall[j]->Eval(inpute);
+        deffeval+=abseff*relerreff[j]*abseff*relerreff[j];
+        effeval+=abseff;
     }
+    deffeval=sqrt(deffeval);
 
 
     TMarker* mr=new TMarker(inpute,effeval,1);
@@ -454,13 +462,13 @@ void ploteffaddback(Double_t inpute)
     mr->SetMarkerColor(3);
     mr->Draw("same");
 
-    TLatex* tag=new TLatex(inpute+10.,effeval,Form("%10.2f keV, %.2f %%",inpute,effeval));
+    TLatex* tag=new TLatex(inpute+10.,effeval,Form("%10.2f keV, %.2f %% #pm %.2f",inpute,effeval,deffeval));
     tag->SetTextAngle(90);
     tag->SetTextSize(0.025);
     tag->Draw("same");
 
 
-    cout<<"efficiency at "<<inpute<<" is "<<effeval<<endl;
+    cout<<"efficiency at "<<inpute<<" is "<<effeval<<" +/- "<<deffeval<<endl;
 
     TFile* f0=new TFile("hallabcurve.root","recreate");
     grpntsum->SetName("hab_exp");

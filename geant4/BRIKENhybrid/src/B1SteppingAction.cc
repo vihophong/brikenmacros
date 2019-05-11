@@ -61,23 +61,52 @@ void B1SteppingAction::UserSteppingAction(const G4Step* step)
     const B3DetectorConstruction* detectorConstruction
       = static_cast<const B3DetectorConstruction*>
         (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-    nofTube = detectorConstruction->GetnofTube();   
+    nofTube = detectorConstruction->GetnofTube()+1;
   }
 
   G4String volumeName = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName();
   G4ThreeVector firePos=step->GetPreStepPoint()->GetPosition();
-  if (volumeName.substr(0,4) != "Tube") return;
-	G4int volumenum=atoi((volumeName.substr(5,volumeName.length()-4)).c_str());
-	G4double edepStep = step->GetTotalEnergyDeposit();
-  // collect Global time in this pre step
-	if (edepStep>0.){
-		G4double timeinStep = step->GetPreStepPoint()->GetGlobalTime();
-  	fEventAction->AddTime(volumenum,timeinStep/ns);  
-		fEventAction->AddEdep(volumenum,edepStep/keV);
-		fEventAction->AddX(volumenum,firePos.x()/cm);
-		fEventAction->AddY(volumenum,firePos.y()/cm);
-		fEventAction->AddZ(volumenum,firePos.z()/cm);
-	}
+
+  if (!(volumeName.substr(0,4) == "Tube"||volumeName.substr(0,11)=="clover_Leaf")) return;
+  //! for He3 tubes
+  if (volumeName.substr(0,4) == "Tube"){
+      G4int volumenum=atoi((volumeName.substr(5,volumeName.length()-4)).c_str());
+      G4double edepStep = step->GetTotalEnergyDeposit();
+      // collect Global time in this pre step
+      if (edepStep>0.){
+          G4double timeinStep = step->GetPreStepPoint()->GetGlobalTime();
+          fEventAction->AddTime(volumenum,timeinStep/ns);
+          fEventAction->AddEdep(volumenum,edepStep/keV);
+          fEventAction->AddX(volumenum,firePos.x()/cm);
+          fEventAction->AddY(volumenum,firePos.y()/cm);
+          fEventAction->AddZ(volumenum,firePos.z()/cm);
+      }
+  }
+  if (volumeName.substr(0,11)=="clover_Leaf"){
+      G4int volumenum=atoi((volumeName.substr(12,volumeName.length()-11)).c_str())+1;
+
+      G4double edepStep = step->GetTotalEnergyDeposit();
+      if (edepStep>0.){
+          G4double timeinStep = step->GetPreStepPoint()->GetGlobalTime();
+          G4int ntubes=fEventAction->GetNofTube();
+          fEventAction->AddTime(ntubes-9,timeinStep/ns);
+          fEventAction->AddEdep(ntubes-9,edepStep/keV);
+          fEventAction->AddX(ntubes-9,firePos.x()/cm);
+          fEventAction->AddY(ntubes-9,firePos.y()/cm);
+          fEventAction->AddZ(ntubes-9,firePos.z()/cm);
+
+          fEventAction->AddTime(ntubes-9+volumenum,timeinStep/ns);
+          fEventAction->AddEdep(ntubes-9+volumenum,edepStep/keV);
+          fEventAction->AddX(ntubes-9+volumenum,firePos.x()/cm);
+          fEventAction->AddY(ntubes-9+volumenum,firePos.y()/cm);
+          fEventAction->AddZ(ntubes-9+volumenum,firePos.z()/cm);
+      }
+
+
+  }
+
+  //! for gamma tubes
+
 
 }
 

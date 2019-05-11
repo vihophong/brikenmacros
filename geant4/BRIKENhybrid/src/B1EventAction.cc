@@ -45,7 +45,7 @@ B1EventAction::B1EventAction()
     const B3DetectorConstruction* detectorConstruction
       = static_cast<const B3DetectorConstruction*>
         (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-    nofTube = detectorConstruction->GetnofTube();
+        nofTube = detectorConstruction->GetnofTube()+9;
 		detGroup= detectorConstruction->GetDetGroup();
 		tubeGroup= detectorConstruction->GetTubeGroup();
 
@@ -149,12 +149,13 @@ G4AnalysisManager* mann = G4AnalysisManager::Instance();
   G4double ke = primaryParticle->GetKineticEnergy();
 
   G4int mult=0;
-for (G4int i=0;i<nofTube;i++)
+    // He3 tube
+    for (G4int i=0;i<nofTube-9;i++)
 	{
 			if (fEdep[i]>0.)
 			{
 			  //G4cout<<"FIRE!!"<<fEdep[i]<<G4endl;
-			  if(fEdep[i]>180&&fEdep[i]<800) {
+              if(fEdep[i]>180&&fEdep[i]<800) {
 			    totalHit++;
 			    mann->FillH1(1,fEdep[i]);
                 mann->FillH1(2,fTime[i]/1000);
@@ -204,7 +205,30 @@ for (G4int i=0;i<nofTube;i++)
 
 			}
 	}
+
     if (mult>0) mann->AddNtupleRow();
+
+    G4int multClover=0;
+    // clover
+    for (G4int i=nofTube-9;i<nofTube;i++)
+      if (fEdep[i]>0.){
+          mann->FillNtupleDColumn(0,i);
+          mann->FillNtupleDColumn(1,-1);
+          mann->FillNtupleDColumn(2,-1);
+          mann->FillNtupleDColumn(3,x[i]);
+          mann->FillNtupleDColumn(4,y[i]);
+          mann->FillNtupleDColumn(5,z[i]);
+          mann->FillNtupleDColumn(6,fEdep[i]);
+          mann->FillNtupleDColumn(7,fTime[i]);
+          mann->FillNtupleDColumn(8,ke/MeV);
+
+          mann->FillNtupleDColumn(12,-1);
+          mann->FillNtupleDColumn(13,-1);
+          mann->FillNtupleDColumn(14,-1);
+          mann->AddNtupleRow();
+          multClover++;
+      }
+
 }
 
 

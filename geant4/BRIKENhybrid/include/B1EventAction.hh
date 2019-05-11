@@ -48,6 +48,8 @@ class B1EventAction : public G4UserEventAction
 
     G4double GetTotalHit()const{return totalHit;}
 
+    G4int GetNofTube()const{return nofTube;}
+
     void AddTime(G4int,G4double);
 		void AddEdep(G4int,G4double);
 		void AddX(G4int,G4double);

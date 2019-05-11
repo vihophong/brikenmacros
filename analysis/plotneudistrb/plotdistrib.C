@@ -47,7 +47,7 @@ void makeoutputfiles(){
     TLegend* leg = new TLegend(0.2, 0.2, .8, .8);
     TLegend* leg2 = new TLegend(0.2, 0.2, .8, .8);
 
-    for (Int_t i=0;i<11;i++){
+    for (Int_t i=0;i<11;i++){        
         char tempname[500];
         sprintf(tempname,"tempHist%d.root",i);
         fileso[i]=TFile::Open(tempname);

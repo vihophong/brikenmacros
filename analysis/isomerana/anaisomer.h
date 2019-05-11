@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
 // Sun Feb 17 17:24:46 2019 by ROOT version 6.08/00
-// from TChain treeIn134/
+// from TChain treeCd128/
 //////////////////////////////////////////////////////////
 
 #ifndef anaisomer_h
@@ -15,8 +15,8 @@
 
 
 
-const Int_t kMaxGamma = 200;
-const Int_t kMaxNeutron = 200;
+const Int_t kMaxGamma = 500;
+const Int_t kMaxNeutron = 500;
 
 class anaisomer {
 public :
@@ -53,14 +53,17 @@ public :
    Int_t           gc_hit;
    Double_t        gc_E[kMaxGamma];   //[gc_hit]
    Double_t        gc_T[kMaxGamma];   //[gc_hit]
+   Double_t        gc_Tslew[kMaxGamma];   //[gc_hit]
    Int_t           gc_ch[kMaxGamma];   //[gc_hit]
    Int_t           gc1_hit;
    Double_t        gc1_E[kMaxGamma];   //[gc1_hit]
    Double_t        gc1_T[kMaxGamma];   //[gc1_hit]
+   Double_t        gc1_Tslew[kMaxGamma];   //[gc1_hit]
    Int_t           gc1_ch[kMaxGamma];   //[gc1_hit]
    Int_t           gc2_hit;
    Double_t        gc2_E[kMaxGamma];   //[gc2_hit]
    Double_t        gc2_T[kMaxGamma];   //[gc2_hit]
+   Double_t        gc2_Tslew[kMaxGamma];   //[gc1_hit]
    Int_t           gc2_ch[kMaxGamma];   //[gc2_hit]
    Int_t           ab1_hit;
    Double_t        ab1_E[kMaxGamma];   //[ab1_hit]
@@ -84,14 +87,17 @@ public :
    TBranch        *b_gc_hit;   //!
    TBranch        *b_gc_E;   //!
    TBranch        *b_gc_T;   //!
+   TBranch        *b_gc_Tslew;   //!
    TBranch        *b_gc_ch;   //!
    TBranch        *b_gc1_hit;   //!
    TBranch        *b_gc1_E;   //!
    TBranch        *b_gc1_T;   //!
+   TBranch        *b_gc1_Tslew;   //!
    TBranch        *b_gc1_ch;   //!
    TBranch        *b_gc2_hit;   //!
    TBranch        *b_gc2_E;   //!
    TBranch        *b_gc2_T;   //!
+   TBranch        *b_gc2_Tslew;   //!
    TBranch        *b_gc2_ch;   //!
    TBranch        *b_ab1_hit;   //!
    TBranch        *b_ab1_E;   //!
@@ -139,109 +145,109 @@ anaisomer::anaisomer(TTree *tree) : fChain(0)
       if (!f || !f->IsOpen()) {
          f = new TFile("Memory Directory");
       }
-      f->GetObject("treeIn134",tree);
+      f->GetObject("treeCd128",tree);
 
 #else // SINGLE_TREE
 
       // The following code should be used if you want this class to access a chain
       // of trees.
-      TChain * chain = new TChain("treeIn134","");
-      chain->Add("rootfilesexp/decay_brips3004.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3005.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3006.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3007.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3008.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3009.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3010.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3011.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3012.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3013.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3014.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3016.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3017.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3018.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3019.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3020.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3021.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3022.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3023.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3024.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3025.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3026.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3027.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3028.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3029.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3030.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3031.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3032.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3033.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3034.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3035.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3036.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3038.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3039.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3040.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3041.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3043.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3044.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3046.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3051.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3052.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3053.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3054.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3055.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3056.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3057.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3058.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3059.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3060.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3061.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3062.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3063.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3066.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3067.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3068.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3069.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3070.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3071.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3072.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3073.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3074.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3075.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3076.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3078.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3079.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3080.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3081.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3083.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3084.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3085.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3087.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3088.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3089.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3090.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3091.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3093.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3094.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3095.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3096.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3097.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3098.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3099.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3100.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3101.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3102.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3103.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3104.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3105.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3106.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3107.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3108.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3109.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3110.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3111.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3112.root/treeIn134");
-      chain->Add("rootfilesexp/decay_brips3113.root/treeIn134");
+      TChain * chain = new TChain("treeCd128","");
+      chain->Add("rootfilesexp/decay_brips3004.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3005.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3006.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3007.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3008.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3009.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3010.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3011.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3012.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3013.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3014.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3016.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3017.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3018.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3019.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3020.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3021.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3022.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3023.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3024.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3025.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3026.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3027.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3028.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3029.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3030.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3031.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3032.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3033.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3034.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3035.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3036.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3038.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3039.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3040.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3041.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3043.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3044.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3046.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3051.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3052.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3053.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3054.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3055.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3056.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3057.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3058.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3059.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3060.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3061.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3062.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3063.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3066.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3067.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3068.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3069.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3070.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3071.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3072.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3073.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3074.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3075.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3076.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3078.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3079.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3080.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3081.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3083.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3084.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3085.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3087.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3088.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3089.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3090.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3091.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3093.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3094.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3095.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3096.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3097.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3098.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3099.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3100.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3101.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3102.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3103.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3104.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3105.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3106.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3107.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3108.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3109.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3110.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3111.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3112.root/treeCd128");
+      chain->Add("rootfilesexp/decay_brips3113.root/treeCd128");
       tree = chain;
 #endif // SINGLE_TREE
 
@@ -294,14 +300,17 @@ void anaisomer::Init(TTree *tree)
    fChain->SetBranchAddress("gc_hit", &gc_hit, &b_gc_hit);
    fChain->SetBranchAddress("gc_E", gc_E, &b_gc_E);
    fChain->SetBranchAddress("gc_T", gc_T, &b_gc_T);
+   fChain->SetBranchAddress("gc_Tslew", gc_Tslew, &b_gc_Tslew);
    fChain->SetBranchAddress("gc_ch", gc_ch, &b_gc_ch);
    fChain->SetBranchAddress("gc1_hit", &gc1_hit, &b_gc1_hit);
    fChain->SetBranchAddress("gc1_E", gc1_E, &b_gc1_E);
    fChain->SetBranchAddress("gc1_T", gc1_T, &b_gc1_T);
+   fChain->SetBranchAddress("gc1_Tslew", gc1_Tslew, &b_gc1_Tslew);
    fChain->SetBranchAddress("gc1_ch", gc1_ch, &b_gc1_ch);
    fChain->SetBranchAddress("gc2_hit", &gc2_hit, &b_gc2_hit);
    fChain->SetBranchAddress("gc2_E", gc2_E, &b_gc2_E);
    fChain->SetBranchAddress("gc2_T", gc2_T, &b_gc2_T);
+   fChain->SetBranchAddress("gc2_Tslew", gc2_Tslew, &b_gc2_Tslew);
    fChain->SetBranchAddress("gc2_ch", gc2_ch, &b_gc2_ch);
    fChain->SetBranchAddress("ab1_hit", &ab1_hit, &b_ab1_hit);
    fChain->SetBranchAddress("ab1_E", ab1_E, &b_ab1_E);

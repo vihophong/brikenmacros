@@ -1,0 +1,19 @@
+/gps/verbose 0
+/gps/particle gamma
+
+
+#position
+/gps/position 0 0 -1 cm
+/gps/pos/type Volume
+/gps/pos/shape Cylinder
+/gps/pos/radius 20 mm
+/gps/pos/sigma_r 5 mm
+/gps/pos/halfz 0.5 mm
+
+#Angle
+/gps/ang/type iso
+
+#
+# Energy
+
+/gps/ene/type Mono

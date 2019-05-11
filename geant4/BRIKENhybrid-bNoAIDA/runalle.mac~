@@ -1,0 +1,21 @@
+/gps/ene/type Mono
+/gps/ene/mono 100 eV
+/run/beamOn 1000000
+/gps/ene/mono 1 keV
+/run/beamOn 1000000
+/gps/ene/mono 10 keV
+/run/beamOn 1000000
+/gps/ene/mono 100 keV
+/run/beamOn 1000000
+/gps/ene/mono 500 keV
+/run/beamOn 1000000
+/gps/ene/mono 1000 keV
+/run/beamOn 1000000
+/gps/ene/mono 2000 keV
+/run/beamOn 1000000
+/gps/ene/mono 3000 keV
+/run/beamOn 1000000
+/gps/ene/mono 4000 keV
+/run/beamOn 1000000
+/gps/ene/mono 5000 keV
+/run/beamOn 1000000

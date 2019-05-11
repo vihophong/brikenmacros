@@ -271,7 +271,7 @@ void plotPID(char* listfile,char* pidfile){;
         ch->Add(tempchar2);
     }
     TCanvas* c1=new TCanvas("pid","pid",900,700);
-    ch->Draw(Form("zet:aoq>>h1(%d,%f,%f,%d,%f,%f)",nbinsaoq,aoqrange[0],aoqrange[1],nbinszet,zetrange[0],zetrange[1]),"zet>0&&aoq>0&&ion_z!=5","colz");
+    ch->Draw(Form("zet:aoq>>h1(%d,%f,%f,%d,%f,%f)",nbinsaoq,aoqrange[0],aoqrange[1],nbinszet,zetrange[0],zetrange[1]),"zet>0&&aoq>0&&ion_z!=5&&ion_z>=0","colz");
     for (Int_t i=0;i<nri;i++){
          cutg[i]->Draw("same");
          pidtag[i]->Draw("same");

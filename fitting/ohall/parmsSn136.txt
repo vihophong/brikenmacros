@@ -1,0 +1,15 @@
+Neutron Efficiency (unity)
+High intensity 0.5558 +/- 0.0278
+Low intensity 0.605 +/- 0.053
+Partial decay chain
+Iso # half-life(s) err P1n err P2n err
+136Sn 1	-0.29	0.22	-0.5	0.5	-0.5	0.5
+136Sb 2	0.923	0.014	0.163	0.032	0	0
+135Sb 3	1.679	0.015	0.22	0.03	0	0
+136Te 4	17.63	0.08	0.0131	0.0005	0	0
+135Te 5	19	0.2	0	0	0	0
+134Sb 6	0.78	0.06	0	0	0	0
+136I 7	83.4	1	0	0	0	0
+135I 8	23688	108	0	0	0	0
+134Te 9	2508	48	0	0	0	0
+Fit range: from -10s to 0 for negative, 0,.075 to 20s for positive

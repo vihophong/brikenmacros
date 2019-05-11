@@ -50,6 +50,7 @@ private:
   G4Material* PCBMaterial;
   G4Material* RodMaterial;
   G4Material* SnoutMaterial;
+  G4Material* kaptonMaterial;
 
   G4ThreeVector        position;
   G4RotationMatrix     rotation;
@@ -69,6 +70,13 @@ private:
   G4double             fRodoffL;
   G4double             fRodR;
 
+
+  G4double             fkaptonPCBdz;
+  G4double             fkaptonPCBdx;
+  G4double             fkaptonPCBdy;
+  G4double             fkaptonPCBz;
+  G4double             fkaptonPCBx;
+  G4double             fkaptonPCBy;
 
   G4double             fSnoutdx;
   G4double             fSnoutdy;
@@ -136,6 +144,14 @@ private:
   G4LogicalVolume*   logicPCB[numDSSD];
   G4VPhysicalVolume*   physiPCB[numDSSD];
 
+  G4LogicalVolume*   logicKaptonPCB1[numDSSD];
+  G4LogicalVolume*   logicKaptonPCB2[numDSSD];
+  G4LogicalVolume*   logicKaptonPCB3[numDSSD];
+  G4LogicalVolume*   logicKaptonPCB4[numDSSD];
+  G4VPhysicalVolume*   physiKaptonPCB1[numDSSD];
+  G4VPhysicalVolume*   physiKaptonPCB2[numDSSD];
+  G4VPhysicalVolume*   physiKaptonPCB3[numDSSD];
+  G4VPhysicalVolume*   physiKaptonPCB4[numDSSD];
 
   G4LogicalVolume*   logicSnout;
   G4VPhysicalVolume*   physiSnout;

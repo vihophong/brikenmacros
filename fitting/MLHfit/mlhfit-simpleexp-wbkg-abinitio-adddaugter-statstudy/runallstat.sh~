@@ -1,0 +1,11 @@
+./runeach.sh 1
+./runeach.sh 5
+./runeach.sh 10
+./runeach.sh 15
+./runeach.sh 20
+./runeach.sh 25
+./runeach.sh 30
+./runeach.sh 35
+./runeach.sh 40
+./runeach.sh 45
+./runeach.sh 50

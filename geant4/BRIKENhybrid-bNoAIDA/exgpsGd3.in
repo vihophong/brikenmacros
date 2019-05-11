@@ -1,0 +1,14 @@
+/gps/verbose 0
+/gps/particle gamma
+
+
+#position
+/gps/pos/type Point
+/gps/pos/centre 0 0 -1 cm
+#Angle
+/gps/ang/type iso
+
+#
+# Energy
+
+/gps/ene/type Mono

@@ -1,0 +1,4 @@
+/gps/ene/type User
+/gps/hist/type energy
+/gps/hist/file 252cfhist.hist
+/gps/hist/inter Spline

@@ -1,0 +1,7 @@
+for i in {1..1}
+do
+	root -b -q  "simabinitio.C($1)"
+	root -b -q  "checksimulation.C()"
+	root -b -q  "mlhfitsim.C()"	
+	root -b -q  "mlhfitsimbkgcstr.C()"	
+done

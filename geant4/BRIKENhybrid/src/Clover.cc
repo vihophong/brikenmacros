@@ -31,12 +31,12 @@
 Clover::Clover()
 {
   //some default Clover detector parameters
-// fTotalGeL     = 69.00 * mm;  //was 70
- fTotalGeL     = 69.00 * mm;  //was 70
+  // fTotalGeL     = 69.00 * mm;  //was 70
+  fTotalGeL     = 69.00 * mm;  //was 70
   fCrystalR     = 24.25 * mm;  //was 25
-  fEndCap2Ge    = 20.00 * mm;  //Distance from Al outer face to Ge
-  //added to fudge PTG's efficiency measurements for STUK
-  fFudge = 5.0*mm;
+  fEndCap2Ge    = 20. * mm;  //Distance from Al outer face to Ge
+  //added to fudge  efficiency measurements for ORNL Clover
+  fFudge = -10.0*mm;
   fEndCap2Ge += fFudge;
   
   fHoleR            =  5.5 * mm; //was 5.0
@@ -47,14 +47,14 @@ Clover::Clover()
   //---------------------------------
   //make the required materials and assign them
   //fMat = MyMaterials::GetInstance();
-G4NistManager* nist = G4NistManager::Instance();
+  G4NistManager* nist = G4NistManager::Instance();
   //assign default materials.....
-endCapMaterial  = nist->FindOrBuildMaterial("G4_Al");
-contactMaterial = nist->FindOrBuildMaterial("G4_Li");
-geMaterial=nist->FindOrBuildMaterial("G4_Ge");
-airMaterial=nist->FindOrBuildMaterial("G4_AIR");
+    endCapMaterial  = nist->FindOrBuildMaterial("G4_Al");
+    contactMaterial = nist->FindOrBuildMaterial("G4_Li");
+    geMaterial=nist->FindOrBuildMaterial("G4_Ge");
+    airMaterial=nist->FindOrBuildMaterial("G4_AIR");
 
-  vacuumMaterial = new G4Material("glc", 1., 1.01*g/mole, 
+    vacuumMaterial = new G4Material("glc", 1., 1.01*g/mole,
 				      1.e-25*g/cm3,kStateGas,2.73*kelvin,3.e-18*pascal);
   //create the solids.....
   CreateSolids();
@@ -81,6 +81,43 @@ void Clover::SetRotation(G4RotationMatrix thisRot) {
  
 }
 
+//---------------------------------------------------------------------
+// helper class to create rounded box
+//---------------------------------------------------------------------
+G4VSolid*  Clover::roundBox(const G4String &name, G4double boxouthalfxy,G4double boxouthalfz,G4double roundradius)
+{
+    G4Box*        outbox  = new G4Box("outbox",boxouthalfxy,boxouthalfxy,boxouthalfz);
+
+    G4Box*        edgebox  = new G4Box("edgebox",roundradius/2+0.1*mm,roundradius/2+0.1*mm,boxouthalfz+0.5*mm);
+
+
+    G4Tubs*        edgeround  = new G4Tubs("edgeround", 0,  roundradius+0.5*mm, boxouthalfz+0.9*mm, 0.*degree, 360.*degree);
+
+
+    G4ThreeVector edge1pos( roundradius/2, roundradius/2, 0.);
+    G4ThreeVector edge2pos( -roundradius/2, -roundradius/2, 0.);
+    G4ThreeVector edge3pos( roundradius/2, -roundradius/2, 0.);
+    G4ThreeVector edge4pos( -roundradius/2, roundradius/2, 0.);
+
+    G4ThreeVector edgeround2pos( boxouthalfxy-roundradius/2, boxouthalfxy-roundradius/2, 0.);
+    G4ThreeVector edgeround1pos( -boxouthalfxy+roundradius/2, -boxouthalfxy+roundradius/2, 0.);
+    G4ThreeVector edgeround4pos( boxouthalfxy-roundradius/2, -boxouthalfxy+roundradius/2, 0.);
+    G4ThreeVector edgeround3pos( -boxouthalfxy+roundradius/2, boxouthalfxy-roundradius/2, 0.);
+
+
+    G4SubtractionSolid* solidSub1 = new G4SubtractionSolid("solidSub1",edgebox,edgeround,0,edge1pos);
+    G4SubtractionSolid* solidSub2 = new G4SubtractionSolid("solidSub2",edgebox,edgeround,0,edge2pos);
+    G4SubtractionSolid* solidSub3 = new G4SubtractionSolid("solidSub3",edgebox,edgeround,0,edge3pos);
+    G4SubtractionSolid* solidSub4 = new G4SubtractionSolid("solidSub4",edgebox,edgeround,0,edge4pos);
+
+    G4SubtractionSolid* solidSubSub1 = new G4SubtractionSolid("solidSubSub1",outbox,solidSub1,0,edgeround1pos);
+    G4SubtractionSolid* solidSubSub2 = new G4SubtractionSolid("solidSubSub2",solidSubSub1,solidSub2,0,edgeround2pos);
+    G4SubtractionSolid* solidSubSub3 = new G4SubtractionSolid("solidSubSub3",solidSubSub2,solidSub3,0,edgeround3pos);
+    G4SubtractionSolid* solidSubSub4 = new G4SubtractionSolid(name,solidSubSub3,solidSub4,0,edgeround4pos);
+
+
+    return solidSubSub4;
+}
 
 //---------------------------------------------------------------------
 // Create the solids defining Phase-II Clovers
@@ -92,82 +129,76 @@ void  Clover::CreateSolids()
   
   //---------------------------------------------------------
   //end-cap
-  G4double endCapFrontThickness = 1.5*mm;//1.5 in the Duchene paper //1.2*mm; in another simulation
-  G4double endCapTaperThickness = 1.5*mm;
-  G4double endCapSideThickness  = 1.5*mm;
+  G4double endCapFrontThickness = 2.*mm;//1.5 in the Duchene paper //1.2*mm; in another simulation
+  G4double endCapSideThickness  = 2.5*mm;
   
   G4double GeGap      =  fEndCap2Ge; //outsideface of endcap to Ge
-  G4double taperAngle =  7.0*degree;
 
   //Cap position!!!!
 
   
   G4double endCapTotalL = fTotalGeL + GeGap + endCapFrontThickness + 28.6*cm; //+ Gap at rear end
-  G4double endCapFrontD = 48.5*mm;//43.5*mm;
-  G4double endCapBackD  = 50.05*mm;
-  G4double endCapTaperL = 55.0*mm;
+  G4double endCapFrontD = 101./2.* mm;//48.5*mm;//43.5*mm;
+  G4double endCapFrontEdgeR = 15.5* mm;//48.5*mm;//43.5*mm;
+  G4double endCapBackD  = 120./2.* mm;//50.05*mm;
+  G4double endCapBackEdgeR = 25* mm;//48.5*mm;//43.5*mm;
+  G4double endCapTaperL = 250.*mm;
   
-  G4double endCapBoxL   = endCapTotalL - endCapTaperL;
+  G4double endCapBoxL   = (140. - 2)* mm;//endCapTotalL - endCapTaperL;
   fEndCapBoxL=endCapBoxL;
-
   //the tapered part
+
+  /*
   G4Trap* solidTaperedCloverEC
     = new G4Trap("taperedCloverEC",
-		 endCapTaperL/2., //Half z-length [pDz]
-		 0.00*degree,     //Polar angle of line joining centres of the faces @ -/+pDz
-		 2.*taperAngle,   //aequivalent zimuthal angle 
-		 endCapFrontD,    //pDy1 half y length at -pDz
-		 endCapFrontD,    //pDx1 half x length at -pDz, -pDy1
-		 endCapFrontD,    //pDx2 half x length at -pDz, +pDy1
-		 0.00*degree,//pAlpha1 wrt y-axis from the centre of the side (lower endcap)
-		 endCapBackD,    //pDy2 half y length at +pDz
-		 endCapBackD,    //pDx3 half x length at +pDz, -pDy2
-		 endCapBackD,    //pDx4 half x length at +pDz, +pDy2
-		 0.00*degree); //pAlpha2 wrt y-axis from the centre of the side (upper endcap)
+         endCapTaperL/2., //Half z-length [pDz]
+         0.00*degree,     //Polar angle of line joining centres of the faces @ -/+pDz
+         2.*taperAngle,   //aequivalent zimuthal angle
+         endCapFrontD,    //pDy1 half y length at -pDz
+         endCapFrontD,    //pDx1 half x length at -pDz, -pDy1
+         endCapFrontD,    //pDx2 half x length at -pDz, +pDy1
+         0.00*degree,//pAlpha1 wrt y-axis from the centre of the side (lower endcap)
+         endCapBackD,    //pDy2 half y length at +pDz
+         endCapBackD,    //pDx3 half x length at +pDz, -pDy2
+         endCapBackD,    //pDx4 half x length at +pDz, +pDy2
+         0.00*degree); //pAlpha2 wrt y-axis from the centre of the side (upper endcap)
+*/
   
+  // round part
+  G4VSolid* solidTaperedCloverEC = roundBox("taperedCloverEC",endCapFrontD,endCapTaperL/2,endCapFrontEdgeR);
   //the rectangular part.....
   //G4double encapRodL=12*cm;
   //G4double encapRodR=3*cm;
-  G4Box*        endCapBox  = new G4Box("endCapBox",endCapBackD,endCapBackD,endCapBoxL/2.);
+  //G4Box*        endCapBox  = new G4Box("endCapBox",endCapBackD,endCapBackD,endCapBoxL/2.);
+  G4VSolid*        endCapBox  = roundBox("endCapBox",endCapBackD,endCapBoxL/2.,endCapBackEdgeR);
   //G4Tubs*  endCapBox=new G4Tubs("endCapBox", 0,  encapRodR, 0.5*encapRodL, 0.*degree, 360.*degree);
   G4ThreeVector transECBox(   0.*mm, 0.*mm, endCapTaperL/2.+endCapBoxL/2.);
   //G4ThreeVector transECBox(   0.*mm, 0.*mm, endCapTaperL/2.+encapRodL/2.);
 
   
   //add the two together
-  
-  G4double endCapBackD2  = (130/2)*mm;
-  G4double endCapBoxL2 = 14.2*cm-0.6*cm;
-  G4double endCapBoxPos2 = 29.5*cm-0.3*cm;
-  //G4double endCapTaperPos2 = 15.2*cm;
-  G4UnionSolid* solidEndCaptemp = new G4UnionSolid("Box+Taper",solidTaperedCloverEC,endCapBox,0,transECBox);
-  G4Box* endCapBox2  = new G4Box("endCapBox2",endCapBackD2,endCapBackD2,endCapBoxL2/2.);
+  solidEndCap = new G4UnionSolid("Box+Taper",solidTaperedCloverEC,endCapBox,0,transECBox);
 
-  //G4UnionSolid* solidEndCaptemp2 = new G4UnionSolid("Box+Taper+others",solidEndCaptemp,endCapBox2,0,G4ThreeVector(-20*cm,0,0) );
-  solidEndCap = new G4UnionSolid("Box+Taper+others",solidEndCaptemp,endCapBox2,0,G4ThreeVector(0,0,endCapBoxPos2) );
-  
   //need the taperL for placement
   fEndCapTaperL = endCapTaperL;
   
   
   //---------------------------------------------------------
   //end-cap inner vacuum
-  G4double endCapDelta_1 = endCapTaperThickness/cos(taperAngle) - endCapFrontThickness*tan(taperAngle);
-  G4double endCapDelta_2 = ( endCapSideThickness - (endCapTaperThickness*sin(taperAngle)*tan(taperAngle) +
-						    endCapTaperThickness*cos(taperAngle) ) )/tan(taperAngle);
-  
-  G4cout << endCapDelta_1 << " " << endCapDelta_2 << G4endl;
-  
+
   G4double endCapVacTaperL = endCapTaperL - endCapFrontThickness;// - endCapDelta_2;
   G4double endCapVacBoxL   = endCapBoxL   - endCapFrontThickness;
   G4double endCapVacTotalL = endCapVacBoxL + endCapVacTaperL;
-  G4double endCapVacFrontD = endCapFrontD - endCapDelta_1;
+  G4double endCapVacFrontD = endCapFrontD - endCapSideThickness;
+  G4double endCapVacFrontEdgeR = endCapFrontEdgeR-endCapFrontThickness*9.5/19.;
   G4double endCapVacBackD  = endCapBackD  - endCapSideThickness;
+  G4double endCapVacBackEdgeR = endCapBackEdgeR-endCapFrontThickness*9.5/19.;
   
   //position of vacuum wrt end-cap
-  fVacuumPosZ = (-endCapTotalL + endCapVacTotalL )/2. + 1.5*endCapFrontThickness;
+  fVacuumPosZ = endCapFrontThickness ;//+ endCapFrontThickness;
   
   //tapered part...
+  /*
   G4Trap* solidTaperVac
     = new G4Trap("cloverTaperVac",
 		 endCapVacTaperL/2.,    //Half z-length [pDz]
@@ -181,23 +212,21 @@ void  Clover::CreateSolids()
 		 endCapVacBackD,    //pDx3 half x length at +pDz, -pDy2
 		 endCapVacBackD,    //pDx4 half x length at +pDz, +pDy2
 		 0.00*degree); //pAlpha2 wrt y-axis from the centre of the side (upper endcap)
-  
+  */
   //rectangular part
+  G4VSolid* solidTaperVac = roundBox("cloverTaperVac",endCapVacFrontD,endCapVacTaperL/2,endCapVacFrontEdgeR);
+  //solidVacuum = roundBox("cloverTaperVac",endCapVacFrontD,endCapVacTaperL/2,endCapVacFrontEdgeR);
 
 
+  G4VSolid* endCapVacBox = roundBox("endCapBox",endCapVacBackD,endCapVacBoxL/2,endCapVacBackEdgeR);
+  //G4Box*         endCapVacBox  = new G4Box("endCapBox",endCapVacBackD,endCapVacBackD,endCapVacBoxL/2.);
+  G4ThreeVector transVacBox(   0.*mm, 0.*mm, (endCapVacTaperL/2.+endCapVacBoxL/2.-0.00001*mm));
 
-  G4Box*         endCapVacBox  = new G4Box("endCapBox",endCapVacBackD,endCapVacBackD,endCapVacBoxL/2.);
-  G4ThreeVector transVacBox(   0.*mm, 0.*mm, (endCapVacTaperL/2.+endCapVacBoxL/2.-0.0001*mm));
-
-
-  G4double endCVccBackD2  = (130/2)*mm-endCapSideThickness;
-  G4double endCVccBoxL2 = 14.2*cm-endCapSideThickness-0.5*cm-0.6*cm;
-  G4double endCVccBoxPos2 = 29.5*cm+endCapSideThickness-0.3*cm;
-  
   //add them together
-  G4UnionSolid* solidVacuumtemp = new G4UnionSolid("Vac_Box+Taper",solidTaperVac,endCapVacBox,0,transVacBox);
-  G4Box* endCapVacBox2  = new G4Box("endCapVacBox2",endCapBackD2-endCapSideThickness,endCapBackD2-endCapSideThickness,endCVccBoxL2/2.);
-  solidVacuum = new G4UnionSolid("Vac_Box+Taper+others",solidVacuumtemp,endCapVacBox2,0,G4ThreeVector(0,0,endCVccBoxPos2));
+  solidVacuum = new G4UnionSolid("Vac_Box+Taper",solidTaperVac,endCapVacBox,0,transVacBox);
+
+
+
 
   //---------------------------------------------------------
   //The Ge crystal...
@@ -338,7 +367,11 @@ void Clover::Placement(G4int copyNo, G4VPhysicalVolume* physiMother)
   logicVacuum = new G4LogicalVolume(solidVacuum, vacuumMaterial,   "clover_Vac",  0, 0, 0);
   
   for(G4int l = 0; l < 4; l++) {
-    logicGeLeaf[l]     = new G4LogicalVolume(solidGeLeaf,     geMaterial,      "clover_Leaf",   0, 0, 0);
+      char tempname[50];
+      sprintf(tempname,"_%d",copyNo*4+l);
+      G4String identifier=(G4String) tempname;
+
+    logicGeLeaf[l]     = new G4LogicalVolume(solidGeLeaf,     geMaterial,      "clover_Leaf"+identifier,   0, 0, 0);
     logicPassivated[l] = new G4LogicalVolume(solidContact,    geMaterial,      "passivatedGe",  0, 0, 0);
     logicContact[l]    = new G4LogicalVolume(solidPassivated, contactMaterial, "inner_contact", 0, 0, 0);
     logicBoreHole[l]   = new G4LogicalVolume(solidBoreHole,   vacuumMaterial,   "bore_hole",    0, 0, 0);
@@ -351,7 +384,7 @@ void Clover::Placement(G4int copyNo, G4VPhysicalVolume* physiMother)
   //  rotation.rotateY(180.*deg);
 
   physiEndCap = new G4PVPlacement(&rotation, 
-					 G4ThreeVector(position.x(),position.y(),position.z()+fEndCapTaperL/2),
+                     G4ThreeVector(position.x()-fEndCapTaperL/2,position.y(),position.z()),
 					 "Clover_EC",       //its name
 					 logicEndCap,//its logical volume
 					 physiMother,         //its mother
@@ -359,6 +392,8 @@ void Clover::Placement(G4int copyNo, G4VPhysicalVolume* physiMother)
 					 copyNo,             //copy number
 					 true);              //overlap check
   
+
+
   physiVacuum = new G4PVPlacement(0,                   //rotation
 					 G4ThreeVector(0.*mm,0.*mm,vacuum_PosZ),
 					 "Clover_Vac",       //its name
@@ -367,7 +402,8 @@ void Clover::Placement(G4int copyNo, G4VPhysicalVolume* physiMother)
 					 true,                //no boolean operat
 					 copyNo,              //copy number
 					 true);               //overlap check
-  
+
+
   //define these here 
   G4VisAttributes* visAttAlCap = new G4VisAttributes( G4Colour(0.9,0.9,0.9) );
   visAttAlCap->SetVisibility(true);

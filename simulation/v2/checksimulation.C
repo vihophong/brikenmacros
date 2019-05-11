@@ -17,7 +17,7 @@ typedef struct {
     int evt;
 } datatype;
 
-void checksimulation(char* outfile)
+void checksimulation(char* infile, char* outfile)
 {
     TRandom3 r;
     //! read back data
@@ -58,7 +58,7 @@ void checksimulation(char* outfile)
     TTree* readbacktreeion=0;
     TTree* readbacktreeneu=0;
 
-    TFile* f = new TFile("outtree.root");
+    TFile* f = new TFile(infile);
     f->GetObject("ion",readbacktreeion);
     f->GetObject("beta",readbacktreebeta);
     f->GetObject("neutron",readbacktreeneu);

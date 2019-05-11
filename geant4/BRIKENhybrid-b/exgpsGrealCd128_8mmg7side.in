@@ -1,0 +1,69 @@
+/gps/verbose 0
+
+# Sources in multiple DSSDs in a generator
+#
+
+# DSSD #0
+/gps/source/intensity 3473.
+/gps/particle gamma
+#position
+/gps/pos/type Beam
+/gps/pos/shape Circle 
+/gps/pos/centre -34.5961 1.5633 -25 mm
+/gps/pos/sigma_x 15.9742 mm
+/gps/pos/sigma_y 14.9607 mm
+/gps/pos/confine physiDSSD_0
+#Angle
+/gps/ang/type iso
+# Energy
+/gps/ene/type Mono
+/gps/ene/mono 538 keV
+
+# DSSD #1
+/gps/source/add 11452.
+/gps/particle gamma
+#position
+/gps/pos/type Beam
+/gps/pos/shape Circle 
+/gps/pos/centre -34.8057 -2.0175 -15 mm
+/gps/pos/sigma_x 13.2958 mm
+/gps/pos/sigma_y 11.6965 mm
+/gps/pos/confine physiDSSD_1
+#Angle
+/gps/ang/type iso
+# Energy
+/gps/ene/type Mono
+/gps/ene/mono 538 keV
+
+# DSSD #2
+/gps/source/add 46748.
+/gps/particle gamma
+#position
+/gps/pos/type Beam
+/gps/pos/shape Circle 
+/gps/pos/centre -33.2732 -1.3094 -5 mm
+/gps/pos/sigma_x 13.3553 mm
+/gps/pos/sigma_y 11.3054 mm
+/gps/pos/confine physiDSSD_2
+#Angle
+/gps/ang/type iso
+# Energy
+/gps/ene/type Mono
+/gps/ene/mono 538 keV
+
+# DSSD #3
+/gps/source/add 13533.
+/gps/particle gamma
+#position
+/gps/pos/type Beam
+/gps/pos/shape Circle 
+/gps/pos/centre -14.464 -0.4277 5 mm
+/gps/pos/sigma_x 11.8041 mm
+/gps/pos/sigma_y 12.7614 mm
+/gps/pos/confine physiDSSD_3
+#Angle
+/gps/ang/type iso
+# Energy
+/gps/ene/type Mono
+/gps/ene/mono 538 keV
+

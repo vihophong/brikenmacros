@@ -48,10 +48,10 @@ RM = /usr/bin/cmake3 -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/phong/projects/briken/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid
+CMAKE_SOURCE_DIR = /home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/phong/projects/geant4/BRIKENfinal/newWithDSSD
+CMAKE_BINARY_DIR = /home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -113,9 +113,9 @@ install/local/fast: install/local
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/phong/projects/geant4/BRIKENfinal/newWithDSSD/CMakeFiles /home/phong/projects/geant4/BRIKENfinal/newWithDSSD/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles /home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/phong/projects/geant4/BRIKENfinal/newWithDSSD/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

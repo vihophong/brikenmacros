@@ -1,0 +1,18 @@
+/gps/verbose 0
+/gps/particle gamma
+
+
+#position
+/gps/pos/type Beam
+/gps/pos/shape Circle 
+/gps/pos/centre 0. 0. 0. mm
+/gps/pos/radius 2. cm
+/gps/pos/sigma_r 0.2 cm
+
+#Angle
+/gps/ang/type iso
+
+#
+# Energy
+
+/gps/ene/type Mono

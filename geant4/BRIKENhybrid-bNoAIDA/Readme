@@ -1,0 +1,4 @@
+run1.mac ->Energy grid from 100 eV to 5 MeV, 10000 events
+run1.mac ->Energy grid from 100 eV to 5 MeV, 100000 events
+An example geometry input file named "inputExample.br" has been included
+An Root code named "ana.C" for caculation of efficiency from output .root file has been included

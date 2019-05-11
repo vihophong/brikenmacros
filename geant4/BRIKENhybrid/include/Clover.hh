@@ -8,6 +8,10 @@
 #include "G4ThreeVector.hh"
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
+
+
+#include "G4VSolid.hh"
+
 //class G4Box;
 //class G4Tubs;
 //class G4Polycone;
@@ -33,11 +37,12 @@ public:
   void SetRotation( G4RotationMatrix );
   void Placement(G4int, G4VPhysicalVolume*);
 
-  inline G4double GetTaperedEndCapL() {return fEndCapTaperL/mm;};
+  inline G4double GetTaperedEndCapL() {return fEndCapTaperL/mm;}
 
 private:
   //General materials....
 //  MyMaterials*   fMat;
+  G4VSolid * roundBox(const G4String &name, G4double boxouthalfxy, G4double boxouthalfz, G4double roundradius);
   G4Material* endCapMaterial;
   G4Material* vacuumMaterial;
   G4Material* geMaterial;
@@ -68,8 +73,8 @@ private:
   //G4double rodR;
   //G4double rodL;
 
-  G4UnionSolid*        solidEndCap;
-  G4UnionSolid*        solidVacuum;
+  G4VSolid*        solidEndCap;
+  G4VSolid*        solidVacuum;
   G4UnionSolid*        solidGeLeaf;
   G4UnionSolid*        solidPassivated;
   G4UnionSolid*        solidContact;

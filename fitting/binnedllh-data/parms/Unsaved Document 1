@@ -1,0 +1,56 @@
+void getparms(Double_t* parms,Double_t* parmserr, Double_t* parmsmax, Double_t* parmsmin, Bool_t* isparmsfix,char* infile,Double_t nsig=10.)
+{
+    std::ifstream ifs(infile);
+    Bool_t flagfix[knri][3];
+    Double_t decayparms[knri][3];
+    Double_t decayparms_err[knri][3];
+    Double_t decayparms_max[knri][3];
+    Double_t decayparms_min[knri][3];
+    Int_t decayparms_isfix[knri][3];
+
+    std::string tempstr;
+    Int_t temp;
+    Int_t rino=0;
+
+    std::getline(ifs,tempstr);
+    for (int i=0;i<knri;i++){
+        ifs>>tempstr>>temp>>decayparms[rino][0]>>decayparms_err[rino][0]>>decayparms[rino][1]
+                >>decayparms_err[rino][1]>>decayparms[rino][2]>>decayparms_err[rino][2]
+                >>decayparms_isfix[rino][0]>>decayparms_min[rino][0]>>decayparms_max[rino][0]
+                >>decayparms_isfix[rino][1]>>decayparms_min[rino][1]>>decayparms_max[rino][1]
+                >>decayparms_isfix[rino][2]>>decayparms_min[rino][2]>>decayparms_max[rino][2];
+        cout<<tempstr<<"\t"<<temp<<endl;
+        rino++;
+    }
+
+    for (int i=0;i<knri;i++){
+        for (int j=0;j<3;j++){
+            if (j==0){//for half-life
+                decayparms_err[i][j]=TMath::Log(2)/decayparms[i][j]/decayparms[i][j]*decayparms_err[i][j];
+                decayparms[i][j]=TMath::Log(2)/decayparms[i][j];
+                decayparms_min[i][j]=TMath::Log(2)/decayparms_min[i][j];
+                decayparms_max[i][j]=TMath::Log(2)/decayparms_max[i][j];
+            }
+        }
+    }
+
+
+    //! calculate output
+    for (int i=0;i<knri;i++){
+        for (int j=0;j<2;j++){
+            isparmsfix[j*knri+i]=flagfix[i][j];
+            parms[j*knri+i]=decayparms[i][j];
+            parmserr[j*knri+i]=decayparms_err[i][j];
+            parmsmin[j*knri+i]=decayparms_min[i][j];
+            parmsmax[j*knri+i]=decayparms_max[i][j];
+        }
+    }
+
+    //! read p2n parrent
+    parms[knri*2]=decayparms[0][2];
+    parmserr[knri*2]=decayparms_err[0][2];
+    parms[knri*2]=decayparms[0][2];
+    parmsmin[knri*2]=decayparms_min[0][2];
+    parmsmax[knri*2]=decayparms_max[0][2];
+    isparmsfix[knri*2]=decayparms_isfix[0][2];
+}

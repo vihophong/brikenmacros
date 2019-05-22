@@ -115,6 +115,7 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
    TH1F* h5=new TH1F("hdistrbwbn","hit distribution backward time beta neutron",200,0,50);
    TH1F* h6=new TH1F("hdistrbwbnbwib","hit distribution backward time beta neutron of backward ionbeta",200,0,50);
 
+   TH2F* h2z=new TH2F("h2z","Zdistributionvsdecay",binning,lowlimit,uplimit,6,0,6);
    //!
 
    Int_t ncountouterring=0;
@@ -151,11 +152,14 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
 
       //! select layer if a non-negative value is specified
       if (layer>=0){
-        if (decay_z==layer) continue;
+        if (decay_z!=layer) continue;
       }
+
+
 
       //! fill histos
       hdecay->Fill(decay_t);
+      h2z->Fill(decay_t,decay_z);
       if (neu_hit==1) hdecay1n->Fill(decay_t);
       if (neu_hit==2) hdecay2n->Fill(decay_t);
 
@@ -298,10 +302,7 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
    hibgbwnfw->Write();
    hibgfwnbw->Write();
    hibgbwnbw->Write();
-
-
-
-
+   h2z->Write();
 
    otree->Write();
 

@@ -1,170 +1,9 @@
-/// \file
-/// \ingroup tutorial_roofit
-/// \notebook -nodraw
-///  'MULTIDIMENSIONAL MODELS' RooFit tutorial macro #312
-///
-///  Performing fits in multiple (disjoint) ranges in one or more dimensions
-///
-/// \macro_output
-/// \macro_code
-/// \author 07/2008 - Wouter Verkerke
-
-
-#include "RooRealVar.h"
-#include "RooDataSet.h"
-#include "RooGaussian.h"
-#include "RooConstVar.h"
-#include "RooProdPdf.h"
-#include "RooAddPdf.h"
-#include "RooPolynomial.h"
-#include "TCanvas.h"
-#include "TTree.h"
-#include "TAxis.h"
-#include "TGraphErrors.h"
-#include "RooPlot.h"
-#include "RooFitResult.h"
-#include "RooExponential.h"
-#include "RooGenericPdf.h"
-#include "RooCategory.h"
-#include "TRandom3.h"
-#include "TFile.h"
-#include "fitF.cxx"
-#include "fitFbkg.cxx"
-#include "fitFdaughters.cxx"
-#include "fitFparent.cxx"
-#include "RooGaussian.h"
-#include "RooConstVar.h"
-
-
-#include "RooRandom.h"
-#include "RooDataSet.h"
-#include "RooRealVar.h"
-#include "RooConstVar.h"
-#include "RooAddition.h"
-#include "RooDataHist.h"
-#include "RooPoisson.h"
-#include "RooPlot.h"
-
-#include "RooNLLVar.h"
-
-#include "RooStats/ConfInterval.h"
-#include "RooStats/PointSetInterval.h"
-#include "RooStats/ConfidenceBelt.h"
-#include "RooStats/FeldmanCousins.h"
-#include "RooStats/ProfileLikelihoodCalculator.h"
-#include "RooStats/MCMCCalculator.h"
-#include "RooStats/BayesianCalculator.h"
-#include "RooStats/MCMCIntervalPlot.h"
-#include "RooStats/LikelihoodIntervalPlot.h"
-
-#include "RooStats/ProofConfig.h"
-#include "RooStats/ToyMCSampler.h"
-#include "RooProfileLL.h"
-
-#include "RooHist.h"
-#include "RooCurve.h"
-#include "histofunction.C"
-
-#include <fstream>
-
-using namespace RooFit ;
-using namespace RooStats;
-
-Double_t p_deadtime=0;
-Double_t p_timerange=10;
-
-Int_t ncpus=20;
-
-using namespace std;
-
-
-void setdataHistzero(RooHist* datahist){
-    for (Int_t i=0;i<datahist->GetN();i++){if (datahist->GetY()[i]==0) {
-            datahist->SetPointEYhigh(i,0);
-            datahist->SetPointEYlow(i,0);
-        }
-    }
-}
-
-
-void getparms(Double_t* parms,Double_t* parmserr, Double_t* parmsmax, Double_t* parmsmin, Int_t* isparmsfix,char* infile)
-{
-    std::ifstream ifs(infile);
-    Double_t decayparms[knri][3];
-    Double_t decayparms_err[knri][3];
-    Double_t decayparms_max[knri][3];
-    Double_t decayparms_min[knri][3];
-    Int_t decayparms_isfix[knri][3];
-
-    std::string tempstr;
-    Int_t temp;
-    Int_t rino=0;
-
-    std::getline(ifs,tempstr);
-    for (int i=0;i<knri;i++){
-        ifs>>tempstr>>temp>>decayparms[rino][0]>>decayparms_err[rino][0]>>decayparms[rino][1]
-                >>decayparms_err[rino][1]>>decayparms[rino][2]>>decayparms_err[rino][2]
-                >>decayparms_isfix[rino][0]>>decayparms_min[rino][0]>>decayparms_max[rino][0]
-                >>decayparms_isfix[rino][1]>>decayparms_min[rino][1]>>decayparms_max[rino][1]
-                >>decayparms_isfix[rino][2]>>decayparms_min[rino][2]>>decayparms_max[rino][2];
-        //cout<<tempstr<<"\t"<<temp<<"\t"<<decayparms[rino][0]<<"\t"<<decayparms_min[rino][0]<<"\t"<<decayparms_max[rino][0]<<endl;
-        rino++;
-    }
-
-    for (int i=0;i<knri;i++){
-        for (int j=0;j<3;j++){
-            if (j==0){//for half-life
-                decayparms_err[i][j]=TMath::Log(2)/decayparms[i][j]/decayparms[i][j]*decayparms_err[i][j];
-                decayparms[i][j]=TMath::Log(2)/decayparms[i][j];
-                Double_t maxdecayrate=TMath::Log(2)/decayparms_min[i][j];
-                Double_t mindecayrate=TMath::Log(2)/decayparms_max[i][j];
-                decayparms_min[i][j]=mindecayrate;
-                decayparms_max[i][j]=maxdecayrate;
-                //cout<<i<<"\t"<<decayparms[i][j]<<"\t"<<decayparms_min[i][j]<<endl;
-            }
-        }
-    }
-
-
-    //! calculate output
-    for (int i=0;i<knri;i++){
-        for (int j=0;j<2;j++){
-            isparmsfix[j*knri+i]=decayparms_isfix[i][j];
-            parms[j*knri+i]=decayparms[i][j];
-            parmserr[j*knri+i]=decayparms_err[i][j];
-            parmsmin[j*knri+i]=decayparms_min[i][j];
-            parmsmax[j*knri+i]=decayparms_max[i][j];
-        }
-    }
-
-    //! read p2n parrent
-    parms[knri*2]=decayparms[0][2];
-    parmserr[knri*2]=decayparms_err[0][2];
-    parms[knri*2]=decayparms[0][2];
-    parmsmin[knri*2]=decayparms_min[0][2];
-    parmsmax[knri*2]=decayparms_max[0][2];
-    isparmsfix[knri*2]=decayparms_isfix[0][2];
-}
-
-void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,Double_t inputneueff_err,Double_t beginfit=0,Int_t fitopt=0,Int_t nbinsplot=200,Double_t plotrangelow=-1,Double_t plotrangehi=3)// fit option 0: no constrains(central value) fit option 1: constrains for sys error estimation; fit option 2: constrains for background only
-{    
-    p_deadtime=beginfit;
-    //! Get paramters
-    Double_t parms[knri*2+6];
-    Double_t parmserr[knri*2+6];
-    Double_t parmsmax[knri*2+6];
-    Double_t parmsmin[knri*2+6];
-    Int_t isparmsfix[knri*2+6];
-    getparms(parms,parmserr,parmsmax,parmsmin,isparmsfix,parmsfile);
-    for (int i=0;i<knri*2+1;i++){
-        cout<<"parm "<<i<<"\t"<<parms[i]<<"\t"<<parmserr[i]<<"\t"<<parmsmin[i]<<"\t"<<parmsmax[i]<<"\t"<<isparmsfix[i]<<endl;
-    }
 
     // Import tree to total decay data
     TFile *f=TFile::Open(infile);
     TTree* tree;
     f->GetObject("tree",tree);
-    //tree->SetEntries(20000);
+    //tree->SetEntries(25000);
 
     //! define variables
     RooRealVar x("x","x",p_deadtime,p_timerange) ;
@@ -179,17 +18,8 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
     y.defineType("2neu",2);
 
 
-
-    //! estimate background
-    Double_t nnbkg=tree->Draw("",Form("x<%f&&x>%f",-p_deadtime,-p_timerange),"goff");
-    Double_t nnbkg1n = tree->Draw("",Form("x<%f&&x>%f&&y==1",-p_deadtime,-p_timerange),"goff");
-    Double_t nnbkg2n = tree->Draw("",Form("x<%f&&x>%f&&y==2",-p_deadtime,-p_timerange),"goff");
-
-    cout<<"Background ratios = "<<nnbkg1n/nnbkg<<"\t"<<nnbkg2n/nnbkg1n<<endl;
-
-    RooRealVar bkg1nratio("bkg1nratio","bkg1nratio",nnbkg1n/nnbkg,nnbkg1n/nnbkg/5,nnbkg1n/nnbkg*5) ;
-    RooRealVar bkg2nratio("bkg2nratio","bkg2nratio",nnbkg2n/nnbkg1n,nnbkg2n/nnbkg1n/5,nnbkg2n/nnbkg1n*5) ;
-
+    RooRealVar bkg1nratio("bkg1nratio","bkg1nratio",0.5,0,1) ;
+    RooRealVar bkg2nratio("bkg2nratio","bkg2nratio",0.5,0,1) ;
 
     //! bkg pdf
     fitFbkg bkgmodel("bkgmodel","bkgmodel",xbkg,y,bkg1nratio,bkg2nratio);
@@ -280,13 +110,11 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
                     cout<<"set Constant for parameter p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
                     p[i]->setConstant();
                 }else{
-                    if (isparmsfix[i]==1) {
+                    cout<<"set constrain model for p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
+                    //if (i!=7)
                         externalconstrains.add(*pconstr[i]);
-                        cout<<"set constrain model for p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
-                    }else{
-                        p[i]->setConstant();
-                        cout<<"set Constant for parameter p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
-                    }
+                    //else
+                    //    p[i]->setConstant();
                 }
             }
 
@@ -305,6 +133,7 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
     fitF totdecaymodel("totdecaymodel","totdecaymodel",x,y,neueff,*p[0],*p[1],*p[2],*p[3],*p[4],*p[5],*p[6],*p[7],*p[8],*p[9],*p[10],*p[11],*p[12],*p[13],*p[14],*p[15],*p[16],*p[17],*p[18],*p[19],*p[20],*p[21]);
 
     //! set background/signal counts
+    Double_t nnbkg=tree->Draw("",Form("x<%f&&x>%f",-p_deadtime,-p_timerange),"goff");
     Double_t nnsig=tree->Draw("",Form("x<%f&&x>%f",p_timerange,p_deadtime),"goff");
     nnsig=nnsig-nnbkg;
     cout<<"NSIG = "<<nnsig<<endl;
@@ -321,7 +150,11 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
     externalconstrains.add(*bkg1nratiocnstr);
     externalconstrains.add(*bkg2nratiocnstr);
 
+
+
     RooAddPdf final_pdf("final_pdf","final pdf",RooArgList(totdecaymodel,bkgmodelfw),RooArgList(nsig,nbkg));
+
+
     //! prepare data set for fitting forward correlated data
     RooDataSet* data=new RooDataSet("data","data",RooArgSet(x,y),Import(*tree)) ;
     data->Print() ;
@@ -335,19 +168,8 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
         bkg2nratio.setConstant();
         fitres=final_pdf.fitTo(*data,NumCPU(ncpus),Save()) ;
     }else{
-        fitres=final_pdf.fitTo(*data,ExternalConstraints(externalconstrains),NumCPU(ncpus),Save()) ;
+        //fitres=final_pdf.fitTo(*data,ExternalConstraints(externalconstrains),NumCPU(ncpus),Save()) ;
     }
-
-
-//    fitFparent parentmodel("parentmodel","parentmodel",x,y,neueff,*p[0],*p[1],*p[2],*p[3],*p[4],*p[5],*p[6],*p[7],*p[8],*p[9],*p[10],*p[11],*p[12],*p[13],*p[14],*p[15],*p[16],*p[17],*p[18],*p[19],*p[20],*p[21]);
-//    fitFdaughters daughtmodel("daughtmodel","daughtmodel",x,y,neueff,*p[0],*p[1],*p[2],*p[3],*p[4],*p[5],*p[6],*p[7],*p[8],*p[9],*p[10],*p[11],*p[12],*p[13],*p[14],*p[15],*p[16],*p[17],*p[18],*p[19],*p[20],*p[21]);
-
-
-//    Double_t igparent=parentmodel.createIntegral(x)->getVal();
-//    Double_t igdaughter=daughtmodel.createIntegral(x)->getVal();
-
-//    RooRealVar nsigparent("nsigparent","nsigparent",nsig.getVal()*igparent/(igparent+igdaughter),nsig.getVal()*igparent/(igparent+igdaughter)*0.5,nsig.getVal()*igparent/(igparent+igdaughter)*1.5) ;
-//    RooAddPdf final_pdfparent("final_pdfparent","final_pdfparent pdf",RooArgList(parentmodel,bkgmodelfw),RooArgList(nsigparent,nbkg));
 
     gStyle->SetOptStat(0);
     TCanvas *c1 = new TCanvas("c1","c1",1200, 800);
@@ -355,9 +177,10 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
 
     c1->cd(1);
     RooPlot* xframe0 = x.frame(Title("0 neutron fit")) ;
+    //data->plotOn(xframe0,Cut("y==y::0neu"),Binning(nbinsplot),RooFit::Name("data0n")) ;
+    //final_pdf.plotOn(xframe0,Slice(y,"0neu"),LineColor(kRed),RooFit::Name("data0nmodel")) ;
     data->plotOn(xframe0,Binning(nbinsplot),RooFit::Name("data0n")) ;
     final_pdf.plotOn(xframe0,LineColor(kRed),RooFit::Name("data0nmodel")) ;
-    //final_pdf.plotOn(xframe0,Components(bkgmodelfw),LineColor(kGreen),RooFit::Name("data0nmodelbgfw")) ;
     xframe0->Draw();
 
     c1->cd(3);
@@ -373,16 +196,17 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
     xframe2->Draw() ;
 
     RooCurve* model0nCurve=(RooCurve*)xframe0->getCurve("data0nmodel");
-    //RooCurve* model0nbgfwCurve=(RooCurve*)xframe0->getCurve("data0nmodelbgfw");
-
     RooHist* model0nHist=(RooHist*)xframe0->getHist("data0n");
     RooCurve* model1nCurve=(RooCurve*)xframe1->getCurve("data1nmodel");
     RooHist* model1nHist=(RooHist*)xframe1->getHist("data1n");
     RooCurve* model2nCurve=(RooCurve*)xframe2->getCurve("data2nmodel");
     RooHist* model2nHist=(RooHist*)xframe2->getHist("data2n");
 
+
     c1->cd(2);
     RooPlot* xframe3 = xbkg.frame(Title("0 neutron fit")) ;
+    //data2->plotOn(xframe3,Cut("y==y::0neu"),Binning(nbinsplot),RooFit::Name("bkg0n")) ;
+    //bkgmodel.plotOn(xframe3,Slice(y,"0neu"),RooFit::Name("bkg0nmodel")) ;
     data2->plotOn(xframe3,Binning(nbinsplot),RooFit::Name("bkg0n")) ;
     bkgmodel.plotOn(xframe3,RooFit::Name("bkg0nmodel")) ;
     xframe3->Draw() ;
@@ -492,30 +316,8 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
 
 
     ofstream str("out.txt",ios::app);
-    str<<outfile<<"\t"<<TMath::Log(2)/p[0]->getVal()*1000<<"\t"<<p[9]->getVal()*100<<"\t"<<p[18]->getVal()*100<<"\t"<<log(2)/p[0]->getVal(0)/p[0]->getVal(0)*p[0]->getError()*1000<<"\t"<<p[9]->getError()*100<<"\t"<<p[18]->getError()*100<<"\t"<<chisquare/(nbinsplot+fitres->floatParsFinal().getSize())<<"\t"<<fitres->status()<<endl;
+    str<<outfile<<"\t"<<p[0]->getVal()<<"\t"<<p[9]->getVal()<<"\t"<<p[18]->getVal()<<"\t"<<p[0]->getError()<<"\t"<<p[9]->getError()<<"\t"<<p[18]->getError()<<"\t"<<chisquare/(nbinsplot+fitres->floatParsFinal().getSize())<<"\t"<<chisquare1n/(nbinsplot+fitres->floatParsFinal().getSize())<<"\t"<<chisquare2n/(nbinsplot+fitres->floatParsFinal().getSize())<<endl;
 
-    //! fake drawing
-    Double_t parmhist[knri*2+3];
-    for (Int_t i=0;i<knri*2+1;i++) parmhist[i]=p[i]->getVal();
-    parmhist[knri*2+2]=modelbkg0nCurve->Eval((-p_timerange-p_deadtime)/2);
-    parmhist[knri*2+1]=model0nCurve->Eval(p_deadtime)-parmhist[knri*2+2];
-    TF1* tfdecay=getFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
-    model0nCurve->Fit(tfdecay,"EQR+","goff");
-
-    for (Int_t i=0;i<knri*2+3;i++) parmhist[i]=tfdecay->GetParameter(i);
-    TF1* tfdaughterdecay=getDaughterFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
-    TF1* tfparentdecay=getParentFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
-    TF1* tfbkg=getBkgFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
-
-    c1->cd(1);
-    tfdecay->SetLineColor(3);
-    tfdecay->Draw("same");
-    tfdaughterdecay->SetLineColor(4);
-    tfdaughterdecay->Draw("same");
-    tfparentdecay->SetLineColor(5);
-    tfparentdecay->Draw("same");
-    tfbkg->SetLineColor(6);
-    tfbkg->Draw("same");
 
 
 
@@ -777,9 +579,4 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
     c0n->Write();
     c1n->Write();
     c2n->Write();
-
-    tfdecay->Write();
     outfileroot->Close();
-}
-
-

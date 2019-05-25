@@ -385,7 +385,7 @@ TF1* getFunction(Double_t*parms, Double_t irejecttrange=0.05, Double_t upperlimi
     TF1* fB=new TF1("fB",fcn_gen,rejecttrange,upperlimit,knrri*2+3);
     fB->SetNpx(2000);
     fB->SetLineWidth(2);
-    fB->SetLineColor(8);
+    fB->SetLineWidth(0);
 
     //!****************************************** All BETA decay function
     //! read input and get parameters

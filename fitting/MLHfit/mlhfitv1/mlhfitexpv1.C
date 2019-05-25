@@ -73,7 +73,7 @@ using namespace RooStats;
 Double_t p_deadtime=0;
 Double_t p_timerange=10;
 
-Int_t ncpus=20;
+Int_t ncpus=24;
 
 using namespace std;
 
@@ -494,31 +494,6 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
     ofstream str("out.txt",ios::app);
     str<<outfile<<"\t"<<TMath::Log(2)/p[0]->getVal()*1000<<"\t"<<p[9]->getVal()*100<<"\t"<<p[18]->getVal()*100<<"\t"<<log(2)/p[0]->getVal(0)/p[0]->getVal(0)*p[0]->getError()*1000<<"\t"<<p[9]->getError()*100<<"\t"<<p[18]->getError()*100<<"\t"<<chisquare/(nbinsplot+fitres->floatParsFinal().getSize())<<"\t"<<fitres->status()<<endl;
 
-    //! fake drawing
-    Double_t parmhist[knri*2+3];
-    for (Int_t i=0;i<knri*2+1;i++) parmhist[i]=p[i]->getVal();
-    parmhist[knri*2+2]=modelbkg0nCurve->Eval((-p_timerange-p_deadtime)/2);
-    parmhist[knri*2+1]=model0nCurve->Eval(p_deadtime)-parmhist[knri*2+2];
-    TF1* tfdecay=getFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
-    model0nCurve->Fit(tfdecay,"EQR+","goff");
-
-    for (Int_t i=0;i<knri*2+3;i++) parmhist[i]=tfdecay->GetParameter(i);
-    TF1* tfdaughterdecay=getDaughterFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
-    TF1* tfparentdecay=getParentFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
-    TF1* tfbkg=getBkgFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
-
-    c1->cd(1);
-    tfdecay->SetLineColor(3);
-    tfdecay->Draw("same");
-    tfdaughterdecay->SetLineColor(4);
-    tfdaughterdecay->Draw("same");
-    tfparentdecay->SetLineColor(5);
-    tfparentdecay->Draw("same");
-    tfbkg->SetLineColor(6);
-    tfbkg->Draw("same");
-
-
-
     /**
         Make another canvases for thesis
 
@@ -564,7 +539,37 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
     model0nHist->Draw("sameP");
     model0nCurve->Draw("same");
     modelbkg0nHist->Draw("sameP");
+    modelbkg0nCurve->SetLineColor(6);
+    modelbkg0nCurve->SetLineStyle(10);
     modelbkg0nCurve->Draw("same");
+
+
+
+    //! fake drawing
+    Double_t parmhist[knri*2+3];
+    for (Int_t i=0;i<knri*2+1;i++) parmhist[i]=p[i]->getVal();
+    parmhist[knri*2+2]=modelbkg0nCurve->Eval((-p_timerange-p_deadtime)/2);
+    parmhist[knri*2+1]=model0nCurve->Eval(p_deadtime)-parmhist[knri*2+2];
+    TF1* tfdecay=getFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
+    model0nCurve->Fit(tfdecay,"EQR+","goff");
+
+    for (Int_t i=0;i<knri*2+3;i++) parmhist[i]=tfdecay->GetParameter(i);
+    TF1* tfdaughterdecay=getDaughterFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
+    TF1* tfparentdecay=getParentFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
+    TF1* tfbkg=getBkgFunction(parmhist,p_deadtime,p_timerange,neueff.getVal());
+    pad1_c0n->cd();
+    //tfdecay->SetLineColor(3);
+    //tfdecay->Draw("same");
+    tfdaughterdecay->SetLineColor(4);
+    tfdaughterdecay->Draw("same");
+    tfparentdecay->SetLineColor(5);
+    tfparentdecay->Draw("same");
+    tfbkg->SetLineColor(6);
+    tfbkg->SetLineStyle(10);
+    tfbkg->Draw("same");
+    pad1_c0n->Draw();
+
+
     pad2_c0n->cd();
     TH1F* hdummyc0nres=new TH1F("hdummyc0nres","",20,plotrangelow,plotrangehi);
     hdummyc0nres->SetLineColor(1);

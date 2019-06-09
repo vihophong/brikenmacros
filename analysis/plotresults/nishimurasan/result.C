@@ -362,8 +362,14 @@ void result()
     }
   }
 
+  hexp0->GetZaxis()->SetLabelSize(0.06);
+  hexp1->GetZaxis()->SetLabelSize(0.06);
+  hexp2->GetZaxis()->SetLabelSize(0.06);
+  hexp3->GetZaxis()->SetLabelSize(0.06);
+  hexp4->GetZaxis()->SetLabelSize(0.06);
+  hexp5->GetZaxis()->SetLabelSize(0.06);
 
-  c1->cd(2)->SetLogz(mylog); hexp1->Draw("colz");    
+  c1->cd(2)->SetLogz(mylog);  hexp1->Draw("colz");
   //  c1->cd(2)->SetLogz(mylog); hexp1->Draw("box");    
   a1.SetLineWidth(2.0);  a1.SetLineColor(1);
   a1.DrawLine(82-dd,46-dd,82-dd,52-dd); a1.DrawLine(83-dd,46-dd,83-dd,52-dd);

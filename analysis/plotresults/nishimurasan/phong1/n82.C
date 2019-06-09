@@ -1,0 +1,427 @@
+#include <vector>
+#include "TGraph.h"
+#include "TCanvas.h"
+#include "TArrow.h"
+#include "TVirtualPad.h"
+
+void n82();
+void n82() 
+{
+  c1 = new TCanvas("c1","test",10,10,1200,1200);
+  c1->GetFrame()->SetFillColor(21);
+  c1->GetFrame()->SetBorderSize(12);
+
+ 
+
+  Int_t NumRI;
+  char RI[6];
+  Int_t nprot;
+  Int_t nneut;
+  Int_t nmass;
+  Double_t dum1;
+  Double_t dum2;
+  Double_t life;
+  Double_t qval;
+  Double_t pn0;
+  Double_t pn1; 
+  Double_t pn2;
+  Double_t pn3;
+
+  Double_t pn;
+  
+  NumRI = 5346;
+  //  NumRI = 24;
+
+  //  ofstream fout2;
+  //  fout2.open("zzz.dat");
+
+
+  // experimental data
+  Int_t data_a[20]; 
+  Int_t data_n[20];
+  Int_t data_p[20];
+  Double_t data_p1n[20];
+  Double_t data_p2n[20];
+  Double_t data_p1nel[20];
+  Double_t data_p1neh[20];
+  Double_t data_p2nel[20];
+  Double_t data_p2neh[20];
+  Double_t data_pn[20]; 
+
+  Double_t qrpa1_p1n[20], qrpa1_p2n[20], qrpa1_pn[20];
+  Double_t qrpa2_p1n[20], qrpa2_p2n[20], qrpa2_pn[20];
+  Double_t qrpahf_p1n[20], qrpahf_p2n[20], qrpahf_pn[20];
+  Double_t d3c_p1n[20], d3c_p2n[20], d3c_pn[20]; 
+  Double_t mie_p1n[20], mie_p2n[20], mie_pn[20]; 
+
+
+  Int_t dum_p, dum_a;
+
+  ifstream fdat2; 
+  fdat2.open("QRPA1.prn");
+  for (Int_t i=0; i<17; i++) {
+    fdat2 >> dum_p >> dum_a >> qrpa1_p1n[i] >> qrpa1_p2n[i];
+    qrpa1_pn[i] = qrpa1_p1n[i] + qrpa1_p2n[i]*2.0;
+  }
+  fdat2.close();
+  
+
+  ifstream fdat3; 
+  fdat3.open("QRPA2.prn");
+  for (Int_t i=0; i<17; i++) {
+    fdat3 >> dum_p >> dum_a >> qrpa2_p1n[i] >> qrpa2_p2n[i];
+    qrpa2_pn[i] = qrpa2_p1n[i] + qrpa2_p2n[i]*2.0;
+  }
+  fdat3.close();
+  
+  ifstream fdat4; 
+  fdat4.open("QRPAHF.prn");
+  for (Int_t i=0; i<17; i++) {
+    fdat4 >> dum_p >> dum_a >> qrpahf_p1n[i] >> qrpahf_p2n[i];
+    qrpahf_pn[i] = qrpahf_p1n[i] + qrpahf_p2n[i]*2.0;
+  }
+  fdat4.close();
+  
+  ifstream fdat5; 
+  fdat5.open("D3C.prn");
+  for (Int_t i=0; i<17; i++) {
+    fdat5 >> dum_p >> dum_a >> d3c_p1n[i] >> d3c_p2n[i];
+    d3c_pn[i] = d3c_p1n[i] + d3c_p2n[i]*2.0;
+  }
+  fdat5.close();
+  
+
+  ifstream fdat6; 
+  fdat6.open("MIE.prn");
+  for (Int_t i=0; i<17; i++) {
+    fdat6 >> dum_p >> dum_a >> mie_p1n[i] >> mie_p2n[i];
+    mie_pn[i] = mie_p1n[i] + mie_p2n[i]*2.0;
+  }
+  fdat6.close();
+  
+
+
+
+
+
+
+  Int_t nx=15, ny=8;
+  Double_t xfr, xto;
+  Double_t yfr, yto;
+
+  xfr = 80.5;
+  xto = 89.5;
+  yfr = 45.5;
+  yto = 51.5;
+  nx = xto - xfr;
+  ny = yto - yfr;
+
+  //  TH2F *hchart = new TH2F("hist","",nx,xfr,xto,ny,yfr,yto);
+  TH2F *hexp0 = new TH2F("hexp0","BRIKEN",nx,xfr,xto,ny,yfr,yto);
+  TH2F *hexp1 = new TH2F("hexp1","QRPA1(GT)",nx,xfr,xto,ny,yfr,yto);
+  TH2F *hexp2 = new TH2F("hexp2","QRPA2(GT_FF)",nx,xfr,xto,ny,yfr,yto);
+  TH2F *hexp3 = new TH2F("hexp3","QRPA-HF",nx,xfr,xto,ny,yfr,yto);
+  TH2F *hexp4 = new TH2F("hexp4","D3C(GT+FF)",nx,xfr,xto,ny,yfr,yto);
+  TH2F *hexp5 = new TH2F("hexp5","Mienik",nx,xfr,xto,ny,yfr,yto);
+
+
+
+  hexp1->SetTitleSize(0.06);
+  hexp1->GetXaxis()->SetTitleOffset(-0.8);
+  hexp1->GetYaxis()->SetTitleOffset(1.2);
+  hexp1->GetXaxis()->SetLabelSize(0.06);
+  hexp1->GetYaxis()->SetLabelSize(0.06);
+  hexp1->GetYaxis()->SetTitle("N_{Proton}");
+  hexp1->GetXaxis()->SetTitle("N_{Neutron}");
+
+  
+
+
+
+  Double_t dd = 0.5;
+
+  Double_t nn;
+  Double_t pp1;
+  Double_t pp2;
+  //  nn=82;
+  //  pp=44; TBox *b1 = new TBox(nn,pp,nn+1.,pp+1.);
+  TBox b1;
+  b1.SetFillColor(11);
+  //  b1.SetFillColor(8);
+  b1.SetLineColor(2);
+  b1.SetLineWidth(1);
+  //  b1.SetLineStyle(2);
+
+  TLine a0;
+  a0.SetLineWidth(4);
+  //  a0.SetLineStyle(3);
+  a0.SetLineStyle(1);
+  a0.SetLineColor(3);
+
+  nn=50; pp1=28; pp2=29; 
+
+ 
+
+
+
+
+
+  ifstream fdat1; 
+  fdat1.open("briken_exp.prn");
+
+  for (Int_t i=0; i<17; i++) {
+    fdat1 >> data_p[i] >> data_a[i] 
+	  >> data_p1n[i] >> data_p1nel[i] >> data_p1neh[i] 
+      	  >> data_p2n[i] >> data_p2nel[i] >> data_p2neh[i];
+    data_n[i] = data_a[i] - data_p[i];
+    data_pn[i] = data_p1n[i] + data_p2n[i]*2.;   
+     
+    //    hexp0->Fill(data_n[i], data_p[i], data_p2n[i]);
+    //            hexp1->Fill(data_n[i], data_p[i], qrpa1_p2n[i]);
+    //            hexp2->Fill(data_n[i], data_p[i], qrpa2_p2n[i]);
+    //            hexp3->Fill(data_n[i], data_p[i], qrpahf_p2n[i]);
+    //            hexp4->Fill(data_n[i], data_p[i], d3c_p2n[i]);
+    //            hexp5->Fill(data_n[i], data_p[i], mie_p2n[i]);
+
+	    //	    hexp0->Fill(data_n[i], data_p[i], data_p1n[i]);
+	    //    	    hexp1->Fill(data_n[i], data_p[i], qrpa1_p1n[i]);
+	    //    	    hexp2->Fill(data_n[i], data_p[i], qrpa2_p1n[i]);
+	    //    	    hexp3->Fill(data_n[i], data_p[i], qrpahf_p1n[i]);
+	    //    	    hexp4->Fill(data_n[i], data_p[i], d3c_p1n[i]);
+	    //    	    hexp5->Fill(data_n[i], data_p[i], mie_p1n[i]);
+
+
+    //    hexp0->Fill(data_n[i], data_p[i], data_pn[i]);
+    //    hexp1->Fill(data_n[i], data_p[i], qrpa1_pn[i]);
+    //    hexp2->Fill(data_n[i], data_p[i], qrpa2_pn[i]);
+    //    hexp3->Fill(data_n[i], data_p[i], qrpahf_pn[i]);
+    //    hexp4->Fill(data_n[i], data_p[i], d3c_pn[i]);
+    //    hexp5->Fill(data_n[i], data_p[i], mie_pn[i]);
+
+    //    hexp1->Fill(data_n[i], data_p[i], data_pn[i]/qrpa1_pn[i]);
+    //    hexp2->Fill(data_n[i], data_p[i], data_pn[i]/qrpa2_pn[i]);
+    //    hexp3->Fill(data_n[i], data_p[i], data_pn[i]/qrpahf_pn[i]);
+    //    hexp4->Fill(data_n[i], data_p[i], data_pn[i]/d3c_pn[i]);
+    //    hexp5->Fill(data_n[i], data_p[i], data_pn[i]/mie_pn[i]);
+
+    //       hexp1->Fill(data_n[i], data_p[i],  data_p1n[i]/qrpa1_p1n[i]);
+    //       hexp2->Fill(data_n[i], data_p[i],  data_p1n[i]/qrpa2_p1n[i]);
+    //        hexp3->Fill(data_n[i], data_p[i], data_p1n[i]/qrpahf_p1n[i]);
+    //        hexp4->Fill(data_n[i], data_p[i], data_p1n[i]/d3c_p1n[i]);
+    //        hexp5->Fill(data_n[i], data_p[i], data_p1n[i]/mie_p1n[i]);
+
+    //    hexp1->Fill(data_n[i], data_p[i], data_p2n[i]/qrpa1_p2n[i]);
+    //    hexp2->Fill(data_n[i], data_p[i], data_p2n[i]/qrpa2_p2n[i]);
+    //    hexp3->Fill(data_n[i], data_p[i], data_p2n[i]/qrpahf_p2n[i]);
+    //    hexp4->Fill(data_n[i], data_p[i], data_p2n[i]/d3c_p2n[i]);
+    //    hexp5->Fill(data_n[i], data_p[i], data_p2n[i]/mie_p2n[i]);
+
+  }
+
+  fdat1.close();
+
+  c1->Divide(2,3);
+
+  Double_t mymin = 1; 
+  Double_t mymax = 100;
+
+  hexp0->SetMinimum(mymin); hexp0->SetMaximum(mymax);
+  hexp1->SetMinimum(mymin); hexp1->SetMaximum(mymax); 
+  hexp2->SetMinimum(mymin); hexp2->SetMaximum(mymax);
+  hexp3->SetMinimum(mymin); hexp3->SetMaximum(mymax);
+  hexp4->SetMinimum(mymin); hexp4->SetMaximum(mymax);
+  hexp5->SetMinimum(mymin); hexp5->SetMaximum(mymax);
+
+
+
+  Int_t mylog = 1; 
+  Int_t flow = 0; 
+
+
+  c1->cd(1)->SetLogz(mylog); hexp1->Draw("colz");    
+  TLine a1;  a1.SetLineWidth(2.0);  a1.SetLineColor(1);
+  a1.DrawLine(82-dd,46-dd,82-dd,52-dd); a1.DrawLine(83-dd,46-dd,83-dd,52-dd);
+  a1.DrawLine(81-dd,50-dd,90-dd,50-dd); a1.DrawLine(81-dd,51-dd,90-dd,51-dd);
+
+  if (flow == 1) {
+    for (Int_t i=0; i<17; i++) {
+      pn = qrpa1_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(2.0); ar.SetLineColor(1);
+      ar.DrawClone("");
+    }
+    for (Int_t i=0; i<17; i++) {
+      pn = data_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(3.0); ar.SetLineColor(2);
+      ar.DrawClone("");
+    }
+  }
+
+  c1->cd(3)->SetLogz(mylog); hexp2->Draw("colz");
+  a1.DrawLine(82-dd,46-dd,82-dd,52-dd); a1.DrawLine(83-dd,46-dd,83-dd,52-dd);
+  a1.DrawLine(81-dd,50-dd,90-dd,50-dd); a1.DrawLine(81-dd,51-dd,90-dd,51-dd);
+
+  if (flow == 1) {
+    for (Int_t i=0; i<17; i++) {
+      pn = qrpa2_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(2.0); ar.SetLineColor(1);
+      ar.DrawClone("");
+    }
+    for (Int_t i=0; i<17; i++) {
+      pn = data_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(3.0); ar.SetLineColor(2);
+      ar.DrawClone("");
+    }
+  }
+
+
+  c1->cd(5)->SetLogz(mylog); hexp3->Draw("colz");
+  a1.DrawLine(82-dd,46-dd,82-dd,52-dd); a1.DrawLine(83-dd,46-dd,83-dd,52-dd);
+  a1.DrawLine(81-dd,50-dd,90-dd,50-dd); a1.DrawLine(81-dd,51-dd,90-dd,51-dd);
+
+  if (flow == 1) {
+    for (Int_t i=0; i<17; i++) {
+      pn = qrpahf_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(2.0); ar.SetLineColor(1);
+      ar.DrawClone("");
+    }
+    for (Int_t i=0; i<17; i++) {
+      pn = data_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(3.0); ar.SetLineColor(2);
+      ar.DrawClone("");
+    }
+  }
+
+
+
+
+  c1->cd(2)->SetLogz(mylog); hexp4->Draw("colz");
+  a1.DrawLine(82-dd,46-dd,82-dd,52-dd); a1.DrawLine(83-dd,46-dd,83-dd,52-dd);
+  a1.DrawLine(81-dd,50-dd,90-dd,50-dd); a1.DrawLine(81-dd,51-dd,90-dd,51-dd);
+
+  if (flow == 1) {
+    for (Int_t i=0; i<17; i++) {
+      pn = d3c_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(2.0); ar.SetLineColor(1);
+      ar.DrawClone("");
+    }
+    for (Int_t i=0; i<17; i++) {
+      pn = data_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(3.0); ar.SetLineColor(2);
+      ar.DrawClone("");
+    }
+  }
+
+
+  c1->cd(4)->SetLogz(mylog); hexp5->Draw("colz");
+  a1.DrawLine(82-dd,46-dd,82-dd,52-dd); a1.DrawLine(83-dd,46-dd,83-dd,52-dd);
+  a1.DrawLine(81-dd,50-dd,90-dd,50-dd); a1.DrawLine(81-dd,51-dd,90-dd,51-dd);
+
+  if (flow == 1) {
+    for (Int_t i=0; i<17; i++) {
+      pn = mie_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(2.0); ar.SetLineColor(1);
+      ar.DrawClone("");
+    }
+    for (Int_t i=0; i<17; i++) {
+      pn = data_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(3.0); ar.SetLineColor(2);
+      ar.DrawClone("");
+    }
+  }
+
+
+  c1->cd(6)->SetLogz(mylog); hexp0->Draw("colz");
+  a1.DrawLine(82-dd,46-dd,82-dd,52-dd); a1.DrawLine(83-dd,46-dd,83-dd,52-dd);
+  a1.DrawLine(81-dd,50-dd,90-dd,50-dd); a1.DrawLine(81-dd,51-dd,90-dd,51-dd);
+
+  if (flow == 1)  {
+    for (Int_t i=0; i<17; i++) {
+      pn = data_pn[i]/100.;
+      TArrow ar(data_n[i],data_p[i],data_n[i]-(pn+1)*0.8,data_p[i]+(1)*0.8,0.008,"|>");
+      ar.SetLineWidth(3.0); ar.SetLineColor(2);
+      ar.DrawClone("");
+    }
+  }
+
+  ifstream fdat;
+  fdat.open("Moller_FRDM_tpnff.dat");
+  
+  cout << "Get data" << endl;
+  
+  for (Int_t i=0; i<NumRI; i++) {
+    fdat >> nprot >> nneut >> qval >> pn0 >> pn1 >> pn2 >> pn3;
+    nmass = nneut+nprot;
+
+    pn = pn0*0. + pn1*1. + pn2*2. + pn3*3.;
+    //    hchart->Fill(nneut,nprot,pn);
+
+  }
+
+  fdat.close();
+
+  
+
+  ifstream fdat7;
+
+  fdat7.open("stable.csv");
+  cout << "Stable data " << endl;
+  Int_t n7=287;
+  Double_t xx7[300];
+  Double_t yy7[300];
+  
+  for (Int_t i=0; i<n7; i++) {
+    fdat7 >> yy7[i] >> xx7[i];
+    //    cout << " i=" << i
+    //	 << " np=" << yy7[i]
+    //	 << " nn=" << xx7[i]
+    //	 << endl;
+  }
+
+  TGraph *gr7 = new TGraph(n7,xx7,yy7);
+  gr7->SetMarkerStyle(21);
+  gr7->SetMarkerColor(1);
+  gr7->SetMarkerSize(2.0);
+
+
+  c1->cd(1); gr7->Draw("PS");  
+  c1->cd(2); gr7->Draw("PS");  
+  c1->cd(3); gr7->Draw("PS");  
+  c1->cd(4); gr7->Draw("PS");  
+  c1->cd(5); gr7->Draw("PS");  
+
+
+
+
+  ifstream fdat10;
+  fdat10.open("Moller_FRDM_tpnff.dat");
+
+  for (Int_t i=0; i<NumRI; i++) {
+    fdat10 >> nprot >> nneut >> qval >> pn0 >> pn1 >> pn2 >> pn3;
+    nmass = nneut+nprot;
+    //    if (nprot>40 && nprot<52 && nneut>60 && nneut<110) {
+    
+    pn = pn0*0. + pn1*1. + pn2*2. + pn3*3.;
+    //    cout << i << " " << pn << endl;
+
+    if (nprot > yfr && nprot < yto - 1 && nneut > xfr+1 && nneut < xto) {
+      TArrow ar2(nneut,nprot,nneut-(pn+1)*0.8,nprot+(1)*0.8,0.008,"|>");
+      ar2.SetLineColor(1);
+      //      ar2.DrawClone("");
+    }
+  }
+
+  fdat10.close();
+
+}
+
+

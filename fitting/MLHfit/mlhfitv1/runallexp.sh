@@ -12,7 +12,7 @@
 ./runfit.sh fittrees/In134.root parms/parmsIn134.txt fitresults/fitIn134_stat.root 0.58557482914 0.0295919716983695 0.08 1 500 -1 3
 ./runfit.sh fittrees/In135.root parms/parmsIn135.txt fitresults/fitIn135_stat.root 0.60759744318 0.0307473492320209 0.08 1 200 -1 3
 ./runfit.sh fittrees/Ag130.root parms/parmsAg130.txt fitresults/fitAg130_stat.root 0.61519117128 0.0331182544291893 0.05 1 200 -0.5 2
-./runfit.sh fittrees/Ag131.root parms/parmsAg131.txt fitresults/fitAg131_stat.root 0.6170710644 0.0378823324906125 0.05 0 200 -0.5 2
+./runfit.sh fittrees/Ag131.root parms/parmsAg131.txt fitresults/fitAg131_stat.root 0.6170710644 0.0378823324906125 0.05 0 250 -0.5 2
 ./runfit.sh fittrees/Cd130.root parms/parmsCd130.txt fitresults/fitCd130_stat.root 0.6441523116 0.032151846784528 0.05 1 500 -1 3
 ./runfit.sh fittrees/In131.root parms/parmsIn131.txt fitresults/fitIn131_stat.root 0.59830969254 0.0346858554973893 0.08 1 500 -1 3
 ./runfit.sh fittrees/Cd131.root parms/parmsCd131.txt fitresults/fitCd131_stat.root 0.62367187764 0.0312387251690613 0.05 1 500 -1 3

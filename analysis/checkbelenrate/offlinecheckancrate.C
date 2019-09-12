@@ -11,8 +11,6 @@
 void offlinecheckancrate(char* input)
 {
     gROOT->ProcessLine(".L checkancrate.C");
-
-      gROOT->ProcessLine(Form("checkancrate o(\"%s\");",input));
-      gROOT->ProcessLine("o.Loop();");
-
+    gROOT->ProcessLine(Form("checkancrate o(\"%s\");",input));
+    gROOT->ProcessLine("o.Loop();");
 }

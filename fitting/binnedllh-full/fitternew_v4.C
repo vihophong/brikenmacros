@@ -24,7 +24,7 @@ Double_t corefcn(Int_t ndecay,Int_t* decaymap,Int_t* nneu, Double_t* b1n,Double_
     //only parrent decay p2n
     for (int i=0;i<ndecay-1;i++){
         if (nneu[i]==0){
-            factor1=factor1 * (1-b1n[decaymap[i]]-b2n[decaymap[i]])*lamda[decaymap[i]];
+            factor1=factor1 * (1-b1n[decaymap[i]]-b2n[decaymap[i]])*lamda[decaymap[i]];//branching here!
         }else if (nneu[i]==1){
             factor1=factor1 * b1n[decaymap[i]]*lamda[decaymap[i]];
         }else{
@@ -529,7 +529,7 @@ void fitter(char* infilename,char* parmsfilename,char* outfilename,Int_t nintera
     parmsmax[knri*3+1]=parms[knri*3+1]+parms[knri*3+1]*bkgactmaxmin;
 
     parms[knri*3+7]=-hdecay->GetFunction("pol1")->GetParameter(1);
-    parmserr[knri*3+7]=-hdecay->GetFunction("pol1")->GetParError(1);
+    parmserr[knri*3+7]=hdecay->GetFunction("pol1")->GetParError(1);
 
     //activity
     parms[knri*3]=hdecay->GetBinContent(hdecay->GetXaxis()->FindBin(rejectrange))-parms[knri*3+1];

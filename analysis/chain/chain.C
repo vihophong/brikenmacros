@@ -219,7 +219,7 @@ void plotPID(char* listfile,char* pidfile){;
         cout<<filelist[nfiles]<<endl;
         nfiles++;
     }
-/*
+
                                            Int_t ncutpts=20;// number of cut points
                                            for (Int_t i=0;i<nri;i++){
                                                cutg[i]=new TCutG(nameri[i],ncutpts);
@@ -254,12 +254,12 @@ void plotPID(char* listfile,char* pidfile){;
                                                }
                                                cutg[i]->SetPoint(ncutpts,x[0],y[0]);
                                            }
-*/
 
-    TFile* f0=new TFile(filelist[0].c_str());
-    for (Int_t i=0;i<nri;i++){
-         cutg[i]=(TCutG* )f0->Get(nameri[i]);
-    }
+
+//    TFile* f0=new TFile(filelist[0].c_str());
+//    for (Int_t i=0;i<nri;i++){
+//         cutg[i]=(TCutG* )f0->Get(nameri[i]);
+//    }
 
     TChain* ch = new TChain("tree");
     nfiles=nfiles-1;

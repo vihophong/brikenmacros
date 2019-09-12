@@ -369,7 +369,7 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
     c1->cd(5);
     RooPlot* xframe2 = x.frame(Title("2 neutron fit")) ;
     data->plotOn(xframe2,Cut("y==y::2neu"),Binning(nbinsplot),RooFit::Name("data2n")) ;
-    final_pdf.plotOn(xframe2,Slice(y,"2neu"),LineColor(kRed),RooFit::Name("data2nmodel")) ;
+    final_pdf.plotOn(xframe2,Slice(y,"2neu"),LineColor(kRed),RooFit::Name("data2nmodel")) ;    
     xframe2->Draw() ;
 
     RooCurve* model0nCurve=(RooCurve*)xframe0->getCurve("data0nmodel");

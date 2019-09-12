@@ -1,0 +1,5 @@
+fitresults/unbinned_Sn138.root	29	0.6527080
+fitresults/unbinned_Sn137.root	50.4	0.09154894
+fitresults/unbinned_Sn134.root	993.627	29.91750
+fitresults/unbinned_Cd133.root	12.8	7.556380
+fitresults/unbinned_In135.root	114.39	3.510880

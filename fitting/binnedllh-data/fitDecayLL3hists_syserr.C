@@ -1326,7 +1326,6 @@ void fitDecayLL3hists_wrndcoin(char* fitname,char* infile,char* parmsfile, Int_t
    cout<<resultpar[18]<<"\t"<<resulterr[18]<<"\t"<<resultpar[19]/hB->GetBinWidth(1)/resultpar[0]/nimplants*100<<endl;
    cout<<"\n*****************\n"<<endl;
 
-
    //! write to text file
    std::ofstream ofs("x2fitresult.txt", std::ofstream::out | std::ofstream::app);
    ofs<<infile<<",";

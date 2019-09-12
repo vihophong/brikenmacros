@@ -303,10 +303,19 @@ void projectpid(char* infile,Double_t Zcenter,Double_t width,char* parmsfile, ch
         fcontamination[i]->Draw("same");
         //! scan for optimum charge state contaminant
 
+        //if (i==nfits-1) nsigma=2.1; //for Ag131
+        //if (i==nfits-2) nsigma=2.1; //for Cd133
+        //if (i==nfits-1) nsigma=1.05; //for Cd134
+        //if (i==nfits-2) nsigma=1.4; //for In136
+        //if (i==nfits-3) nsigma=2.2; //for Sn138
+        //if (i==nfits-2) nsigma=0.55; //for Sn139
+
+
         Double_t rightgate=ffit[i]->GetParameter(1)+nsigma*ffit[i]->GetParameter(4);
         Double_t leftgate=ffit[i]->GetParameter(1);
         Double_t ncontamination=fcontamination[i]->Integral(leftgate,rightgate);
         Double_t ngated=ffit[i]->Integral(leftgate,rightgate);
+
 
         //! optimization of left cut
         for (Int_t k=0;k<1001;k++){
@@ -321,6 +330,7 @@ void projectpid(char* infile,Double_t Zcenter,Double_t width,char* parmsfile, ch
             ncontamination=incontamination;
             ngated=ingated;
         }
+
 
 
         TLine* l1=new TLine(leftgate,0,leftgate,100000);
@@ -348,12 +358,19 @@ void fitHZ(TH1F* hzin){
 
     hzin->Draw();
 
-    Double_t zpeakh[]={10,20,40,400,2500,5200,6000,6400,3500,1900,200,15};
+    //low in
+    //Double_t zpeakh[]={10,20,40,400,2500,5200,6000,6400,3500,1900,200,15};
+    //high in
+    Double_t zpeakh[]={1,4,40,500,5000,20800,29300,43000,36000,34900,6000,660};
+
     TF1* fa=new TF1("fa","gaus(0)+gaus(3)+gaus(6)+gaus(9)+gaus(12)+gaus(15)+gaus(18)+gaus(21)+gaus(24)+gaus(27)+gaus(30)+gaus(33)",40.5,52.5);
     for (Int_t i=0;i<12;i++){
         fa->SetParameter(i*3,zpeakh[i]);
         fa->SetParameter(i*3+1,i+41);
-        fa->SetParameter(i*3+2,0.1969);
+        //low in
+        //fa->SetParameter(i*3+2,0.1969);
+        //high in
+        fa->SetParameter(i*3+2,0.19);
     }
     fa->SetNpx(2000);
     fa->Draw("same");

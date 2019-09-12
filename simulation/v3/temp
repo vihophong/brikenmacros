@@ -1,0 +1,35 @@
+{
+//////////////////////////////////////////////////////////
+//   This file has been automatically generated 
+//     (Mon Jul  8 18:31:09 2019 by ROOT version6.08/00)
+//   from TTree tree/tree
+//   found on file: tdiffdataIn133.root
+//////////////////////////////////////////////////////////
+
+
+//Reset ROOT and connect tree file
+   gROOT->Reset();
+   TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("tdiffdataIn133.root");
+   if (!f) {
+      f = new TFile("tdiffdataIn133.root");
+   }
+    f->GetObject("tree",tree);
+
+//Declaration of leaves types
+   Double_t        tdiff;
+
+   // Set branch addresses.
+   tree->SetBranchAddress("tdiff",&tdiff);
+
+//     This is the loop skeleton
+//       To read only selected branches, Insert statements like:
+// tree->SetBranchStatus("*",0);  // disable all branches
+// TTreePlayer->SetBranchStatus("branchname",1);  // activate branchname
+
+   Long64_t nentries = tree->GetEntries();
+
+   Long64_t nbytes = 0;
+//   for (Long64_t i=0; i<nentries;i++) {
+//      nbytes += tree->GetEntry(i);
+//   }
+}

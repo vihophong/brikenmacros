@@ -53,19 +53,18 @@
 using namespace RooFit ;
 using namespace RooStats;
 
-const Int_t ncpu = 20;
-Long64_t nentrieslimit = 1;//set negative value for fitting to all entries
+const Int_t ncpu = 8;
+Long64_t nentrieslimit = 10000;//set negative value for fitting to all entries
 
-Double_t p_deadtime=0.08;
+Double_t p_deadtime=0.;
 Double_t p_timerange=10;
 
 using namespace std;
-//void fitUnbin(char* inputfile, char* parmsfile, Int_t fitopt=0)
-void fitUnbin(char* inputfile,char* parmsfile,char*outfile,Double_t inputneueff =0.62,Double_t inputneueff_err=0.01,Double_t beginfit=0.08,Int_t fitopt=0)// fit option 0: no constrains(central value) fit option 1: constrains for sys error estimation; fit option 2: constrains for background only
+void mlhfitsim()
 {
-    p_deadtime=beginfit;
+    Int_t fitopt=0;
     // Import tree to total decay data
-    TFile *f=TFile::Open(inputfile);
+    TFile *f=TFile::Open("fittrees/Cd130.root");
     TTree* tree;
     f->GetObject("tree",tree);
     if (nentrieslimit>0) tree->SetEntries(nentrieslimit);
@@ -107,28 +106,27 @@ void fitUnbin(char* inputfile,char* parmsfile,char*outfile,Double_t inputneueff 
     slope2pos.setError(slope2.getError());
     slope3pos.setError(slope3.getError());
 
-    //! neutron detection efficiency
-    RooRealVar ineueff("ineueff","ineueff",inputneueff,0.,1.) ;
+
+    RooRealVar ineueff("ineueff","ineueff",0.62,0.,1.) ;
 
     //! read input
-    makepath(parmsfile);
-    //makepath("In134full.txt");
+    makepath("Cd130full_isomer.txt");
+    //makepath("In134short.txt");
 
     for (int i=0;i<knri*4;i++){
-        cout<<"Parms for unbinned fit, index1 = "<<i<<" : ";
-        cout<<riname[i]<<"\t"<<parms[i]<<"\t"<<parmserr[i]<<"\t"<<parmsmin[i]<<"\t"<<parmsmax[i]<<"\t"<<isparmsfix[i]<<endl;
+            cout<<"Parms for unbinned fit, index1 = "<<i<<" : ";
+            cout<<riname[i]<<"\t"<<parms[i]<<"\t"<<parmserr[i]<<"\t"<<parmsmin[i]<<"\t"<<parmsmax[i]<<"\t"<<isparmsfix[i]<<endl;
     }
 
     RooRealVar* p[151];
-    // decay parameters
-    for (int i=0;i<knri*4;i++)
+    //! decay parameters
+    for (int i=0;i<knri*4;i++){
         p[i]=new RooRealVar(Form("p%d",i),Form("p%d",i),parms[i],parmsmin[i],parmsmax[i]);
+    }
 
-
-    //! initial activity parameter set to 1 (need to be taken out, but keep for the moment)
+    //! initial activity set to 1
     p[knri*4]=new RooRealVar(Form("p%d",knri*4),Form("p%d",knri*4),1,0,2);
     p[knri*4]->setConstant();
-
 
     char tempchar1[1000];
     sprintf(tempchar1,"hdecay");
@@ -154,111 +152,142 @@ void fitUnbin(char* inputfile,char* parmsfile,char*outfile,Double_t inputneueff 
     p[knri*4+1]=new RooRealVar(Form("p%d",knri*4+1),Form("p%d",knri*4+1),randcoinf1n,randcoinf1n/3,randcoinf1n*3);
     p[knri*4+2]=new RooRealVar(Form("p%d",knri*4+2),Form("p%d",knri*4+2),randcoinfgt0n,randcoinfgt0n/3,randcoinfgt0n*3);
     p[knri*4+3]=new RooRealVar(Form("p%d",knri*4+3),Form("p%d",knri*4+3),randcoinf2n,randcoinf2n/3,randcoinf2n*3);
+    p[knri*4+1]->setError(randcoinf1n*sqrt(1/n1nbwd+1/nball));
+    p[knri*4+2]->setError(randcoinfgt0n*sqrt(1/gt0nbwd+1/nball));
+    p[knri*4+3]->setError(randcoinf2n*sqrt(1/n2nbwd+1/nball));
 
 
-    //! remaining parameters
-    for (int i=knri*4;i<151;i++){
-        p[i]=new RooRealVar(Form("p%d",i),Form("p%d",i),1,0,2);      
+    //! set the rest of unused paramters
+    for (int i=knri*4+4;i<151;i++){
+        p[i]=new RooRealVar(Form("p%d",i),Form("p%d",i),1,0,2);
         p[i]->setConstant();
     }
 
+    //! set background/signal counts for final pdf
+    Double_t nnsig=tree->Draw("",Form("x>%f",p_deadtime),"goff");
+    Double_t nnbkg=tree->Draw("",Form("x<%f",-p_deadtime),"goff");
+    nnsig=nnsig-nnbkg;
+
+    RooRealVar nbkg("nbkg","nbkg",nnbkg,0,nnbkg*10) ;
+    RooRealVar nsig("nsig","nsig",nnsig,0,nnsig*10) ;
+
+    nbkg.setError(sqrt(nnbkg));
+
+
+
+    //! set constant parameters and constrains
 
     //! define external contrains
     RooArgSet externalconstrains;
     RooGaussian* pconstr[knri*4+4];
-    RooGaussian* neueffconstr=new RooGaussian("neueffconstr","neueffconstr",ineueff,RooConst(ineueff.getVal()),RooConst(inputneueff_err));
+    RooGaussian* neueffconstr=new RooGaussian("neueffconstr","neueffconstr",ineueff,RooConst(ineueff.getVal()),RooConst(0.01));
 
-     for (int i=0;i<knri*4+4;i++)
+    RooGaussian* bkg1nratioconstr=new RooGaussian("bkg1nratioconstr","bkg1nratioconstr",bkg1nratio,RooConst(bkg1nratio.getVal()),RooConst(bkg1nratio.getError()));
+    RooGaussian* bkg2nratioconstr=new RooGaussian("bkg2nratioconstr","bkg2nratioconstr",bkg2nratio,RooConst(bkg2nratio.getVal()),RooConst(bkg2nratio.getError()));
+
+    RooGaussian* slope1posconstr=new RooGaussian("slope1posconstr","slope1posconstr",slope1pos,RooConst(slope1pos.getVal()),RooConst(slope1pos.getError()));
+    RooGaussian* slope2posconstr=new RooGaussian("slope2posconstr","slope2posconstr",slope2pos,RooConst(slope2pos.getVal()),RooConst(slope2pos.getError()));
+    RooGaussian* slope3posconstr=new RooGaussian("slope3posconstr","slope3posconstr",slope3pos,RooConst(slope3pos.getVal()),RooConst(slope3pos.getError()));
+
+
+    RooGaussian* nbkgconstr=new RooGaussian("nbkgconstr","nbkgconstr",nbkg,RooConst(nbkg.getVal()),RooConst(nbkg.getError()));
+
+
+
+     for (int i=0;i<knri*4;i++)
          pconstr[i]=new RooGaussian(Form("p%dconstr",i),Form("p%dconstr",i),*p[i],RooConst(parms[i]),RooConst(parmserr[i]));
 
+     pconstr[knri*4+1]=new RooGaussian(Form("p%dconstr",knri*4+1),Form("p%dconstr",knri*4+1),*p[knri*4+1],RooConst(p[knri*4+1]->getVal()),RooConst(p[knri*4+1]->getError()));
+     pconstr[knri*4+2]=new RooGaussian(Form("p%dconstr",knri*4+2),Form("p%dconstr",knri*4+2),*p[knri*4+2],RooConst(p[knri*4+2]->getVal()),RooConst(p[knri*4+2]->getError()));
+     pconstr[knri*4+3]=new RooGaussian(Form("p%dconstr",knri*4+3),Form("p%dconstr",knri*4+3),*p[knri*4+3],RooConst(p[knri*4+3]->getVal()),RooConst(p[knri*4+3]->getError()));
 
-     //! Error propagation using external contrains for decay parameters (also set constant or not)
-     for (int i=0;i<knri*4;i++){
-         //! setconstant for isomeric population ratio
-         Bool_t flag_continue=false;
-         if (flag_sum_isomer_ratio){
-             if (i>knri*3-1){
-                 for (Int_t j=0;j<nisomers;j++){
-                     if ((i-knri*3) == groundstate[j]){
-                         p[i]->setConstant();
-                         flag_continue=true;
-                     }
-                 }
-             }
-         }
-         if (flag_continue) continue;
+    // decay parameters
+    for (int i=0;i<knri*4;i++){
+        // stuff for isomers
+        Bool_t flag_continue=false;
+        if (flag_sum_isomer_ratio){
+            if (i>knri*3-1){
+                for (Int_t j=0;j<nisomers;j++){
+                    if ((i-knri*3) == groundstate[j]){
+                        p[i]->setConstant();
+                        flag_continue=true;
+                    }
+                }
+            }
+        }
+        if (flag_continue) continue;
 
-         if (isparmsfix[i]!=0){
-             if (fitopt==0) {
-                 //if (i<20)
-                 p[i]->setConstant();
-                 cout<<"set Constant for parameter p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
-             }else{
-                 if (parmserr[i]==0){
-                     cout<<"set Constant for parameter p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
-                     p[i]->setConstant();
-                 }else{
-                     if (isparmsfix[i]==1) {
-                         externalconstrains.add(*pconstr[i]);
-                         cout<<"set constrain model for p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
-                     }else{
-                         p[i]->setConstant();
-                         cout<<"set Constant for parameter p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
-                     }
-                 }
-             }
-         }else{
-             cout<<"variable value p"<<i<<"\tval "<<parms[i]<<"\tmin="<<parmsmin[i]<<"\tmax="<<parmsmax[i]<<endl;
-         }
-     }
+        //set constant or constrains
 
+        if (isparmsfix[i]!=0){
+            if (fitopt==0) {
+                //if (i<20)
+                p[i]->setConstant();
+                cout<<"set Constant for parameter p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
+            }else{
+                if (parmserr[i]==0){
+                    cout<<"set Constant for parameter p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
+                    p[i]->setConstant();
+                }else{
+                    if (isparmsfix[i]==1) {
+                        //p[i]->setConstant();
+                        externalconstrains.add(*pconstr[i]);
+                        cout<<"set constrain model for p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
+                    }else{
+                        p[i]->setConstant();
+                        cout<<"set Constant for parameter p"<<i<<"\tmean="<<parms[i]<<"\tstd="<<parmserr[i]<<endl;
+                    }
+                }
+            }
+        }else{
+            cout<<"variable value p"<<i<<"\tval "<<parms[i]<<"\tmin="<<parmsmin[i]<<"\tmax="<<parmsmax[i]<<endl;
+        }
+    }
 
     //! Error propagation using external contrains for other parameters
-     if (fitopt==1){
+
+
+    if (fitopt==1){
+         externalconstrains.add(*nbkgconstr);
+         externalconstrains.add(*bkg1nratioconstr);
+         externalconstrains.add(*bkg2nratioconstr);
+
+
+         externalconstrains.add(*slope1posconstr);
+         externalconstrains.add(*slope2posconstr);
+         externalconstrains.add(*slope3posconstr);
+
          externalconstrains.add(*neueffconstr);
+
          externalconstrains.add(*pconstr[knri*4+1]);
          externalconstrains.add(*pconstr[knri*4+2]);
          externalconstrains.add(*pconstr[knri*4+3]);
-
-         externalconstrains.add(bkg1nratio);
-         externalconstrains.add(bkg2nratio);
+     }else{
+         // constant
+         nbkg.setConstant();
+         bkg1nratio.setConstant();
+         bkg2nratio.setConstant();
 
          slope1pos.setConstant();
          slope2pos.setConstant();
          slope3pos.setConstant();
-         //externalconstrains.add(slope1pos);
-         //externalconstrains.add(slope2pos);
-         //externalconstrains.add(slope3pos);
-     }else{
+
          ineueff.setConstant(kTRUE);
+
          p[knri*4+1]->setConstant(kTRUE);
          p[knri*4+2]->setConstant(kTRUE);
          p[knri*4+3]->setConstant(kTRUE);
-         //! set background ratio and slope as constant
-         bkg1nratio.setConstant();
-         bkg2nratio.setConstant();
-         slope1pos.setConstant();
-         slope2pos.setConstant();
-         slope3pos.setConstant();
      }
 
 
 
-     //! bkg pdf positive
-     fitFbkg bkgmodelpos("bkgmodelpos","bkgmodelpos",x,y,bkg1nratio,bkg2nratio,slope1pos,slope2pos,slope3pos);
 
+
+    //! pdf models
+    //! bkg pdf positive
+    fitFbkg bkgmodelpos("bkgmodelpos","bkgmodelpos",x,y,bkg1nratio,bkg2nratio,slope1pos,slope2pos,slope3pos);
     //! sig pdf
     fitF totdecaymodel("totdecaymodel","totdecaymodel",x,y,ineueff,p);
-
-    //! set background/signal counts
-    Double_t nnsig=tree->Draw("",Form("x>%f&&x<%f",p_deadtime,p_timerange),"goff");
-    Double_t nnbkg=tree->Draw("",Form("x<%f&&x>%f",-p_deadtime,-p_timerange),"goff");
-    nnsig=nnsig-nnbkg;
-
-    RooRealVar nbkg("nbkg","nbkg",nnbkg,nnbkg/3,nnbkg*3) ;
-    RooRealVar nsig("nsig","nsig",nnsig,nnsig/3,nnsig*3) ;
-    nbkg.setConstant();
-
     RooAddPdf final_pdf("final_pdf","final pdf",RooArgList(totdecaymodel,bkgmodelpos),RooArgList(nsig,nbkg));
 
 
@@ -272,7 +301,7 @@ void fitUnbin(char* inputfile,char* parmsfile,char*outfile,Double_t inputneueff 
     data->Print() ;
 
     cout<<"\n********************************\n"<<endl;
-    // Fit
+    // Test Fit
     RooFitResult* fitres;
 
     if (fitopt==0)
@@ -280,9 +309,7 @@ void fitUnbin(char* inputfile,char* parmsfile,char*outfile,Double_t inputneueff 
     else
         fitres=final_pdf.fitTo(*data,ExternalConstraints(externalconstrains),NumCPU(ncpu),Save()) ;
 
-
     cout<<"\n\n\n********************************\nFitting DONE!, now plotting\n********************************\n\n\n"<<endl;
-
 
     TCanvas *c1 = new TCanvas("c1","c1",1200, 800);
     c1->Divide(2,3);
@@ -302,8 +329,6 @@ void fitUnbin(char* inputfile,char* parmsfile,char*outfile,Double_t inputneueff 
     final_pdf.plotOn(xframe2,Slice(y,"2neu")) ;
     xframe2->Draw() ;
 
-
-
     c1->cd(2);
     RooPlot* xframe3 = xbkg.frame(Title("0 neutron fit")) ;
     data2->plotOn(xframe3,Cut("y==y::0neu"),Binning(500)) ;
@@ -320,30 +345,7 @@ void fitUnbin(char* inputfile,char* parmsfile,char*outfile,Double_t inputneueff 
     bkgmodel.plotOn(xframe5,Slice(y,"2neu")) ;
     xframe5->Draw() ;
 
-    // Create a new frame to draw the residual distribution and add the distribution to the frame
-    RooHist* hresid0 = xframe0->residHist() ;
-    RooHist* hresid1 = xframe1->residHist() ;
-    RooHist* hresid2 = xframe2->residHist() ;
-    RooPlot* rframe0 = x.frame(Title("Residual Distribution 0n")) ;
-    rframe0->addPlotable(hresid0,"P") ;
-    RooPlot* rframe1 = x.frame(Title("Residual Distribution 1n")) ;
-    rframe1->addPlotable(hresid1,"P") ;
-    RooPlot* rframe2 = x.frame(Title("Residual Distribution 2n")) ;
-    rframe2->addPlotable(hresid2,"P") ;
-
-    TCanvas *c2 = new TCanvas("c2","c2",600, 800);
-    c2->Divide(1,3);
-    c2->cd(1);
-    gPad->SetLeftMargin(0.15) ; rframe0->GetYaxis()->SetTitleOffset(1.6) ; rframe0->Draw() ;
-    c2->cd(2);
-    gPad->SetLeftMargin(0.15) ; rframe1->GetYaxis()->SetTitleOffset(1.6) ; rframe1->Draw() ;
-    c2->cd(3);
-    gPad->SetLeftMargin(0.15) ; rframe2->GetYaxis()->SetTitleOffset(1.6) ; rframe2->Draw() ;
-
-
-    TFile* outfileroot=new TFile(outfile,"recreate");
+    TFile* outfileroot=new TFile("test.root","recreate");
     c1->Write();
-    c2->Write();
     outfileroot->Close();
-    //ofstream str("out.txt",ios::app);
 }

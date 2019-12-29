@@ -117,8 +117,9 @@ void mlhfitsim()
 
 
     //! read input
-    makepath("In134short.txt");
+    //makepath("In134short.txt");
     //makepath("In134full.txt");
+    makepath("Cd130full_isomer.txt");
 
     for (int i=0;i<knri*4;i++){
         //if (isparmsfix[i]!=2){

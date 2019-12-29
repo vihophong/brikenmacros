@@ -1,0 +1,523 @@
+   ------------------------------------------------------------
+  | Welcome to ROOT 6.08/00                http://root.cern.ch |
+  |                               (c) 1995-2016, The ROOT Team |
+  | Built for linuxx8664gcc                                    |
+  | From tag v6-08-00, 4 November 2016                         |
+  | Try '.help', '.demo', '.license', '.credits', '.quit'/'.q' |
+   ------------------------------------------------------------
+
+
+Processing fitUnbin.C("fittrees/Cd130.root","Cd130full_isomer.txt","Cd130fullisomer.root",0.6441523116,0.032151846784528,0.05)...
+
+[1mRooFit v3.60 -- Developed by Wouter Verkerke and David Kirkby[0m 
+                Copyright (C) 2000-2013 NIKHEF, University of California & Stanford University
+                All rights reserved, please read http://roofit.sourceforge.net/license.txt
+
+[#1] INFO:DataHandling -- RooAbsCategory::attachToTree(y) TTree branch y will be interpreted as category index
+[#1] INFO:Eval -- RooTreeDataStore::loadValues(data) Ignored 2126962 out of range events
+RooDataSet::data[x,y] = 934657 entries
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 10 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 bkg1nratio   5.00000e-01  1.00000e-01    0.00000e+00  1.00000e+00
+     2 bkg2nratio   5.00000e-01  1.00000e-01    0.00000e+00  1.00000e+00
+     3 slope1       0.00000e+00  2.00000e-02   -1.00000e-01  1.00000e-01
+     4 slope2       0.00000e+00  2.00000e-02   -1.00000e-01  1.00000e-01
+     5 slope3       0.00000e+00  2.00000e-02   -1.00000e-01  1.00000e-01
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        2500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=3.43638e+06 FROM MIGRAD    STATUS=INITIATE       24 CALLS          25 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  bkg1nratio   5.00000e-01   1.00000e-01   2.01358e-01   2.75793e+06
+   2  bkg2nratio   5.00000e-01   1.00000e-01   2.01358e-01   9.21443e+05
+   3  slope1       0.00000e+00   2.00000e-02   2.01358e-01  -9.22910e+05
+   4  slope2       0.00000e+00   2.00000e-02   2.01358e-01  -4.62945e+05
+   5  slope3       0.00000e+00   2.00000e-02   2.01358e-01   1.38565e+06
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=2.21442e+06 FROM MIGRAD    STATUS=CONVERGED     397 CALLS         398 TOTAL
+                     EDM=0.000233239    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  bkg1nratio   1.05306e-02   2.13494e-04   9.81701e-04   3.81106e+00
+   2  bkg2nratio   1.75440e-01   9.09678e-03   1.13256e-02  -6.28219e-01
+   3  slope1       1.56178e-03   3.48633e-03   1.76897e-02   6.25684e-03
+   4  slope2      -2.40109e-03   8.41010e-03   4.31166e-02   2.96632e-01
+   5  slope3       7.77741e-05   3.59788e-04   3.60666e-03  -7.70487e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  5    ERR DEF=0.5
+  4.558e-08  7.430e-07 -6.429e-07 -1.907e-08 -2.666e-11 
+  7.430e-07  8.277e-05 -1.048e-05  6.097e-05 -1.873e-09 
+ -6.429e-07 -1.048e-05  1.216e-05  3.691e-07 -1.279e-07 
+ -1.907e-08  6.097e-05  3.691e-07  7.090e-05 -1.337e-07 
+ -2.666e-11 -1.873e-09 -1.279e-07 -1.337e-07  1.294e-07 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5
+        1  0.88958   1.000  0.383 -0.864 -0.011 -0.000
+        2  0.88751   0.383  1.000 -0.330  0.796 -0.001
+        3  0.86967  -0.864 -0.330  1.000  0.013 -0.102
+        4  0.86707  -0.011  0.796  0.013  1.000 -0.044
+        5  0.21986  -0.000 -0.001 -0.102 -0.044  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        2500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=2.21442e+06 FROM HESSE     STATUS=OK             33 CALLS         431 TOTAL
+                     EDM=0.000238523    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  bkg1nratio   1.05306e-02   2.12176e-04   3.92680e-05  -1.36520e+00
+   2  bkg2nratio   1.75440e-01   9.26349e-03   4.53025e-04  -2.43517e+00
+   3  slope1       1.56178e-03   3.46344e-03   7.07590e-04   3.12597e+00
+   4  slope2      -2.40109e-03   8.55205e-03   1.72466e-03   3.16561e+00
+   5  slope3       7.77741e-05   3.59740e-04   1.44266e-04   7.77742e-04
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  5    ERR DEF=0.5
+  4.502e-08  7.574e-07 -6.334e-07  6.296e-09 -4.675e-11 
+  7.574e-07  8.583e-05 -1.065e-05  6.384e-05 -2.833e-09 
+ -6.334e-07 -1.065e-05  1.200e-05  1.117e-08 -1.273e-07 
+  6.296e-09  6.384e-05  1.117e-08  7.332e-05 -1.339e-07 
+ -4.675e-11 -2.833e-09 -1.273e-07 -1.339e-07  1.294e-07 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5
+        1  0.88812   1.000  0.385 -0.862  0.003 -0.001
+        2  0.89177   0.385  1.000 -0.332  0.805 -0.001
+        3  0.86781  -0.862 -0.332  1.000  0.000 -0.102
+        4  0.87178   0.003  0.805  0.000  1.000 -0.043
+        5  0.21927  -0.001 -0.001 -0.102 -0.043  1.000
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+ISOMER of In*
+1	Cd	48	82	130	0.162	4.27869	0.035	0	0	0	2
+2	In	49	81	130	0.29	2.39016	0.0093	0	1	1	2
+3	In*	49	81	130	0.54	1.28361	0.0165	0	1	1	2
+4	In	49	80	129	0.611	1.13445	0.0023	0	1	1	2
+5	In	49	79	128	0.84	0.825175	0	0	1	2	2
+6	Sn	50	80	130	223.2	0.0031055	0	0	1	2	2
+7	Sn	50	79	129	133.8	0.00518047	0	0	1	2	2
+8	Sn	50	78	128	3544.2	0.000195572	0	0	1	2	2
+9	Sn	50	77	127	7560	9.16861e-05	0	0	1	2	2
+10	Sb	51	79	130	2370	0.000292467	0	0	1	2	2
+11	Sb	51	78	129	15717.6	4.41001e-05	0	0	1	2	2
+12	Sb	51	77	128	32580	2.12752e-05	0	0	1	2	2
+13	Sb	51	76	127	332640	2.08378e-06	0	0	1	2	2
+14	Te	52	77	129	4194	0.000165271	0	0	1	2	2
+15	Te	52	75	127	33660	2.05926e-05	0	0	1	2	2
+16	I	53	76	129	4.95443e+14	1.39904e-15	0	0	1	2	2
+Get data
+Stable data 
+********* Go for Isotope 0 : 130Cd
+********* Go for Isotope 1 : 130In
+row 0 = 0-130Cd	1-130In	
+********* Go for Isotope 2 : 130In*
+row 0 = 0-130Cd	2-130In*	
+********* Go for Isotope 3 : 129In
+row 0 = 0-130Cd	3-129In	
+********* Go for Isotope 4 : 128In
+row 0 = 0-130Cd	4-128In	
+********* Go for Isotope 5 : 130Sn
+row 0 = 0-130Cd	1-130In	5-130Sn	
+row 1 = 0-130Cd	2-130In*	5-130Sn	
+********* Go for Isotope 6 : 129Sn
+row 0 = 0-130Cd	1-130In	6-129Sn	
+row 1 = 0-130Cd	2-130In*	6-129Sn	
+row 2 = 0-130Cd	3-129In	6-129Sn	
+********* Go for Isotope 7 : 128Sn
+row 0 = 0-130Cd	1-130In	7-128Sn	
+row 1 = 0-130Cd	2-130In*	7-128Sn	
+row 2 = 0-130Cd	3-129In	7-128Sn	
+row 3 = 0-130Cd	4-128In	7-128Sn	
+********* Go for Isotope 8 : 127Sn
+row 0 = 0-130Cd	3-129In	8-127Sn	
+row 1 = 0-130Cd	4-128In	8-127Sn	
+********* Go for Isotope 9 : 130Sb
+row 0 = 0-130Cd	1-130In	5-130Sn	9-130Sb	
+row 1 = 0-130Cd	2-130In*	5-130Sn	9-130Sb	
+********* Go for Isotope 10 : 129Sb
+row 0 = 0-130Cd	1-130In	5-130Sn	10-129Sb	
+row 1 = 0-130Cd	2-130In*	5-130Sn	10-129Sb	
+row 2 = 0-130Cd	1-130In	6-129Sn	10-129Sb	
+row 3 = 0-130Cd	2-130In*	6-129Sn	10-129Sb	
+row 4 = 0-130Cd	3-129In	6-129Sn	10-129Sb	
+********* Go for Isotope 11 : 128Sb
+row 0 = 0-130Cd	1-130In	5-130Sn	11-128Sb	
+row 1 = 0-130Cd	2-130In*	5-130Sn	11-128Sb	
+row 2 = 0-130Cd	1-130In	6-129Sn	11-128Sb	
+row 3 = 0-130Cd	2-130In*	6-129Sn	11-128Sb	
+row 4 = 0-130Cd	3-129In	6-129Sn	11-128Sb	
+row 5 = 0-130Cd	1-130In	7-128Sn	11-128Sb	
+row 6 = 0-130Cd	2-130In*	7-128Sn	11-128Sb	
+row 7 = 0-130Cd	3-129In	7-128Sn	11-128Sb	
+row 8 = 0-130Cd	4-128In	7-128Sn	11-128Sb	
+********* Go for Isotope 12 : 127Sb
+row 0 = 0-130Cd	1-130In	6-129Sn	12-127Sb	
+row 1 = 0-130Cd	2-130In*	6-129Sn	12-127Sb	
+row 2 = 0-130Cd	3-129In	6-129Sn	12-127Sb	
+row 3 = 0-130Cd	1-130In	7-128Sn	12-127Sb	
+row 4 = 0-130Cd	2-130In*	7-128Sn	12-127Sb	
+row 5 = 0-130Cd	3-129In	7-128Sn	12-127Sb	
+row 6 = 0-130Cd	4-128In	7-128Sn	12-127Sb	
+row 7 = 0-130Cd	3-129In	8-127Sn	12-127Sb	
+row 8 = 0-130Cd	4-128In	8-127Sn	12-127Sb	
+********* Go for Isotope 13 : 129Te
+row 0 = 0-130Cd	1-130In	5-130Sn	9-130Sb	13-129Te	
+row 1 = 0-130Cd	2-130In*	5-130Sn	9-130Sb	13-129Te	
+row 2 = 0-130Cd	1-130In	5-130Sn	10-129Sb	13-129Te	
+row 3 = 0-130Cd	2-130In*	5-130Sn	10-129Sb	13-129Te	
+row 4 = 0-130Cd	1-130In	6-129Sn	10-129Sb	13-129Te	
+row 5 = 0-130Cd	2-130In*	6-129Sn	10-129Sb	13-129Te	
+row 6 = 0-130Cd	3-129In	6-129Sn	10-129Sb	13-129Te	
+********* Go for Isotope 14 : 127Te
+row 0 = 0-130Cd	1-130In	5-130Sn	10-129Sb	14-127Te	
+row 1 = 0-130Cd	2-130In*	5-130Sn	10-129Sb	14-127Te	
+row 2 = 0-130Cd	1-130In	6-129Sn	10-129Sb	14-127Te	
+row 3 = 0-130Cd	2-130In*	6-129Sn	10-129Sb	14-127Te	
+row 4 = 0-130Cd	3-129In	6-129Sn	10-129Sb	14-127Te	
+row 5 = 0-130Cd	1-130In	5-130Sn	11-128Sb	14-127Te	
+row 6 = 0-130Cd	2-130In*	5-130Sn	11-128Sb	14-127Te	
+row 7 = 0-130Cd	1-130In	6-129Sn	11-128Sb	14-127Te	
+row 8 = 0-130Cd	2-130In*	6-129Sn	11-128Sb	14-127Te	
+row 9 = 0-130Cd	3-129In	6-129Sn	11-128Sb	14-127Te	
+row 10 = 0-130Cd	1-130In	7-128Sn	11-128Sb	14-127Te	
+row 11 = 0-130Cd	2-130In*	7-128Sn	11-128Sb	14-127Te	
+row 12 = 0-130Cd	3-129In	7-128Sn	11-128Sb	14-127Te	
+row 13 = 0-130Cd	4-128In	7-128Sn	11-128Sb	14-127Te	
+row 14 = 0-130Cd	1-130In	6-129Sn	12-127Sb	14-127Te	
+row 15 = 0-130Cd	2-130In*	6-129Sn	12-127Sb	14-127Te	
+row 16 = 0-130Cd	3-129In	6-129Sn	12-127Sb	14-127Te	
+row 17 = 0-130Cd	1-130In	7-128Sn	12-127Sb	14-127Te	
+row 18 = 0-130Cd	2-130In*	7-128Sn	12-127Sb	14-127Te	
+row 19 = 0-130Cd	3-129In	7-128Sn	12-127Sb	14-127Te	
+row 20 = 0-130Cd	4-128In	7-128Sn	12-127Sb	14-127Te	
+row 21 = 0-130Cd	3-129In	8-127Sn	12-127Sb	14-127Te	
+row 22 = 0-130Cd	4-128In	8-127Sn	12-127Sb	14-127Te	
+********* Go for Isotope 15 : 129I
+row 0 = 0-130Cd	1-130In	5-130Sn	9-130Sb	13-129Te	15-129I	
+row 1 = 0-130Cd	2-130In*	5-130Sn	9-130Sb	13-129Te	15-129I	
+row 2 = 0-130Cd	1-130In	5-130Sn	10-129Sb	13-129Te	15-129I	
+row 3 = 0-130Cd	2-130In*	5-130Sn	10-129Sb	13-129Te	15-129I	
+row 4 = 0-130Cd	1-130In	6-129Sn	10-129Sb	13-129Te	15-129I	
+row 5 = 0-130Cd	2-130In*	6-129Sn	10-129Sb	13-129Te	15-129I	
+row 6 = 0-130Cd	3-129In	6-129Sn	10-129Sb	13-129Te	15-129I	
+
+parms 0 : 130Cd	4.27869	0.184882	1.38629	13.8629	0
+parms 1 : 130In	2.39016	0.164839	1.19508	4.78033	1
+parms 2 : 130In*	1.28361	0.0237705	0.641803	2.56721	1
+parms 3 : 129In	1.13445	0.00928353	0.567224	2.26889	1
+parms 4 : 128In	0.825175	0.0589411	0.412588	1.65035	1
+parms 5 : 130Sn	0.0031055	5.84368e-05	0.00155275	0.006211	1
+parms 6 : 129Sn	0.00518047	9.29233e-05	0.00259024	0.0103609	1
+parms 7 : 128Sn	0.000195572	4.6352e-07	9.77861e-05	0.000391145	1
+parms 8 : 127Sn	9.16861e-05	1.7464e-06	4.58431e-05	0.000183372	1
+parms 9 : 130Sb	0.000292467	5.92339e-06	0.000146234	0.000584934	1
+parms 10 : 129Sb	4.41001e-05	2.62621e-07	2.205e-05	8.82001e-05	1
+parms 11 : 128Sb	2.12752e-05	9.40342e-08	1.06376e-05	4.25505e-05	1
+parms 12 : 127Sb	2.08378e-06	2.7062e-08	1.04189e-06	4.16755e-06	1
+parms 13 : 129Te	0.000165271	7.09318e-07	8.26356e-05	0.000330542	1
+parms 14 : 127Te	2.05926e-05	1.54169e-07	1.02963e-05	4.11852e-05	1
+parms 15 : 129I	1.39904e-15	3.56444e-24	6.99522e-16	2.79809e-15	1
+parms 16 : 	0.035	0	0	1	0
+parms 17 : 	0.0093	0.0013	0	1	1
+parms 18 : 	0.0165	0.0015	0	1	1
+parms 19 : 	0.0023	0.0007	0	1	1
+parms 20 : 	0	0	0	1	2
+parms 21 : 	0	0	0	1	2
+parms 22 : 	0	0	0	1	2
+parms 23 : 	0	0	0	1	2
+parms 24 : 	0	0	0	1	2
+parms 25 : 	0	0	0	1	2
+parms 26 : 	0	0	0	1	2
+parms 27 : 	0	0	0	1	2
+parms 28 : 	0	0	0	1	2
+parms 29 : 	0	0	0	1	2
+parms 30 : 	0	0	0	1	2
+parms 31 : 	0	0	0	1	2
+parms 32 : 	0	0	0	1	2
+parms 33 : 	0	0	0	1	2
+parms 34 : 	0	0	0	1	2
+parms 35 : 	0	0	0	1	2
+parms 36 : 	0	0	0	1	2
+parms 37 : 	0	0	0	1	2
+parms 38 : 	0	0	0	1	2
+parms 39 : 	0	0	0	1	2
+parms 40 : 	0	0	0	1	2
+parms 41 : 	0	0	0	1	2
+parms 42 : 	0	0	0	1	2
+parms 43 : 	0	0	0	1	2
+parms 44 : 	0	0	0	1	2
+parms 45 : 	0	0	0	1	2
+parms 46 : 	0	0	0	1	2
+parms 47 : 	0	0	0	1	2
+parms 48 : 	1	0	0	2	2
+parms 49 : 	0.5	0.1	0	1	0
+parms 50 : 	0.5	0.1	0	1	0
+parms 51 : 	1	0	0	2	2
+parms 52 : 	1	0	0	2	2
+parms 53 : 	1	0	0	2	2
+parms 54 : 	1	0	0	2	2
+parms 55 : 	1	0	0	2	2
+parms 56 : 	1	0	0	2	2
+parms 57 : 	1	0	0	2	2
+parms 58 : 	1	0	0	2	2
+parms 59 : 	1	0	0	2	2
+parms 60 : 	1	0	0	2	2
+parms 61 : 	1	0	0	2	2
+parms 62 : 	1	0	0	2	2
+parms 63 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 0 : 130Cd	4.27869	0.184882	1.38629	13.8629	0
+Parms for unbinned fit, index1 = 1 : 130In	2.39016	0.164839	1.19508	4.78033	1
+Parms for unbinned fit, index1 = 2 : 130In*	1.28361	0.0237705	0.641803	2.56721	1
+Parms for unbinned fit, index1 = 3 : 129In	1.13445	0.00928353	0.567224	2.26889	1
+Parms for unbinned fit, index1 = 4 : 128In	0.825175	0.0589411	0.412588	1.65035	1
+Parms for unbinned fit, index1 = 5 : 130Sn	0.0031055	5.84368e-05	0.00155275	0.006211	1
+Parms for unbinned fit, index1 = 6 : 129Sn	0.00518047	9.29233e-05	0.00259024	0.0103609	1
+Parms for unbinned fit, index1 = 7 : 128Sn	0.000195572	4.6352e-07	9.77861e-05	0.000391145	1
+Parms for unbinned fit, index1 = 8 : 127Sn	9.16861e-05	1.7464e-06	4.58431e-05	0.000183372	1
+Parms for unbinned fit, index1 = 9 : 130Sb	0.000292467	5.92339e-06	0.000146234	0.000584934	1
+Parms for unbinned fit, index1 = 10 : 129Sb	4.41001e-05	2.62621e-07	2.205e-05	8.82001e-05	1
+Parms for unbinned fit, index1 = 11 : 128Sb	2.12752e-05	9.40342e-08	1.06376e-05	4.25505e-05	1
+Parms for unbinned fit, index1 = 12 : 127Sb	2.08378e-06	2.7062e-08	1.04189e-06	4.16755e-06	1
+Parms for unbinned fit, index1 = 13 : 129Te	0.000165271	7.09318e-07	8.26356e-05	0.000330542	1
+Parms for unbinned fit, index1 = 14 : 127Te	2.05926e-05	1.54169e-07	1.02963e-05	4.11852e-05	1
+Parms for unbinned fit, index1 = 15 : 129I	1.39904e-15	3.56444e-24	6.99522e-16	2.79809e-15	1
+Parms for unbinned fit, index1 = 16 : 	0.035	0	0	1	0
+Parms for unbinned fit, index1 = 17 : 	0.0093	0.0013	0	1	1
+Parms for unbinned fit, index1 = 18 : 	0.0165	0.0015	0	1	1
+Parms for unbinned fit, index1 = 19 : 	0.0023	0.0007	0	1	1
+Parms for unbinned fit, index1 = 20 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 21 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 22 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 23 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 24 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 25 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 26 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 27 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 28 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 29 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 30 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 31 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 32 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 33 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 34 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 35 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 36 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 37 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 38 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 39 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 40 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 41 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 42 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 43 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 44 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 45 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 46 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 47 : 	0	0	0	1	2
+Parms for unbinned fit, index1 = 48 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 49 : 	0.5	0.1	0	1	0
+Parms for unbinned fit, index1 = 50 : 	0.5	0.1	0	1	0
+Parms for unbinned fit, index1 = 51 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 52 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 53 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 54 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 55 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 56 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 57 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 58 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 59 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 60 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 61 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 62 : 	1	0	0	2	2
+Parms for unbinned fit, index1 = 63 : 	1	0	0	2	2
+variable value p0	val 4.27869	min=1.38629	max=13.8629
+set Constant for parameter p1	mean=2.39016	std=0.164839
+set Constant for parameter p2	mean=1.28361	std=0.0237705
+set Constant for parameter p3	mean=1.13445	std=0.00928353
+set Constant for parameter p4	mean=0.825175	std=0.0589411
+set Constant for parameter p5	mean=0.0031055	std=5.84368e-05
+set Constant for parameter p6	mean=0.00518047	std=9.29233e-05
+set Constant for parameter p7	mean=0.000195572	std=4.6352e-07
+set Constant for parameter p8	mean=9.16861e-05	std=1.7464e-06
+set Constant for parameter p9	mean=0.000292467	std=5.92339e-06
+set Constant for parameter p10	mean=4.41001e-05	std=2.62621e-07
+set Constant for parameter p11	mean=2.12752e-05	std=9.40342e-08
+set Constant for parameter p12	mean=2.08378e-06	std=2.7062e-08
+set Constant for parameter p13	mean=0.000165271	std=7.09318e-07
+set Constant for parameter p14	mean=2.05926e-05	std=1.54169e-07
+set Constant for parameter p15	mean=1.39904e-15	std=3.56444e-24
+variable value p16	val 0.035	min=0	max=1
+set Constant for parameter p17	mean=0.0093	std=0.0013
+set Constant for parameter p18	mean=0.0165	std=0.0015
+set Constant for parameter p19	mean=0.0023	std=0.0007
+set Constant for parameter p20	mean=0	std=0
+set Constant for parameter p21	mean=0	std=0
+set Constant for parameter p22	mean=0	std=0
+set Constant for parameter p23	mean=0	std=0
+set Constant for parameter p24	mean=0	std=0
+set Constant for parameter p25	mean=0	std=0
+set Constant for parameter p26	mean=0	std=0
+set Constant for parameter p27	mean=0	std=0
+set Constant for parameter p28	mean=0	std=0
+set Constant for parameter p29	mean=0	std=0
+set Constant for parameter p30	mean=0	std=0
+set Constant for parameter p31	mean=0	std=0
+set Constant for parameter p32	mean=0	std=0
+set Constant for parameter p33	mean=0	std=0
+set Constant for parameter p34	mean=0	std=0
+set Constant for parameter p35	mean=0	std=0
+set Constant for parameter p36	mean=0	std=0
+set Constant for parameter p37	mean=0	std=0
+set Constant for parameter p38	mean=0	std=0
+set Constant for parameter p39	mean=0	std=0
+set Constant for parameter p40	mean=0	std=0
+set Constant for parameter p41	mean=0	std=0
+set Constant for parameter p42	mean=0	std=0
+set Constant for parameter p43	mean=0	std=0
+set Constant for parameter p44	mean=0	std=0
+set Constant for parameter p45	mean=0	std=0
+set Constant for parameter p46	mean=0	std=0
+set Constant for parameter p47	mean=0	std=0
+set Constant for parameter p48	mean=1	std=0
+variable value p50	val 0.5	min=0	max=1
+set Constant for parameter p51	mean=1	std=0
+set Constant for parameter p52	mean=1	std=0
+set Constant for parameter p53	mean=1	std=0
+set Constant for parameter p54	mean=1	std=0
+set Constant for parameter p55	mean=1	std=0
+set Constant for parameter p56	mean=1	std=0
+set Constant for parameter p57	mean=1	std=0
+set Constant for parameter p58	mean=1	std=0
+set Constant for parameter p59	mean=1	std=0
+set Constant for parameter p60	mean=1	std=0
+set Constant for parameter p61	mean=1	std=0
+set Constant for parameter p62	mean=1	std=0
+set Constant for parameter p63	mean=1	std=0
+
+
+
+********************************
+Attaching data and performing the fit
+********************************
+
+
+
+[#1] INFO:DataHandling -- RooAbsCategory::attachToTree(y) TTree branch y will be interpreted as category index
+[#1] INFO:Eval -- RooTreeDataStore::loadValues(data) Ignored 1916965 out of range events
+RooDataSet::data[x,y] = 1144654 entries
+
+********************************
+
+[#1] INFO:Minization -- p.d.f. provides expected number of events, including extended term in likelihood.
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 10 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 nsig         1.15529e+06  5.77644e+05    0.00000e+00  1.15529e+07
+ MINUIT WARNING IN PARAM DEF
+ ============== LIMITS ON PARAM1 TOO FAR APART.
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     2 p0           4.27869e+00  1.24766e+00    1.38629e+00  1.38629e+01
+     3 p16          3.50000e-02  1.75000e-02    0.00000e+00  1.00000e+00
+     4 p50          5.00000e-01  1.00000e-01    0.00000e+00  1.00000e+00
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        2000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(bkgmodelpos_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(totdecaymodel_Int[x,y]) using numeric integrator RooIntegrator1D to calculate Int(x)

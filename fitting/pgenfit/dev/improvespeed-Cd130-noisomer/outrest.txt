@@ -1,0 +1,9 @@
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-1.22219e+07 FROM HESSE     STATUS=OK             22 CALLS         321 TOTAL
+                     EDM=2.20653    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  nsig         1.99197e+05   5.85439e+02   5.74508e-03  -5.69329e-01
+   2  p0           5.08277e+00   3.19838e-02   1.29973e-02  -4.19668e-01
+   3  p15          3.31774e-02   1.09287e-03   1.47072e-02  -1.20446e+00
+

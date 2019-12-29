@@ -289,7 +289,6 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
                     }
                 }
             }
-
         }
     }
     //! neutron detection efficinecy
@@ -333,9 +332,9 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
         nbkg.setConstant();
         bkg1nratio.setConstant();
         bkg2nratio.setConstant();
-        fitres=final_pdf.fitTo(*data,NumCPU(ncpus),Save()) ;
+        fitres=final_pdf.fitTo(*data,Extended(kTRUE),NumCPU(ncpus),Save(kTRUE)) ;
     }else{
-        fitres=final_pdf.fitTo(*data,ExternalConstraints(externalconstrains),NumCPU(ncpus),Save()) ;
+        fitres=final_pdf.fitTo(*data,Minos(kTRUE), Extended(kTRUE), ExternalConstraints(externalconstrains),NumCPU(ncpus),Save(kTRUE)) ;
     }
 
 

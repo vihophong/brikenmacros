@@ -114,7 +114,7 @@ void checksimulation()
     treeptmp->Branch("neu",&datatmp,"T/D:Tcorr/D:x/D:y/D:z/D:type/I:type2/I:evt/I");
 
 
-    TH1F* hdecayc=new TH1F("hdecayc","hdecayc",2000,-windowlow/1,windowup/1);
+    TH1F* hdecayc=new TH1F("hdecay","hdecay",2000,-windowlow/1,windowup/1);
     TH1F* hdecaycomponent[17];
     for (Int_t i=0;i<17;i++){
         hdecaycomponent[i]=new TH1F(Form("hdecay%d",i+1),Form("hdecay%d",i+1),2000,-windowlow/1,windowup/1);
@@ -139,6 +139,12 @@ void checksimulation()
     TH1F* hdecayc1neub=new TH1F("hdecayc1neub","hdecayc1neub",2000,-windowlow/1,windowup/1);
     TH1F* hdecayconly1neu=new TH1F("hdecayconly1neu","hdecayconly1neu",2000,-windowlow/1,windowup/1);
     TH1F* hdecayconly1neub=new TH1F("hdecayconly1neub","hdecayconly1neub",2000,-windowlow/1,windowup/1);
+
+
+    TH1F* hdecay1nbwd=new TH1F("hdecay1nbwd","hdecay1nbwd",2000,-windowlow/1,windowup/1);
+    TH1F* hdecaygt0nbwd=new TH1F("hdecaygt0nbwd","hdecaygt0nbwd",2000,-windowlow/1,windowup/1);
+    TH1F* hdecay2nbwd=new TH1F("hdecay2nbwd","hdecay2nbwd",2000,-windowlow/1,windowup/1);
+
 
     TH1F* hdecayconly2neu=new TH1F("hdecayconly2neu","hdecayconly2neu",2000,-windowlow/1,windowup/1);
     TH1F* hdecayconly2neub=new TH1F("hdecayconly2neub","hdecayconly2neub",2000,-windowlow/1,windowup/1);
@@ -396,6 +402,7 @@ void checksimulation()
                 if (ndelayedneutronb>0){
                     hdecaycmorethan0neub->Fill(tall);
                     hdecayc1neub->Fill(tall);
+                    hdecaygt0nbwd->Fill(tall);
                 }
 
                 if (ndelayedneutronf==1){
@@ -404,13 +411,15 @@ void checksimulation()
                 }
                 if (ndelayedneutronb==1){
                     hdecayconly1neub->Fill(tall);
+                    hdecay1nbwd->Fill(tall);
                 }
 
                 if (ndelayedneutronf==2){
-                    hdecayconly2neu->Fill(tall);
+                    hdecayconly2neu->Fill(tall);                    
                 }
                 if (ndelayedneutronb==2){
                     hdecayconly2neub->Fill(tall);
+                    hdecay2nbwd->Fill(tall);
                 }
                 nfwd=ndelayedneutronf;
                 nbwd=ndelayedneutronb;
@@ -477,6 +486,11 @@ void checksimulation()
     hdecaycmorethan0neub->Write();
     hdecaycmorethan1neu->Write();
     hdecaycmorethan1neub->Write();
+
+    hdecay1nbwd->Write();
+    hdecaygt0nbwd->Write();
+    hdecay2nbwd->Write();
+
 
     hneuneu->Write();
     treeptmp->Write();

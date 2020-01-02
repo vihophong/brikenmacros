@@ -7,6 +7,11 @@
 #ifndef FITF
 #define FITF
 
+
+#include "Riostream.h"
+
+#include <fstream>
+
 #include "RooAbsPdf.h"
 #include "RooRealProxy.h"
 #include "RooCategoryProxy.h"
@@ -24,7 +29,10 @@ public:
   fitF(const fitF& other, const char* name=0) ;
   virtual TObject* clone(const char* newname) const { return new fitF(*this,newname); }
   inline virtual ~fitF() {
-      for (int i=0;i<fpath->nri*4+4;i++)
+      std::ifstream pathfile("path.txt");
+      Int_t nri;
+      pathfile>>nri;
+      for (int i=0;i<nri*4+4;i++)
           delete p[i];
   }
 

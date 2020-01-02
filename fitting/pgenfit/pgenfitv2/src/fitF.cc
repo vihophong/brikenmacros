@@ -6,9 +6,6 @@
 
 // Your description goes here...
 
-#include "Riostream.h"
-
-#include <fstream>
 
 #include "fitF.hh"
 #include "RooAbsReal.h"

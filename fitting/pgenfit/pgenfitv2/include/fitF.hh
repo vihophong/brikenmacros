@@ -76,7 +76,6 @@ protected:
   RooRealProxy slope1 ;
   RooRealProxy slope2 ;
   RooRealProxy slope3 ;
-
   Double_t evaluate() const ;
 
 private:

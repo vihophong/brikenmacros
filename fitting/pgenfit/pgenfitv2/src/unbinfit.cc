@@ -52,8 +52,8 @@ unbinfit::unbinfit()
 
 unbinfit::~unbinfit()
 {
-    delete finputData;
-    delete finputParms;
+    //delete finputData;
+    //delete finputParms;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

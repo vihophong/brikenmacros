@@ -20,6 +20,5 @@ int main(int argc, char *argv[])
         std::cout<<"check inputs!"<<std::endl;
         return 0;
     }
-    delete fit;
     return 0;
 }

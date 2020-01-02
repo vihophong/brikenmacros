@@ -35,12 +35,12 @@ using namespace RooFit;
 
 unbinfit::unbinfit()
 {
-    fnentrieslimit=5000;
+    fnentrieslimit=-10000;
 
     p_deadtime=0.05;
     p_timerange=10;
 
-    ncpu=2;
+    ncpu=16;
 
     finputData=new char[1000];
     finputParms=new char[1000];
@@ -242,6 +242,7 @@ void unbinfit::Run(char* outputFileName)
     RooFitResult* fitres;
     fitres=final_pdf.fitTo(*data,NumCPU(ncpu),Save());
 
+    TFile* fout=new TFile(outputFileName,"recreate");
     TCanvas *c1 = new TCanvas("c1","c1",1200, 800);
     c1->Divide(3,1);
     c1->cd(1);
@@ -259,7 +260,8 @@ void unbinfit::Run(char* outputFileName)
     data->plotOn(xframe2,Cut("y==y::2neu"),Binning(500)) ;
     final_pdf.plotOn(xframe2,Slice(y,"2neu")) ;
     xframe2->Draw() ;
-    c1->SaveAs(outputFileName);
+    c1->Write();
+    fout->Close();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

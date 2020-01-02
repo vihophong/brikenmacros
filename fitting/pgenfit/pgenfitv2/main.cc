@@ -3,7 +3,6 @@
 
 int main(int argc, char *argv[])
 {
-    unbinfit* fit;
     if (argc==2) {
         unbinfit* fit=new unbinfit;
         char inpparms[1000];

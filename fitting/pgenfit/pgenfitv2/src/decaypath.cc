@@ -35,6 +35,7 @@
 #include "TLatex.h"
 #include "TPad.h"
 #include "TFrame.h"
+#include <sstream>
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

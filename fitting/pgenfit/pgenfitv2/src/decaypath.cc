@@ -51,7 +51,13 @@ decaypath::decaypath():
 
 decaypath::~decaypath()
 {
-    //delete finputParms;
+    for (flistofdecaymember_it = flistofdecaymember.begin(); flistofdecaymember_it != flistofdecaymember.end(); flistofdecaymember_it++)
+    {
+        delete *flistofdecaymember_it;
+    }
+    flistofdecaymember.clear();
+    delete finputParms;
+    delete fdecaypath;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

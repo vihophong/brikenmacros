@@ -35,7 +35,7 @@ using namespace RooFit;
 
 unbinfit::unbinfit()
 {
-    fnentrieslimit=10000;
+    fnentrieslimit=5000;
 
     p_deadtime=0.05;
     p_timerange=10;

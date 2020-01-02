@@ -56,7 +56,7 @@ using namespace RooStats;
 const Int_t ncpu = 12;
 Long64_t nentrieslimit = -1;//set negative value for fitting to all entries
 
-Double_t p_deadtime=0.05;
+Double_t p_deadtime=0.08;
 Double_t p_timerange=10;
 
 using namespace std;
@@ -114,7 +114,6 @@ void mlhfitsim()
 
     RooRealVar ineueff("ineueff","ineueff",0.6441523116,0.,1.) ;
     ineueff.setConstant(kTRUE);
-
 
     //! read input
     //makepath("In134short.txt");

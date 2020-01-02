@@ -930,7 +930,6 @@ ClassImp(fitF)
      return returnval;
  }
 
-
  //! Global Bateaman function
  Double_t fitF::corefcn(Int_t ndecay,Int_t*  idecaymap,Int_t*  inneu,Double_t* production_yield, Double_t* b1n,Double_t* b2n,Double_t* lamda,Double_t N0,Double_t t) const{
      Double_t fcnret=0;

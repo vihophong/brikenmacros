@@ -422,8 +422,6 @@ void readinput(char* infilename, list<MemberDef*>& list)
             obj->population_ratioup = 1 - objisomer->population_ratiolow;
             obj->population_ratiolow = 1 - objisomer->population_ratioup;
 
-
-
             flagisomer = true;
         }
 

@@ -45,7 +45,6 @@ class unbinfit
     decaypath* path;
 
     TTree* tree;
-
 };
 
 #endif

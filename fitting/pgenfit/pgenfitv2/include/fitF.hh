@@ -23,7 +23,10 @@ public:
               RooAbsReal& _neueff,  RooAbsReal* _pp[]);
   fitF(const fitF& other, const char* name=0) ;
   virtual TObject* clone(const char* newname) const { return new fitF(*this,newname); }
-  inline virtual ~fitF() { }
+  inline virtual ~fitF() {
+      for (int i=0;i<fpath->nri*4+4;i++)
+          delete p[i];
+  }
 
 protected:
   RooRealProxy x ;

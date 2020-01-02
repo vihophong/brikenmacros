@@ -51,7 +51,7 @@ decaypath::decaypath():
 
 decaypath::~decaypath()
 {
-    delete finputParms;
+    //delete finputParms;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

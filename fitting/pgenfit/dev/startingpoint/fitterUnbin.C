@@ -96,7 +96,6 @@ void fitterUnbin()
     //! fit background
     bkgmodel.fitTo(*data2,NumCPU(ncpu),Save()) ;
 
-
     RooRealVar slope1pos("slope1pos","slope1pos",-slope1.getVal(),-0.1,0.1) ;
     RooRealVar slope2pos("slope2pos","slope2pos",-slope2.getVal(),-0.1,0.1) ;
     RooRealVar slope3pos("slope3pos","slope3pos",-slope3.getVal(),-0.1,0.1) ;
@@ -119,6 +118,7 @@ void fitterUnbin()
 
     fitF totdecaymodel("totdecaymodel","totdecaymodel",x,y,ineueff,"In134short.txt");
 
+    cout<<"eee"<<endl;
     char tempchar1[1000];
     sprintf(tempchar1,"hdecay");
     TH1F* hdecay=(TH1F*) gDirectory->Get(tempchar1);

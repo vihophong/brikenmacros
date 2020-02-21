@@ -48,7 +48,7 @@ using namespace std;
 
 B3RunAction::B3RunAction()
  : G4UserRunAction()
-{  
+{
 
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -118,14 +118,12 @@ void B3RunAction::EndOfRunAction(const G4Run* run)
 {
   G4int nofEvents = run->GetNumberOfEvent();
   if (nofEvents == 0) return;
-  
+
   // Run conditions
   //  note: There is no primary generator action object for "master"
   //        run manager for multi-threaded mode.
 
   //Get efficiency
-
-
 
 
     G4int runID=run->GetRunID();
@@ -146,7 +144,7 @@ void B3RunAction::EndOfRunAction(const G4Run* run)
     }
     //G4cout<<"Thread ID is: "<<G4Threading::G4GetThreadId() << G4endl;
     //G4cout<<"FIRE on tubes!!!  --- "<<aM->GetH1(1)->entries()<<"/"<<nofEvents<<G4endl;
-  
+
 
 
   const B3PrimaryGeneratorAction* generatorAction
@@ -177,7 +175,7 @@ void B3RunAction::EndOfRunAction(const G4Run* run)
     G4cout
      << "\n--------------------End of Local Run------------------------"
      << " \n The run was " << nofEvents << " "<< partName<<G4endl;
-  }      
+  }
 
   G4AnalysisManager* mann = G4AnalysisManager::Instance();
   mann->Write();

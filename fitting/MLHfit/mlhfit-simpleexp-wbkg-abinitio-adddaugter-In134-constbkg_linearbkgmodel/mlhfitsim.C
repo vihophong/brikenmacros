@@ -189,7 +189,7 @@ void mlhfitsim()
     data2->Print() ;
 
     //! fit background
-    bkgmodel.fitTo(*data2,NumCPU(8),Save()) ;
+    bkgmodel.fitTo(*data2,NumCPU(16),Save()) ;
 
 
 
@@ -270,7 +270,7 @@ void mlhfitsim()
     data->Print() ;
     // Fit
     RooFitResult* fitres;
-    fitres=final_pdf.fitTo(*data,NumCPU(8),Save()) ;
+    fitres=final_pdf.fitTo(*data,NumCPU(16),Save()) ;
 
 
     TCanvas *c1 = new TCanvas("c1","c1",1200, 800);

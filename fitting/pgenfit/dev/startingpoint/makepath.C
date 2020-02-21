@@ -41,7 +41,7 @@
 #include "TGraph.h"
 #include "Math/GSLMinimizer.h"
 #include "Math/Functor.h"
-#include "Minuit2/Minuit2Minimizer.h"
+//#include "Minuit2/Minuit2Minimizer.h"
 #include "Math/Functor.h"
 #include "Math/GSLSimAnMinimizer.h"
 #include "Math/Functor.h"

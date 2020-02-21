@@ -701,11 +701,11 @@ G4VPhysicalVolume* B3DetectorConstruction::Construct()
 
   //G4ThreeVector dssdPos=G4ThreeVector(0,0,-0.5* cm);//move 1cm upstream
   //G4ThreeVector dssdPos=G4ThreeVector(0,0,1.5* cm);//move 1cm downstream
-  //G4ThreeVector dssdPos=G4ThreeVector(0,0,0.5* cm);//center
+  G4ThreeVector dssdPos=G4ThreeVector(0,0,0.5* cm);//center
   //G4ThreeVector dssdPos=G4ThreeVector(0,0.799*cm,0.5* cm);//move 0.8 cm top
   //G4ThreeVector dssdPos=G4ThreeVector(0,-0.799*cm,0.5* cm);//move 0.8 cm bottom
   //G4ThreeVector dssdPos=G4ThreeVector(-0.799*cm,0,0.5* cm);//move 0.8 cm g7 side
-  G4ThreeVector dssdPos=G4ThreeVector(0.799*cm,0,0.5* cm);//move 0.8 cm d4 side
+  //G4ThreeVector dssdPos=G4ThreeVector(0.799*cm,0,0.5* cm);//move 0.8 cm d4 side
 
   clvRot.set(0,0,0);
 

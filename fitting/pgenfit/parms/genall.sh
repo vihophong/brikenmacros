@@ -6,6 +6,7 @@ root -b -q 'autogenparmsfile.C("Sn136parms.txt",136,50)'
 root -b -q 'autogenparmsfile.C("Sn135parms.txt",135,50)'
 root -b -q 'autogenparmsfile.C("Sn134parms.txt",134,50)'
 #In isotopes
+root -b -q 'autogenparmsfile.C("In136parms.txt",136,49)'
 root -b -q 'autogenparmsfile.C("In135parms.txt",135,49)'
 root -b -q 'autogenparmsfile.C("In134parms.txt",134,49)'
 root -b -q 'autogenparmsfile.C("In133parms.txt",133,49)'

@@ -40,7 +40,7 @@ unbinfit::unbinfit()
     p_deadtime=0.05;
     p_timerange=10;
 
-    ncpu=16;
+    ncpu=8;
 
     finputData=new char[1000];
     finputParms=new char[1000];

@@ -28,16 +28,16 @@
 /// \file exampleB3.cc
 /// \brief Main program of the B3 example
 
-/*
-#ifdef G4MULTITHREADED
+//#define G4MULTITHREADED_P
+
+#ifdef G4MULTITHREADED_P
 #include "G4MTRunManager.hh"
 #else
 #include "G4RunManager.hh"
 #endif
-*/
-#include "G4RunManager.hh"
-#include "G4UImanager.hh"
 
+
+#include "G4UImanager.hh"
 #include "Randomize.hh"
 
 #include "B3DetectorConstruction.hh"
@@ -63,14 +63,12 @@ int main(int argc,char** argv)
   // Construct the default run manager
   //
       
-  #ifdef G4MULTITHREADED
-//G4MTRunManager* runManager = new G4MTRunManager;
-//runManager->SetNumberOfThreads(8);
-  G4RunManager* runManager = new G4RunManager;
-  #else  
-  
-  G4RunManager* runManager = new G4RunManager;
-  #endif  
+  #ifdef G4MULTITHREADED_P
+    G4MTRunManager* runManager = new G4MTRunManager;
+    runManager->SetNumberOfThreads(8);
+  #else
+    G4RunManager* runManager = new G4RunManager;
+  #endif
 
   // Set mandatory initialization classes
   //
@@ -107,11 +105,10 @@ int main(int argc,char** argv)
     {  // interactive mode : define UI session
 #ifdef G4UI_USE
       G4UIExecutive* ui = new G4UIExecutive(argc, argv);
-      UImanager->ApplyCommand("/control/execute exgps.in");
 #ifdef G4VIS_USE
-      UImanager->ApplyCommand("/control/execute init_vis.mac"); 
+      UImanager->ApplyCommand("/control/execute init_vis.mac");
 #else
-      UImanager->ApplyCommand("/control/execute init.mac"); 
+      UImanager->ApplyCommand("/control/execute init.mac");
 #endif
       ui->SessionStart();
       delete ui;

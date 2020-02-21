@@ -354,8 +354,10 @@ void mlhfitexpv1(char* infile,char* parmsfile,char*outfile,Double_t inputneueff,
 
     c1->cd(1);
     RooPlot* xframe0 = x.frame(Title("0 neutron fit")) ;
-    data->plotOn(xframe0,Binning(nbinsplot),RooFit::Name("data0n")) ;
-    final_pdf.plotOn(xframe0,LineColor(kRed),RooFit::Name("data0nmodel")) ;
+    data->plotOn(xframe0,Cut("y==y::0neu"),Binning(nbinsplot),RooFit::Name("data0n")) ;
+    final_pdf.plotOn(xframe0,Slice(y,"0neu"),LineColor(kRed),RooFit::Name("data0nmodel")) ;
+    //data->plotOn(xframe0,Binning(nbinsplot),RooFit::Name("data0n")) ;
+    //final_pdf.plotOn(xframe0,LineColor(kRed),RooFit::Name("data0nmodel")) ;
     //final_pdf.plotOn(xframe0,Components(bkgmodelfw),LineColor(kGreen),RooFit::Name("data0nmodelbgfw")) ;
     xframe0->Draw();
 

@@ -41,7 +41,7 @@
 #include "TGraph.h"
 #include "Math/GSLMinimizer.h"
 #include "Math/Functor.h"
-#include "Minuit2/Minuit2Minimizer.h"
+//#include "Minuit2/Minuit2Minimizer.h"
 #include "Math/Functor.h"
 #include "Math/GSLSimAnMinimizer.h"
 #include "Math/Functor.h"
@@ -51,8 +51,11 @@
 #include <sstream>
 #include <string>
 
+
 using namespace std; 
 
+double neueff=0.6441523116;
+double neuefferr=0.1;
 string extractIntegerWords(string str) 
 { 
   stringstream ss; 
@@ -117,6 +120,11 @@ typedef struct {
     Double_t decay_p1nerr;
     Double_t decay_p2nerr;
     Double_t decay_p3nerr;
+
+    Double_t decay_neueff;
+    Double_t decay_neuefferr;
+
+
     Int_t flag;
 } MemberDef;
 void CopyMember(MemberDef* source, MemberDef* destination)
@@ -139,6 +147,9 @@ void CopyMember(MemberDef* source, MemberDef* destination)
     destination-> decay_p1nerr = source->  decay_p1nerr;
     destination-> decay_p2nerr = source->  decay_p2nerr;
     destination-> decay_p2nerr = source->  decay_p3nerr;
+
+    destination-> decay_neueff = source->  decay_neueff;
+    destination-> decay_neuefferr = source->  decay_neuefferr;
 
     destination-> flag = source->  flag;
 }
@@ -305,7 +316,7 @@ void autogenparmsfile(char* outputfile, Int_t Ainput=138, Int_t Zinput=50)
         }
         if (!(iss >> obj->decay_hl >> obj->decay_hlerr >> obj->decay_p1n >> obj->decay_p1nerr >>
               obj->decay_p2n >> obj->decay_p2nerr >>
-              obj->decay_p3n >> obj->decay_p3nerr)) break;
+              obj->decay_p3n >> obj->decay_p3nerr >> obj->decay_neueff >> obj->decay_neuefferr)) break;
 
         obj->decay_p0n=100- obj->decay_p1n - obj->decay_p2n - obj->decay_p3n;
         obj->decay_p0nerr = sqrt(obj->decay_p1nerr*obj->decay_p1nerr+obj->decay_p2nerr*obj->decay_p2nerr+obj->decay_p3nerr*obj->decay_p3nerr);
@@ -490,16 +501,16 @@ void autogenparmsfile(char* outputfile, Int_t Ainput=138, Int_t Zinput=50)
     std::ofstream str(outputfile);
     str<<"# Note should start from #, non-zero upper value indicate varying variable, half-life is in second"<<endl;
     str<<"# RI should be in the sequences of increasing Z and decreasing A for each isotropic row"<<endl;
-    str<<"#Name	Z	A	Half-life	Abs Error Half-life	lowerHL	upperHL	P1n	Abs Error P1n	lowerP1n	upperP1n	P2n	Abs Error P2n	lowerP2n	upperP2n	isomer ratio	isomer ratio err	lower isomer ratio	upper isomer ratio	Half-life	Abs Error Half-life	lowerHL	upperHL	P1n	Abs Error P1n	lowerP1n	upperP1n	P2n	Abs Error P2n	lowerP2n	upperP2n"<<endl;
+    str<<"#Name	Z	A	Half-life	Abs Error Half-life	lowerHL	upperHL	P1n	Abs Error P1n	lowerP1n	upperP1n	P2n	Abs Error P2n	lowerP2n	upperP2n	isomer ratio	isomer ratio err	lower isomer ratio	upper isomer ratio	Half-life	Abs Error Half-life	lowerHL	upperHL	P1n	Abs Error P1n	lowerP1n	upperP1n	P2n	Abs Error P2n	lowerP2n	upperP2n    Neu.Eff	Neu.Eff Err	lowerNeu.Eff	upperNeu.Eff"<<endl;
     idd=0;
     for (listofdecaymember_it = listofavailablemembersorted.begin(); listofdecaymember_it != listofavailablemembersorted.end(); listofdecaymember_it++)
     {
         MemberDef* obj=*listofdecaymember_it;
         cout<<obj->name<<endl;
         if (idd==0){
-            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<-obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<-obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<-obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<100.<<endl;
+            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<-obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<-obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<-obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<obj->decay_neueff<<"\t"<<obj->decay_neuefferr<<"\t"<<0.<<"\t"<<1.<<endl;
         }else{
-            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<100.<<endl;
+            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<obj->decay_neueff<<"\t"<<obj->decay_neuefferr<<"\t"<<0.<<"\t"<<1.<<endl;
 
         }
 

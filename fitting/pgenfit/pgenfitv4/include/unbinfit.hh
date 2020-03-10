@@ -22,6 +22,7 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TH1.h"
+#include "TF1.h"
 
 #include "RooDataSet.h"
 
@@ -44,6 +45,16 @@
 
 #include "decaypath.hh"
 
+
+#include "Fit/Fitter.h"
+#include "Fit/BinData.h"
+#include "Fit/Chi2FCN.h"
+#include "Fit/PoissonLikelihoodFCN.h"
+#include "Math/WrappedMultiTF1.h"
+#include "HFitInterface.h"
+
+
+
 class unbinfit
 {
   public:
@@ -55,6 +66,7 @@ class unbinfit
     void setOutputFile(char* outputData){sprintf(foutputData,"%s",outputData);}
     void setStartTime(double deadtime){p_deadtime=deadtime;}
     void Run();
+    void RunBinFit();
     void generateRoofitEvaluate();
 
     void fitBackground();
@@ -83,6 +95,11 @@ class unbinfit
     void generateMC();
     void writeResultsMC();
 
+    void setNBinHists(Int_t nbins){
+        nbinsHB=nbins;
+        nbinsHSB=nbins;
+        nbinsHSB2=nbins;
+    }
 
  private:
     void setModel();
@@ -182,6 +199,65 @@ class unbinfit
     TStopwatch *fStopWatch;//for debuging
     Double_t fMCGenTime;
     Double_t fFitTime;
+
+
+    Int_t nbinsHB;
+    Int_t nbinsHSB;
+    Int_t nbinsHSB2;
+    Double_t p_timerange_plus;
+
+    TH1F* hB;
+
+    TH1F* hSB;
+    TH1F* hSB2;
+    TF1* fB;
+    TF1* fSB;
+    TF1* fSB2;
+    TF1* fB_bkgneg;
+    TF1* fSB_bkgneg;
+    TF1* fSB2_bkgneg;
+    TF1* fB_bkgpos;
+    TF1* fSB_bkgpos;
+    TF1* fSB2_bkgpos;
+
+    Double_t nsig_hB_firstbin;
+    Double_t binfitparms[kmaxparms];
+    Double_t binfitbkgparms[6];
+
+    struct GlobalChi2 {
+       GlobalChi2(  ROOT::Math::IMultiGenFunction & f1,
+                    ROOT::Math::IMultiGenFunction & f2,
+                    ROOT::Math::IMultiGenFunction & f3) :
+          fChi2_1(&f1), fChi2_2(&f2), fChi2_3(&f3)
+       {
+           std::ifstream pathfile("path.txt");
+           pathfile>>nri;
+           pathfile.close();
+       }
+
+       double operator() (const double *par) const {
+           double p1[nri*5+6];
+           for (int i = 0; i < nri*5+4; ++i) p1[i] = par[i];
+           p1[nri*5+4]=par[nri*5+4];
+           p1[nri*5+5]=par[nri*5+5];
+           double p2[nri*5+6];
+           for (int i = 0; i < nri*5+4; ++i) p2[i] = par[i];
+           p2[nri*5+4]=par[nri*5+6];
+           p2[nri*5+5]=par[nri*5+7];
+           double p3[nri*5+6];
+           for (int i = 0; i < nri*5+4; ++i) p3[i] = par[i];
+           p3[nri*5+4]=par[nri*5+8];
+           p3[nri*5+5]=par[nri*5+9];
+          return (*fChi2_1)(p1) + (*fChi2_2)(p2) + (*fChi2_3)(p3);
+       }
+       const  ROOT::Math::IMultiGenFunction * fChi2_1;
+       const  ROOT::Math::IMultiGenFunction * fChi2_2;
+       const  ROOT::Math::IMultiGenFunction * fChi2_3;
+
+       Int_t nri;
+
+    };
+
 };
 
 #endif

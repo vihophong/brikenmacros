@@ -20,7 +20,7 @@ add_definitions(${ROOT_CXX_FLAGS})
 
 #---Create a shared library with geneated dictionary
 ROOT_GENERATE_DICTIONARY(G__fitF ${PROJECT_SOURCE_DIR}/include/fitF.hh LINKDEF ${PROJECT_SOURCE_DIR}/include/fitFLinkDef.hh)
-add_library(fitF SHARED ${PROJECT_SOURCE_DIR}/src/fitF.cc ${PROJECT_SOURCE_DIR}/src/fitF_auxiliary.cc G__fitF.cxx)
+add_library(fitF SHARED ${PROJECT_SOURCE_DIR}/src/fitF.cc ${PROJECT_SOURCE_DIR}/src/fitF_auxiliary.cc ${PROJECT_SOURCE_DIR}/src/fitF_cal.cc G__fitF.cxx)
 target_link_libraries(fitF ${ROOT_LIBRARIES})
 
 
@@ -35,6 +35,18 @@ add_executable(main
     main.cc)
 target_link_libraries(main ${ROOT_LIBRARIES})
 target_link_libraries(main fitF)
+
+add_executable(mainbinfit
+    ${sources} ${headers}
+    mainbinfit.cc)
+target_link_libraries(mainbinfit ${ROOT_LIBRARIES})
+target_link_libraries(mainbinfit fitF)
+
+add_executable(makefunction
+    ${sources} ${headers}
+    makefunction.cc)
+target_link_libraries(makefunction ${ROOT_LIBRARIES})
+target_link_libraries(makefunction fitF)
 
 #----------------------------------------------------------------------------
 # Copy all resources including scripts, examples, text files, etc... to the build directory, i.e. the directory in which we

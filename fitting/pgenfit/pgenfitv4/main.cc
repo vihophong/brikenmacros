@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "unbinfit.hh"
 
 int main(int argc, char *argv[])
@@ -18,13 +19,31 @@ int main(int argc, char *argv[])
         sprintf(inputRootFile,"testdata.root");
         //keep default start time (0.08s)
         fit->Init(inpparms,inputRootFile);
+
         fit->setOutputFile(argv[1]);
+        char outputTextFile[1000];
+        sprintf(outputTextFile,"%s.txt",argv[1]);
+        std::ofstream ofs(outputTextFile);
+        for (Int_t i=0;i<argc;i++){
+            ofs<<argv[i]<<"\t";
+        }
+        ofs<<std::endl;
+
         fit->Run();
     }else if(argc==6){
         unbinfit* fit=new unbinfit;
         fit->setStartTime(atof(argv[4]));
         fit->Init(argv[1],argv[2]);
+
         fit->setOutputFile(argv[3]);
+        char outputTextFile[1000];
+        sprintf(outputTextFile,"%s.txt",argv[3]);
+        std::ofstream ofs(outputTextFile);
+        for (Int_t i=0;i<argc;i++){
+            ofs<<argv[i]<<"\t";
+        }
+        ofs<<std::endl;
+
         fit->setNumberOfMC(atoi(argv[5]));
         fit->Run();
     }else{

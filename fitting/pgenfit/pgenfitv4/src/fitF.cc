@@ -8,12 +8,7 @@
 
 
 #include "fitF.hh"
-#include "RooAbsReal.h"
-#include "RooAbsCategory.h"
-#include <math.h>
-#include "TMath.h"
 
-#include "TStopwatch.h"
 
 ClassImp(fitF)
 
@@ -41,6 +36,13 @@ ClassImp(fitF)
    x("x",this,other.x),
    y("y",this,other.y)
  {
+     initPath();
+     for (Int_t i=0;i<fpath->nri5+4;i++)
+         p[i]=new RooRealProxy(Form("p%i",i),this,*other.p[i]);
+ }
+
+ void fitF::initPath()
+ {
      fpath=new path;
      std::ifstream pathfile("path.txt");
      pathfile>>fpath->nri;
@@ -65,12 +67,7 @@ ClassImp(fitF)
 //             std::cout<<fpath->decaymap[i][j]<<"\t"<<fpath->nneu[i][j]<<std::endl;
 //         }
 //     }
-
-     for (Int_t i=0;i<fpath->nri5+4;i++)
-         p[i]=new RooRealProxy(Form("p%i",i),this,*other.p[i]);
-
  }
-
 
 #ifndef EVAL_FAST
  Double_t fitF::evaluate() const
@@ -94,11 +91,17 @@ ClassImp(fitF)
           ne[i]=(*p[fpath->nri4+i]);
       }
       Double_t N0=*p[fpath->nri5]/ l[0];
+
+
+      //! replace for more general expression
+      Double_t fparent=0;
+      Double_t fdecayall=0;
+      Double_t fdaugters[fpath->npaths];
+      calculateDecay(fdecayall,fparent, fdaugters, l,e,p1n,p2n,py,N0);
+
+      /*
       Double_t fparent=l[0]*N0*e[0];
-
-
       Double_t fdecayall=fparent;
-
       Double_t fdaugters[fpath->npaths];
       for (Int_t i=0;i<fpath->npaths;i++){
 #ifdef PATHFLOW
@@ -132,12 +135,15 @@ ClassImp(fitF)
           }
 #endif
       }
+      */
 
       Double_t randcoinf2n=*p[fpath->nri5+3];
       Double_t randcoinfgt0n=*p[fpath->nri5+2];
       Double_t randcoinf1n=*p[fpath->nri5+1];
 
       //! fdecay1n
+      Double_t fdecay1n=calculateDecay1n(fparent,fdaugters,p1n,p2n,ne,randcoinf1n,randcoinfgt0n);
+      /*
       Double_t fdecay1n=fparent*(randcoinf1n+ne[0]*p1n[0]*(1-randcoinf1n-randcoinfgt0n)+2*(ne[0]*(1-ne[0]))*p2n[0]*(1-randcoinf1n-randcoinfgt0n)-ne[0]*ne[0]*p2n[0]*randcoinf1n);
       for (Int_t i=0;i<fpath->npaths;i++){
 #ifdef PATHFLOW
@@ -148,8 +154,11 @@ ClassImp(fitF)
           }
 #endif
       }
+      */
 
       //! fdecay2n
+      Double_t fdecay2n=calculateDecay2n(fparent,fdaugters,p1n,p2n,ne,randcoinf1n,randcoinfgt0n,randcoinf2n);
+      /*
       Double_t fdecay2n=fparent*(ne[0]*ne[0]*p2n[0]*(1-randcoinf2n-randcoinfgt0n)+randcoinf2n+ne[0]*p1n[0]*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n)+2*(ne[0]*(1-ne[0]))*p2n[0]*(randcoinf1n*(1-randcoinfgt0n)-randcoinf2n));
       for (Int_t i=0;i<fpath->npaths;i++){
 #ifdef PATHFLOW
@@ -160,6 +169,7 @@ ClassImp(fitF)
           }
 #endif
       }
+      */
 
       Double_t ret;
       if (y==0){

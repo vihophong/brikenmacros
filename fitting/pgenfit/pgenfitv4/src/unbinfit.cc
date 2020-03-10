@@ -13,6 +13,7 @@
 /// \brief Implementation of the unbinfit class
 
 #include "unbinfit.hh"
+#include "TSystem.h"
 #include <iostream>
 
 using namespace RooFit;
@@ -28,6 +29,11 @@ unbinfit::unbinfit()
 
     p_deadtime=STARTFIT;
     p_timerange=10;
+
+    p_timerange_plus=20;
+    nbinsHB=300;
+    nbinsHSB=300;
+    nbinsHSB2=300;
 
     ncpu=16;
 
@@ -78,10 +84,29 @@ void unbinfit::Init(char* inputParms, char* inputData)
     fdecaypath->writePath();
     fdecaypath->drawPath((char*)TString("outdecayroutes.root").Data());
 
+    //check if dummy input file
+    if (gSystem->AccessPathName(finputData))
+        return;
     // Import tree to total decay data
     TFile *f=TFile::Open(finputData);
     f->GetObject("tree",tree);
     if (fnentrieslimit>0) tree->SetEntries(fnentrieslimit);
+
+    //!*****************************************
+    //! Setup histograms for unbinned fit
+    //! *****************************************
+
+    tree->Draw(Form("x>>hB(%d,%f,%f)",nbinsHB,-p_timerange,p_timerange_plus));
+    tree->Draw(Form("x>>hSB(%d,%f,%f)",nbinsHSB,-p_timerange,p_timerange_plus),"y==1");
+    tree->Draw(Form("x>>hSB2(%d,%f,%f)",nbinsHSB2,-p_timerange,p_timerange_plus),"y==2");
+    char tempchar1[500];
+    sprintf(tempchar1,"hB");
+    hB=(TH1F*) gDirectory->Get(tempchar1);
+    nsig_hB_firstbin=hB->GetBinContent(hB->FindBin(p_deadtime));
+    sprintf(tempchar1,"hSB");
+    hSB=(TH1F*) gDirectory->Get(tempchar1);
+    sprintf(tempchar1,"hSB2");
+    hSB2=(TH1F*) gDirectory->Get(tempchar1);
 
     //!*****************************************
     //! Prepare X,y
@@ -139,6 +164,35 @@ void unbinfit::fitBackground()
 
     // bkg pdf positive
     bkgmodelpos=new fitFbkg("bkgmodelpos","bkgmodelpos",*x,*y,*bkg1nratio,*bkg2nratio,*slope1pos,*slope2pos,*slope3pos);
+
+
+    //! bin fit background negative
+    fB_bkgneg=new TF1("fB_bkgneg","pol1",-p_timerange,0);
+    fSB_bkgneg=new TF1("fSB_bkgneg","pol1",-p_timerange,0);
+    fSB2_bkgneg=new TF1("fSB2_bkgneg","pol1",-p_timerange,0);
+    //fB_bkgneg->FixParameter(1,slope3.getVal());
+    //fSB_bkgneg->FixParameter(1,slope1.getVal());
+    //fSB2_bkgneg->FixParameter(1,slope2.getVal());
+    hB->Fit(fB_bkgneg,"LEQR0+","goff");
+    hSB->Fit(fSB_bkgneg,"LEQR0+","goff");
+    hSB2->Fit(fSB2_bkgneg,"LEQR0+","goff");
+
+    fB_bkgpos=new TF1("fB_bkgpos","pol1",p_deadtime,p_timerange_plus);
+    fSB_bkgpos=new TF1("fSB_bkgpos","pol1",p_deadtime,p_timerange_plus);
+    fSB2_bkgpos=new TF1("fSB2_bkgpos","pol1",p_deadtime,p_timerange_plus);
+    fB_bkgpos->FixParameter(0,fB_bkgneg->GetParameter(0));
+    fSB_bkgpos->FixParameter(0,fSB_bkgneg->GetParameter(0));
+    fSB2_bkgpos->FixParameter(0,fSB2_bkgneg->GetParameter(0));
+    fB_bkgpos->FixParameter(1,-fB_bkgneg->GetParameter(1));
+    fSB_bkgpos->FixParameter(1,-fSB_bkgneg->GetParameter(1));
+    fSB2_bkgpos->FixParameter(1,-fSB2_bkgneg->GetParameter(1));
+
+    binfitbkgparms[0]=fB_bkgpos->GetParameter(0);
+    binfitbkgparms[1]=fB_bkgpos->GetParameter(1);
+    binfitbkgparms[2]=fSB_bkgpos->GetParameter(0);
+    binfitbkgparms[3]=fSB_bkgpos->GetParameter(1);
+    binfitbkgparms[4]=fSB2_bkgpos->GetParameter(0);
+    binfitbkgparms[5]=fSB2_bkgpos->GetParameter(1);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -280,10 +334,7 @@ void unbinfit::setExernalContrainFit()
             pvar[fdecaypath->getNMember()*4+i]->setConstant(kTRUE);
         }
     }
-
     // set slope parameters to constant for the moment
-
-
     //!******************************************
     //! Define roogaussian for error propagation
     //! *****************************************
@@ -377,9 +428,9 @@ void unbinfit::bookOutputTree()
     foutputtree->Branch("bkg1nratioError",&bkg1nratioError,"bkg1nratioError/D");
     foutputtree->Branch("bkg2nratioVal",&bkg2nratioVal,"bkg2nratioVal/D");
     foutputtree->Branch("bkg2nratioError",&bkg2nratioError,"bkg2nratioError/D");
-    foutputtree->Branch("slope1pos",&slope1pos,"slope1pos/D");
-    foutputtree->Branch("slope2pos",&slope2pos,"slope2pos/D");
-    foutputtree->Branch("slope3pos",&slope3pos,"slope3pos/D");
+    foutputtree->Branch("slope1posVal",&slope1posVal,"slope1posVal/D");
+    foutputtree->Branch("slope1posVal",&slope1posVal,"slope1posVal/D");
+    foutputtree->Branch("slope1posVal",&slope1posVal,"slope1posVal/D");
     foutputtree->Branch("slope1posError",&slope1posError,"slope1posError/D");
     foutputtree->Branch("slope2posError",&slope2posError,"slope2posError/D");
     foutputtree->Branch("slope3posError",&slope3posError,"slope3posError/D");
@@ -453,6 +504,7 @@ void unbinfit::setCentralParameters()
     slope1posCentralVal=slope1pos->getVal();
     slope2posCentralVal=slope2pos->getVal();
     slope3posCentralVal=slope3pos->getVal();
+
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -481,6 +533,18 @@ void unbinfit::setValParameters()
     slope1pos->setVal(slope1posVal);
     slope2pos->setVal(slope2posVal);
     slope3pos->setVal(slope3posVal);
+
+    //! for binfit
+    for (int i=0;i<fdecaypath->getNMember()*5+4;i++){
+        binfitparms[i]=pVal[i];
+    }
+    binfitparms[fdecaypath->getNMember()*5]=nsig_hB_firstbin;//initial activity
+    binfitparms[fdecaypath->getNMember()*5+4]=binfitbkgparms[0];//bkg hdecay offset
+    binfitparms[fdecaypath->getNMember()*5+5]=binfitbkgparms[1];//bkg hdecay slope
+    binfitparms[fdecaypath->getNMember()*5+6]=binfitbkgparms[2];//bkg hdecay1n offset
+    binfitparms[fdecaypath->getNMember()*5+7]=binfitbkgparms[3];//bkg hdecay1n slope
+    binfitparms[fdecaypath->getNMember()*5+8]=binfitbkgparms[4];//bkg hdecay2n offset
+    binfitparms[fdecaypath->getNMember()*5+9]=binfitbkgparms[5];//bkg hdecay2n slope
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -507,6 +571,18 @@ void unbinfit::generateMC()
     //slope1posVal=rseed->Gaus(slope1posCentralVal,slope1posError);
     //slope2posVal=rseed->Gaus(slope2posCentralVal,slope2posError);
     //slope3posVal=rseed->Gaus(slope3posCentralVal,slope3posError);
+
+
+    //! for binfit
+    //no variation background for now
+
+    //binfitbkgparms[0]=rseed->Gaus(fB_bkgpos->GetParameter(0),fB_bkgneg->GetParError(0));
+    //binfitbkgparms[1]=rseed->Gaus(fB_bkgpos->GetParameter(1),fB_bkgneg->GetParError(1));
+    //binfitbkgparms[2]=rseed->Gaus(fSB_bkgpos->GetParameter(0),fB_bkgneg->GetParError(0));
+    //binfitbkgparms[3]=rseed->Gaus(fSB_bkgpos->GetParameter(1),fB_bkgneg->GetParError(1));
+    //binfitbkgparms[4]=rseed->Gaus(fSB2_bkgpos->GetParameter(0),fB_bkgneg->GetParError(0));
+    //binfitbkgparms[5]=rseed->Gaus(fSB2_bkgpos->GetParameter(1),fB_bkgneg->GetParError(1));
+
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -517,6 +593,7 @@ void unbinfit::doFit()
     //! *****************************************
     fStopWatch->Clear();
     fStopWatch->Start();
+
     if (ffitopt==0)
         fitres=final_pdf->fitTo(*data,NumCPU(ncpu),Save(kTRUE),PrintLevel(3));
     else
@@ -571,13 +648,177 @@ void unbinfit::writeResults()
 {
     char tempstr[500];
     sprintf(tempstr,"%s.txt",foutputData);
-    std::ofstream ofs(tempstr);
+    std::ofstream ofs(tempstr,std::ios::app);
+    for (int i=0;i<fdecaypath->getNMember()*5+4;i++){
+        if (!pvar[i]->isConstant())
+            ofs<<i<<"\t"<<pvar[i]->getVal()<<"\t"<<pvar[i]->getError()<<std::endl;
+    }
     fitres->Print();
     std::cout<<"Time for MC generation = "<<fMCGenTime<<std::endl;
     std::cout<<"Time for Fitting = "<<fFitTime<<std::endl;
-    ofs<<"Time for MC generation = "<<fMCGenTime<<std::endl;
-    ofs<<"Time for Fitting = "<<fFitTime<<std::endl;
 }
+
+
+void unbinfit::RunBinFit()
+{
+    fitBackground();
+
+    initFitParameters();
+    if (ffitopt==0)
+        setNormalFit();
+    else
+        setExernalContrainFit();
+    printCurrentParameters();
+    prepareData();
+    bookOutputTree();
+    //! setup stuffs for MC fits
+    setCentralParameters();
+
+    getParameters();
+
+   totdecaymodel->initPath();
+   fB=new TF1("fB",totdecaymodel,&fitF::fcndecay,p_deadtime,p_timerange_plus,fdecaypath->getNMember()*5+6,"fitF","fcndecay");
+   for (int i=0;i<fdecaypath->getNMember()*5+4;i++){
+       fB->FixParameter(i,pCentralVal[i]);
+   }
+   fB->FixParameter(fdecaypath->getNMember()*5+4,100);
+   fB->FixParameter(fdecaypath->getNMember()*5+5,0);
+
+
+   fSB=new TF1("fSB",totdecaymodel,&fitF::fcndecay1n,p_deadtime,p_timerange_plus,fdecaypath->getNMember()*5+6,"fitF","fcndecay1n");
+   for (int i=0;i<fdecaypath->getNMember()*5+4;i++){
+       fSB->FixParameter(i,pCentralVal[i]);
+   }
+   fSB->FixParameter(fdecaypath->getNMember()*5+4,10);
+   fSB->FixParameter(fdecaypath->getNMember()*5+5,0);
+
+   fSB2=new TF1("fSB2",totdecaymodel,&fitF::fcndecay2n,p_deadtime,p_timerange_plus,fdecaypath->getNMember()*5+6,"fitF","fcndecay2n");
+   for (int i=0;i<fdecaypath->getNMember()*5+4;i++){
+       fSB2->FixParameter(i,pCentralVal[i]);
+   }
+   fSB2->FixParameter(fdecaypath->getNMember()*5+4,1);
+   fSB2->FixParameter(fdecaypath->getNMember()*5+5,0);
+
+   //! set fix parameters
+   fB->FixParameter(fdecaypath->getNMember()*5,nsig_hB_firstbin);
+   cout<<"Eval fB = "<<fB->Eval(p_timerange/2+p_deadtime/2)<<endl;
+   cout<<"Eval fSB = "<<fSB->Eval(p_timerange/2+p_deadtime/2)<<endl;
+   cout<<"Eval fSB2 = "<<fSB2->Eval(p_timerange/2+p_deadtime/2)<<endl;
+
+   ROOT::Math::WrappedMultiTF1 wfB(*fB,1);
+   ROOT::Math::WrappedMultiTF1 wfSB(*fSB,1);
+   ROOT::Math::WrappedMultiTF1 wfSB2(*fSB2,1);
+
+   ROOT::Fit::DataOptions opt;
+   //! limit within the fitting range
+   opt.fUseRange  =true;
+
+   ROOT::Fit::DataRange rangeB;
+   rangeB.SetRange(p_deadtime,p_timerange);
+   ROOT::Fit::BinData dataB(opt,rangeB);
+   ROOT::Fit::FillData(dataB, hB);
+
+   ROOT::Fit::DataRange rangeSB;
+   rangeSB.SetRange(p_deadtime,p_timerange);
+   ROOT::Fit::BinData dataSB(opt,rangeSB);
+   ROOT::Fit::FillData(dataSB, hSB);
+
+   ROOT::Fit::DataRange rangeSB2;
+   rangeSB2.SetRange(p_deadtime,p_timerange);
+   ROOT::Fit::BinData dataSB2(opt,rangeSB2);
+   ROOT::Fit::FillData(dataSB2, hSB2);
+
+
+   ROOT::Fit::PoissonLLFunction chi2_B(dataB, wfB);
+   ROOT::Fit::PoissonLLFunction chi2_SB(dataSB, wfSB);
+   ROOT::Fit::PoissonLLFunction chi2_SB2(dataSB2, wfSB2);
+
+   GlobalChi2 globalChi2(chi2_B, chi2_SB, chi2_SB2);
+
+
+   ROOT::Fit::Fitter fitter;
+
+   setValParameters();//initiate parameters
+   fitter.Config().SetParamsSettings(fdecaypath->getNMember()*5+10,binfitparms);
+   for (int i=0;i<fdecaypath->getNMember()*5+4;i++){
+       if (pvar[i]->isConstant()&&i!=fdecaypath->getNMember()*5){
+           fitter.Config().ParSettings(i).Fix();
+       }else{
+           if (i==fdecaypath->getNMember()*5)
+               fitter.Config().ParSettings(i).SetLimits(0,nsig_hB_firstbin*20);
+           else
+               fitter.Config().ParSettings(i).SetLimits(pvar[i]->getMin(),pvar[i]->getMax());
+       }
+   }
+   for (int i=fdecaypath->getNMember()*5+4;i<fdecaypath->getNMember()*5+10;i++) fitter.Config().ParSettings(i).Fix();//fix background parameters
+
+
+   fitter.Config().SetMinimizer("Minuit2","Migrad");
+   //fitter.Config().SetMinosErrors();
+
+   fitter.FitFCN(fdecaypath->getNMember()*5+10,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
+   fitter.Result().Print(std::cout);
+   const Double_t* resultparcenter=fitter.Result().GetParams();
+   const Double_t* resulterrcenter=fitter.Result().GetErrors();
+   for (Int_t i=0;i<fdecaypath->getNMember()*5+4;i++){
+       pVal[i]=resultparcenter[i];
+       if (!pvar[i]->isConstant())
+        pValError[i]=resulterrcenter[i];
+   }
+   fitStatus=fitter.Result().Status();
+   fitCovQual=fitter.Result().Ndf();
+   fitNumInvalidNLL=fitter.Result().NCalls();
+   fitEdm=fitter.Result().Edm();
+   fitMinNll=fitter.Result().MinFcnValue();
+   foutputtree->Fill();
+
+   char tempstr[500];
+   sprintf(tempstr,"%s.txt",foutputData);
+   std::ofstream ofs(tempstr,std::ios::app);
+   for (int i=0;i<fdecaypath->getNMember()*5+4;i++){
+       if (!pvar[i]->isConstant())
+           ofs<<i<<"\t"<<pVal[i]<<"\t"<<pValError[i]<<std::endl;
+   }
+
+
+   for (int i=0;i<fnMC;i++){
+       generateMC();
+       setValParameters();
+       fitter.Config().SetParamsSettings(fdecaypath->getNMember()*5+10,binfitparms);
+       fitter.FitFCN(fdecaypath->getNMember()*5+10,globalChi2,0,dataB.Size()+dataSB.Size()+dataSB2.Size(),false);
+       fitter.Result().Print(std::cout);
+       const Double_t* resultpar=fitter.Result().GetParams();
+       const Double_t* resulterr=fitter.Result().GetErrors();
+       for (Int_t i=0;i<fdecaypath->getNMember()*5+4;i++){
+           pVal[i]=resultpar[i];
+           if (!pvar[i]->isConstant())
+            pValError[i]=resulterrcenter[i];
+       }
+       fitStatus=fitter.Result().Status();
+       fitCovQual=fitter.Result().Ndf();
+       fitNumInvalidNLL=fitter.Result().NCalls();
+       fitEdm=fitter.Result().Edm();
+       fitMinNll=fitter.Result().MinFcnValue();
+       foutputtree->Fill();
+   }
+
+   hB->Write();
+   hSB->Write();
+   hSB2->Write();
+   fB->Write();
+   fSB->Write();
+   fSB2->Write();
+   fB_bkgneg->Write();
+   fSB_bkgneg->Write();
+   fSB2_bkgneg->Write();
+   fB_bkgpos->Write();
+   fSB_bkgpos->Write();
+   fSB2_bkgpos->Write();
+
+   writeOutputTree();
+   closeOutputFile();
+}
+
 
 void unbinfit::Run()
 {
@@ -597,6 +838,7 @@ void unbinfit::Run()
     //! setup stuffs for MC fits
     setCentralParameters();
     getParameters();
+
 
     //! perform first fit
     doFit();

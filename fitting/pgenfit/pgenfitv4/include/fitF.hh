@@ -18,6 +18,12 @@
 #include "RooAbsReal.h"
 #include "RooAbsCategory.h"
 #include "common.hh"
+#include "RooAbsReal.h"
+#include "RooAbsCategory.h"
+#include <math.h>
+#include "TMath.h"
+
+#include "TStopwatch.h"
 
 #define MAX_N_PARMS 200
 class fitF : public RooAbsPdf {
@@ -35,13 +41,22 @@ public:
       for (int i=0;i<nri*5+4;i++)
           delete p[i];
   }
+  Double_t fcndecay(Double_t *x, Double_t *par) const;
+  Double_t fcndecay1n(Double_t *x, Double_t *par) const;
+  Double_t fcndecay2n(Double_t *x, Double_t *par) const;
+  void initPath() ;
 
 protected:
+  path* fpath;
+  void calculateDecay(Double_t &fdecayall,Double_t &fparent, Double_t* fdaugters, Double_t *l,Double_t *e,Double_t *p1n,Double_t *p2n,Double_t *py,Double_t N0) const;
+  Double_t calculateDecay1n(Double_t fparent, Double_t* fdaugters, Double_t *p1n,Double_t *p2n,Double_t *ne,Double_t randcoinf1n,Double_t randcoinfgt0n) const;
+  Double_t calculateDecay2n(Double_t fparent, Double_t* fdaugters, Double_t *p1n,Double_t *p2n,Double_t *ne,Double_t randcoinf1n,Double_t randcoinfgt0n,Double_t randcoinf2n) const;
+
   RooRealProxy x ;
   RooCategoryProxy y ;
   RooRealProxy* p[MAX_N_PARMS];
   Double_t evaluate() const ;
-  path* fpath;
+
 
 private:
   ClassDef(fitF,1) // Your description goes here...
@@ -61,7 +76,6 @@ public:
   fitFbkg(const fitFbkg& other, const char* name=0) ;
   virtual TObject* clone(const char* newname) const { return new fitFbkg(*this,newname); }
   inline virtual ~fitFbkg() { }
-
 protected:
 
   RooRealProxy x ;

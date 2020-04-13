@@ -105,9 +105,6 @@ void checksimulation()
     treemlh->Branch("x",&tall,"x/D");
     treemlh->Branch("y",&mult,"y/I");
 
-
-
-
     TTree* treeptmp=new TTree("treeptmp","treeptmp");
     datatype datatmp;
     datatype datatmparr[20];

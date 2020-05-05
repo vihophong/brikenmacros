@@ -13,7 +13,7 @@
 #include <TLatex.h>
 #include <TLine.h>
 using namespace std;
-void getmineffE(Double_t QbnMeV=1){
+void getmineffE(Double_t QbnMeV=1, Double_t deadtime=0.04){
 
     TFile* halle=new TFile("runalle/effcurvealle.root");
 
@@ -43,9 +43,11 @@ void getmineffE(Double_t QbnMeV=1){
     line.DrawLine(grAllE->GetXaxis()->GetXmin(),Eeval,grAllE->GetXaxis()->GetXmax(),Eeval);
     latex.SetTextSize(0.03);
     latex.DrawLatex(grAllE->GetXaxis()->GetXmin()+100,Eeval,Form("Eff_Min=%f %%",Eeval));
+    std::ofstream ofs("outresult.txt",std::ios::app);
 
     cout<<"Eff_min(%)\tEff_Max(%)"<<endl;
     cout<<Eeval<<"\t"<<maxY<<endl;
     cout<<"Effective_Eff_min(%)\tEffective_Eff_Max(%)"<<endl;
-    cout<<(Eeval/100-Eeval/100*0.04)*100<<"\t"<<(maxY/100-maxY/100*0.04)*100<<endl;
+    cout<<(Eeval/100-Eeval/100*deadtime)*100<<"\t"<<(maxY/100-maxY/100*deadtime)*100<<endl;
+    ofs<<QbnMeV<<"\t"<<(Eeval/100-Eeval/100*deadtime)*100<<"\t"<<(maxY/100-maxY/100*deadtime)*100<<endl;
 }

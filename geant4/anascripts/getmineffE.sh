@@ -1,1 +1,1 @@
-root -b -q "getmineffE.C($1)"
+root -b -q "getmineffE.C($1,$2)"

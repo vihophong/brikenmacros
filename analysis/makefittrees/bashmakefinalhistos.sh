@@ -1,20 +1,20 @@
-./offlinemakefinalhistos.sh	list/listlowin.txt	Ag129	fithistos/Ag129.root	0.01	0.184
-./offlinemakefinalhistos.sh	list/listlowin.txt	Ag130	fithistos/Ag130.root	0.01	0.1573944
-./offlinemakefinalhistos.sh	list/listlowin.txt	Ag131	fithistos/Ag131.root	0.01	0.1411964
-./offlinemakefinalhistos.sh	list/listlowin.txt	Cd130	fithistos/Cd130.root	0.01	0.535916
-./offlinemakefinalhistos.sh	list/listlowin.txt	Cd131	fithistos/Cd131.root	0.01	0.3881872
-./offlinemakefinalhistos.sh	list/listlowin.txt	Cd132	fithistos/Cd132.root	0.01	0.3468064
-./offlinemakefinalhistos.sh	list/listlowin.txt	Cd133	fithistos/Cd133.root	0.01	0.2148708
-./offlinemakefinalhistos.sh	list/listlowin.txt	In131	fithistos/In131.root	0.01	1.099496
-./offlinemakefinalhistos.sh	list/listlowin.txt	In132	fithistos/In132.root	0.01	0.821344
-./offlinemakefinalhistos.sh	list/listlowin.txt	In133	fithistos/In133.root	0.01	0.656496
-./offlinemakefinalhistos.sh	list/listlowin.txt	In134	fithistos/In134.root	0.01	0.529728
-./offlinemakefinalhistos.sh	list/listlowin.txt	In135	fithistos/In135.root	0.01	0.41376
-./offlinemakefinalhistos.sh	list/listlowin.txt	Sn134	fithistos/Sn134.root	0.01	0.97875
-./offlinemakefinalhistos.sh	list/listlowin.txt	Sn135	fithistos/Sn135.root	0.01	0.475071
-./offlinemakefinalhistos.sh	list/listlowin.txt	Sn136	fithistos/Sn136.root	0.01	0.353196
-./offlinemakefinalhistos.sh	list/listlowin.txt	Sn137	fithistos/Sn137.root	0.01	0.232899
-./offlinemakefinalhistos.sh	list/listlowin.txt	Sn138	fithistos/Sn138.root	0.01	0.158052
-./offlinemakefinalhistos.sh	list/listlowin.txt	In136	fithistos/In136.root	0.01	0.34
-./offlinemakefinalhistos.sh	list/listlowin.txt	Cd134	fithistos/Cd134.root	0.01	0.26
-
+./offlinemakefinalhistos.sh	list/listlowin.txt	Ag129	fithistos/Ag129.root	0.01	0.184	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Ag130	fithistos/Ag130.root	0.01	0.1573944	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Ag131	fithistos/Ag131.root	0.01	0.1411964	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Cd130	fithistos/Cd130.root	0.01	0.535916	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Cd131	fithistos/Cd131.root	0.01	0.3881872	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Cd132	fithistos/Cd132.root	0.01	0.3468064	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Cd133	fithistos/Cd133.root	0.01	0.2148708	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	In131	fithistos/In131.root	0.01	1.099496	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	In132	fithistos/In132.root	0.01	0.821344	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	In133	fithistos/In133.root	0.01	0.656496	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	In134	fithistos/In134.root	0.01	0.529728	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	In135	fithistos/In135.root	0.01	0.41376	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Sn134	fithistos/Sn134.root	0.01	0.97875	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Sn135	fithistos/Sn135.root	0.01	0.475071	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Sn136	fithistos/Sn136.root	0.01	0.353196	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Sn137	fithistos/Sn137.root	0.01	0.232899	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Sn138	fithistos/Sn138.root	0.01	0.158052	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	In136	fithistos/In136.root	0.01	0.34	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Cd134	fithistos/Cd134.root	0.01	0.26	-1	0
+./offlinemakefinalhistos.sh	list/listlowin.txt	Sn139	fithistos/Sn139.root	0.01	0.52	-1	0

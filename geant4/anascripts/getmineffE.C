@@ -13,7 +13,7 @@
 #include <TLatex.h>
 #include <TLine.h>
 using namespace std;
-void getmineffE(Double_t QbnMeV=1, Double_t deadtime=0.04){
+void getmineffE(Double_t QbnMeV=1, Double_t deadtime=0.03694){
 
     TFile* halle=new TFile("runalle/effcurvealle.root");
 

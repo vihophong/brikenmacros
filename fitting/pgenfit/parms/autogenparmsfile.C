@@ -54,8 +54,8 @@
 
 using namespace std; 
 
-double neueff=0.6441523116;
-double neuefferr=0.1;
+double neueff=0.643324;
+double neuefferr=0.0678383;
 string extractIntegerWords(string str) 
 { 
   stringstream ss; 
@@ -286,8 +286,10 @@ void plainPlot(TCanvas* c1,Double_t xrange[],Double_t yrange[])
   gr7->Draw("PS");
 }
 
-void autogenparmsfile(char* outputfile, Int_t Ainput=138, Int_t Zinput=50)
+void autogenparmsfile(char* outputfile, Int_t Ainput=138, Int_t Zinput=50,Double_t neueffin=0.643324, Double_t neuefferrin=0.0678383)
 {
+    neueff=neueffin;
+    neuefferr=neuefferrin;
     //Int_t Ainput =138;
     //Int_t Zinput =50;
     Int_t Ninput = Ainput-Zinput;
@@ -508,9 +510,251 @@ void autogenparmsfile(char* outputfile, Int_t Ainput=138, Int_t Zinput=50)
         MemberDef* obj=*listofdecaymember_it;
         cout<<obj->name<<endl;
         if (idd==0){
-            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<-obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<-obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<-obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<obj->decay_neueff<<"\t"<<obj->decay_neuefferr<<"\t"<<0.<<"\t"<<1.<<endl;
+            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<-obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<-obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<200.<<"\t"<<-obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<200.<<"\t"<<neueff<<"\t"<<neuefferr<<"\t"<<0.<<"\t"<<1.<<endl;
         }else{
-            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<100.<<"\t"<<obj->decay_neueff<<"\t"<<obj->decay_neuefferr<<"\t"<<0.<<"\t"<<1.<<endl;
+            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<200.<<"\t"<<obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<200.<<"\t"<<neueff<<"\t"<<neuefferr<<"\t"<<0.<<"\t"<<1.<<endl;
+
+        }
+
+        idd++;
+    }
+
+
+
+}
+
+
+void autogenparmsfile_noerr(char* outputfile, Int_t Ainput=138, Int_t Zinput=50,Double_t neueffin=0.643324, Double_t neuefferrin=0.0678383)
+{
+    neueff=neueffin;
+    neuefferr=neuefferrin;
+    //Int_t Ainput =138;
+    //Int_t Zinput =50;
+    Int_t Ninput = Ainput-Zinput;
+
+    list<MemberDef*> listofdecaymember;
+
+    //! readthings into arrays
+    std::string line;
+    std::ifstream infile("listofeval.txt");
+    Int_t id=0;
+    Int_t ndecaymember=0;
+    while (std::getline(infile, line))
+    {
+        std::istringstream iss(line);
+        if (line[0]=='#') continue;
+        // decay properies
+        MemberDef* obj=new MemberDef();
+        obj->flag=0;
+        obj->id=id;
+        Int_t isiso;
+        Double_t tempnum;
+        //! read info with isomer
+        if (!(iss >> obj->name >> obj->z >> obj->a >> isiso)) break;
+        for (Int_t i=0;i<12;i++){
+            if (!(iss >> tempnum)) break;
+        }
+        if (!(iss >> obj->decay_hl >> obj->decay_hlerr >> obj->decay_p1n >> obj->decay_p1nerr >>
+              obj->decay_p2n >> obj->decay_p2nerr >>
+              obj->decay_p3n >> obj->decay_p3nerr >> obj->decay_neueff >> obj->decay_neuefferr)) break;
+
+        obj->decay_p0n=100- obj->decay_p1n - obj->decay_p2n - obj->decay_p3n;
+        obj->decay_p0nerr = sqrt(obj->decay_p1nerr*obj->decay_p1nerr+obj->decay_p2nerr*obj->decay_p2nerr+obj->decay_p3nerr*obj->decay_p3nerr);
+
+        obj->n=obj->a-obj->z;
+        if (isiso==0) {
+            listofdecaymember.emplace(listofdecaymember.end(),obj);
+            cout<<"ground state in "<<obj->name<<" T1/2= "<<obj->decay_hl<<endl;
+            ndecaymember++;
+        }
+        //else{
+            //cout<<"isomeric in "<<obj->name<<" T1/2= "<<obj->decay_hl<<endl;
+        //}
+
+        id++;
+    }
+    TCanvas* cc=new TCanvas("cc","",900,700) ;
+    Double_t xrange[2]={70,95};
+    Double_t yrange[2]={45,60};
+    plainPlot(cc,xrange,yrange);
+
+
+
+    //! construct Z scheme
+
+    list<MemberDef*> listofavailablemember;
+    list<MemberDef*>::iterator listofdecaymember_it;
+    list<MemberDef*>::iterator listofdecaymember_it2;
+
+    TLatex latex;
+    latex.SetTextAlign(12);
+    latex.SetTextSize(0.025);
+
+    for (listofdecaymember_it = listofdecaymember.begin(); listofdecaymember_it != listofdecaymember.end(); listofdecaymember_it++)
+    {
+        string riname=converttolatex(string((*listofdecaymember_it)->name.Data()));
+        (*listofdecaymember_it)->name=TString(riname.data());
+        latex.DrawLatex((*listofdecaymember_it)->n-0.5,(*listofdecaymember_it)->z,Form("%s",(*listofdecaymember_it)->name.Data()));
+        ndecaymember++;
+    }
+    for (listofdecaymember_it = listofdecaymember.begin(); listofdecaymember_it != listofdecaymember.end(); listofdecaymember_it++)
+    {
+        if ((*listofdecaymember_it)->z==Zinput&&(*listofdecaymember_it)->n==Ninput) {
+            MemberDef* obj=new MemberDef();
+            CopyMember(*listofdecaymember_it,obj);
+            if (obj->decay_p1n==0) obj->decay_p1n=50;
+            if (obj->decay_p2n==0) obj->decay_p2n=25;
+            listofavailablemember.emplace(listofavailablemember.end(),obj);
+            break;
+        }
+    }
+    //cout<<"***************"<<endl;
+
+    // main loop
+    while(1){
+        Int_t ndaughter=0;
+        for (listofdecaymember_it = listofavailablemember.begin(); listofdecaymember_it != listofavailablemember.end(); listofdecaymember_it++)
+        {
+            if((*listofdecaymember_it)->flag==0){
+                for (listofdecaymember_it2 = listofdecaymember.begin(); listofdecaymember_it2 != listofdecaymember.end(); listofdecaymember_it2++)
+                {
+                    if (((*listofdecaymember_it2)->z-(*listofdecaymember_it)->z)==1){
+                        if (((*listofdecaymember_it2)->n-(*listofdecaymember_it)->n)==-1){//p0n
+                            if ((*listofdecaymember_it)->decay_p0n>0){
+                                cout<<(*listofdecaymember_it2)->name<<endl;
+                                (*listofdecaymember_it)->flag=1;
+                                MemberDef* obj=new MemberDef();
+                                CopyMember(*listofdecaymember_it2,obj);
+                                listofavailablemember.emplace(listofavailablemember.end(),obj);
+                                ndaughter++;
+                            }
+                        }else if (((*listofdecaymember_it2)->n-(*listofdecaymember_it)->n)==-2){//p1n
+                            if ((*listofdecaymember_it)->decay_p1n>0){
+                                cout<<(*listofdecaymember_it2)->name<<endl;
+                                (*listofdecaymember_it)->flag=1;
+                                MemberDef* obj=new MemberDef();
+                                CopyMember(*listofdecaymember_it2,obj);
+                                listofavailablemember.emplace(listofavailablemember.end(),obj);
+                                ndaughter++;
+                            }
+                        }else if (((*listofdecaymember_it2)->n-(*listofdecaymember_it)->n)==-3){//p2n
+                            if ((*listofdecaymember_it)->decay_p2n>0){
+                                cout<<(*listofdecaymember_it2)->name<<endl;
+                                (*listofdecaymember_it)->flag=1;
+                                MemberDef* obj=new MemberDef();
+                                CopyMember(*listofdecaymember_it2,obj);
+                                listofavailablemember.emplace(listofavailablemember.end(),obj);
+                                ndaughter++;
+                            }
+                        }else if (((*listofdecaymember_it2)->n-(*listofdecaymember_it)->n)==-4){//p3n
+                            if ((*listofdecaymember_it)->decay_p3n>0){
+                                cout<<(*listofdecaymember_it2)->name<<endl;
+                                (*listofdecaymember_it)->flag=1;
+                                MemberDef* obj=new MemberDef();
+                                CopyMember(*listofdecaymember_it2,obj);
+                                listofavailablemember.emplace(listofavailablemember.end(),obj);
+                                ndaughter++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (ndaughter==0) break;
+    }
+
+    cout<<"output"<<endl;
+    for (listofdecaymember_it = listofavailablemember.begin(); listofdecaymember_it != listofavailablemember.end(); listofdecaymember_it++)
+    {
+        cout<<(*listofdecaymember_it)->name<<endl;
+    }
+    map<int, MemberDef*> mapA;
+    map<int, MemberDef*>::iterator mapA_it;
+    cout<<"sorting 1st"<<endl;
+    for (listofdecaymember_it = listofavailablemember.begin(); listofdecaymember_it != listofavailablemember.end(); listofdecaymember_it++)
+    {
+        mapA.insert(make_pair((*listofdecaymember_it)->z*200+(*listofdecaymember_it)->n,*listofdecaymember_it));
+    }
+    for (mapA_it = mapA.begin(); mapA_it != mapA.end(); mapA_it++)
+    {
+        cout<<(mapA_it->second)->name<<endl;
+    }
+
+
+    map<int, MemberDef*, greater<int> > mapAsort;
+    map<int, MemberDef*>::iterator mapA_it2;
+
+    list<MemberDef*> listofavailablemembersorted;
+    Int_t prevZ=0;
+    Int_t idd=0;
+    cout<<"sorting 2nd"<<endl;
+    for (mapA_it = mapA.begin(); mapA_it != mapA.end(); mapA_it++)
+    {
+        /*
+        if ((mapA_it->second)->z==prevZ||prevZ==0){
+            mapAsort.insert(make_pair((mapA_it->second)->a,mapA_it->second));
+            cout<<(mapA_it->second)->name<<"-"<<(mapA_it->second)->z<<"-"<<prevZ<<endl;
+        }else{
+            //if (prevZ!=0){
+                cout<<"*******sep******"<<endl;
+                listofavailablemembersorted.emplace(listofavailablemembersorted.end(),mapA_it->second);
+                mapAsort.clear();
+                mapAsort.insert(make_pair((mapA_it->second)->a,mapA_it->second));
+                cout<<(mapA_it->second)->name<<"-"<<(mapA_it->second)->z<<"-"<<prevZ<<endl;
+            //}
+
+        }
+
+        if (idd==mapA.size()-1){
+            cout<<"*******sep******"<<endl;
+        }
+        idd++;
+        prevZ=(mapA_it->second)->z;
+        */
+
+        if ((mapA_it->second)->z==prevZ||prevZ==0){
+            mapAsort.insert(make_pair((mapA_it->second)->a,mapA_it->second));
+            cout<<(mapA_it->second)->name<<"-"<<(mapA_it->second)->z<<"-"<<prevZ<<endl;
+        }
+        if ((mapA_it->second)->z!=prevZ&&prevZ!=0){
+            cout<<"*******sep******"<<endl;
+            for (mapA_it2 = mapAsort.begin(); mapA_it2 != mapAsort.end(); mapA_it2++){
+                listofavailablemembersorted.emplace(listofavailablemembersorted.end(),mapA_it2->second);
+            }
+            mapAsort.clear();
+            mapAsort.insert(make_pair((mapA_it->second)->a,mapA_it->second));
+            cout<<(mapA_it->second)->name<<"-"<<(mapA_it->second)->z<<"-"<<prevZ<<endl;
+        }
+
+        if (idd==mapA.size()-1){
+            cout<<"*******sep******"<<endl;
+            for (mapA_it2 = mapAsort.begin(); mapA_it2 != mapAsort.end(); mapA_it2++){
+                listofavailablemembersorted.emplace(listofavailablemembersorted.end(),mapA_it2->second);
+            }
+            mapAsort.clear();
+        }
+        idd++;
+        prevZ=(mapA_it->second)->z;
+    }
+    cout<<"Final"<<endl;
+
+    std::ofstream str(outputfile);
+    str<<"# Note should start from #, non-zero upper value indicate varying variable, half-life is in second"<<endl;
+    str<<"# RI should be in the sequences of increasing Z and decreasing A for each isotropic row"<<endl;
+    str<<"#Name	Z	A	Half-life	Abs Error Half-life	lowerHL	upperHL	P1n	Abs Error P1n	lowerP1n	upperP1n	P2n	Abs Error P2n	lowerP2n	upperP2n	isomer ratio	isomer ratio err	lower isomer ratio	upper isomer ratio	Half-life	Abs Error Half-life	lowerHL	upperHL	P1n	Abs Error P1n	lowerP1n	upperP1n	P2n	Abs Error P2n	lowerP2n	upperP2n    Neu.Eff	Neu.Eff Err	lowerNeu.Eff	upperNeu.Eff"<<endl;
+    idd=0;
+    for (listofdecaymember_it = listofavailablemembersorted.begin(); listofdecaymember_it != listofavailablemembersorted.end(); listofdecaymember_it++)
+    {
+        MemberDef* obj=*listofdecaymember_it;
+        cout<<obj->name<<endl;
+        obj->decay_hlerr=0;
+        obj->decay_p1nerr=0;
+        obj->decay_p2nerr=0;
+        neuefferr=0;
+        if (idd==0){
+            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<-obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<-obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<200.<<"\t"<<-obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<200.<<"\t"<<neueff<<"\t"<<neuefferr<<"\t"<<0.<<"\t"<<1.<<endl;
+        }else{
+            str<<obj->name<<"\t"<<obj->z<<"\t"<<obj->a<<"\t"<<obj->decay_hl<<"\t"<<obj->decay_hlerr<<"\t"<<obj->decay_hl/5<<"\t"<<obj->decay_hl*5<<"\t"<<obj->decay_p1n<<"\t"<<obj->decay_p1nerr<<"\t"<<0.<<"\t"<<200.<<"\t"<<obj->decay_p2n<<"\t"<<obj->decay_p2nerr<<"\t"<<0.<<"\t"<<200.<<"\t"<<neueff<<"\t"<<neuefferr<<"\t"<<0.<<"\t"<<1.<<endl;
 
         }
 

@@ -102,7 +102,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     MakeFinalHisto(char* outfile, Double_t decaytmin=0.05,Double_t decaytmax=1,Int_t layer=-1);
+   virtual void     MakeFinalHisto(char* outfile, Double_t decaytmin=0.05,Double_t decaytmax=1,Int_t layer=-1,Double_t beta=0);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
 };

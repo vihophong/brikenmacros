@@ -4,8 +4,24 @@
 #include <TH1.h>
 #include <TStyle.h>
 #include <TCanvas.h>
+#include <TTree.h>
+#include <fstream>
+#include "TMath.h"
 
-void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Double_t decaytmax=1, Int_t layer=-1)
+double Median(const TH1F * h1) {
+
+   int n = h1->GetXaxis()->GetNbins();
+   double x[10000];
+   double y[10000];
+   for (int i=0;i<n;i++){
+       x[i]=h1->GetBinCenter(i+1);
+       y[i]=h1->GetBinContent(i+1);
+   }
+   // exclude underflow/overflows from bin content array y
+   return TMath::Median(n, x, y);
+}
+
+void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Double_t decaytmax=1, Int_t layer=-1, Double_t beta=0)
 {
 
 
@@ -97,16 +113,14 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
 
 
 
-   TH1F* hibgfw=new TH1F("hibgfw","forward ionbeta gamma spec",4000,0,2000);
-   TH1F* hibgbw=new TH1F("hibgbw","backward ionbeta gamma spec",4000,0,2000);
+   TH1F* hibgfw=new TH1F("hibgfw","forward ionbeta gamma spec",8000,0,4000);
+   TH1F* hibgbw=new TH1F("hibgbw","backward ionbeta gamma spec",8000,0,4000);
 
-   TH1F* hibgfwnfw=new TH1F("hibgfwnfw","hibgfw forward ionbeta gamma spec with forward neutron ",4000,0,2000);
-   TH1F* hibgbwnfw=new TH1F("hibgbwnbw","hibgfw backward ionbeta gamma spec with forward neutron",4000,0,2000);
+   TH1F* hibgfwnfw=new TH1F("hibgfwnfw","hibgfw forward ionbeta gamma spec with forward neutron ",8000,0,4000);
+   TH1F* hibgbwnfw=new TH1F("hibgbwnbw","hibgfw backward ionbeta gamma spec with forward neutron",8000,0,4000);
 
-   TH1F* hibgfwnbw=new TH1F("hibgfwnbw","hibgfw forward ionbeta gamma spec with backward neutron ",4000,0,2000);
-   TH1F* hibgbwnbw=new TH1F("hibgbwnfw","hibgfw backward ionbeta gamma spec with backward neutron",4000,0,2000);
-
-
+   TH1F* hibgfwnbw=new TH1F("hibgfwnbw","hibgfw forward ionbeta gamma spec with backward neutron ",8000,0,4000);
+   TH1F* hibgbwnbw=new TH1F("hibgbwnfw","hibgfw backward ionbeta gamma spec with backward neutron",8000,0,4000);
 
    TH1F* h1=new TH1F("hdistr","hit distribution",200,0,50);
    TH1F* h2=new TH1F("hibn","hibn",300,-10,20);
@@ -116,6 +130,9 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
    TH1F* h6=new TH1F("hdistrbwbnbwib","hit distribution backward time beta neutron of backward ionbeta",200,0,50);
 
    TH2F* h2z=new TH2F("h2z","Zdistributionvsdecay",binning,lowlimit,uplimit,6,0,6);
+
+   TH1F* hbeta=new TH1F("hbeta","Beta distribution",500,0.6,0.7);
+
    //!
 
    Int_t ncountouterring=0;
@@ -124,9 +141,29 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
    Int_t ncountinnerringbwib=0;
    Int_t ncountouterringbwbn=0;
    Int_t ncountinnerringbwbn=0;
-
    Int_t ncountouterringbwbnbwib=0;
    Int_t ncountinnerringbwbnbwib=0;
+
+
+   Int_t ncountouterring1=0;
+   Int_t ncountinnerring1=0;
+   Int_t ncountouterringbwib1=0;
+   Int_t ncountinnerringbwib1=0;
+   Int_t ncountouterringbwbn1=0;
+   Int_t ncountinnerringbwbn1=0;
+   Int_t ncountouterringbwbnbwib1=0;
+   Int_t ncountinnerringbwbnbwib1=0;
+
+   Int_t ncountouterring2=0;
+   Int_t ncountinnerring2=0;
+   Int_t ncountouterringbwib2=0;
+   Int_t ncountinnerringbwib2=0;
+   Int_t ncountouterringbwbn2=0;
+   Int_t ncountinnerringbwbn2=0;
+   Int_t ncountouterringbwbnbwib2=0;
+   Int_t ncountinnerringbwbnbwib2=0;
+
+
 
    //! output tree for MLH method
    TTree* otree = new TTree("tree","tree") ;
@@ -135,9 +172,15 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
    Int_t* pz = new Int_t ;
    Int_t* pb = new Int_t ;
    otree->Branch("x",px,"x/D") ;
-   otree->Branch("y",py,"y/I") ;//forward hits
-   //otree->Branch("z",pz,"z/I") ;//layer
-   //otree->Branch("b",pb,"b/I") ;//backward hits
+   otree->Branch("y",py,"y/I") ;
+
+
+   //! output tree for backward neutrons
+   TTree* otreebw = new TTree("treebw","treebw") ;
+   Double_t* pxb = new Double_t ;
+   Int_t* pyb = new Int_t ;
+   otreebw->Branch("x",pxb,"x/D") ;
+   otreebw->Branch("y",pyb,"y/I") ;
 
    Long64_t nentries = fChain->GetEntries();
 
@@ -149,13 +192,22 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
       // if (Cut(ientry) < 0) continue;
+      hbeta->Fill(decay_beta);
 
       //! select layer if a non-negative value is specified
       if (layer>=0){
         if (decay_z!=layer) continue;
       }
 
-
+      //! select beta cut
+      if (beta!=0){
+          //cout<<"beta"<<beta<<endl;
+          if (beta<0){
+              if (decay_beta>-beta) continue; //select velocity < input value
+          }else{
+              if (decay_beta<beta) continue; //select velocity > input value
+          }
+      }
 
       //! fill histos
       hdecay->Fill(decay_t);
@@ -167,6 +219,7 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
       if (neub_hit==2) hdecay2nbwd->Fill(decay_t);
       if (neub_hit>0) hdecaygt0nbwd->Fill(decay_t);
 
+
       //! fill tree
       //if (neu_hit<3){
       *px=decay_t;
@@ -174,6 +227,11 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
       *py=neu_hit;
       *pb=neub_hit;
       otree->Fill();
+
+
+      *pxb=decay_t;
+      *pyb=neub_hit;
+      otreebw->Fill();
       //}
       //! get hit distributions
       //!selecting all multiplicity
@@ -186,8 +244,12 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
               h3->Fill(decay_t);
               if (sqrt(xx*xx+yy*yy)<outerinnersep){
                   ncountinnerring++;
+                  if (neu_hit==1) ncountinnerring1++;
+                  if (neu_hit==2) ncountinnerring2++;
               }else{
                   ncountouterring++;
+                  if (neu_hit==1) ncountouterring1++;
+                  if (neu_hit==2) ncountouterring2++;
               }
           }
       }
@@ -201,8 +263,12 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
               h4->Fill(sqrt(xx*xx+yy*yy));
               if (sqrt(xx*xx+yy*yy)<outerinnersep){
                   ncountinnerringbwib++;
+                  if (neu_hit==1) ncountinnerringbwib1++;
+                  if (neu_hit==2)ncountinnerringbwib2++;
               }else{
                   ncountouterringbwib++;
+                  if (neu_hit==1) ncountouterringbwib1++;
+                  if (neu_hit==2) ncountouterringbwib2++;
               }
           }
       }
@@ -216,8 +282,12 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
               h5->Fill(sqrt(xx*xx+yy*yy));
               if (sqrt(xx*xx+yy*yy)<outerinnersep){
                   ncountinnerringbwbn++;
+                  if (neub_hit==1) ncountinnerringbwbn1++;
+                  if (neub_hit==2) ncountinnerringbwbn2++;
               }else{
                   ncountouterringbwbn++;
+                  if (neub_hit==1) ncountouterringbwbn1++;
+                  if (neub_hit==2) ncountouterringbwbn2++;
               }
           }
       }
@@ -230,8 +300,12 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
               h6->Fill(sqrt(xx*xx+yy*yy));
               if (sqrt(xx*xx+yy*yy)<outerinnersep){
                   ncountinnerringbwbnbwib++;
+                  if (neub_hit==1) ncountinnerringbwbnbwib1++;
+                  if (neub_hit==2) ncountinnerringbwbnbwib2++;
               }else{
                   ncountouterringbwbnbwib++;
+                  if (neub_hit==1) ncountouterringbwbnbwib1++;
+                  if (neub_hit==2) ncountouterringbwbnbwib2++;
               }
           }
       }
@@ -258,11 +332,19 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
    ncountinnerring=ncountinnerring-ncountinnerringbwib-ncountinnerringbwbn+ncountinnerringbwbnbwib;
    ncountouterring=ncountouterring-ncountouterringbwib-ncountouterringbwbn+ncountouterringbwbnbwib;
 
-   str<<nameri<<"\t"<<ncountinnerring<<"\t"<<ncountouterring<<"\t"<<fChainImp->GetEntries()<<endl;
+   ncountinnerring1=ncountinnerring1-ncountinnerringbwib1-ncountinnerringbwbn1+ncountinnerringbwbnbwib1;
+   ncountouterring1=ncountouterring1-ncountouterringbwib1-ncountouterringbwbn1+ncountouterringbwbnbwib1;
+
+   ncountinnerring2=ncountinnerring2-ncountinnerringbwib2-ncountinnerringbwbn2+ncountinnerringbwbnbwib2;
+   ncountouterring2=ncountouterring2-ncountouterringbwib2-ncountouterringbwbn2+ncountouterringbwbnbwib2;
+
+   str<<nameri<<"\t"<<ncountinnerring<<"\t"<<ncountouterring<<"\t"<<ncountinnerring1<<"\t"<<ncountouterring1<<"\t"<<ncountinnerring2<<"\t"<<ncountouterring2<<"\t"<<fChainImp->GetEntries()<<endl;
    cout<<"inner = "<<ncountinnerring<<" outer = "<<ncountouterring<<endl;
-
-
-
+   cout<<"inner 1n = "<<ncountinnerring1<<" outer 1n = "<<ncountouterring1<<endl;
+   cout<<"inner 2n = "<<ncountinnerring2<<" outer 2n = "<<ncountouterring2<<endl;
+   str.close();
+   std::ofstream str2("outbetacut.txt",std::ios::app);
+   str2<<nameri<<"\t"<<Median(hbeta)<<endl;
 
    //! write tree and histograms
    hdecay->Write();
@@ -279,7 +361,6 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
    h4->Write();
    h5->Write();
    h6->Write();
-
 
    TH1F* hibgreal=(TH1F*)hibgfw->Clone();
    hibgreal->SetName("hibgreal");
@@ -303,8 +384,10 @@ void makefinalhistos::MakeFinalHisto(char* outfile, Double_t decaytmin=0.05, Dou
    hibgfwnbw->Write();
    hibgbwnbw->Write();
    h2z->Write();
+   hbeta->Write();
 
    otree->Write();
+   otreebw->Write();
 
    ofile->Close();
 

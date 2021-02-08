@@ -788,7 +788,6 @@ void fitter(char* infilename,char* parmsfilename,char* outfilename,Int_t nintera
     treeout->Fill();
 
 
-
     cout<<"\n*******PRINTING RESULT**********\n"<<endl;
     result.Print(std::cout);
 

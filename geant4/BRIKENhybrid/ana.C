@@ -1,29 +1,29 @@
-void ana(){
-  ofstream outfile("output.txt");
-  TH1F *temphis;
-	Int_t nRun=10;
-	Int_t nGroup=6;
-	Int_t k=0;	
-   for (Int_t i=0;i<nRun;i++){
-      TFile* h=new TFile(Form("Hist%d.root",i));
-			TTree* BRIKEN=(TTree*) h->Get("BRIKEN");
-//Get Energy 
-			BRIKEN->Draw(Form("partEnergy>>histE%d(100,0,1000)",i),"E>180&&E<800","goff");
-			temphistE=(TH1F*) h->Get(Form("histE%d",i));
-			outfile<<temphistE->GetMean()<<" ";
-//GetTotal fire on All
-			BRIKEN->Draw(Form("E>>hist%d(100,0,1000)",i),"E>180&&E<800","goff");
-			temphist=(TH1F*) h->Get(Form("hist%d",i));
-			outfile<<temphist->GetEntries()<<" ";
-//Get fire on each group
-			for (Int_t j=0;j<nGroup;j++){
-      BRIKEN->Draw(Form("E>>his%d(100,0,1000)",k),Form("E>180&&E<800&&detGroup==%d",j),"goff");
-      temphis=(TH1F*) h->Get(Form("his%d",k));
-      outfile<<temphis->GetEntries()<<" ";
-			k++;
-			}
-			outfile<<"\n";
-      h->Close("R");
-   }
-   outfile.close();
+#include <TLegend.h>
+#include <TFile.h>
+#include <TTree.h>
+#include <TH1.h>
+#include <TH2.h>
+#include <TString.h>
+#include <TCanvas.h>
+#include <iostream>
+#include <TGraph.h>
+using namespace std;
+
+void ana(Int_t nthreads=20){
+    std::ifstream inpf("outGrid.txt");
+    std::ofstream ofs("outGrid_joint.txt");
+    while (inpf.good()){
+        Double_t x,y,z,E;
+        Int_t ndetect=0,nall=0;
+        for (int i=0;i<nthreads;i++){
+            Int_t ndetecti,nalli;
+            inpf>>x>>y>>z>>E>>ndetecti>>nalli;
+            cout<<x<<"\t"<<y<<"\t"<<z<<"\t"<<E<<"\t"<<ndetecti<<"\t"<<nalli<<endl;
+            ndetect+=ndetecti;
+            nall+=nalli;
+        }
+        cout<<nall<<"\t"<<ndetect<<endl;
+        ofs<<x<<"\t"<<y<<"\t"<<z<<"\t"<<E<<"\t"<<(Double_t)ndetect/(Double_t)nall<<"\t"<<sqrt((Double_t)ndetect)/(Double_t)nall<<endl;
+        cout<<"------------------------"<<endl;
+    }
 }

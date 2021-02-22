@@ -1,7 +1,8 @@
-/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/edit_cache.dir
-/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/rebuild_cache.dir
-/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/list_install_components.dir
-/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/install.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/install/strip.dir
 /home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/install/local.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/install.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/list_install_components.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/rebuild_cache.dir
+/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/edit_cache.dir
 /home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/B3.dir
 /home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid-b/CMakeFiles/BRIKEN.dir

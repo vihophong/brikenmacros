@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "BRIKEN"
+  "BRIKEN.pdb"
   "CMakeFiles/BRIKEN.dir/BRIKEN.cc.o"
   "CMakeFiles/BRIKEN.dir/src/B1EventAction.cc.o"
   "CMakeFiles/BRIKEN.dir/src/B1SteppingAction.cc.o"
@@ -14,10 +16,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/BRIKEN.dir/src/DetectorMessenger.cc.o"
   "CMakeFiles/BRIKEN.dir/src/NeutronHPphysics.cc.o"
   "CMakeFiles/BRIKEN.dir/src/exGPSPrimaryGeneratorAction.cc.o"
-  "BRIKEN.pdb"
-  "BRIKEN"
-  "BRIKEN.pdb"
-  "CMakeFiles/CMakeRelink.dir/BRIKEN"
 )
 
 # Per-language clean rules from dependency scanning.

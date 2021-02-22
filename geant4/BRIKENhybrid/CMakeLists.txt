@@ -47,12 +47,16 @@ set(EXAMPLEB3_SCRIPTS
   init.mac
   init_vis.mac
   vis.mac
-	run1.mac
-	run2.mac
-	inputExample.br
-	Readme
-	ana.C
+  run1.mac
+  run2.mac
+  inputExample.br
+  test3.br
+  test4.br
+  test5.br
+  Readme
+  ana.C
   exgps.in
+  disableqt.sh
   )
 
 foreach(_script ${EXAMPLEB3_SCRIPTS})

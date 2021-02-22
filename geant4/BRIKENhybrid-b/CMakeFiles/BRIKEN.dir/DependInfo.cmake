@@ -47,8 +47,8 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/data01/usersdata/phong/projects/geant4/geant4-qt/include/Geant4"
   "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid/include"
+  "/home/phong/projects/geant4/geant4-qt/include/Geant4"
   "/usr/include/qt5"
   "/usr/include/qt5/QtWidgets"
   "/usr/include/qt5/QtGui"

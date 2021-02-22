@@ -32,7 +32,7 @@
 #include "B3DetectorConstruction.hh"
 #include "B3RunAction.hh"
 #include "B1EventAction.hh"
-#include "B3PrimaryGeneratorAction.hh"
+#include "exGPSPrimaryGeneratorAction.hh"
 #include "B3Run.hh"
 #include "G4Threading.hh"
 
@@ -127,40 +127,39 @@ void B3RunAction::EndOfRunAction(const G4Run* run)
 
 
     G4int runID=run->GetRunID();
-  //if (runID%10==0) {
 
+    G4String partName;
+    G4double partEnergy;
 
+    //if (G4Threading::G4GetThreadId()==-1){
+        ofstream outfile("outGrid.txt",std::ofstream::out | std::ofstream::app);
+        const B3DetectorConstruction* detectorConstruction
+                = static_cast<const B3DetectorConstruction*>
+                (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
+        G4AnalysisManager* aM = G4AnalysisManager::Instance();
+
+        const exGPSPrimaryGeneratorAction* generatorAction
+                = static_cast<const exGPSPrimaryGeneratorAction*>(
+                    G4RunManager::GetRunManager()->GetUserPrimaryGeneratorAction());
+        if (generatorAction)
+        {
+            partEnergy = generatorAction->GetEbeam();
+            partName = generatorAction->GetNameofParticle();
+            outfile<<generatorAction->GetPartPos().getX()/cm<<"\t"<<generatorAction->GetPartPos().getY()/cm<<"\t"<<
+                     generatorAction->GetPartPos().getZ()/cm<<"\t"<<partEnergy/MeV<<"\t"<<
+                     aM->GetH1(1)->entries()<<"\t"<<nofEvents<<endl;
+        }
     //}
-
-    if (G4Threading::G4GetThreadId()==-1){
-    ofstream outfile("outGrid.txt",std::ofstream::out | std::ofstream::app);
-    const B3DetectorConstruction* detectorConstruction
-      = static_cast<const B3DetectorConstruction*>
-        (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-    G4AnalysisManager* aM = G4AnalysisManager::Instance();
-    if (runID%10==0) outfile<<"\n"<<detectorConstruction->Geth0()<<" "<<detectorConstruction->Getf()<<" ";
-      outfile<<(G4double)aM->GetH1(1)->entries()/(G4double)nofEvents*100<<" ";
-    outfile.close();
-    }
+    //if (runID%10==0) outfile<<"\n"<<detectorConstruction->Geth0()<<" "<<detectorConstruction->Getf()<<" ";
+    //  outfile<<(G4double)aM->GetH1(1)->entries()/(G4double)nofEvents*100<<" ";
+    //  outfile.close();
+    //}
     //G4cout<<"Thread ID is: "<<G4Threading::G4GetThreadId() << G4endl;
     //G4cout<<"FIRE on tubes!!!  --- "<<aM->GetH1(1)->entries()<<"/"<<nofEvents<<G4endl;
 
 
 
-  const B3PrimaryGeneratorAction* generatorAction
-    = static_cast<const B3PrimaryGeneratorAction*>(
-        G4RunManager::GetRunManager()->GetUserPrimaryGeneratorAction());
 
-  G4String partName;
-  G4double partEnergy;
-
-  if (generatorAction) 
-  {
-    G4ParticleDefinition* particle 
-      = generatorAction->GetParticleGun()->GetParticleDefinition();
-    partName = particle->GetParticleName();
-    partEnergy=generatorAction->GetParticleGun()->GetParticleEnergy();
-  }
 
   //print
   //
@@ -180,6 +179,7 @@ void B3RunAction::EndOfRunAction(const G4Run* run)
   G4AnalysisManager* mann = G4AnalysisManager::Instance();
   mann->Write();
   mann->CloseFile();
+
   //Complete clean up;
   delete G4AnalysisManager::Instance();
 }

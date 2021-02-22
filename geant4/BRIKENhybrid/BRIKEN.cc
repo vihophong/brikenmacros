@@ -28,7 +28,7 @@
 /// \file exampleB3.cc
 /// \brief Main program of the B3 example
 
-//#define G4MULTITHREADED_P
+#define G4MULTITHREADED_P 20
 
 #ifdef G4MULTITHREADED_P
 #include "G4MTRunManager.hh"
@@ -65,7 +65,7 @@ int main(int argc,char** argv)
       
   #ifdef G4MULTITHREADED_P
     G4MTRunManager* runManager = new G4MTRunManager;
-    runManager->SetNumberOfThreads(8);
+    runManager->SetNumberOfThreads(G4MULTITHREADED_P);
   #else
     G4RunManager* runManager = new G4RunManager;
   #endif

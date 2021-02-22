@@ -1,20 +1,248 @@
-/gun/energy 100 eV
+/gps/ene/mono 0.000000001 MeV
 /run/beamOn 100000
-/gun/energy 1 keV
+/gps/ene/mono 0.000000004 MeV
 /run/beamOn 100000
-/gun/energy 10 keV
+/gps/ene/mono 0.000000007 MeV
 /run/beamOn 100000
-/gun/energy 100 keV
+/gps/ene/mono 0.00000001 MeV
 /run/beamOn 100000
-/gun/energy 500 keV
+/gps/ene/mono 0.00000004 MeV
 /run/beamOn 100000
-/gun/energy 1000 keV
+/gps/ene/mono 0.00000007 MeV
 /run/beamOn 100000
-/gun/energy 2000 keV
+/gps/ene/mono 0.0000001 MeV
 /run/beamOn 100000
-/gun/energy 3000 keV
+/gps/ene/mono 0.0000004 MeV
 /run/beamOn 100000
-/gun/energy 4000 keV
+/gps/ene/mono 0.0000007 MeV
 /run/beamOn 100000
-/gun/energy 5000 keV
-/run/beamOn 10000
+/gps/ene/mono 0.000001 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.000004 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.000007 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.00001 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.00004 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.00007 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.0001 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.0004 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.0007 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.001 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.004 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.007 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.01 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.04 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.07 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 0.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 1 MeV
+/run/beamOn 100000
+/gps/ene/mono 1.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 1.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 1.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 1.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 1.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 1.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 1.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 1.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 1.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 2 MeV
+/run/beamOn 100000
+/gps/ene/mono 2.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 2.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 2.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 2.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 2.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 2.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 2.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 2.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 2.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 3 MeV
+/run/beamOn 100000
+/gps/ene/mono 3.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 3.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 3.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 3.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 3.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 3.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 3.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 3.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 3.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 4 MeV
+/run/beamOn 100000
+/gps/ene/mono 4.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 4.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 4.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 4.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 4.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 4.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 4.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 4.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 4.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 5 MeV
+/run/beamOn 100000
+/gps/ene/mono 5.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 5.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 5.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 5.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 5.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 5.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 5.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 5.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 5.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 6 MeV
+/run/beamOn 100000
+/gps/ene/mono 6.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 6.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 6.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 6.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 6.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 6.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 6.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 6.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 6.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 7 MeV
+/run/beamOn 100000
+/gps/ene/mono 7.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 7.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 7.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 7.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 7.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 7.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 7.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 7.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 7.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 8 MeV
+/run/beamOn 100000
+/gps/ene/mono 8.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 8.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 8.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 8.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 8.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 8.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 8.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 8.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 8.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 9 MeV
+/run/beamOn 100000
+/gps/ene/mono 9.1 MeV
+/run/beamOn 100000
+/gps/ene/mono 9.2 MeV
+/run/beamOn 100000
+/gps/ene/mono 9.3 MeV
+/run/beamOn 100000
+/gps/ene/mono 9.4 MeV
+/run/beamOn 100000
+/gps/ene/mono 9.5 MeV
+/run/beamOn 100000
+/gps/ene/mono 9.6 MeV
+/run/beamOn 100000
+/gps/ene/mono 9.7 MeV
+/run/beamOn 100000
+/gps/ene/mono 9.8 MeV
+/run/beamOn 100000
+/gps/ene/mono 9.9 MeV
+/run/beamOn 100000
+/gps/ene/mono 10 MeV
+/run/beamOn 100000

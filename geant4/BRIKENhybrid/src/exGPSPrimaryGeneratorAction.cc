@@ -48,6 +48,7 @@ exGPSPrimaryGeneratorAction::exGPSPrimaryGeneratorAction()
 
   fEbeam=fParticleGun->GetParticleEnergy();
   fName=fParticleGun->GetParticleDefinition()->GetParticleName();
+  fParPos=fParticleGun->GetParticlePosition();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -67,6 +68,7 @@ void exGPSPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   fEbeamCumul += fParticleGun->GetParticleEnergy(); 
   fEbeam=fParticleGun->GetParticleEnergy();
   fName=fParticleGun->GetParticleDefinition()->GetParticleName();
+  fParPos=fParticleGun->GetParticlePosition();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....

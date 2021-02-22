@@ -33,6 +33,7 @@
 #define exGPSPrimaryGeneratorAction_h 1
 
 #include "globals.hh"
+#include "G4ThreeVector.hh"
 #include "G4VUserPrimaryGeneratorAction.hh"
 
 class exGPSPrimaryGeneratorAction;
@@ -46,15 +47,17 @@ class exGPSPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
     virtual ~exGPSPrimaryGeneratorAction();
 
     virtual void GeneratePrimaries(G4Event* anEvent);
-    G4GeneralParticleSource* GetParticleGun() {return fParticleGun;}
-  G4double GetEbeamCumul() {return fEbeamCumul;}
-  G4double GetEbeam() {return fEbeam;}
-  G4String GetNameofParticle() {return fName;}
+    G4GeneralParticleSource* GetParticleGun() const {return fParticleGun;}
+    G4double GetEbeamCumul() const {return fEbeamCumul;}
+    G4double GetEbeam() const {return fEbeam;}
+    G4String GetNameofParticle() const{return fName;}
+    G4ThreeVector GetPartPos() const{return fParPos;}
   private:
     G4GeneralParticleSource* fParticleGun;
     G4double                   fEbeamCumul;
     G4double                   fEbeam;
     G4String                   fName;
+    G4ThreeVector fParPos;
 };
 
 #endif

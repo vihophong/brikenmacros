@@ -802,7 +802,7 @@ void fitter(char* infilename,char* parmsfilename,char* outfilename,Int_t nintera
     cout<<resultpar[knri*2]<<"\t"<<resulterr[knri*2]<<endl;
     cout<<log(2)/resultpar[0]<<"\t"<<log(2)/resultpar[0]/resultpar[0]*resulterr[0]<<"\t";
     cout<<resultpar[knri]<<"\t"<<resulterr[knri]<<"\t";
-    cout<<resultpar[knri*2]<<"\t"<<resulterr[knri*2]<<endl;
+    cout<<resultpar[knri*2]<<"\t"<<resulterr[knri*2]<<endl;    
 
 
     //! write to text file

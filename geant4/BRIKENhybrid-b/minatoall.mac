@@ -1,0 +1,14 @@
+/control/execute neuspecs/minatospec/Ag129.mac
+/run/beamOn 250000
+/control/execute neuspecs/minatospec/Ag130.mac
+/run/beamOn 250000
+/control/execute neuspecs/minatospec/Cd131.mac
+/run/beamOn 250000
+/control/execute neuspecs/minatospec/Cd132.mac
+/run/beamOn 250000
+/control/execute neuspecs/minatospec/In133.mac
+/run/beamOn 250000
+/control/execute neuspecs/minatospec/In134.mac
+/run/beamOn 250000
+/control/execute neuspecs/minatospec/In135.mac
+/run/beamOn 250000

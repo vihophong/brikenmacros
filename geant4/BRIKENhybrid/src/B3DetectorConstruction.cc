@@ -714,6 +714,38 @@ G4VPhysicalVolume* B3DetectorConstruction::Construct()
   dssdstack->SetRotation(clvRot);
   dssdstack->Placement(0,physAIDA);
 
+//  G4double innerCf_R=0.24*cm;G4double outerCf_R=0.39*cm;
+//  G4double innerCf_Z=0.42*cm;G4double outerCf_Z=1.*cm;
+
+//  G4Tubs* solidCf252out =new G4Tubs("solidCf252out", 0., outerCf_R, 0.5*outerCf_Z, 0., twopi);
+//  G4Tubs* solidCf252in =new G4Tubs("solidCf252in", 0., innerCf_R, 0.5*innerCf_Z, 0., twopi);
+
+//  G4LogicalVolume* logicCf252out =
+//  new G4LogicalVolume(solidCf252out,        //its solid
+//                      STL,         //its material
+//                      "Cf252out");        //its name
+
+//  G4LogicalVolume* logicCf252in =
+//  new G4LogicalVolume(solidCf252in,        //its solid
+//                      Vacuum,         //its material
+//                      "Cf252in");        //its name
+//  new G4PVPlacement(0,
+//                    G4ThreeVector(),             //position
+//                    logicCf252in,            //its logical volume
+//                    "Cf252in_phys",             //its name
+//                    logicCf252out,             //its mother  volume
+//                    false,                 //no boolean operation
+//                    0,                 //copy number
+//                    fCheckOverlaps);       // checking overlaps
+
+//  new G4PVPlacement(0,
+//                     G4ThreeVector(),
+//                     "Cf252out_phys",       //its name
+//                     logicCf252out,//its logical volume
+//                     physAIDA,         //its mother
+//                     false,               //no boolean operat
+//                     0,             //copy number
+//                     true);
 
   //
   // Place He3 rings in the Moderator

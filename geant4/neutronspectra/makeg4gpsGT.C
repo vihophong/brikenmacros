@@ -8,9 +8,8 @@
 #include <iostream>
 #include <TGraph.h>
 
-#define kMAXE 10
-
-#define kmaxlines 10000
+#define kMAXE 30
+#define kmaxlines 5000
 #define knormalization_de 0.1
 void makeg4gpsGT(char* inputfile, char* outputfile,Int_t rebin=8)
 {
@@ -40,7 +39,10 @@ void makeg4gpsGT(char* inputfile, char* outputfile,Int_t rebin=8)
 
 
     for (Int_t i=0;i<ientry-1;i++){
-        hSpec->SetBinContent(i+1,neuspec[i]);
+        if (hSpec->GetBinCenter(i+1)<kMAXE)
+            hSpec->SetBinContent(i+1,neuspec[i]);
+        else
+            hSpec->SetBinContent(i+1,0);
     }
     hSpec->SetLineColor(2);
 
@@ -52,17 +54,20 @@ void makeg4gpsGT(char* inputfile, char* outputfile,Int_t rebin=8)
     hSpecRebin->Draw("hist");
     hSpec->Draw("same");
 
+    //! normalize spec to 1
+    hSpecRebin->Scale(1/hSpecRebin->Integral());
+
     std::ofstream oupf(outputfile);
     nlines=0;
-    oupf<<"/gps/particle neutron\n/gps/pos/type Point\n/gps/pos/centre 0 0 5 mm\n/gps/ang/type iso\n/gps/ene/type Arb\n/gps/hist/type arb\n"<<std::endl;
+    oupf<<"/gps/particle neutron\n/gps/pos/type Point\n/gps/pos/centre 0 0 0 mm\n/gps/ang/type iso\n/gps/ene/type Arb\n/gps/hist/type arb\n"<<std::endl;
+
+    oupf<<"/gps/hist/point\t"<<hSpecRebin->GetBinLowEdge(1)<<"\t"<<0<<std::endl;
+
     for (Int_t i=0;i<hSpecRebin->GetNbinsX();i++){
         if (hSpecRebin->GetBinContent(i+1)>0){
-            if (hSpecRebin->GetBinCenter(i+1)<kMAXE){
-                std::cout<<hSpecRebin->GetBinCenter(i+1)<<"\t"<<hSpecRebin->GetBinContent(i+1)<<"\t"<<hSpecRebin->GetBinWidth(i+1)<<std::endl;
-                oupf<<"/gps/hist/point\t"<<hSpecRebin->GetBinCenter(i+1)<<"\t"<<hSpecRebin->GetBinContent(i+1)/hSpecRebin->GetBinWidth(i+1)<<std::endl;
-                nlines++;
-            }
-
+            std::cout<<hSpecRebin->GetBinLowEdge(i+1)+hSpecRebin->GetBinWidth(i+1)<<"\t"<<hSpecRebin->GetBinContent(i+1)<<"\t"<<hSpecRebin->GetBinWidth(i+1)*10<<std::endl;
+            oupf<<"/gps/hist/point\t"<<hSpecRebin->GetBinLowEdge(i+1)+hSpecRebin->GetBinWidth(i+1)<<"\t"<<hSpecRebin->GetBinContent(i+1)<<std::endl;
+            nlines++;
         }
     }
     oupf<<"\n/gps/hist/inter Spline"<<std::endl;
@@ -71,7 +76,7 @@ void makeg4gpsGT(char* inputfile, char* outputfile,Int_t rebin=8)
 
     char tempchar[1000];
     sprintf(tempchar,"%s.root",outputfile);
-    hSpec->SaveAs(tempchar);
+    hSpecRebin->SaveAs(tempchar);
 
 
 }

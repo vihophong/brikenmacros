@@ -13,6 +13,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid/CMakeLists.txt"
   "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid/Readme"
   "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid/ana.C"
+  "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid/cf252spec.in"
   "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid/disableqt.sh"
   "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid/exgps.in"
   "/home/phong/briken17/brikenmacrosupdate/brikenmacros/geant4/BRIKENhybrid/init.mac"
@@ -118,6 +119,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "Readme"
   "ana.C"
   "exgps.in"
+  "cf252spec.in"
   "disableqt.sh"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )

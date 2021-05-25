@@ -56,6 +56,7 @@ set(EXAMPLEB3_SCRIPTS
   Readme
   ana.C
   exgps.in
+  cf252spec.in
   disableqt.sh
   )
 

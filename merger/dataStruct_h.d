@@ -1,0 +1,56 @@
+
+# DO NOT DELETE
+
+./dataStruct_h.so: /usr/include/c++/4.8.5/iostream
+./dataStruct_h.so: /usr/include/c++/4.8.5/vector
+./dataStruct_h.so: /usr/include/c++/4.8.5/cstdlib
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TObject.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/RConfigure.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/Riosfwd.h
+./dataStruct_h.so: /usr/include/c++/4.8.5/iosfwd
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/Rtypes.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/RtypesCore.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/RConfig.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/RVersion.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/DllImport.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/Rtypeinfo.h
+./dataStruct_h.so: /usr/include/c++/4.8.5/typeinfo
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/snprintf.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/strlcpy.h
+./dataStruct_h.so: /usr/include/c++/4.8.5/atomic
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TGenericClassInfo.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TSchemaHelper.h
+./dataStruct_h.so: /usr/include/c++/4.8.5/string
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TStorage.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TVersionCheck.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TVector3.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TError.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TVector2.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrix.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrixF.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrixT.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrixTBase.h
+./dataStruct_h.so: /usr/include/c++/4.8.5/limits
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TNamed.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TString.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMathBase.h
+./dataStruct_h.so: /usr/include/c++/4.8.5/cmath
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/RStringView.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/RWrap_libcpp_string_view.h
+./dataStruct_h.so: /usr/include/c++/4.8.5/algorithm
+./dataStruct_h.so: /usr/include/c++/4.8.5/iterator
+./dataStruct_h.so: /usr/include/c++/4.8.5/ostream
+./dataStruct_h.so: /usr/include/c++/4.8.5/iomanip
+./dataStruct_h.so: /usr/include/c++/4.8.5/stdexcept
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/libcpp_string_view.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrixFBasefwd.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrixDBasefwd.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TVectorFfwd.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TVectorDfwd.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrixTUtils.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrixFfwd.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrixFUtils.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMatrixFUtilsfwd.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/TMath.h
+./dataStruct_h.so: /opt/cernroot/root_v6.08.00/include/RVersion.h /opt/cernroot/root_v6.08.00/include/RConfig.h /opt/cernroot/root_v6.08.00/include/TClass.h /opt/cernroot/root_v6.08.00/include/TDictAttributeMap.h /opt/cernroot/root_v6.08.00/include/TInterpreter.h /opt/cernroot/root_v6.08.00/include/TROOT.h /opt/cernroot/root_v6.08.00/include/TBuffer.h /opt/cernroot/root_v6.08.00/include/TMemberInspector.h /opt/cernroot/root_v6.08.00/include/TError.h /opt/cernroot/root_v6.08.00/include/RtypesImp.h /opt/cernroot/root_v6.08.00/include/TIsAProxy.h /opt/cernroot/root_v6.08.00/include/TFileMergeInfo.h /opt/cernroot/root_v6.08.00/include/TCollectionProxyInfo.h /opt/cernroot/root_v6.08.00/bin/rootcling
+dataStruct_h__ROOTBUILDVERSION= 6.08/00

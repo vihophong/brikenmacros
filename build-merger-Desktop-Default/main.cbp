@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="main"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\opt\;CMake Files\..\..\..\..\..\opt\cernroot\;CMake Files\..\..\..\..\..\opt\cernroot\root_v6.08.00\;CMake Files\..\..\..\..\..\opt\cernroot\root_v6.08.00\cmake\;CMake Files\..\..\..\..\..\opt\cernroot\root_v6.08.00\cmake\modules\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mergerisomer">
+				<Option output="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/mergerisomer" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/opt/cernroot/root_v6.08.00/include"/>
+					<Add directory="/home/phong/projects/brikenmacros/merger"/>
+					<Add directory="/home/phong/projects/brikenmacros/merger/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 mergerisomer"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mergerisomer/fast">
+				<Option output="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/mergerisomer" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/opt/cernroot/root_v6.08.00/include"/>
+					<Add directory="/home/phong/projects/brikenmacros/merger"/>
+					<Add directory="/home/phong/projects/brikenmacros/merger/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 mergerisomer/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="datastruct">
+				<Option output="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/libdatastruct.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/opt/cernroot/root_v6.08.00/include"/>
+					<Add directory="/home/phong/projects/brikenmacros/merger"/>
+					<Add directory="/home/phong/projects/brikenmacros/merger/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 datastruct"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="datastruct/fast">
+				<Option output="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/libdatastruct.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/opt/cernroot/root_v6.08.00/include"/>
+					<Add directory="/home/phong/projects/brikenmacros/merger"/>
+					<Add directory="/home/phong/projects/brikenmacros/merger/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/../../../../include/c++/4.8.5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 datastruct/fast"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="G__datastruct">
+				<Option working_dir="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 G__datastruct"/>
+					<CompileFile command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j32 -f &quot;/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/G__datastruct.cxx">
+			<Option target="datastruct"/>
+		</Unit>
+		<Unit filename="/data03/users/phong/projects/brikenmacros/build-merger-Desktop-Default/G__datastruct.cxx.rule">
+			<Option target="datastruct"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/include/common.hh">
+			<Option target="mergerisomer"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/include/datastruct.hh">
+			<Option target="mergerisomer"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/include/datastructLinkDef.hh">
+			<Option target="mergerisomer"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/include/merger.hh">
+			<Option target="mergerisomer"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/mergerisomer.cc">
+			<Option target="mergerisomer"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/src/datastruct.cc">
+			<Option target="mergerisomer"/>
+			<Option target="datastruct"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/src/merger.cc">
+			<Option target="mergerisomer"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/README.md">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/../../../../../opt/cernroot/root_v6.08.00/cmake/ROOTConfig-targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\cernroot\root_v6.08.00\cmake\"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/../../../../../opt/cernroot/root_v6.08.00/cmake/ROOTConfig-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\cernroot\root_v6.08.00\cmake\"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/../../../../../opt/cernroot/root_v6.08.00/cmake/ROOTConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\cernroot\root_v6.08.00\cmake\"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/../../../../../opt/cernroot/root_v6.08.00/cmake/ROOTConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\cernroot\root_v6.08.00\cmake\"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/../../../../../opt/cernroot/root_v6.08.00/cmake/ROOTUseFile.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\cernroot\root_v6.08.00\cmake\"/>
+		</Unit>
+		<Unit filename="/home/phong/projects/brikenmacros/merger/../../../../../opt/cernroot/root_v6.08.00/cmake/modules/RootNewMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\opt\cernroot\root_v6.08.00\cmake\modules\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

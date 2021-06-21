@@ -1,0 +1,12 @@
+neuspecs/qrpahfspec/Ag129.mac.root	upc_brikenV69_wClover.txt	6.62	0.660571	0.663352
+neuspecs/qrpahfspec/Ag130.mac.root	upc_brikenV69_wClover.txt	8.95	0.657423	0.662013
+neuspecs/qrpahfspec/Cd131.mac.root	upc_brikenV69_wClover.txt	6.44	0.663779	0.667281
+neuspecs/qrpahfspec/Cd132.mac.root	upc_brikenV69_wClover.txt	9.11	0.642828	0.644492
+neuspecs/qrpahfspec/In131.mac.root	upc_brikenV69_wClover.txt	4.02	0.661677	0.663103
+neuspecs/qrpahfspec/In132.mac.root	upc_brikenV69_wClover.txt	6.79	0.653406	0.656588
+neuspecs/qrpahfspec/In133.mac.root	upc_brikenV69_wClover.txt	10.72	0.604054	0.601596
+neuspecs/qrpahfspec/In134.mac.root	upc_brikenV69_wClover.txt	10.75	0.633653	0.634245
+neuspecs/qrpahfspec/In135.mac.root	upc_brikenV69_wClover.txt	11.05	0.635912	0.635906
+neuspecs/qrpahfspec/In136.mac.root	upc_brikenV69_wClover.txt	12.1	0.643995	0.645708
+neuspecs/qrpahfspec/Sn136.mac.root	upc_brikenV69_wClover.txt	5.42	0.65882	0.662727
+neuspecs/qrpahfspec/Sn137.mac.root	upc_brikenV69_wClover.txt	6.14	0.656268	0.658312

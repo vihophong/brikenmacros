@@ -1,0 +1,7 @@
+neuspecs/minatospec/Ag129.mac.root	upc_brikenV69_wClover.txt	6.62	0.639047	0.639953
+neuspecs/minatospec/Ag130.mac.root	upc_brikenV69_wClover.txt	8.95	0.640144	0.640875
+neuspecs/minatospec/Cd131.mac.root	upc_brikenV69_wClover.txt	6.44	0.640146	0.64102
+neuspecs/minatospec/Cd132.mac.root	upc_brikenV69_wClover.txt	9.11	0.628071	0.626852
+neuspecs/minatospec/In133.mac.root	upc_brikenV69_wClover.txt	10.72	0.6098	0.607426
+neuspecs/minatospec/In134.mac.root	upc_brikenV69_wClover.txt	10.75	0.608839	0.60618
+neuspecs/minatospec/In135.mac.root	upc_brikenV69_wClover.txt	11.05	0.642365	0.643666

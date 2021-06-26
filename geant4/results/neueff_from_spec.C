@@ -52,7 +52,7 @@ Double_t evaleff(Double_t E, char* infileeff)
     //mk->Draw();
     return eff_eval;
 }
-void neueff_from_spec(char* infilespec,char* specname=(char*)"hSpecRebin", char* infileeff=(char*)"mysim_briken_wClover_noAIDA.txt",Double_t Qbn=0.)
+void neueff_from_spec(char* infilespec,char* specname=(char*)"hSpecRebin", char* infileeff=(char*)"mysim_briken_wClover_noAIDA.txt",Double_t Qbn=0.,Double_t Qb=0.)
 {
     std::ofstream outfile((char*)"caleff.txt",std::ofstream::out | std::ofstream::app);
     TFile* file1=TFile::Open(infilespec);
@@ -62,7 +62,7 @@ void neueff_from_spec(char* infilespec,char* specname=(char*)"hSpecRebin", char*
         eff1+=h1->GetBinContent(i+1)*evaleff(h1->GetBinCenter(i+1),infileeff);
     }
     Double_t eff2 = evaleff(h1->GetMean(),infileeff);
-    outfile<<infilespec<<"\t"<<infileeff<<"\t"<<Qbn<<"\t"<<eff1<<"\t"<<eff2<<std::endl;
-    cout<<infilespec<<"\t"<<infileeff<<"\t"<<Qbn<<"\t"<<eff1<<"\t"<<eff2<<std::endl;
+    outfile<<infilespec<<"\t"<<infileeff<<"\t"<<Qbn<<"\t"<<Qb<<"\t"<<eff1<<"\t"<<eff2<<std::endl;
+    cout<<infilespec<<"\t"<<infileeff<<"\t"<<Qbn<<"\t"<<Qb<<"\t"<<eff1<<"\t"<<eff2<<std::endl;
 }
 

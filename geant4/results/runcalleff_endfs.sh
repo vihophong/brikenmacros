@@ -1,273 +1,273 @@
-./neueff_from_spec.sh endf-tools/specs/Mn68.root hSpecRebin upc_brikenV69_wClover.txt 9.666 15.173
-./neueff_from_spec.sh endf-tools/specs/Co72.root hSpecRebin upc_brikenV69_wClover.txt 7.634 14.526
-./neueff_from_spec.sh endf-tools/specs/Co73.root hSpecRebin upc_brikenV69_wClover.txt 8.951 12.904
-./neueff_from_spec.sh endf-tools/specs/Co74.root hSpecRebin upc_brikenV69_wClover.txt 9.35 16.003
-./neueff_from_spec.sh endf-tools/specs/Co75.root hSpecRebin upc_brikenV69_wClover.txt 11.201 14.671
-./neueff_from_spec.sh endf-tools/specs/Ni72.root hSpecRebin upc_brikenV69_wClover.txt 0.41399 5.557179
-./neueff_from_spec.sh endf-tools/specs/Ni73.root hSpecRebin upc_brikenV69_wClover.txt 1.60377 8.879344
-./neueff_from_spec.sh endf-tools/specs/Ni74.root hSpecRebin upc_brikenV69_wClover.txt 2.227 7.317
-./neueff_from_spec.sh endf-tools/specs/Ni75.root hSpecRebin upc_brikenV69_wClover.txt 3.847 10.383
-./neueff_from_spec.sh endf-tools/specs/Ni76.root hSpecRebin upc_brikenV69_wClover.txt 4.79 9.366
-./neueff_from_spec.sh endf-tools/specs/Ni77.root hSpecRebin upc_brikenV69_wClover.txt 6.157 11.551
-./neueff_from_spec.sh endf-tools/specs/Ni78.root hSpecRebin upc_brikenV69_wClover.txt 6.097 10.368
-./neueff_from_spec.sh endf-tools/specs/Cu73.root hSpecRebin upc_brikenV69_wClover.txt 1.08692 6.60615
-./neueff_from_spec.sh endf-tools/specs/Cu74.root hSpecRebin upc_brikenV69_wClover.txt 1.51588 9.750507
-./neueff_from_spec.sh endf-tools/specs/Cu75.root hSpecRebin upc_brikenV69_wClover.txt 3.2143 8.087816
-./neueff_from_spec.sh endf-tools/specs/Cu76.root hSpecRebin upc_brikenV69_wClover.txt 3.51061 11.32603
-./neueff_from_spec.sh endf-tools/specs/Cu77.root hSpecRebin upc_brikenV69_wClover.txt 5.93373 10.49123
-./neueff_from_spec.sh endf-tools/specs/Cu78.root hSpecRebin upc_brikenV69_wClover.txt 6.22041 12.98576
-./neueff_from_spec.sh endf-tools/specs/Cu79.root hSpecRebin upc_brikenV69_wClover.txt 7.513 11.534
-./neueff_from_spec.sh endf-tools/specs/Cu80.root hSpecRebin upc_brikenV69_wClover.txt 8.93 15.218
-./neueff_from_spec.sh endf-tools/specs/Cu81.root hSpecRebin upc_brikenV69_wClover.txt 0.011634 -1
-./neueff_from_spec.sh endf-tools/specs/Zn79.root hSpecRebin upc_brikenV69_wClover.txt 2.20234 9.115383
-./neueff_from_spec.sh endf-tools/specs/Zn80.root hSpecRebin upc_brikenV69_wClover.txt 2.82775 7.575052
-./neueff_from_spec.sh endf-tools/specs/Zn81.root hSpecRebin upc_brikenV69_wClover.txt 4.95268 11.42829
-./neueff_from_spec.sh endf-tools/specs/Zn82.root hSpecRebin upc_brikenV69_wClover.txt 6.95 10.324
-./neueff_from_spec.sh endf-tools/specs/Zn83.root hSpecRebin upc_brikenV69_wClover.txt 8.121 12.519
-./neueff_from_spec.sh endf-tools/specs/Ga79.root hSpecRebin upc_brikenV69_wClover.txt 1.24303 6.79405
-./neueff_from_spec.sh endf-tools/specs/Ga80.root hSpecRebin upc_brikenV69_wClover.txt 2.23166 10.3117
-./neueff_from_spec.sh endf-tools/specs/Ga81.root hSpecRebin upc_brikenV69_wClover.txt 3.8361 7.98486
-./neueff_from_spec.sh endf-tools/specs/Ga82.root hSpecRebin upc_brikenV69_wClover.txt 5.28965 12.48435
-./neueff_from_spec.sh endf-tools/specs/Ga83.root hSpecRebin upc_brikenV69_wClover.txt 8.08663 11.71931
-./neueff_from_spec.sh endf-tools/specs/Ga84.root hSpecRebin upc_brikenV69_wClover.txt 8.622 13.865
-./neueff_from_spec.sh endf-tools/specs/Ga85.root hSpecRebin upc_brikenV69_wClover.txt 9.846 -1
-./neueff_from_spec.sh endf-tools/specs/Ga86.root hSpecRebin upc_brikenV69_wClover.txt 10.596 15.304
-./neueff_from_spec.sh endf-tools/specs/Ge84.root hSpecRebin upc_brikenV69_wClover.txt 3.44958 7.705132
-./neueff_from_spec.sh endf-tools/specs/Ge85.root hSpecRebin upc_brikenV69_wClover.txt 4.65882 10.06572
-./neueff_from_spec.sh endf-tools/specs/Ge86.root hSpecRebin upc_brikenV69_wClover.txt 5.357 9.202
-./neueff_from_spec.sh endf-tools/specs/Ge87.root hSpecRebin upc_brikenV69_wClover.txt 6.654 11.381
-./neueff_from_spec.sh endf-tools/specs/Ge88.root hSpecRebin upc_brikenV69_wClover.txt 7.306 10.647
-./neueff_from_spec.sh endf-tools/specs/Ge89.root hSpecRebin upc_brikenV69_wClover.txt 8.966 13.087
-./neueff_from_spec.sh endf-tools/specs/As84.root hSpecRebin upc_brikenV69_wClover.txt 1.41578 10.09414
-./neueff_from_spec.sh endf-tools/specs/As85.root hSpecRebin upc_brikenV69_wClover.txt 4.68723 9.224492
-./neueff_from_spec.sh endf-tools/specs/As86.root hSpecRebin upc_brikenV69_wClover.txt 5.38018 11.54102
-./neueff_from_spec.sh endf-tools/specs/As87.root hSpecRebin upc_brikenV69_wClover.txt 6.81394 10.80822
-./neueff_from_spec.sh endf-tools/specs/As88.root hSpecRebin upc_brikenV69_wClover.txt 7.467 12.997
-./neueff_from_spec.sh endf-tools/specs/As89.root hSpecRebin upc_brikenV69_wClover.txt 8.875 12.054
-./neueff_from_spec.sh endf-tools/specs/As90.root hSpecRebin upc_brikenV69_wClover.txt 9.591 14.597
-./neueff_from_spec.sh endf-tools/specs/As91.root hSpecRebin upc_brikenV69_wClover.txt 10.959 -1
-./neueff_from_spec.sh endf-tools/specs/As92.root hSpecRebin upc_brikenV69_wClover.txt 11.285 -1
-./neueff_from_spec.sh endf-tools/specs/Se87.root hSpecRebin upc_brikenV69_wClover.txt 1.13481 7.465552
-./neueff_from_spec.sh endf-tools/specs/Se88.root hSpecRebin upc_brikenV69_wClover.txt 1.93616 6.831763
-./neueff_from_spec.sh endf-tools/specs/Se89.root hSpecRebin upc_brikenV69_wClover.txt 3.65225 9.281872
-./neueff_from_spec.sh endf-tools/specs/Se90.root hSpecRebin upc_brikenV69_wClover.txt 4.276 8.073
-./neueff_from_spec.sh endf-tools/specs/Se91.root hSpecRebin upc_brikenV69_wClover.txt 5.591 10.769
-./neueff_from_spec.sh endf-tools/specs/Se92.root hSpecRebin upc_brikenV69_wClover.txt 6.312 9.509
-./neueff_from_spec.sh endf-tools/specs/Se93.root hSpecRebin upc_brikenV69_wClover.txt 7.446 12.137
-./neueff_from_spec.sh endf-tools/specs/Se94.root hSpecRebin upc_brikenV69_wClover.txt 7.978 10.796
-./neueff_from_spec.sh endf-tools/specs/Br87.root hSpecRebin upc_brikenV69_wClover.txt 1.30267 6.817847
-./neueff_from_spec.sh endf-tools/specs/Br88.root hSpecRebin upc_brikenV69_wClover.txt 1.92225 8.97533
-./neueff_from_spec.sh endf-tools/specs/Br89.root hSpecRebin upc_brikenV69_wClover.txt 3.34571 8.261526
-./neueff_from_spec.sh endf-tools/specs/Br90.root hSpecRebin upc_brikenV69_wClover.txt 4.46417 10.95895
-./neueff_from_spec.sh endf-tools/specs/Br92.root hSpecRebin upc_brikenV69_wClover.txt 6.66984 12.53652
-./neueff_from_spec.sh endf-tools/specs/Br93.root hSpecRebin upc_brikenV69_wClover.txt 7.845 11.283
-./neueff_from_spec.sh endf-tools/specs/Br94.root hSpecRebin upc_brikenV69_wClover.txt 8.465 13.748
-./neueff_from_spec.sh endf-tools/specs/Br95.root hSpecRebin upc_brikenV69_wClover.txt 9.375 12.258
-./neueff_from_spec.sh endf-tools/specs/Br96.root hSpecRebin upc_brikenV69_wClover.txt 9.738 14.73
-./neueff_from_spec.sh endf-tools/specs/Br97.root hSpecRebin upc_brikenV69_wClover.txt 10.497 -1
-./neueff_from_spec.sh endf-tools/specs/Kr92.root hSpecRebin upc_brikenV69_wClover.txt 0.90584 6.003281
-./neueff_from_spec.sh endf-tools/specs/Kr93.root hSpecRebin upc_brikenV69_wClover.txt 2.56529 8.484088
-./neueff_from_spec.sh endf-tools/specs/Kr94.root hSpecRebin upc_brikenV69_wClover.txt 3.20099 7.214222
-./neueff_from_spec.sh endf-tools/specs/Kr95.root hSpecRebin upc_brikenV69_wClover.txt 4.33176 9.735533
-./neueff_from_spec.sh endf-tools/specs/Kr96.root hSpecRebin upc_brikenV69_wClover.txt 4.74345 8.274682
-./neueff_from_spec.sh endf-tools/specs/Kr97.root hSpecRebin upc_brikenV69_wClover.txt 5.85955 11.09471
-./neueff_from_spec.sh endf-tools/specs/Kr98.root hSpecRebin upc_brikenV69_wClover.txt 5.987 9.571
-./neueff_from_spec.sh endf-tools/specs/Kr99.root hSpecRebin upc_brikenV69_wClover.txt 7.2 12.461
-./neueff_from_spec.sh endf-tools/specs/Kr100.root hSpecRebin upc_brikenV69_wClover.txt 7.985 11.383
-./neueff_from_spec.sh endf-tools/specs/Rb91.root hSpecRebin upc_brikenV69_wClover.txt 0.13159 5.906362
-./neueff_from_spec.sh endf-tools/specs/Rb92.root hSpecRebin upc_brikenV69_wClover.txt 0.80892 8.094836
-./neueff_from_spec.sh endf-tools/specs/Rb93.root hSpecRebin upc_brikenV69_wClover.txt 2.17604 7.465985
-./neueff_from_spec.sh endf-tools/specs/Rb94.root hSpecRebin upc_brikenV69_wClover.txt 3.45276 10.28119
-./neueff_from_spec.sh endf-tools/specs/Rb95.root hSpecRebin upc_brikenV69_wClover.txt 4.87742 9.229391
-./neueff_from_spec.sh endf-tools/specs/Rb96.root hSpecRebin upc_brikenV69_wClover.txt 5.69816 11.57861
-./neueff_from_spec.sh endf-tools/specs/Rb97.root hSpecRebin upc_brikenV69_wClover.txt 6.34345 10.07344
-./neueff_from_spec.sh endf-tools/specs/Rb98.root hSpecRebin upc_brikenV69_wClover.txt 6.48942 12.40574
-./neueff_from_spec.sh endf-tools/specs/Rb99.root hSpecRebin upc_brikenV69_wClover.txt 7.14496 11.30922
-./neueff_from_spec.sh endf-tools/specs/Rb100.root hSpecRebin upc_brikenV69_wClover.txt 7.912 13.287
-./neueff_from_spec.sh endf-tools/specs/Rb101.root hSpecRebin upc_brikenV69_wClover.txt 8.787 12.59
-./neueff_from_spec.sh endf-tools/specs/Rb102.root hSpecRebin upc_brikenV69_wClover.txt 9.601 14.507
-./neueff_from_spec.sh endf-tools/specs/Sr96.root hSpecRebin upc_brikenV69_wClover.txt 0.20886 5.411738
-./neueff_from_spec.sh endf-tools/specs/Sr97.root hSpecRebin upc_brikenV69_wClover.txt 1.68174 6.87148
-./neueff_from_spec.sh endf-tools/specs/Sr98.root hSpecRebin upc_brikenV69_wClover.txt 1.62236 5.867108
-./neueff_from_spec.sh endf-tools/specs/Sr99.root hSpecRebin upc_brikenV69_wClover.txt 1.70286 8.129312
-./neueff_from_spec.sh endf-tools/specs/Sr100.root hSpecRebin upc_brikenV69_wClover.txt 2.75421 7.503184
-./neueff_from_spec.sh endf-tools/specs/Sr101.root hSpecRebin upc_brikenV69_wClover.txt 3.69999 9.505
-./neueff_from_spec.sh endf-tools/specs/Sr102.root hSpecRebin upc_brikenV69_wClover.txt 4.599 8.815
-./neueff_from_spec.sh endf-tools/specs/Sr103.root hSpecRebin upc_brikenV69_wClover.txt 5.61 10.966
-./neueff_from_spec.sh endf-tools/specs/Sr104.root hSpecRebin upc_brikenV69_wClover.txt 6.509 10.144
-./neueff_from_spec.sh endf-tools/specs/Sr105.root hSpecRebin upc_brikenV69_wClover.txt 7.382 12.212
-./neueff_from_spec.sh endf-tools/specs/Y97.root hSpecRebin upc_brikenV69_wClover.txt 1.24608 6.821237
-./neueff_from_spec.sh endf-tools/specs/Y98.root hSpecRebin upc_brikenV69_wClover.txt 2.57648 8.99192
-./neueff_from_spec.sh endf-tools/specs/Y99.root hSpecRebin upc_brikenV69_wClover.txt 2.56546 6.967608
-./neueff_from_spec.sh endf-tools/specs/Y100.root hSpecRebin upc_brikenV69_wClover.txt 2.21864 9.047897
-./neueff_from_spec.sh endf-tools/specs/Y101.root hSpecRebin upc_brikenV69_wClover.txt 3.24289 8.103129
-./neueff_from_spec.sh endf-tools/specs/Y102.root hSpecRebin upc_brikenV69_wClover.txt 3.886 10.379
-./neueff_from_spec.sh endf-tools/specs/Y103.root hSpecRebin upc_brikenV69_wClover.txt 5.02348 9.324126
-./neueff_from_spec.sh endf-tools/specs/Y104.root hSpecRebin upc_brikenV69_wClover.txt 5.69 11.67
-./neueff_from_spec.sh endf-tools/specs/Y105.root hSpecRebin upc_brikenV69_wClover.txt 6.84 10.652
-./neueff_from_spec.sh endf-tools/specs/Y106.root hSpecRebin upc_brikenV69_wClover.txt 7.35 12.985
-./neueff_from_spec.sh endf-tools/specs/Y107.root hSpecRebin upc_brikenV69_wClover.txt 8.602 11.904
-./neueff_from_spec.sh endf-tools/specs/Y108.root hSpecRebin upc_brikenV69_wClover.txt 8.901 14.056
-./neueff_from_spec.sh endf-tools/specs/Zr103.root hSpecRebin upc_brikenV69_wClover.txt 0.41793 7.198707
-./neueff_from_spec.sh endf-tools/specs/Zr104.root hSpecRebin upc_brikenV69_wClover.txt 1.21858 6.094952
-./neueff_from_spec.sh endf-tools/specs/Zr105.root hSpecRebin upc_brikenV69_wClover.txt 2.28288 8.435914
-./neueff_from_spec.sh endf-tools/specs/Zr106.root hSpecRebin upc_brikenV69_wClover.txt 2.801 7.16
-./neueff_from_spec.sh endf-tools/specs/Zr107.root hSpecRebin upc_brikenV69_wClover.txt 3.858 9.45
-./neueff_from_spec.sh endf-tools/specs/Zr108.root hSpecRebin upc_brikenV69_wClover.txt 4.294 8.211
-./neueff_from_spec.sh endf-tools/specs/Zr109.root hSpecRebin upc_brikenV69_wClover.txt 5.3 10.591
-./neueff_from_spec.sh endf-tools/specs/Zr110.root hSpecRebin upc_brikenV69_wClover.txt 5.827 9.408
-./neueff_from_spec.sh endf-tools/specs/Nb103.root hSpecRebin upc_brikenV69_wClover.txt 0.47815 5.94663
-./neueff_from_spec.sh endf-tools/specs/Nb104.root hSpecRebin upc_brikenV69_wClover.txt 1.07026 8.530648
-./neueff_from_spec.sh endf-tools/specs/Nb105.root hSpecRebin upc_brikenV69_wClover.txt 2.37761 7.436335
-./neueff_from_spec.sh endf-tools/specs/Nb106.root hSpecRebin upc_brikenV69_wClover.txt 3.07727 9.94622
-./neueff_from_spec.sh endf-tools/specs/Nb107.root hSpecRebin upc_brikenV69_wClover.txt 4.35451 8.842938
-./neueff_from_spec.sh endf-tools/specs/Nb108.root hSpecRebin upc_brikenV69_wClover.txt 4.92561 11.20139
-./neueff_from_spec.sh endf-tools/specs/Nb109.root hSpecRebin upc_brikenV69_wClover.txt 5.911 9.892
-./neueff_from_spec.sh endf-tools/specs/Nb110.root hSpecRebin upc_brikenV69_wClover.txt 6.311 12.259
-./neueff_from_spec.sh endf-tools/specs/Nb111.root hSpecRebin upc_brikenV69_wClover.txt 7.457 11.038
-./neueff_from_spec.sh endf-tools/specs/Nb112.root hSpecRebin upc_brikenV69_wClover.txt 7.55 13.125
-./neueff_from_spec.sh endf-tools/specs/Nb113.root hSpecRebin upc_brikenV69_wClover.txt 8.873 12.314
-./neueff_from_spec.sh endf-tools/specs/Mo109.root hSpecRebin upc_brikenV69_wClover.txt 1.17207 7.603351
-./neueff_from_spec.sh endf-tools/specs/Mo111.root hSpecRebin upc_brikenV69_wClover.txt 2.897 8.958
-./neueff_from_spec.sh endf-tools/specs/Mo112.root hSpecRebin upc_brikenV69_wClover.txt 3.383 7.687
-./neueff_from_spec.sh endf-tools/specs/Mo113.root hSpecRebin upc_brikenV69_wClover.txt 4.245 9.941
-./neueff_from_spec.sh endf-tools/specs/Mo114.root hSpecRebin upc_brikenV69_wClover.txt 4.813 8.859
-./neueff_from_spec.sh endf-tools/specs/Mo115.root hSpecRebin upc_brikenV69_wClover.txt 6.032 11.308
-./neueff_from_spec.sh endf-tools/specs/Tc109.root hSpecRebin upc_brikenV69_wClover.txt 1.30729 6.455626
-./neueff_from_spec.sh endf-tools/specs/Tc110.root hSpecRebin upc_brikenV69_wClover.txt 1.63261 9.03861
-./neueff_from_spec.sh endf-tools/specs/Tc111.root hSpecRebin upc_brikenV69_wClover.txt 2.97721 7.760649
-./neueff_from_spec.sh endf-tools/specs/Tc112.root hSpecRebin upc_brikenV69_wClover.txt 3.45716 10.37399
-./neueff_from_spec.sh endf-tools/specs/Tc113.root hSpecRebin upc_brikenV69_wClover.txt 4.67818 8.996683
-./neueff_from_spec.sh endf-tools/specs/Tc114.root hSpecRebin upc_brikenV69_wClover.txt 4.951 11.364
-./neueff_from_spec.sh endf-tools/specs/Tc115.root hSpecRebin upc_brikenV69_wClover.txt 6.087 10.132
-./neueff_from_spec.sh endf-tools/specs/Tc116.root hSpecRebin upc_brikenV69_wClover.txt 6.663 12.706
-./neueff_from_spec.sh endf-tools/specs/Tc117.root hSpecRebin upc_brikenV69_wClover.txt 7.708 11.178
-./neueff_from_spec.sh endf-tools/specs/Tc118.root hSpecRebin upc_brikenV69_wClover.txt 7.699 13.469
-./neueff_from_spec.sh endf-tools/specs/Ru114.root hSpecRebin upc_brikenV69_wClover.txt 0.48058 5.497729
-./neueff_from_spec.sh endf-tools/specs/Ru115.root hSpecRebin upc_brikenV69_wClover.txt 1.45232 8.040097
-./neueff_from_spec.sh endf-tools/specs/Ru116.root hSpecRebin upc_brikenV69_wClover.txt 1.997 6.58
-./neueff_from_spec.sh endf-tools/specs/Ru117.root hSpecRebin upc_brikenV69_wClover.txt 3.11 9.337
-./neueff_from_spec.sh endf-tools/specs/Ru118.root hSpecRebin upc_brikenV69_wClover.txt 3.567 7.628
-./neueff_from_spec.sh endf-tools/specs/Ru119.root hSpecRebin upc_brikenV69_wClover.txt 4.252 10.284
-./neueff_from_spec.sh endf-tools/specs/Ru120.root hSpecRebin upc_brikenV69_wClover.txt 4.765 8.803
-./neueff_from_spec.sh endf-tools/specs/Rh115.root hSpecRebin upc_brikenV69_wClover.txt 1.1898 6.196613
-./neueff_from_spec.sh endf-tools/specs/Rh116.root hSpecRebin upc_brikenV69_wClover.txt 1.6137 9.090208
-./neueff_from_spec.sh endf-tools/specs/Rh117.root hSpecRebin upc_brikenV69_wClover.txt 2.86295 7.527112
-./neueff_from_spec.sh endf-tools/specs/Rh118.root hSpecRebin upc_brikenV69_wClover.txt 3.46571 10.50381
-./neueff_from_spec.sh endf-tools/specs/Rh119.root hSpecRebin upc_brikenV69_wClover.txt 4.472 8.56
-./neueff_from_spec.sh endf-tools/specs/Rh120.root hSpecRebin upc_brikenV69_wClover.txt 4.522 11.495
-./neueff_from_spec.sh endf-tools/specs/Rh121.root hSpecRebin upc_brikenV69_wClover.txt 5.809 9.827
-./neueff_from_spec.sh endf-tools/specs/Rh122.root hSpecRebin upc_brikenV69_wClover.txt 5.789 12.296
-./neueff_from_spec.sh endf-tools/specs/Rh123.root hSpecRebin upc_brikenV69_wClover.txt 0.006571 0.010562
-./neueff_from_spec.sh endf-tools/specs/Pd121.root hSpecRebin upc_brikenV69_wClover.txt 1.323 8.146
-./neueff_from_spec.sh endf-tools/specs/Pd122.root hSpecRebin upc_brikenV69_wClover.txt 1.639 6.414
-./neueff_from_spec.sh endf-tools/specs/Pd123.root hSpecRebin upc_brikenV69_wClover.txt 2.422 8.936
-./neueff_from_spec.sh endf-tools/specs/Pd124.root hSpecRebin upc_brikenV69_wClover.txt 2.681 7.404
-./neueff_from_spec.sh endf-tools/specs/Pd125.root hSpecRebin upc_brikenV69_wClover.txt 0.00324 0.009644
-./neueff_from_spec.sh endf-tools/specs/Pd126.root hSpecRebin upc_brikenV69_wClover.txt 0.003363 0.007643
-./neueff_from_spec.sh endf-tools/specs/Ag120.root hSpecRebin upc_brikenV69_wClover.txt 0.25421 8.305852
-./neueff_from_spec.sh endf-tools/specs/Ag122.root hSpecRebin upc_brikenV69_wClover.txt 1.88032 9.510461
-./neueff_from_spec.sh endf-tools/specs/Ag123.root hSpecRebin upc_brikenV69_wClover.txt 2.704 7.770631
-./neueff_from_spec.sh endf-tools/specs/Ag124.root hSpecRebin upc_brikenV69_wClover.txt 3.04726 10.49731
-./neueff_from_spec.sh endf-tools/specs/Ag125.root hSpecRebin upc_brikenV69_wClover.txt 4.195 8.916
-./neueff_from_spec.sh endf-tools/specs/Ag126.root hSpecRebin upc_brikenV69_wClover.txt 4.422 11.402
-./neueff_from_spec.sh endf-tools/specs/Ag127.root hSpecRebin upc_brikenV69_wClover.txt 5.417 9.667
-./neueff_from_spec.sh endf-tools/specs/Ag128.root hSpecRebin upc_brikenV69_wClover.txt 5.425 12.311
-./neueff_from_spec.sh endf-tools/specs/Ag129.root hSpecRebin upc_brikenV69_wClover.txt 6.615 10.749
-./neueff_from_spec.sh endf-tools/specs/Ag130.root hSpecRebin upc_brikenV69_wClover.txt 8.945 15.241
-./neueff_from_spec.sh endf-tools/specs/Cd127.root hSpecRebin upc_brikenV69_wClover.txt 1.30704 8.456669
-./neueff_from_spec.sh endf-tools/specs/Cd128.root hSpecRebin upc_brikenV69_wClover.txt 1.57041 7.110314
-./neueff_from_spec.sh endf-tools/specs/Cd129.root hSpecRebin upc_brikenV69_wClover.txt 2.976 9.5
-./neueff_from_spec.sh endf-tools/specs/Cd130.root hSpecRebin upc_brikenV69_wClover.txt 3.20423 8.35
-./neueff_from_spec.sh endf-tools/specs/Cd131.root hSpecRebin upc_brikenV69_wClover.txt 6.44 12.672
-./neueff_from_spec.sh endf-tools/specs/Cd132.root hSpecRebin upc_brikenV69_wClover.txt 9.11 11.545
-./neueff_from_spec.sh endf-tools/specs/In128.root hSpecRebin upc_brikenV69_wClover.txt 1.03795 8.9756
-./neueff_from_spec.sh endf-tools/specs/In129.root hSpecRebin upc_brikenV69_wClover.txt 2.45114 7.7448
-./neueff_from_spec.sh endf-tools/specs/In130.root hSpecRebin upc_brikenV69_wClover.txt 2.63423 8.30316
-./neueff_from_spec.sh endf-tools/specs/In131.root hSpecRebin upc_brikenV69_wClover.txt 4.01622 9.222
-./neueff_from_spec.sh endf-tools/specs/In132.root hSpecRebin upc_brikenV69_wClover.txt 6.78682 14.135
-./neueff_from_spec.sh endf-tools/specs/In133.root hSpecRebin upc_brikenV69_wClover.txt 10.715 13.085
-./neueff_from_spec.sh endf-tools/specs/In134.root hSpecRebin upc_brikenV69_wClover.txt 10.752 -1
-./neueff_from_spec.sh endf-tools/specs/In135.root hSpecRebin upc_brikenV69_wClover.txt 11.053 13.414
-./neueff_from_spec.sh endf-tools/specs/Sn133.root hSpecRebin upc_brikenV69_wClover.txt 0.75044 8.095611
-./neueff_from_spec.sh endf-tools/specs/Sn134.root hSpecRebin upc_brikenV69_wClover.txt 4.54778 7.842328
-./neueff_from_spec.sh endf-tools/specs/Sn135.root hSpecRebin upc_brikenV69_wClover.txt 5.482 -1
-./neueff_from_spec.sh endf-tools/specs/Sn136.root hSpecRebin upc_brikenV69_wClover.txt 5.416 8.225
-./neueff_from_spec.sh endf-tools/specs/Sn137.root hSpecRebin upc_brikenV69_wClover.txt 6.143 -1
-./neueff_from_spec.sh endf-tools/specs/Sb134.root hSpecRebin upc_brikenV69_wClover.txt 0.70746 8.393699
-./neueff_from_spec.sh endf-tools/specs/Sb135.root hSpecRebin upc_brikenV69_wClover.txt 4.70091 8.116303
-./neueff_from_spec.sh endf-tools/specs/Sb136.root hSpecRebin upc_brikenV69_wClover.txt 5.308 9.954
-./neueff_from_spec.sh endf-tools/specs/Sb137.root hSpecRebin upc_brikenV69_wClover.txt 6.01 8.892
-./neueff_from_spec.sh endf-tools/specs/Sb138.root hSpecRebin upc_brikenV69_wClover.txt 6.371 10.908
-./neueff_from_spec.sh endf-tools/specs/Sb139.root hSpecRebin upc_brikenV69_wClover.txt 7.364 -1
-./neueff_from_spec.sh endf-tools/specs/Te136.root hSpecRebin upc_brikenV69_wClover.txt 1.24095 5.093048
-./neueff_from_spec.sh endf-tools/specs/Te137.root hSpecRebin upc_brikenV69_wClover.txt 2.21067 7.216721
-./neueff_from_spec.sh endf-tools/specs/Te138.root hSpecRebin upc_brikenV69_wClover.txt 2.68042 6.15
-./neueff_from_spec.sh endf-tools/specs/Te139.root hSpecRebin upc_brikenV69_wClover.txt 3.445 8.138
-./neueff_from_spec.sh endf-tools/specs/Te140.root hSpecRebin upc_brikenV69_wClover.txt 3.858 6.998
-./neueff_from_spec.sh endf-tools/specs/Te141.root hSpecRebin upc_brikenV69_wClover.txt 4.563 9.339
-./neueff_from_spec.sh endf-tools/specs/Te142.root hSpecRebin upc_brikenV69_wClover.txt 5.329 8.123
-./neueff_from_spec.sh endf-tools/specs/I137.root hSpecRebin upc_brikenV69_wClover.txt 1.851 5.87653
-./neueff_from_spec.sh endf-tools/specs/I138.root hSpecRebin upc_brikenV69_wClover.txt 2.407 8.07
-./neueff_from_spec.sh endf-tools/specs/I139.root hSpecRebin upc_brikenV69_wClover.txt 3.37652 7.117357
-./neueff_from_spec.sh endf-tools/specs/I140.root hSpecRebin upc_brikenV69_wClover.txt 3.97737 9.390562
-./neueff_from_spec.sh endf-tools/specs/I141.root hSpecRebin upc_brikenV69_wClover.txt 4.61394 7.896104
-./neueff_from_spec.sh endf-tools/specs/I142.root hSpecRebin upc_brikenV69_wClover.txt 5.103 10.206
-./neueff_from_spec.sh endf-tools/specs/I143.root hSpecRebin upc_brikenV69_wClover.txt 6.094 9.138
-./neueff_from_spec.sh endf-tools/specs/I144.root hSpecRebin upc_brikenV69_wClover.txt 6.357 11.098
-./neueff_from_spec.sh endf-tools/specs/I145.root hSpecRebin upc_brikenV69_wClover.txt 0.007657 0.010548
-./neueff_from_spec.sh endf-tools/specs/Xe141.root hSpecRebin upc_brikenV69_wClover.txt 0.78174 6.283047
-./neueff_from_spec.sh endf-tools/specs/Xe142.root hSpecRebin upc_brikenV69_wClover.txt 1.17939 5.295739
-./neueff_from_spec.sh endf-tools/specs/Xe143.root hSpecRebin upc_brikenV69_wClover.txt 2.25119 7.472056
-./neueff_from_spec.sh endf-tools/specs/Xe144.root hSpecRebin upc_brikenV69_wClover.txt 2.73132 6.399003
-./neueff_from_spec.sh endf-tools/specs/Xe145.root hSpecRebin upc_brikenV69_wClover.txt 3.70665 8.562452
-./neueff_from_spec.sh endf-tools/specs/Xe146.root hSpecRebin upc_brikenV69_wClover.txt 4.02952 7.614232
-./neueff_from_spec.sh endf-tools/specs/Xe147.root hSpecRebin upc_brikenV69_wClover.txt 4.966 9.486
-./neueff_from_spec.sh endf-tools/specs/Cs141.root hSpecRebin upc_brikenV69_wClover.txt 0.71865 5.252784
-./neueff_from_spec.sh endf-tools/specs/Cs142.root hSpecRebin upc_brikenV69_wClover.txt 1.13644 7.319635
-./neueff_from_spec.sh endf-tools/specs/Cs143.root hSpecRebin upc_brikenV69_wClover.txt 2.09877 6.262224
-./neueff_from_spec.sh endf-tools/specs/Cs144.root hSpecRebin upc_brikenV69_wClover.txt 2.59454 8.495821
-./neueff_from_spec.sh endf-tools/specs/Cs145.root hSpecRebin upc_brikenV69_wClover.txt 3.64002 7.460393
-./neueff_from_spec.sh endf-tools/specs/Cs146.root hSpecRebin upc_brikenV69_wClover.txt 3.87568 9.371524
-./neueff_from_spec.sh endf-tools/specs/Cs147.root hSpecRebin upc_brikenV69_wClover.txt 4.85148 8.246124
-./neueff_from_spec.sh endf-tools/specs/Cs148.root hSpecRebin upc_brikenV69_wClover.txt 4.89826 10.29928
-./neueff_from_spec.sh endf-tools/specs/Cs149.root hSpecRebin upc_brikenV69_wClover.txt 5.677 9.324
-./neueff_from_spec.sh endf-tools/specs/Cs150.root hSpecRebin upc_brikenV69_wClover.txt 6.134 11.383
-./neueff_from_spec.sh endf-tools/specs/Cs151.root hSpecRebin upc_brikenV69_wClover.txt 7.214 10.507
-./neueff_from_spec.sh endf-tools/specs/Ba147.root hSpecRebin upc_brikenV69_wClover.txt 0.71375 6.414361
-./neueff_from_spec.sh endf-tools/specs/Ba148.root hSpecRebin upc_brikenV69_wClover.txt 1.01334 5.115
-./neueff_from_spec.sh endf-tools/specs/Ba149.root hSpecRebin upc_brikenV69_wClover.txt 1.468 7.05
-./neueff_from_spec.sh endf-tools/specs/Ba150.root hSpecRebin upc_brikenV69_wClover.txt 1.801 6.204
-./neueff_from_spec.sh endf-tools/specs/Ba151.root hSpecRebin upc_brikenV69_wClover.txt 2.911 8.318
-./neueff_from_spec.sh endf-tools/specs/Ba152.root hSpecRebin upc_brikenV69_wClover.txt 3.451 7.368
-./neueff_from_spec.sh endf-tools/specs/Ba153.root hSpecRebin upc_brikenV69_wClover.txt 4.495 9.399
-./neueff_from_spec.sh endf-tools/specs/La147.root hSpecRebin upc_brikenV69_wClover.txt 0.89119 5.335448
-./neueff_from_spec.sh endf-tools/specs/La148.root hSpecRebin upc_brikenV69_wClover.txt 1.23379 7.689507
-./neueff_from_spec.sh endf-tools/specs/La149.root hSpecRebin upc_brikenV69_wClover.txt 2.10701 6.45
-./neueff_from_spec.sh endf-tools/specs/La150.root hSpecRebin upc_brikenV69_wClover.txt 2.048 8.298
-./neueff_from_spec.sh endf-tools/specs/La151.root hSpecRebin upc_brikenV69_wClover.txt 2.891 7.338
-./neueff_from_spec.sh endf-tools/specs/La152.root hSpecRebin upc_brikenV69_wClover.txt 3.421 9.576
-./neueff_from_spec.sh endf-tools/specs/La153.root hSpecRebin upc_brikenV69_wClover.txt 4.672 8.663
-./neueff_from_spec.sh endf-tools/specs/La154.root hSpecRebin upc_brikenV69_wClover.txt 5.119 10.694
-./neueff_from_spec.sh endf-tools/specs/La155.root hSpecRebin upc_brikenV69_wClover.txt 6.19 9.781
-./neueff_from_spec.sh endf-tools/specs/Ce153.root hSpecRebin upc_brikenV69_wClover.txt 0.458 6.353
-./neueff_from_spec.sh endf-tools/specs/Ce154.root hSpecRebin upc_brikenV69_wClover.txt 0.778 5.463
-./neueff_from_spec.sh endf-tools/specs/Ce155.root hSpecRebin upc_brikenV69_wClover.txt 1.872 7.526
-./neueff_from_spec.sh endf-tools/specs/Ce156.root hSpecRebin upc_brikenV69_wClover.txt 2.371 6.576
-./neueff_from_spec.sh endf-tools/specs/Ce157.root hSpecRebin upc_brikenV69_wClover.txt 3.395 8.523
-./neueff_from_spec.sh endf-tools/specs/Pr153.root hSpecRebin upc_brikenV69_wClover.txt 0.49876 5.760519
-./neueff_from_spec.sh endf-tools/specs/Pr154.root hSpecRebin upc_brikenV69_wClover.txt 1.07596 7.49
-./neueff_from_spec.sh endf-tools/specs/Pr155.root hSpecRebin upc_brikenV69_wClover.txt 1.836 6.689
-./neueff_from_spec.sh endf-tools/specs/Pr156.root hSpecRebin upc_brikenV69_wClover.txt 2.483 8.611
-./neueff_from_spec.sh endf-tools/specs/Pr157.root hSpecRebin upc_brikenV69_wClover.txt 3.483 7.825
-./neueff_from_spec.sh endf-tools/specs/Pr158.root hSpecRebin upc_brikenV69_wClover.txt 3.992 9.669
-./neueff_from_spec.sh endf-tools/specs/Pr159.root hSpecRebin upc_brikenV69_wClover.txt 4.876 8.765
-./neueff_from_spec.sh endf-tools/specs/Nd159.root hSpecRebin upc_brikenV69_wClover.txt 0.837 6.599
-./neueff_from_spec.sh endf-tools/specs/Nd160.root hSpecRebin upc_brikenV69_wClover.txt 1.322 5.682
-./neueff_from_spec.sh endf-tools/specs/Nd161.root hSpecRebin upc_brikenV69_wClover.txt 2.073 7.471
-./neueff_from_spec.sh endf-tools/specs/Pm159.root hSpecRebin upc_brikenV69_wClover.txt 0.3179 5.43
-./neueff_from_spec.sh endf-tools/specs/Pm160.root hSpecRebin upc_brikenV69_wClover.txt 1.07 7.312
-./neueff_from_spec.sh endf-tools/specs/Pm161.root hSpecRebin upc_brikenV69_wClover.txt 1.914 6.319
-./neueff_from_spec.sh endf-tools/specs/Pm162.root hSpecRebin upc_brikenV69_wClover.txt 2.374 8.449
-./neueff_from_spec.sh endf-tools/specs/Sm165.root hSpecRebin upc_brikenV69_wClover.txt 1.548 7.008
-./neueff_from_spec.sh endf-tools/specs/Eu165.root hSpecRebin upc_brikenV69_wClover.txt 0.98 5.8
+./neueff_from_spec.sh endf-tools/specs/Mn68.root hSpecRebin upc_brikenV69_wClover.txt 9.666 15.173 25
+./neueff_from_spec.sh endf-tools/specs/Co72.root hSpecRebin upc_brikenV69_wClover.txt 7.634 14.526 27
+./neueff_from_spec.sh endf-tools/specs/Co73.root hSpecRebin upc_brikenV69_wClover.txt 8.951 12.904 27
+./neueff_from_spec.sh endf-tools/specs/Co74.root hSpecRebin upc_brikenV69_wClover.txt 9.35 16.003 27
+./neueff_from_spec.sh endf-tools/specs/Co75.root hSpecRebin upc_brikenV69_wClover.txt 11.201 14.671 27
+./neueff_from_spec.sh endf-tools/specs/Ni72.root hSpecRebin upc_brikenV69_wClover.txt 0.41399 5.557179 28
+./neueff_from_spec.sh endf-tools/specs/Ni73.root hSpecRebin upc_brikenV69_wClover.txt 1.60377 8.879344 28
+./neueff_from_spec.sh endf-tools/specs/Ni74.root hSpecRebin upc_brikenV69_wClover.txt 2.227 7.317 28
+./neueff_from_spec.sh endf-tools/specs/Ni75.root hSpecRebin upc_brikenV69_wClover.txt 3.847 10.383 28
+./neueff_from_spec.sh endf-tools/specs/Ni76.root hSpecRebin upc_brikenV69_wClover.txt 4.79 9.366 28
+./neueff_from_spec.sh endf-tools/specs/Ni77.root hSpecRebin upc_brikenV69_wClover.txt 6.157 11.551 28
+./neueff_from_spec.sh endf-tools/specs/Ni78.root hSpecRebin upc_brikenV69_wClover.txt 6.097 10.368 28
+./neueff_from_spec.sh endf-tools/specs/Cu73.root hSpecRebin upc_brikenV69_wClover.txt 1.08692 6.60615 29
+./neueff_from_spec.sh endf-tools/specs/Cu74.root hSpecRebin upc_brikenV69_wClover.txt 1.51588 9.750507 29
+./neueff_from_spec.sh endf-tools/specs/Cu75.root hSpecRebin upc_brikenV69_wClover.txt 3.2143 8.087816 29
+./neueff_from_spec.sh endf-tools/specs/Cu76.root hSpecRebin upc_brikenV69_wClover.txt 3.51061 11.32603 29
+./neueff_from_spec.sh endf-tools/specs/Cu77.root hSpecRebin upc_brikenV69_wClover.txt 5.93373 10.49123 29
+./neueff_from_spec.sh endf-tools/specs/Cu78.root hSpecRebin upc_brikenV69_wClover.txt 6.22041 12.98576 29
+./neueff_from_spec.sh endf-tools/specs/Cu79.root hSpecRebin upc_brikenV69_wClover.txt 7.513 11.534 29
+./neueff_from_spec.sh endf-tools/specs/Cu80.root hSpecRebin upc_brikenV69_wClover.txt 8.93 15.218 29
+./neueff_from_spec.sh endf-tools/specs/Cu81.root hSpecRebin upc_brikenV69_wClover.txt 0.011634 -1 29
+./neueff_from_spec.sh endf-tools/specs/Zn79.root hSpecRebin upc_brikenV69_wClover.txt 2.20234 9.115383 30
+./neueff_from_spec.sh endf-tools/specs/Zn80.root hSpecRebin upc_brikenV69_wClover.txt 2.82775 7.575052 30
+./neueff_from_spec.sh endf-tools/specs/Zn81.root hSpecRebin upc_brikenV69_wClover.txt 4.95268 11.42829 30
+./neueff_from_spec.sh endf-tools/specs/Zn82.root hSpecRebin upc_brikenV69_wClover.txt 6.95 10.324 30
+./neueff_from_spec.sh endf-tools/specs/Zn83.root hSpecRebin upc_brikenV69_wClover.txt 8.121 12.519 30
+./neueff_from_spec.sh endf-tools/specs/Ga79.root hSpecRebin upc_brikenV69_wClover.txt 1.24303 6.79405 31
+./neueff_from_spec.sh endf-tools/specs/Ga80.root hSpecRebin upc_brikenV69_wClover.txt 2.23166 10.3117 31
+./neueff_from_spec.sh endf-tools/specs/Ga81.root hSpecRebin upc_brikenV69_wClover.txt 3.8361 7.98486 31
+./neueff_from_spec.sh endf-tools/specs/Ga82.root hSpecRebin upc_brikenV69_wClover.txt 5.28965 12.48435 31
+./neueff_from_spec.sh endf-tools/specs/Ga83.root hSpecRebin upc_brikenV69_wClover.txt 8.08663 11.71931 31
+./neueff_from_spec.sh endf-tools/specs/Ga84.root hSpecRebin upc_brikenV69_wClover.txt 8.622 13.865 31
+./neueff_from_spec.sh endf-tools/specs/Ga85.root hSpecRebin upc_brikenV69_wClover.txt 9.846 -1 31
+./neueff_from_spec.sh endf-tools/specs/Ga86.root hSpecRebin upc_brikenV69_wClover.txt 10.596 15.304 31
+./neueff_from_spec.sh endf-tools/specs/Ge84.root hSpecRebin upc_brikenV69_wClover.txt 3.44958 7.705132 32
+./neueff_from_spec.sh endf-tools/specs/Ge85.root hSpecRebin upc_brikenV69_wClover.txt 4.65882 10.06572 32
+./neueff_from_spec.sh endf-tools/specs/Ge86.root hSpecRebin upc_brikenV69_wClover.txt 5.357 9.202 32
+./neueff_from_spec.sh endf-tools/specs/Ge87.root hSpecRebin upc_brikenV69_wClover.txt 6.654 11.381 32
+./neueff_from_spec.sh endf-tools/specs/Ge88.root hSpecRebin upc_brikenV69_wClover.txt 7.306 10.647 32
+./neueff_from_spec.sh endf-tools/specs/Ge89.root hSpecRebin upc_brikenV69_wClover.txt 8.966 13.087 32
+./neueff_from_spec.sh endf-tools/specs/As84.root hSpecRebin upc_brikenV69_wClover.txt 1.41578 10.09414 33
+./neueff_from_spec.sh endf-tools/specs/As85.root hSpecRebin upc_brikenV69_wClover.txt 4.68723 9.224492 33
+./neueff_from_spec.sh endf-tools/specs/As86.root hSpecRebin upc_brikenV69_wClover.txt 5.38018 11.54102 33
+./neueff_from_spec.sh endf-tools/specs/As87.root hSpecRebin upc_brikenV69_wClover.txt 6.81394 10.80822 33
+./neueff_from_spec.sh endf-tools/specs/As88.root hSpecRebin upc_brikenV69_wClover.txt 7.467 12.997 33
+./neueff_from_spec.sh endf-tools/specs/As89.root hSpecRebin upc_brikenV69_wClover.txt 8.875 12.054 33
+./neueff_from_spec.sh endf-tools/specs/As90.root hSpecRebin upc_brikenV69_wClover.txt 9.591 14.597 33
+./neueff_from_spec.sh endf-tools/specs/As91.root hSpecRebin upc_brikenV69_wClover.txt 10.959 -1 33
+./neueff_from_spec.sh endf-tools/specs/As92.root hSpecRebin upc_brikenV69_wClover.txt 11.285 -1 33
+./neueff_from_spec.sh endf-tools/specs/Se87.root hSpecRebin upc_brikenV69_wClover.txt 1.13481 7.465552 34
+./neueff_from_spec.sh endf-tools/specs/Se88.root hSpecRebin upc_brikenV69_wClover.txt 1.93616 6.831763 34
+./neueff_from_spec.sh endf-tools/specs/Se89.root hSpecRebin upc_brikenV69_wClover.txt 3.65225 9.281872 34
+./neueff_from_spec.sh endf-tools/specs/Se90.root hSpecRebin upc_brikenV69_wClover.txt 4.276 8.073 34
+./neueff_from_spec.sh endf-tools/specs/Se91.root hSpecRebin upc_brikenV69_wClover.txt 5.591 10.769 34
+./neueff_from_spec.sh endf-tools/specs/Se92.root hSpecRebin upc_brikenV69_wClover.txt 6.312 9.509 34
+./neueff_from_spec.sh endf-tools/specs/Se93.root hSpecRebin upc_brikenV69_wClover.txt 7.446 12.137 34
+./neueff_from_spec.sh endf-tools/specs/Se94.root hSpecRebin upc_brikenV69_wClover.txt 7.978 10.796 34
+./neueff_from_spec.sh endf-tools/specs/Br87.root hSpecRebin upc_brikenV69_wClover.txt 1.30267 6.817847 35
+./neueff_from_spec.sh endf-tools/specs/Br88.root hSpecRebin upc_brikenV69_wClover.txt 1.92225 8.97533 35
+./neueff_from_spec.sh endf-tools/specs/Br89.root hSpecRebin upc_brikenV69_wClover.txt 3.34571 8.261526 35
+./neueff_from_spec.sh endf-tools/specs/Br90.root hSpecRebin upc_brikenV69_wClover.txt 4.46417 10.95895 35
+./neueff_from_spec.sh endf-tools/specs/Br92.root hSpecRebin upc_brikenV69_wClover.txt 6.66984 12.53652 35
+./neueff_from_spec.sh endf-tools/specs/Br93.root hSpecRebin upc_brikenV69_wClover.txt 7.845 11.283 35
+./neueff_from_spec.sh endf-tools/specs/Br94.root hSpecRebin upc_brikenV69_wClover.txt 8.465 13.748 35
+./neueff_from_spec.sh endf-tools/specs/Br95.root hSpecRebin upc_brikenV69_wClover.txt 9.375 12.258 35
+./neueff_from_spec.sh endf-tools/specs/Br96.root hSpecRebin upc_brikenV69_wClover.txt 9.738 14.73 35
+./neueff_from_spec.sh endf-tools/specs/Br97.root hSpecRebin upc_brikenV69_wClover.txt 10.497 -1 35
+./neueff_from_spec.sh endf-tools/specs/Kr92.root hSpecRebin upc_brikenV69_wClover.txt 0.90584 6.003281 36
+./neueff_from_spec.sh endf-tools/specs/Kr93.root hSpecRebin upc_brikenV69_wClover.txt 2.56529 8.484088 36
+./neueff_from_spec.sh endf-tools/specs/Kr94.root hSpecRebin upc_brikenV69_wClover.txt 3.20099 7.214222 36
+./neueff_from_spec.sh endf-tools/specs/Kr95.root hSpecRebin upc_brikenV69_wClover.txt 4.33176 9.735533 36
+./neueff_from_spec.sh endf-tools/specs/Kr96.root hSpecRebin upc_brikenV69_wClover.txt 4.74345 8.274682 36
+./neueff_from_spec.sh endf-tools/specs/Kr97.root hSpecRebin upc_brikenV69_wClover.txt 5.85955 11.09471 36
+./neueff_from_spec.sh endf-tools/specs/Kr98.root hSpecRebin upc_brikenV69_wClover.txt 5.987 9.571 36
+./neueff_from_spec.sh endf-tools/specs/Kr99.root hSpecRebin upc_brikenV69_wClover.txt 7.2 12.461 36
+./neueff_from_spec.sh endf-tools/specs/Kr100.root hSpecRebin upc_brikenV69_wClover.txt 7.985 11.383 36
+./neueff_from_spec.sh endf-tools/specs/Rb91.root hSpecRebin upc_brikenV69_wClover.txt 0.13159 5.906362 37
+./neueff_from_spec.sh endf-tools/specs/Rb92.root hSpecRebin upc_brikenV69_wClover.txt 0.80892 8.094836 37
+./neueff_from_spec.sh endf-tools/specs/Rb93.root hSpecRebin upc_brikenV69_wClover.txt 2.17604 7.465985 37
+./neueff_from_spec.sh endf-tools/specs/Rb94.root hSpecRebin upc_brikenV69_wClover.txt 3.45276 10.28119 37
+./neueff_from_spec.sh endf-tools/specs/Rb95.root hSpecRebin upc_brikenV69_wClover.txt 4.87742 9.229391 37
+./neueff_from_spec.sh endf-tools/specs/Rb96.root hSpecRebin upc_brikenV69_wClover.txt 5.69816 11.57861 37
+./neueff_from_spec.sh endf-tools/specs/Rb97.root hSpecRebin upc_brikenV69_wClover.txt 6.34345 10.07344 37
+./neueff_from_spec.sh endf-tools/specs/Rb98.root hSpecRebin upc_brikenV69_wClover.txt 6.48942 12.40574 37
+./neueff_from_spec.sh endf-tools/specs/Rb99.root hSpecRebin upc_brikenV69_wClover.txt 7.14496 11.30922 37
+./neueff_from_spec.sh endf-tools/specs/Rb100.root hSpecRebin upc_brikenV69_wClover.txt 7.912 13.287 37
+./neueff_from_spec.sh endf-tools/specs/Rb101.root hSpecRebin upc_brikenV69_wClover.txt 8.787 12.59 37
+./neueff_from_spec.sh endf-tools/specs/Rb102.root hSpecRebin upc_brikenV69_wClover.txt 9.601 14.507 37
+./neueff_from_spec.sh endf-tools/specs/Sr96.root hSpecRebin upc_brikenV69_wClover.txt 0.20886 5.411738 38
+./neueff_from_spec.sh endf-tools/specs/Sr97.root hSpecRebin upc_brikenV69_wClover.txt 1.68174 6.87148 38
+./neueff_from_spec.sh endf-tools/specs/Sr98.root hSpecRebin upc_brikenV69_wClover.txt 1.62236 5.867108 38
+./neueff_from_spec.sh endf-tools/specs/Sr99.root hSpecRebin upc_brikenV69_wClover.txt 1.70286 8.129312 38
+./neueff_from_spec.sh endf-tools/specs/Sr100.root hSpecRebin upc_brikenV69_wClover.txt 2.75421 7.503184 38
+./neueff_from_spec.sh endf-tools/specs/Sr101.root hSpecRebin upc_brikenV69_wClover.txt 3.69999 9.505 38
+./neueff_from_spec.sh endf-tools/specs/Sr102.root hSpecRebin upc_brikenV69_wClover.txt 4.599 8.815 38
+./neueff_from_spec.sh endf-tools/specs/Sr103.root hSpecRebin upc_brikenV69_wClover.txt 5.61 10.966 38
+./neueff_from_spec.sh endf-tools/specs/Sr104.root hSpecRebin upc_brikenV69_wClover.txt 6.509 10.144 38
+./neueff_from_spec.sh endf-tools/specs/Sr105.root hSpecRebin upc_brikenV69_wClover.txt 7.382 12.212 38
+./neueff_from_spec.sh endf-tools/specs/Y97.root hSpecRebin upc_brikenV69_wClover.txt 1.24608 6.821237 39
+./neueff_from_spec.sh endf-tools/specs/Y98.root hSpecRebin upc_brikenV69_wClover.txt 2.57648 8.99192 39
+./neueff_from_spec.sh endf-tools/specs/Y99.root hSpecRebin upc_brikenV69_wClover.txt 2.56546 6.967608 39
+./neueff_from_spec.sh endf-tools/specs/Y100.root hSpecRebin upc_brikenV69_wClover.txt 2.21864 9.047897 39
+./neueff_from_spec.sh endf-tools/specs/Y101.root hSpecRebin upc_brikenV69_wClover.txt 3.24289 8.103129 39
+./neueff_from_spec.sh endf-tools/specs/Y102.root hSpecRebin upc_brikenV69_wClover.txt 3.886 10.379 39
+./neueff_from_spec.sh endf-tools/specs/Y103.root hSpecRebin upc_brikenV69_wClover.txt 5.02348 9.324126 39
+./neueff_from_spec.sh endf-tools/specs/Y104.root hSpecRebin upc_brikenV69_wClover.txt 5.69 11.67 39
+./neueff_from_spec.sh endf-tools/specs/Y105.root hSpecRebin upc_brikenV69_wClover.txt 6.84 10.652 39
+./neueff_from_spec.sh endf-tools/specs/Y106.root hSpecRebin upc_brikenV69_wClover.txt 7.35 12.985 39
+./neueff_from_spec.sh endf-tools/specs/Y107.root hSpecRebin upc_brikenV69_wClover.txt 8.602 11.904 39
+./neueff_from_spec.sh endf-tools/specs/Y108.root hSpecRebin upc_brikenV69_wClover.txt 8.901 14.056 39
+./neueff_from_spec.sh endf-tools/specs/Zr103.root hSpecRebin upc_brikenV69_wClover.txt 0.41793 7.198707 40
+./neueff_from_spec.sh endf-tools/specs/Zr104.root hSpecRebin upc_brikenV69_wClover.txt 1.21858 6.094952 40
+./neueff_from_spec.sh endf-tools/specs/Zr105.root hSpecRebin upc_brikenV69_wClover.txt 2.28288 8.435914 40
+./neueff_from_spec.sh endf-tools/specs/Zr106.root hSpecRebin upc_brikenV69_wClover.txt 2.801 7.16 40
+./neueff_from_spec.sh endf-tools/specs/Zr107.root hSpecRebin upc_brikenV69_wClover.txt 3.858 9.45 40
+./neueff_from_spec.sh endf-tools/specs/Zr108.root hSpecRebin upc_brikenV69_wClover.txt 4.294 8.211 40
+./neueff_from_spec.sh endf-tools/specs/Zr109.root hSpecRebin upc_brikenV69_wClover.txt 5.3 10.591 40
+./neueff_from_spec.sh endf-tools/specs/Zr110.root hSpecRebin upc_brikenV69_wClover.txt 5.827 9.408 40
+./neueff_from_spec.sh endf-tools/specs/Nb103.root hSpecRebin upc_brikenV69_wClover.txt 0.47815 5.94663 41
+./neueff_from_spec.sh endf-tools/specs/Nb104.root hSpecRebin upc_brikenV69_wClover.txt 1.07026 8.530648 41
+./neueff_from_spec.sh endf-tools/specs/Nb105.root hSpecRebin upc_brikenV69_wClover.txt 2.37761 7.436335 41
+./neueff_from_spec.sh endf-tools/specs/Nb106.root hSpecRebin upc_brikenV69_wClover.txt 3.07727 9.94622 41
+./neueff_from_spec.sh endf-tools/specs/Nb107.root hSpecRebin upc_brikenV69_wClover.txt 4.35451 8.842938 41
+./neueff_from_spec.sh endf-tools/specs/Nb108.root hSpecRebin upc_brikenV69_wClover.txt 4.92561 11.20139 41
+./neueff_from_spec.sh endf-tools/specs/Nb109.root hSpecRebin upc_brikenV69_wClover.txt 5.911 9.892 41
+./neueff_from_spec.sh endf-tools/specs/Nb110.root hSpecRebin upc_brikenV69_wClover.txt 6.311 12.259 41
+./neueff_from_spec.sh endf-tools/specs/Nb111.root hSpecRebin upc_brikenV69_wClover.txt 7.457 11.038 41
+./neueff_from_spec.sh endf-tools/specs/Nb112.root hSpecRebin upc_brikenV69_wClover.txt 7.55 13.125 41
+./neueff_from_spec.sh endf-tools/specs/Nb113.root hSpecRebin upc_brikenV69_wClover.txt 8.873 12.314 41
+./neueff_from_spec.sh endf-tools/specs/Mo109.root hSpecRebin upc_brikenV69_wClover.txt 1.17207 7.603351 42
+./neueff_from_spec.sh endf-tools/specs/Mo111.root hSpecRebin upc_brikenV69_wClover.txt 2.897 8.958 42
+./neueff_from_spec.sh endf-tools/specs/Mo112.root hSpecRebin upc_brikenV69_wClover.txt 3.383 7.687 42
+./neueff_from_spec.sh endf-tools/specs/Mo113.root hSpecRebin upc_brikenV69_wClover.txt 4.245 9.941 42
+./neueff_from_spec.sh endf-tools/specs/Mo114.root hSpecRebin upc_brikenV69_wClover.txt 4.813 8.859 42
+./neueff_from_spec.sh endf-tools/specs/Mo115.root hSpecRebin upc_brikenV69_wClover.txt 6.032 11.308 42
+./neueff_from_spec.sh endf-tools/specs/Tc109.root hSpecRebin upc_brikenV69_wClover.txt 1.30729 6.455626 43
+./neueff_from_spec.sh endf-tools/specs/Tc110.root hSpecRebin upc_brikenV69_wClover.txt 1.63261 9.03861 43
+./neueff_from_spec.sh endf-tools/specs/Tc111.root hSpecRebin upc_brikenV69_wClover.txt 2.97721 7.760649 43
+./neueff_from_spec.sh endf-tools/specs/Tc112.root hSpecRebin upc_brikenV69_wClover.txt 3.45716 10.37399 43
+./neueff_from_spec.sh endf-tools/specs/Tc113.root hSpecRebin upc_brikenV69_wClover.txt 4.67818 8.996683 43
+./neueff_from_spec.sh endf-tools/specs/Tc114.root hSpecRebin upc_brikenV69_wClover.txt 4.951 11.364 43
+./neueff_from_spec.sh endf-tools/specs/Tc115.root hSpecRebin upc_brikenV69_wClover.txt 6.087 10.132 43
+./neueff_from_spec.sh endf-tools/specs/Tc116.root hSpecRebin upc_brikenV69_wClover.txt 6.663 12.706 43
+./neueff_from_spec.sh endf-tools/specs/Tc117.root hSpecRebin upc_brikenV69_wClover.txt 7.708 11.178 43
+./neueff_from_spec.sh endf-tools/specs/Tc118.root hSpecRebin upc_brikenV69_wClover.txt 7.699 13.469 43
+./neueff_from_spec.sh endf-tools/specs/Ru114.root hSpecRebin upc_brikenV69_wClover.txt 0.48058 5.497729 44
+./neueff_from_spec.sh endf-tools/specs/Ru115.root hSpecRebin upc_brikenV69_wClover.txt 1.45232 8.040097 44
+./neueff_from_spec.sh endf-tools/specs/Ru116.root hSpecRebin upc_brikenV69_wClover.txt 1.997 6.58 44
+./neueff_from_spec.sh endf-tools/specs/Ru117.root hSpecRebin upc_brikenV69_wClover.txt 3.11 9.337 44
+./neueff_from_spec.sh endf-tools/specs/Ru118.root hSpecRebin upc_brikenV69_wClover.txt 3.567 7.628 44
+./neueff_from_spec.sh endf-tools/specs/Ru119.root hSpecRebin upc_brikenV69_wClover.txt 4.252 10.284 44
+./neueff_from_spec.sh endf-tools/specs/Ru120.root hSpecRebin upc_brikenV69_wClover.txt 4.765 8.803 44
+./neueff_from_spec.sh endf-tools/specs/Rh115.root hSpecRebin upc_brikenV69_wClover.txt 1.1898 6.196613 45
+./neueff_from_spec.sh endf-tools/specs/Rh116.root hSpecRebin upc_brikenV69_wClover.txt 1.6137 9.090208 45
+./neueff_from_spec.sh endf-tools/specs/Rh117.root hSpecRebin upc_brikenV69_wClover.txt 2.86295 7.527112 45
+./neueff_from_spec.sh endf-tools/specs/Rh118.root hSpecRebin upc_brikenV69_wClover.txt 3.46571 10.50381 45
+./neueff_from_spec.sh endf-tools/specs/Rh119.root hSpecRebin upc_brikenV69_wClover.txt 4.472 8.56 45
+./neueff_from_spec.sh endf-tools/specs/Rh120.root hSpecRebin upc_brikenV69_wClover.txt 4.522 11.495 45
+./neueff_from_spec.sh endf-tools/specs/Rh121.root hSpecRebin upc_brikenV69_wClover.txt 5.809 9.827 45
+./neueff_from_spec.sh endf-tools/specs/Rh122.root hSpecRebin upc_brikenV69_wClover.txt 5.789 12.296 45
+./neueff_from_spec.sh endf-tools/specs/Rh123.root hSpecRebin upc_brikenV69_wClover.txt 0.006571 0.010562 45
+./neueff_from_spec.sh endf-tools/specs/Pd121.root hSpecRebin upc_brikenV69_wClover.txt 1.323 8.146 46
+./neueff_from_spec.sh endf-tools/specs/Pd122.root hSpecRebin upc_brikenV69_wClover.txt 1.639 6.414 46
+./neueff_from_spec.sh endf-tools/specs/Pd123.root hSpecRebin upc_brikenV69_wClover.txt 2.422 8.936 46
+./neueff_from_spec.sh endf-tools/specs/Pd124.root hSpecRebin upc_brikenV69_wClover.txt 2.681 7.404 46
+./neueff_from_spec.sh endf-tools/specs/Pd125.root hSpecRebin upc_brikenV69_wClover.txt 0.00324 0.009644 46
+./neueff_from_spec.sh endf-tools/specs/Pd126.root hSpecRebin upc_brikenV69_wClover.txt 0.003363 0.007643 46
+./neueff_from_spec.sh endf-tools/specs/Ag120.root hSpecRebin upc_brikenV69_wClover.txt 0.25421 8.305852 47
+./neueff_from_spec.sh endf-tools/specs/Ag122.root hSpecRebin upc_brikenV69_wClover.txt 1.88032 9.510461 47
+./neueff_from_spec.sh endf-tools/specs/Ag123.root hSpecRebin upc_brikenV69_wClover.txt 2.704 7.770631 47
+./neueff_from_spec.sh endf-tools/specs/Ag124.root hSpecRebin upc_brikenV69_wClover.txt 3.04726 10.49731 47
+./neueff_from_spec.sh endf-tools/specs/Ag125.root hSpecRebin upc_brikenV69_wClover.txt 4.195 8.916 47
+./neueff_from_spec.sh endf-tools/specs/Ag126.root hSpecRebin upc_brikenV69_wClover.txt 4.422 11.402 47
+./neueff_from_spec.sh endf-tools/specs/Ag127.root hSpecRebin upc_brikenV69_wClover.txt 5.417 9.667 47
+./neueff_from_spec.sh endf-tools/specs/Ag128.root hSpecRebin upc_brikenV69_wClover.txt 5.425 12.311 47
+./neueff_from_spec.sh endf-tools/specs/Ag129.root hSpecRebin upc_brikenV69_wClover.txt 6.615 10.749 47
+./neueff_from_spec.sh endf-tools/specs/Ag130.root hSpecRebin upc_brikenV69_wClover.txt 8.945 15.241 47
+./neueff_from_spec.sh endf-tools/specs/Cd127.root hSpecRebin upc_brikenV69_wClover.txt 1.30704 8.456669 48
+./neueff_from_spec.sh endf-tools/specs/Cd128.root hSpecRebin upc_brikenV69_wClover.txt 1.57041 7.110314 48
+./neueff_from_spec.sh endf-tools/specs/Cd129.root hSpecRebin upc_brikenV69_wClover.txt 2.976 9.5 48
+./neueff_from_spec.sh endf-tools/specs/Cd130.root hSpecRebin upc_brikenV69_wClover.txt 3.20423 8.35 48
+./neueff_from_spec.sh endf-tools/specs/Cd131.root hSpecRebin upc_brikenV69_wClover.txt 6.44 12.672 48
+./neueff_from_spec.sh endf-tools/specs/Cd132.root hSpecRebin upc_brikenV69_wClover.txt 9.11 11.545 48
+./neueff_from_spec.sh endf-tools/specs/In128.root hSpecRebin upc_brikenV69_wClover.txt 1.03795 8.9756 49
+./neueff_from_spec.sh endf-tools/specs/In129.root hSpecRebin upc_brikenV69_wClover.txt 2.45114 7.7448 49
+./neueff_from_spec.sh endf-tools/specs/In130.root hSpecRebin upc_brikenV69_wClover.txt 2.63423 8.30316 49
+./neueff_from_spec.sh endf-tools/specs/In131.root hSpecRebin upc_brikenV69_wClover.txt 4.01622 9.222 49
+./neueff_from_spec.sh endf-tools/specs/In132.root hSpecRebin upc_brikenV69_wClover.txt 6.78682 14.135 49
+./neueff_from_spec.sh endf-tools/specs/In133.root hSpecRebin upc_brikenV69_wClover.txt 10.715 13.085 49
+./neueff_from_spec.sh endf-tools/specs/In134.root hSpecRebin upc_brikenV69_wClover.txt 10.752 -1 49
+./neueff_from_spec.sh endf-tools/specs/In135.root hSpecRebin upc_brikenV69_wClover.txt 11.053 13.414 49
+./neueff_from_spec.sh endf-tools/specs/Sn133.root hSpecRebin upc_brikenV69_wClover.txt 0.75044 8.095611 50
+./neueff_from_spec.sh endf-tools/specs/Sn134.root hSpecRebin upc_brikenV69_wClover.txt 4.54778 7.842328 50
+./neueff_from_spec.sh endf-tools/specs/Sn135.root hSpecRebin upc_brikenV69_wClover.txt 5.482 -1 50
+./neueff_from_spec.sh endf-tools/specs/Sn136.root hSpecRebin upc_brikenV69_wClover.txt 5.416 8.225 50
+./neueff_from_spec.sh endf-tools/specs/Sn137.root hSpecRebin upc_brikenV69_wClover.txt 6.143 -1 50
+./neueff_from_spec.sh endf-tools/specs/Sb134.root hSpecRebin upc_brikenV69_wClover.txt 0.70746 8.393699 51
+./neueff_from_spec.sh endf-tools/specs/Sb135.root hSpecRebin upc_brikenV69_wClover.txt 4.70091 8.116303 51
+./neueff_from_spec.sh endf-tools/specs/Sb136.root hSpecRebin upc_brikenV69_wClover.txt 5.308 9.954 51
+./neueff_from_spec.sh endf-tools/specs/Sb137.root hSpecRebin upc_brikenV69_wClover.txt 6.01 8.892 51
+./neueff_from_spec.sh endf-tools/specs/Sb138.root hSpecRebin upc_brikenV69_wClover.txt 6.371 10.908 51
+./neueff_from_spec.sh endf-tools/specs/Sb139.root hSpecRebin upc_brikenV69_wClover.txt 7.364 -1 51
+./neueff_from_spec.sh endf-tools/specs/Te136.root hSpecRebin upc_brikenV69_wClover.txt 1.24095 5.093048 52
+./neueff_from_spec.sh endf-tools/specs/Te137.root hSpecRebin upc_brikenV69_wClover.txt 2.21067 7.216721 52
+./neueff_from_spec.sh endf-tools/specs/Te138.root hSpecRebin upc_brikenV69_wClover.txt 2.68042 6.15 52
+./neueff_from_spec.sh endf-tools/specs/Te139.root hSpecRebin upc_brikenV69_wClover.txt 3.445 8.138 52
+./neueff_from_spec.sh endf-tools/specs/Te140.root hSpecRebin upc_brikenV69_wClover.txt 3.858 6.998 52
+./neueff_from_spec.sh endf-tools/specs/Te141.root hSpecRebin upc_brikenV69_wClover.txt 4.563 9.339 52
+./neueff_from_spec.sh endf-tools/specs/Te142.root hSpecRebin upc_brikenV69_wClover.txt 5.329 8.123 52
+./neueff_from_spec.sh endf-tools/specs/I137.root hSpecRebin upc_brikenV69_wClover.txt 1.851 5.87653 53
+./neueff_from_spec.sh endf-tools/specs/I138.root hSpecRebin upc_brikenV69_wClover.txt 2.407 8.07 53
+./neueff_from_spec.sh endf-tools/specs/I139.root hSpecRebin upc_brikenV69_wClover.txt 3.37652 7.117357 53
+./neueff_from_spec.sh endf-tools/specs/I140.root hSpecRebin upc_brikenV69_wClover.txt 3.97737 9.390562 53
+./neueff_from_spec.sh endf-tools/specs/I141.root hSpecRebin upc_brikenV69_wClover.txt 4.61394 7.896104 53
+./neueff_from_spec.sh endf-tools/specs/I142.root hSpecRebin upc_brikenV69_wClover.txt 5.103 10.206 53
+./neueff_from_spec.sh endf-tools/specs/I143.root hSpecRebin upc_brikenV69_wClover.txt 6.094 9.138 53
+./neueff_from_spec.sh endf-tools/specs/I144.root hSpecRebin upc_brikenV69_wClover.txt 6.357 11.098 53
+./neueff_from_spec.sh endf-tools/specs/I145.root hSpecRebin upc_brikenV69_wClover.txt 0.007657 0.010548 53
+./neueff_from_spec.sh endf-tools/specs/Xe141.root hSpecRebin upc_brikenV69_wClover.txt 0.78174 6.283047 54
+./neueff_from_spec.sh endf-tools/specs/Xe142.root hSpecRebin upc_brikenV69_wClover.txt 1.17939 5.295739 54
+./neueff_from_spec.sh endf-tools/specs/Xe143.root hSpecRebin upc_brikenV69_wClover.txt 2.25119 7.472056 54
+./neueff_from_spec.sh endf-tools/specs/Xe144.root hSpecRebin upc_brikenV69_wClover.txt 2.73132 6.399003 54
+./neueff_from_spec.sh endf-tools/specs/Xe145.root hSpecRebin upc_brikenV69_wClover.txt 3.70665 8.562452 54
+./neueff_from_spec.sh endf-tools/specs/Xe146.root hSpecRebin upc_brikenV69_wClover.txt 4.02952 7.614232 54
+./neueff_from_spec.sh endf-tools/specs/Xe147.root hSpecRebin upc_brikenV69_wClover.txt 4.966 9.486 54
+./neueff_from_spec.sh endf-tools/specs/Cs141.root hSpecRebin upc_brikenV69_wClover.txt 0.71865 5.252784 55
+./neueff_from_spec.sh endf-tools/specs/Cs142.root hSpecRebin upc_brikenV69_wClover.txt 1.13644 7.319635 55
+./neueff_from_spec.sh endf-tools/specs/Cs143.root hSpecRebin upc_brikenV69_wClover.txt 2.09877 6.262224 55
+./neueff_from_spec.sh endf-tools/specs/Cs144.root hSpecRebin upc_brikenV69_wClover.txt 2.59454 8.495821 55
+./neueff_from_spec.sh endf-tools/specs/Cs145.root hSpecRebin upc_brikenV69_wClover.txt 3.64002 7.460393 55
+./neueff_from_spec.sh endf-tools/specs/Cs146.root hSpecRebin upc_brikenV69_wClover.txt 3.87568 9.371524 55
+./neueff_from_spec.sh endf-tools/specs/Cs147.root hSpecRebin upc_brikenV69_wClover.txt 4.85148 8.246124 55
+./neueff_from_spec.sh endf-tools/specs/Cs148.root hSpecRebin upc_brikenV69_wClover.txt 4.89826 10.29928 55
+./neueff_from_spec.sh endf-tools/specs/Cs149.root hSpecRebin upc_brikenV69_wClover.txt 5.677 9.324 55
+./neueff_from_spec.sh endf-tools/specs/Cs150.root hSpecRebin upc_brikenV69_wClover.txt 6.134 11.383 55
+./neueff_from_spec.sh endf-tools/specs/Cs151.root hSpecRebin upc_brikenV69_wClover.txt 7.214 10.507 55
+./neueff_from_spec.sh endf-tools/specs/Ba147.root hSpecRebin upc_brikenV69_wClover.txt 0.71375 6.414361 56
+./neueff_from_spec.sh endf-tools/specs/Ba148.root hSpecRebin upc_brikenV69_wClover.txt 1.01334 5.115 56
+./neueff_from_spec.sh endf-tools/specs/Ba149.root hSpecRebin upc_brikenV69_wClover.txt 1.468 7.05 56
+./neueff_from_spec.sh endf-tools/specs/Ba150.root hSpecRebin upc_brikenV69_wClover.txt 1.801 6.204 56
+./neueff_from_spec.sh endf-tools/specs/Ba151.root hSpecRebin upc_brikenV69_wClover.txt 2.911 8.318 56
+./neueff_from_spec.sh endf-tools/specs/Ba152.root hSpecRebin upc_brikenV69_wClover.txt 3.451 7.368 56
+./neueff_from_spec.sh endf-tools/specs/Ba153.root hSpecRebin upc_brikenV69_wClover.txt 4.495 9.399 56
+./neueff_from_spec.sh endf-tools/specs/La147.root hSpecRebin upc_brikenV69_wClover.txt 0.89119 5.335448 57
+./neueff_from_spec.sh endf-tools/specs/La148.root hSpecRebin upc_brikenV69_wClover.txt 1.23379 7.689507 57
+./neueff_from_spec.sh endf-tools/specs/La149.root hSpecRebin upc_brikenV69_wClover.txt 2.10701 6.45 57
+./neueff_from_spec.sh endf-tools/specs/La150.root hSpecRebin upc_brikenV69_wClover.txt 2.048 8.298 57
+./neueff_from_spec.sh endf-tools/specs/La151.root hSpecRebin upc_brikenV69_wClover.txt 2.891 7.338 57
+./neueff_from_spec.sh endf-tools/specs/La152.root hSpecRebin upc_brikenV69_wClover.txt 3.421 9.576 57
+./neueff_from_spec.sh endf-tools/specs/La153.root hSpecRebin upc_brikenV69_wClover.txt 4.672 8.663 57
+./neueff_from_spec.sh endf-tools/specs/La154.root hSpecRebin upc_brikenV69_wClover.txt 5.119 10.694 57
+./neueff_from_spec.sh endf-tools/specs/La155.root hSpecRebin upc_brikenV69_wClover.txt 6.19 9.781 57
+./neueff_from_spec.sh endf-tools/specs/Ce153.root hSpecRebin upc_brikenV69_wClover.txt 0.458 6.353 58
+./neueff_from_spec.sh endf-tools/specs/Ce154.root hSpecRebin upc_brikenV69_wClover.txt 0.778 5.463 58
+./neueff_from_spec.sh endf-tools/specs/Ce155.root hSpecRebin upc_brikenV69_wClover.txt 1.872 7.526 58
+./neueff_from_spec.sh endf-tools/specs/Ce156.root hSpecRebin upc_brikenV69_wClover.txt 2.371 6.576 58
+./neueff_from_spec.sh endf-tools/specs/Ce157.root hSpecRebin upc_brikenV69_wClover.txt 3.395 8.523 58
+./neueff_from_spec.sh endf-tools/specs/Pr153.root hSpecRebin upc_brikenV69_wClover.txt 0.49876 5.760519 59
+./neueff_from_spec.sh endf-tools/specs/Pr154.root hSpecRebin upc_brikenV69_wClover.txt 1.07596 7.49 59
+./neueff_from_spec.sh endf-tools/specs/Pr155.root hSpecRebin upc_brikenV69_wClover.txt 1.836 6.689 59
+./neueff_from_spec.sh endf-tools/specs/Pr156.root hSpecRebin upc_brikenV69_wClover.txt 2.483 8.611 59
+./neueff_from_spec.sh endf-tools/specs/Pr157.root hSpecRebin upc_brikenV69_wClover.txt 3.483 7.825 59
+./neueff_from_spec.sh endf-tools/specs/Pr158.root hSpecRebin upc_brikenV69_wClover.txt 3.992 9.669 59
+./neueff_from_spec.sh endf-tools/specs/Pr159.root hSpecRebin upc_brikenV69_wClover.txt 4.876 8.765 59
+./neueff_from_spec.sh endf-tools/specs/Nd159.root hSpecRebin upc_brikenV69_wClover.txt 0.837 6.599 60
+./neueff_from_spec.sh endf-tools/specs/Nd160.root hSpecRebin upc_brikenV69_wClover.txt 1.322 5.682 60
+./neueff_from_spec.sh endf-tools/specs/Nd161.root hSpecRebin upc_brikenV69_wClover.txt 2.073 7.471 60
+./neueff_from_spec.sh endf-tools/specs/Pm159.root hSpecRebin upc_brikenV69_wClover.txt 0.3179 5.43 61
+./neueff_from_spec.sh endf-tools/specs/Pm160.root hSpecRebin upc_brikenV69_wClover.txt 1.07 7.312 61
+./neueff_from_spec.sh endf-tools/specs/Pm161.root hSpecRebin upc_brikenV69_wClover.txt 1.914 6.319 61
+./neueff_from_spec.sh endf-tools/specs/Pm162.root hSpecRebin upc_brikenV69_wClover.txt 2.374 8.449 61
+./neueff_from_spec.sh endf-tools/specs/Sm165.root hSpecRebin upc_brikenV69_wClover.txt 1.548 7.008 62
+./neueff_from_spec.sh endf-tools/specs/Eu165.root hSpecRebin upc_brikenV69_wClover.txt 0.98 5.8 63

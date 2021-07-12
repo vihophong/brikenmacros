@@ -62,7 +62,7 @@ void neueff_from_spec(char* infilespec,char* specname=(char*)"hSpecRebin", char*
         eff1+=h1->GetBinContent(i+1)*evaleff(h1->GetBinCenter(i+1),infileeff);
     }
     Double_t eff2 = evaleff(h1->GetMean(),infileeff);
-    outfile<<infilespec<<"\t"<<infileeff<<"\t"<<Qbn<<"\t"<<Qb<<"\t"<<eff1<<"\t"<<eff2<<std::endl;
-    cout<<infilespec<<"\t"<<infileeff<<"\t"<<Qbn<<"\t"<<Qb<<"\t"<<eff1<<"\t"<<eff2<<std::endl;
+    outfile<<infilespec<<"\t"<<infileeff<<"\t"<<Qbn<<"\t"<<Qb<<"\t"<<h1->GetMean()<<"\t"<<eff1<<"\t"<<eff2<<std::endl;
+    cout<<infilespec<<"\t"<<infileeff<<"\t"<<Qbn<<"\t"<<Qb<<"\t"<<h1->GetMean()<<"\t"<<eff1<<"\t"<<eff2<<std::endl;
 }
 

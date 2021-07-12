@@ -1,272 +1,273 @@
-endf-tools/specs/Mn68.root	upc_brikenV69_wClover.txt	9.666	0.649905	0.65258
-endf-tools/specs/Co72.root	upc_brikenV69_wClover.txt	7.634	0.65315	0.654828
-endf-tools/specs/Co73.root	upc_brikenV69_wClover.txt	8.951	0.63981	0.640399
-endf-tools/specs/Co74.root	upc_brikenV69_wClover.txt	9.35	0.650155	0.652595
-endf-tools/specs/Co75.root	upc_brikenV69_wClover.txt	11.201	0.630245	0.629737
-endf-tools/specs/Ni72.root	upc_brikenV69_wClover.txt	0.41399	0.67335	0.67317
-endf-tools/specs/Ni73.root	upc_brikenV69_wClover.txt	1.60377	0.672833	0.67373
-endf-tools/specs/Ni74.root	upc_brikenV69_wClover.txt	2.227	0.670833	0.672372
-endf-tools/specs/Ni75.root	upc_brikenV69_wClover.txt	3.847	0.664997	0.667893
-endf-tools/specs/Ni76.root	upc_brikenV69_wClover.txt	4.79	0.662423	0.66396
-endf-tools/specs/Ni77.root	upc_brikenV69_wClover.txt	6.157	0.654869	0.658459
-endf-tools/specs/Ni78.root	upc_brikenV69_wClover.txt	6.097	0.652774	0.654387
-endf-tools/specs/Cu73.root	upc_brikenV69_wClover.txt	1.08692	0.673082	0.674036
-endf-tools/specs/Cu74.root	upc_brikenV69_wClover.txt	1.51588	0.669881	0.670722
-endf-tools/specs/Cu75.root	upc_brikenV69_wClover.txt	3.2143	0.667219	0.66917
-endf-tools/specs/Cu76.root	upc_brikenV69_wClover.txt	3.51061	0.667427	0.669586
-endf-tools/specs/Cu77.root	upc_brikenV69_wClover.txt	5.93373	0.659848	0.663035
-endf-tools/specs/Cu78.root	upc_brikenV69_wClover.txt	6.22041	0.659516	0.662893
-endf-tools/specs/Cu79.root	upc_brikenV69_wClover.txt	7.513	0.649155	0.652333
-endf-tools/specs/Cu80.root	upc_brikenV69_wClover.txt	8.93	0.647036	0.651342
-endf-tools/specs/Zn79.root	upc_brikenV69_wClover.txt	2.20234	0.670842	0.673066
-endf-tools/specs/Zn80.root	upc_brikenV69_wClover.txt	2.82775	0.669342	0.66953
-endf-tools/specs/Zn81.root	upc_brikenV69_wClover.txt	4.95268	0.659933	0.663274
-endf-tools/specs/Zn82.root	upc_brikenV69_wClover.txt	6.95	0.650632	0.653118
-endf-tools/specs/Zn83.root	upc_brikenV69_wClover.txt	8.121	0.653798	0.657228
-endf-tools/specs/Ga79.root	upc_brikenV69_wClover.txt	1.24303	0.671188	0.6732
-endf-tools/specs/Ga80.root	upc_brikenV69_wClover.txt	2.23166	0.670965	0.672319
-endf-tools/specs/Ga81.root	upc_brikenV69_wClover.txt	3.8361	0.669892	0.670513
-endf-tools/specs/Ga82.root	upc_brikenV69_wClover.txt	5.28965	0.661142	0.663042
-endf-tools/specs/Ga83.root	upc_brikenV69_wClover.txt	8.08663	0.658093	0.661453
-endf-tools/specs/Ga84.root	upc_brikenV69_wClover.txt	8.622	0.653954	0.655807
-endf-tools/specs/Ga85.root	upc_brikenV69_wClover.txt	9.846	0.652891	0.654348
-endf-tools/specs/Ga86.root	upc_brikenV69_wClover.txt	10.596	0.654534	0.656722
-endf-tools/specs/Ge84.root	upc_brikenV69_wClover.txt	3.44958	0.665923	0.668137
-endf-tools/specs/Ge85.root	upc_brikenV69_wClover.txt	4.65882	0.657938	0.660543
-endf-tools/specs/Ge86.root	upc_brikenV69_wClover.txt	5.357	0.656279	0.658351
-endf-tools/specs/Ge87.root	upc_brikenV69_wClover.txt	6.654	0.651822	0.65437
-endf-tools/specs/Ge88.root	upc_brikenV69_wClover.txt	7.306	0.651157	0.653332
-endf-tools/specs/Ge89.root	upc_brikenV69_wClover.txt	8.966	0.665418	0.668038
-endf-tools/specs/As84.root	upc_brikenV69_wClover.txt	1.41578	0.671558	0.6732
-endf-tools/specs/As85.root	upc_brikenV69_wClover.txt	4.68723	0.661989	0.663618
-endf-tools/specs/As86.root	upc_brikenV69_wClover.txt	5.38018	0.666248	0.669501
-endf-tools/specs/As87.root	upc_brikenV69_wClover.txt	6.81394	0.668292	0.670058
-endf-tools/specs/As88.root	upc_brikenV69_wClover.txt	7.467	0.665924	0.668564
-endf-tools/specs/As89.root	upc_brikenV69_wClover.txt	8.875	0.663467	0.66481
-endf-tools/specs/As90.root	upc_brikenV69_wClover.txt	9.591	0.65509	0.656376
-endf-tools/specs/As91.root	upc_brikenV69_wClover.txt	10.959	0.650987	0.653218
-endf-tools/specs/As92.root	upc_brikenV69_wClover.txt	11.285	0.653558	0.655425
-endf-tools/specs/Se87.root	upc_brikenV69_wClover.txt	1.13481	0.672832	0.673651
-endf-tools/specs/Se88.root	upc_brikenV69_wClover.txt	1.93616	0.671918	0.6732
-endf-tools/specs/Se89.root	upc_brikenV69_wClover.txt	3.65225	0.664778	0.667628
-endf-tools/specs/Se90.root	upc_brikenV69_wClover.txt	4.276	0.660022	0.662553
-endf-tools/specs/Se91.root	upc_brikenV69_wClover.txt	5.591	0.663009	0.666978
-endf-tools/specs/Se92.root	upc_brikenV69_wClover.txt	6.312	0.657722	0.660687
-endf-tools/specs/Se93.root	upc_brikenV69_wClover.txt	7.446	0.663583	0.6654
-endf-tools/specs/Se94.root	upc_brikenV69_wClover.txt	7.978	0.663402	0.665632
-endf-tools/specs/Br87.root	upc_brikenV69_wClover.txt	1.30267	0.672308	0.6732
-endf-tools/specs/Br88.root	upc_brikenV69_wClover.txt	1.92225	0.671794	0.6732
-endf-tools/specs/Br89.root	upc_brikenV69_wClover.txt	3.34571	0.667054	0.669062
-endf-tools/specs/Br90.root	upc_brikenV69_wClover.txt	4.46417	0.66312	0.665671
-endf-tools/specs/Br92.root	upc_brikenV69_wClover.txt	6.66984	0.648614	0.652208
-endf-tools/specs/Br93.root	upc_brikenV69_wClover.txt	7.845	0.664875	0.667199
-endf-tools/specs/Br94.root	upc_brikenV69_wClover.txt	8.465	0.662783	0.665991
-endf-tools/specs/Br95.root	upc_brikenV69_wClover.txt	9.375	0.659882	0.662766
-endf-tools/specs/Br96.root	upc_brikenV69_wClover.txt	9.738	0.658678	0.661447
-endf-tools/specs/Br97.root	upc_brikenV69_wClover.txt	10.497	0.653223	0.655138
-endf-tools/specs/Kr92.root	upc_brikenV69_wClover.txt	0.90584	0.67196	0.6732
-endf-tools/specs/Kr93.root	upc_brikenV69_wClover.txt	2.56529	0.668755	0.669494
-endf-tools/specs/Kr94.root	upc_brikenV69_wClover.txt	3.20099	0.668955	0.669527
-endf-tools/specs/Kr95.root	upc_brikenV69_wClover.txt	4.33176	0.666953	0.66951
-endf-tools/specs/Kr96.root	upc_brikenV69_wClover.txt	4.74345	0.667125	0.669555
-endf-tools/specs/Kr97.root	upc_brikenV69_wClover.txt	5.85955	0.667032	0.669478
-endf-tools/specs/Kr98.root	upc_brikenV69_wClover.txt	5.987	0.665708	0.668725
-endf-tools/specs/Kr99.root	upc_brikenV69_wClover.txt	7.2	0.664807	0.667878
-endf-tools/specs/Kr100.root	upc_brikenV69_wClover.txt	7.985	0.659839	0.662676
-endf-tools/specs/Rb91.root	upc_brikenV69_wClover.txt	0.13159	0.673344	0.673177
-endf-tools/specs/Rb92.root	upc_brikenV69_wClover.txt	0.80892	0.672524	0.673241
-endf-tools/specs/Rb93.root	upc_brikenV69_wClover.txt	2.17604	0.669404	0.669588
-endf-tools/specs/Rb94.root	upc_brikenV69_wClover.txt	3.45276	0.668269	0.669517
-endf-tools/specs/Rb95.root	upc_brikenV69_wClover.txt	4.87742	0.665435	0.668839
-endf-tools/specs/Rb96.root	upc_brikenV69_wClover.txt	5.69816	0.668164	0.669559
-endf-tools/specs/Rb97.root	upc_brikenV69_wClover.txt	6.34345	0.666463	0.669055
-endf-tools/specs/Rb98.root	upc_brikenV69_wClover.txt	6.48942	0.665586	0.668728
-endf-tools/specs/Rb99.root	upc_brikenV69_wClover.txt	7.14496	0.668663	0.67036
-endf-tools/specs/Rb100.root	upc_brikenV69_wClover.txt	7.912	0.661601	0.663435
-endf-tools/specs/Rb101.root	upc_brikenV69_wClover.txt	8.787	0.662081	0.663557
-endf-tools/specs/Rb102.root	upc_brikenV69_wClover.txt	9.601	0.657587	0.660253
-endf-tools/specs/Sr96.root	upc_brikenV69_wClover.txt	0.20886	0.673056	0.671819
-endf-tools/specs/Sr97.root	upc_brikenV69_wClover.txt	1.68174	0.672266	0.673443
-endf-tools/specs/Sr98.root	upc_brikenV69_wClover.txt	1.62236	0.671253	0.6732
-endf-tools/specs/Sr99.root	upc_brikenV69_wClover.txt	1.70286	0.672322	0.6732
-endf-tools/specs/Sr100.root	upc_brikenV69_wClover.txt	2.75421	0.67089	0.672095
-endf-tools/specs/Sr101.root	upc_brikenV69_wClover.txt	3.69999	0.666042	0.668563
-endf-tools/specs/Sr102.root	upc_brikenV69_wClover.txt	4.599	0.666213	0.668425
-endf-tools/specs/Sr103.root	upc_brikenV69_wClover.txt	5.61	0.666028	0.669408
-endf-tools/specs/Sr104.root	upc_brikenV69_wClover.txt	6.509	0.666707	0.669456
-endf-tools/specs/Sr105.root	upc_brikenV69_wClover.txt	7.382	0.666815	0.669558
-endf-tools/specs/Y97.root	upc_brikenV69_wClover.txt	1.24608	0.672212	0.673312
-endf-tools/specs/Y98.root	upc_brikenV69_wClover.txt	2.57648	0.671843	0.6732
-endf-tools/specs/Y99.root	upc_brikenV69_wClover.txt	2.56546	0.668193	0.669514
-endf-tools/specs/Y100.root	upc_brikenV69_wClover.txt	2.21864	0.669574	0.669544
-endf-tools/specs/Y101.root	upc_brikenV69_wClover.txt	3.24289	0.668274	0.669536
-endf-tools/specs/Y102.root	upc_brikenV69_wClover.txt	3.886	0.670929	0.6732
-endf-tools/specs/Y103.root	upc_brikenV69_wClover.txt	5.02348	0.666203	0.668471
-endf-tools/specs/Y104.root	upc_brikenV69_wClover.txt	5.69	0.667748	0.670635
-endf-tools/specs/Y105.root	upc_brikenV69_wClover.txt	6.84	0.665345	0.669449
-endf-tools/specs/Y106.root	upc_brikenV69_wClover.txt	7.35	0.669137	0.671855
-endf-tools/specs/Y107.root	upc_brikenV69_wClover.txt	8.602	0.66726	0.669425
-endf-tools/specs/Y108.root	upc_brikenV69_wClover.txt	8.901	0.667203	0.669506
-endf-tools/specs/Zr103.root	upc_brikenV69_wClover.txt	0.41793	0.672995	0.673224
-endf-tools/specs/Zr104.root	upc_brikenV69_wClover.txt	1.21858	0.672367	0.6732
-endf-tools/specs/Zr105.root	upc_brikenV69_wClover.txt	2.28288	0.67113	0.6732
-endf-tools/specs/Zr106.root	upc_brikenV69_wClover.txt	2.801	0.670267	0.672218
-endf-tools/specs/Zr107.root	upc_brikenV69_wClover.txt	3.858	0.669487	0.6732
-endf-tools/specs/Zr108.root	upc_brikenV69_wClover.txt	4.294	0.667071	0.669482
-endf-tools/specs/Zr109.root	upc_brikenV69_wClover.txt	5.3	0.667257	0.669588
-endf-tools/specs/Zr110.root	upc_brikenV69_wClover.txt	5.827	0.664779	0.668202
-endf-tools/specs/Nb103.root	upc_brikenV69_wClover.txt	0.47815	0.672767	0.671853
-endf-tools/specs/Nb104.root	upc_brikenV69_wClover.txt	1.07026	0.673306	0.673791
-endf-tools/specs/Nb105.root	upc_brikenV69_wClover.txt	2.37761	0.672586	0.673305
-endf-tools/specs/Nb106.root	upc_brikenV69_wClover.txt	3.07727	0.671407	0.6732
-endf-tools/specs/Nb107.root	upc_brikenV69_wClover.txt	4.35451	0.670033	0.67205
-endf-tools/specs/Nb108.root	upc_brikenV69_wClover.txt	4.92561	0.668924	0.669545
-endf-tools/specs/Nb109.root	upc_brikenV69_wClover.txt	5.911	0.667236	0.669428
-endf-tools/specs/Nb110.root	upc_brikenV69_wClover.txt	6.311	0.665786	0.66836
-endf-tools/specs/Nb111.root	upc_brikenV69_wClover.txt	7.457	0.669421	0.670278
-endf-tools/specs/Nb112.root	upc_brikenV69_wClover.txt	7.55	0.668959	0.669577
-endf-tools/specs/Nb113.root	upc_brikenV69_wClover.txt	8.873	0.664396	0.66667
-endf-tools/specs/Mo109.root	upc_brikenV69_wClover.txt	1.17207	0.673662	0.673017
-endf-tools/specs/Mo111.root	upc_brikenV69_wClover.txt	2.897	0.672271	0.6732
-endf-tools/specs/Mo112.root	upc_brikenV69_wClover.txt	3.383	0.671037	0.673158
-endf-tools/specs/Mo113.root	upc_brikenV69_wClover.txt	4.245	0.669688	0.672183
-endf-tools/specs/Mo114.root	upc_brikenV69_wClover.txt	4.813	0.667907	0.669543
-endf-tools/specs/Mo115.root	upc_brikenV69_wClover.txt	6.032	0.666909	0.669374
-endf-tools/specs/Tc109.root	upc_brikenV69_wClover.txt	1.30729	0.672868	0.673426
-endf-tools/specs/Tc110.root	upc_brikenV69_wClover.txt	1.63261	0.672514	0.673543
-endf-tools/specs/Tc111.root	upc_brikenV69_wClover.txt	2.97721	0.670025	0.671259
-endf-tools/specs/Tc112.root	upc_brikenV69_wClover.txt	3.45716	0.669573	0.669946
-endf-tools/specs/Tc113.root	upc_brikenV69_wClover.txt	4.67818	0.670914	0.6732
-endf-tools/specs/Tc114.root	upc_brikenV69_wClover.txt	4.951	0.671019	0.6732
-endf-tools/specs/Tc115.root	upc_brikenV69_wClover.txt	6.087	0.667239	0.669479
-endf-tools/specs/Tc116.root	upc_brikenV69_wClover.txt	6.663	0.666971	0.669419
-endf-tools/specs/Tc117.root	upc_brikenV69_wClover.txt	7.708	0.661153	0.663539
-endf-tools/specs/Tc118.root	upc_brikenV69_wClover.txt	7.699	0.662022	0.663628
-endf-tools/specs/Ru114.root	upc_brikenV69_wClover.txt	0.48058	0.672776	0.671964
-endf-tools/specs/Ru115.root	upc_brikenV69_wClover.txt	1.45232	0.672659	0.673526
-endf-tools/specs/Ru116.root	upc_brikenV69_wClover.txt	1.997	0.672635	0.673733
-endf-tools/specs/Ru117.root	upc_brikenV69_wClover.txt	3.11	0.671785	0.6732
-endf-tools/specs/Ru118.root	upc_brikenV69_wClover.txt	3.567	0.670305	0.672022
-endf-tools/specs/Ru119.root	upc_brikenV69_wClover.txt	4.252	0.6699	0.672768
-endf-tools/specs/Ru120.root	upc_brikenV69_wClover.txt	4.765	0.668185	0.669559
-endf-tools/specs/Rh115.root	upc_brikenV69_wClover.txt	1.1898	0.672094	0.6732
-endf-tools/specs/Rh116.root	upc_brikenV69_wClover.txt	1.6137	0.672388	0.6732
-endf-tools/specs/Rh117.root	upc_brikenV69_wClover.txt	2.86295	0.669364	0.670858
-endf-tools/specs/Rh118.root	upc_brikenV69_wClover.txt	3.46571	0.669717	0.6732
-endf-tools/specs/Rh119.root	upc_brikenV69_wClover.txt	4.472	0.665436	0.66873
-endf-tools/specs/Rh120.root	upc_brikenV69_wClover.txt	4.522	0.666985	0.669405
-endf-tools/specs/Rh121.root	upc_brikenV69_wClover.txt	5.809	0.665036	0.667823
-endf-tools/specs/Rh122.root	upc_brikenV69_wClover.txt	5.789	0.666195	0.669436
-endf-tools/specs/Rh123.root	upc_brikenV69_wClover.txt	0.006571	0.657526	0.659299
-endf-tools/specs/Pd121.root	upc_brikenV69_wClover.txt	1.323	0.673049	0.672163
-endf-tools/specs/Pd122.root	upc_brikenV69_wClover.txt	1.639	0.672689	0.673625
-endf-tools/specs/Pd123.root	upc_brikenV69_wClover.txt	2.422	0.671478	0.6732
-endf-tools/specs/Pd124.root	upc_brikenV69_wClover.txt	2.681	0.663238	0.66469
-endf-tools/specs/Pd125.root	upc_brikenV69_wClover.txt	0.00324	0.672363	0.6732
-endf-tools/specs/Pd126.root	upc_brikenV69_wClover.txt	0.003363	0.660816	0.664614
-endf-tools/specs/Ag120.root	upc_brikenV69_wClover.txt	0.25421	0.673516	0.673086
-endf-tools/specs/Ag122.root	upc_brikenV69_wClover.txt	1.88032	0.672012	0.6732
-endf-tools/specs/Ag123.root	upc_brikenV69_wClover.txt	2.704	0.670656	0.671854
-endf-tools/specs/Ag124.root	upc_brikenV69_wClover.txt	3.04726	0.668991	0.669582
-endf-tools/specs/Ag125.root	upc_brikenV69_wClover.txt	4.195	0.663973	0.666158
-endf-tools/specs/Ag126.root	upc_brikenV69_wClover.txt	4.422	0.660411	0.662783
-endf-tools/specs/Ag127.root	upc_brikenV69_wClover.txt	5.417	0.650059	0.652504
-endf-tools/specs/Ag128.root	upc_brikenV69_wClover.txt	5.425	0.656831	0.65823
-endf-tools/specs/Ag129.root	upc_brikenV69_wClover.txt	6.615	0.654101	0.655542
-endf-tools/specs/Ag130.root	upc_brikenV69_wClover.txt	8.945	0.666784	0.66949
-endf-tools/specs/Cd127.root	upc_brikenV69_wClover.txt	1.30704	0.670068	0.670228
-endf-tools/specs/Cd128.root	upc_brikenV69_wClover.txt	1.57041	0.673031	0.673402
-endf-tools/specs/Cd129.root	upc_brikenV69_wClover.txt	2.976	0.663607	0.66469
-endf-tools/specs/Cd130.root	upc_brikenV69_wClover.txt	3.20423	0.668781	0.669489
-endf-tools/specs/Cd131.root	upc_brikenV69_wClover.txt	6.44	0.662983	0.666356
-endf-tools/specs/Cd132.root	upc_brikenV69_wClover.txt	9.11	0.630579	0.629882
-endf-tools/specs/In128.root	upc_brikenV69_wClover.txt	1.03795	0.673165	0.673884
-endf-tools/specs/In129.root	upc_brikenV69_wClover.txt	2.45114	0.6663	0.668533
-endf-tools/specs/In130.root	upc_brikenV69_wClover.txt	2.63423	0.66653	0.668655
-endf-tools/specs/In131.root	upc_brikenV69_wClover.txt	4.01622	0.657178	0.657077
-endf-tools/specs/In132.root	upc_brikenV69_wClover.txt	6.78682	0.645508	0.648281
-endf-tools/specs/In133.root	upc_brikenV69_wClover.txt	10.715	0.588644	0.584821
-endf-tools/specs/In134.root	upc_brikenV69_wClover.txt	10.752	0.636315	0.635667
-endf-tools/specs/In135.root	upc_brikenV69_wClover.txt	11.053	0.635101	0.634672
-endf-tools/specs/Sn133.root	upc_brikenV69_wClover.txt	0.75044	0.673008	0.672612
-endf-tools/specs/Sn134.root	upc_brikenV69_wClover.txt	4.54778	0.66507	0.667897
-endf-tools/specs/Sn135.root	upc_brikenV69_wClover.txt	5.482	0.645127	0.647281
-endf-tools/specs/Sn136.root	upc_brikenV69_wClover.txt	5.416	0.662413	0.666718
-endf-tools/specs/Sn137.root	upc_brikenV69_wClover.txt	6.143	0.652429	0.654217
-endf-tools/specs/Sb134.root	upc_brikenV69_wClover.txt	0.70746	0.672887	0.67376
-endf-tools/specs/Sb135.root	upc_brikenV69_wClover.txt	4.70091	0.655971	0.658627
-endf-tools/specs/Sb136.root	upc_brikenV69_wClover.txt	5.308	0.653578	0.656445
-endf-tools/specs/Sb137.root	upc_brikenV69_wClover.txt	6.01	0.66032	0.662991
-endf-tools/specs/Sb138.root	upc_brikenV69_wClover.txt	6.371	0.657201	0.658824
-endf-tools/specs/Sb139.root	upc_brikenV69_wClover.txt	7.364	0.652779	0.654401
-endf-tools/specs/Te136.root	upc_brikenV69_wClover.txt	1.24095	0.671123	0.6732
-endf-tools/specs/Te137.root	upc_brikenV69_wClover.txt	2.21067	0.668717	0.670372
-endf-tools/specs/Te138.root	upc_brikenV69_wClover.txt	2.68042	0.66385	0.664988
-endf-tools/specs/Te139.root	upc_brikenV69_wClover.txt	3.445	0.666335	0.669432
-endf-tools/specs/Te140.root	upc_brikenV69_wClover.txt	3.858	0.666002	0.669408
-endf-tools/specs/Te141.root	upc_brikenV69_wClover.txt	4.563	0.661156	0.665078
-endf-tools/specs/Te142.root	upc_brikenV69_wClover.txt	5.329	0.668964	0.671096
-endf-tools/specs/I137.root	upc_brikenV69_wClover.txt	1.851	0.664834	0.666369
-endf-tools/specs/I138.root	upc_brikenV69_wClover.txt	2.407	0.669426	0.670372
-endf-tools/specs/I139.root	upc_brikenV69_wClover.txt	3.37652	0.669157	0.669578
-endf-tools/specs/I140.root	upc_brikenV69_wClover.txt	3.97737	0.668574	0.66956
-endf-tools/specs/I141.root	upc_brikenV69_wClover.txt	4.61394	0.670642	0.6732
-endf-tools/specs/I142.root	upc_brikenV69_wClover.txt	5.103	0.66669	0.669347
-endf-tools/specs/I143.root	upc_brikenV69_wClover.txt	6.094	0.663714	0.667415
-endf-tools/specs/I144.root	upc_brikenV69_wClover.txt	6.357	0.663726	0.667605
-endf-tools/specs/I145.root	upc_brikenV69_wClover.txt	0.007657	0.663262	0.6674
-endf-tools/specs/Xe141.root	upc_brikenV69_wClover.txt	0.78174	0.672925	0.673947
-endf-tools/specs/Xe142.root	upc_brikenV69_wClover.txt	1.17939	0.672493	0.6732
-endf-tools/specs/Xe143.root	upc_brikenV69_wClover.txt	2.25119	0.670288	0.671108
-endf-tools/specs/Xe144.root	upc_brikenV69_wClover.txt	2.73132	0.666138	0.668542
-endf-tools/specs/Xe145.root	upc_brikenV69_wClover.txt	3.70665	0.66536	0.667862
-endf-tools/specs/Xe146.root	upc_brikenV69_wClover.txt	4.02952	0.666664	0.668989
-endf-tools/specs/Xe147.root	upc_brikenV69_wClover.txt	4.966	0.667633	0.669503
-endf-tools/specs/Cs141.root	upc_brikenV69_wClover.txt	0.71865	0.672415	0.6732
-endf-tools/specs/Cs142.root	upc_brikenV69_wClover.txt	1.13644	0.671656	0.6732
-endf-tools/specs/Cs143.root	upc_brikenV69_wClover.txt	2.09877	0.67153	0.6732
-endf-tools/specs/Cs144.root	upc_brikenV69_wClover.txt	2.59454	0.670209	0.672565
-endf-tools/specs/Cs145.root	upc_brikenV69_wClover.txt	3.64002	0.66993	0.671734
-endf-tools/specs/Cs146.root	upc_brikenV69_wClover.txt	3.87568	0.668272	0.669537
-endf-tools/specs/Cs147.root	upc_brikenV69_wClover.txt	4.85148	0.665659	0.66878
-endf-tools/specs/Cs148.root	upc_brikenV69_wClover.txt	4.89826	0.668071	0.66949
-endf-tools/specs/Cs149.root	upc_brikenV69_wClover.txt	5.677	0.664878	0.668511
-endf-tools/specs/Cs150.root	upc_brikenV69_wClover.txt	6.134	0.665912	0.669304
-endf-tools/specs/Cs151.root	upc_brikenV69_wClover.txt	7.214	0.660992	0.663377
-endf-tools/specs/Ba147.root	upc_brikenV69_wClover.txt	0.71375	0.673033	0.673127
-endf-tools/specs/Ba148.root	upc_brikenV69_wClover.txt	1.01334	0.671166	0.6732
-endf-tools/specs/Ba149.root	upc_brikenV69_wClover.txt	1.468	0.67217	0.673372
-endf-tools/specs/Ba150.root	upc_brikenV69_wClover.txt	1.801	0.671187	0.6732
-endf-tools/specs/Ba151.root	upc_brikenV69_wClover.txt	2.911	0.670883	0.6732
-endf-tools/specs/Ba152.root	upc_brikenV69_wClover.txt	3.451	0.670203	0.671467
-endf-tools/specs/Ba153.root	upc_brikenV69_wClover.txt	4.495	0.666942	0.6694
-endf-tools/specs/La147.root	upc_brikenV69_wClover.txt	0.89119	0.673119	0.674094
-endf-tools/specs/La148.root	upc_brikenV69_wClover.txt	1.23379	0.673149	0.672538
-endf-tools/specs/La149.root	upc_brikenV69_wClover.txt	2.10701	0.668509	0.669473
-endf-tools/specs/La150.root	upc_brikenV69_wClover.txt	2.048	0.666712	0.668625
-endf-tools/specs/La151.root	upc_brikenV69_wClover.txt	2.891	0.667767	0.669473
-endf-tools/specs/La152.root	upc_brikenV69_wClover.txt	3.421	0.66734	0.669442
-endf-tools/specs/La153.root	upc_brikenV69_wClover.txt	4.672	0.667062	0.669188
-endf-tools/specs/La154.root	upc_brikenV69_wClover.txt	5.119	0.666099	0.66829
-endf-tools/specs/La155.root	upc_brikenV69_wClover.txt	6.19	0.659903	0.662631
-endf-tools/specs/Ce153.root	upc_brikenV69_wClover.txt	0.458	0.673044	0.671925
-endf-tools/specs/Ce154.root	upc_brikenV69_wClover.txt	0.778	0.672192	0.6732
-endf-tools/specs/Ce155.root	upc_brikenV69_wClover.txt	1.872	0.671735	0.6732
-endf-tools/specs/Ce156.root	upc_brikenV69_wClover.txt	2.371	0.670578	0.6732
-endf-tools/specs/Ce157.root	upc_brikenV69_wClover.txt	3.395	0.66894	0.669596
-endf-tools/specs/Pr153.root	upc_brikenV69_wClover.txt	0.49876	0.672875	0.671549
-endf-tools/specs/Pr154.root	upc_brikenV69_wClover.txt	1.07596	0.672385	0.6732
-endf-tools/specs/Pr155.root	upc_brikenV69_wClover.txt	1.836	0.668239	0.669425
-endf-tools/specs/Pr156.root	upc_brikenV69_wClover.txt	2.483	0.671597	0.673283
-endf-tools/specs/Pr157.root	upc_brikenV69_wClover.txt	3.483	0.669926	0.670166
-endf-tools/specs/Pr158.root	upc_brikenV69_wClover.txt	3.992	0.669984	0.673127
-endf-tools/specs/Pr159.root	upc_brikenV69_wClover.txt	4.876	0.668374	0.669516
-endf-tools/specs/Nd159.root	upc_brikenV69_wClover.txt	0.837	0.672793	0.673706
-endf-tools/specs/Nd160.root	upc_brikenV69_wClover.txt	1.322	0.671839	0.6732
-endf-tools/specs/Nd161.root	upc_brikenV69_wClover.txt	2.073	0.671835	0.6732
-endf-tools/specs/Pm159.root	upc_brikenV69_wClover.txt	0.3179	0.67311	0.672799
-endf-tools/specs/Pm160.root	upc_brikenV69_wClover.txt	1.07	0.673075	0.674027
-endf-tools/specs/Pm161.root	upc_brikenV69_wClover.txt	1.914	0.66686	0.668591
-endf-tools/specs/Pm162.root	upc_brikenV69_wClover.txt	2.374	0.66874	0.66954
-endf-tools/specs/Sm165.root	upc_brikenV69_wClover.txt	1.548	0.672934	0.673723
-endf-tools/specs/Eu165.root	upc_brikenV69_wClover.txt	0.98	0.673162	0.674057
+endf-tools/specs/Mn68.root	upc_brikenV69_wClover.txt	9.666	15.173	0.649905	0.65258
+endf-tools/specs/Co72.root	upc_brikenV69_wClover.txt	7.634	14.526	0.65315	0.654828
+endf-tools/specs/Co73.root	upc_brikenV69_wClover.txt	8.951	12.904	0.63981	0.640399
+endf-tools/specs/Co74.root	upc_brikenV69_wClover.txt	9.35	16.003	0.650155	0.652595
+endf-tools/specs/Co75.root	upc_brikenV69_wClover.txt	11.201	14.671	0.630245	0.629737
+endf-tools/specs/Ni72.root	upc_brikenV69_wClover.txt	0.41399	5.55718	0.67335	0.67317
+endf-tools/specs/Ni73.root	upc_brikenV69_wClover.txt	1.60377	8.87934	0.672833	0.67373
+endf-tools/specs/Ni74.root	upc_brikenV69_wClover.txt	2.227	7.317	0.670833	0.672372
+endf-tools/specs/Ni75.root	upc_brikenV69_wClover.txt	3.847	10.383	0.664997	0.667893
+endf-tools/specs/Ni76.root	upc_brikenV69_wClover.txt	4.79	9.366	0.662423	0.66396
+endf-tools/specs/Ni77.root	upc_brikenV69_wClover.txt	6.157	11.551	0.654869	0.658459
+endf-tools/specs/Ni78.root	upc_brikenV69_wClover.txt	6.097	10.368	0.652774	0.654387
+endf-tools/specs/Cu73.root	upc_brikenV69_wClover.txt	1.08692	6.60615	0.673082	0.674036
+endf-tools/specs/Cu74.root	upc_brikenV69_wClover.txt	1.51588	9.75051	0.669881	0.670722
+endf-tools/specs/Cu75.root	upc_brikenV69_wClover.txt	3.2143	8.08782	0.667219	0.66917
+endf-tools/specs/Cu76.root	upc_brikenV69_wClover.txt	3.51061	11.326	0.667427	0.669586
+endf-tools/specs/Cu77.root	upc_brikenV69_wClover.txt	5.93373	10.4912	0.659848	0.663035
+endf-tools/specs/Cu78.root	upc_brikenV69_wClover.txt	6.22041	12.9858	0.659516	0.662893
+endf-tools/specs/Cu79.root	upc_brikenV69_wClover.txt	7.513	11.534	0.649155	0.652333
+endf-tools/specs/Cu80.root	upc_brikenV69_wClover.txt	8.93	15.218	0.647036	0.651342
+endf-tools/specs/Cu81.root	upc_brikenV69_wClover.txt	0.011634	-1	0.633464	0.633992
+endf-tools/specs/Zn79.root	upc_brikenV69_wClover.txt	2.20234	9.11538	0.670842	0.673066
+endf-tools/specs/Zn80.root	upc_brikenV69_wClover.txt	2.82775	7.57505	0.669342	0.66953
+endf-tools/specs/Zn81.root	upc_brikenV69_wClover.txt	4.95268	11.4283	0.659933	0.663274
+endf-tools/specs/Zn82.root	upc_brikenV69_wClover.txt	6.95	10.324	0.650632	0.653118
+endf-tools/specs/Zn83.root	upc_brikenV69_wClover.txt	8.121	12.519	0.653798	0.657228
+endf-tools/specs/Ga79.root	upc_brikenV69_wClover.txt	1.24303	6.79405	0.671188	0.6732
+endf-tools/specs/Ga80.root	upc_brikenV69_wClover.txt	2.23166	10.3117	0.670965	0.672319
+endf-tools/specs/Ga81.root	upc_brikenV69_wClover.txt	3.8361	7.98486	0.669892	0.670513
+endf-tools/specs/Ga82.root	upc_brikenV69_wClover.txt	5.28965	12.4843	0.661142	0.663042
+endf-tools/specs/Ga83.root	upc_brikenV69_wClover.txt	8.08663	11.7193	0.658093	0.661453
+endf-tools/specs/Ga84.root	upc_brikenV69_wClover.txt	8.622	13.865	0.653954	0.655807
+endf-tools/specs/Ga85.root	upc_brikenV69_wClover.txt	9.846	-1	0.652891	0.654348
+endf-tools/specs/Ga86.root	upc_brikenV69_wClover.txt	10.596	15.304	0.654534	0.656722
+endf-tools/specs/Ge84.root	upc_brikenV69_wClover.txt	3.44958	7.70513	0.665923	0.668137
+endf-tools/specs/Ge85.root	upc_brikenV69_wClover.txt	4.65882	10.0657	0.657938	0.660543
+endf-tools/specs/Ge86.root	upc_brikenV69_wClover.txt	5.357	9.202	0.656279	0.658351
+endf-tools/specs/Ge87.root	upc_brikenV69_wClover.txt	6.654	11.381	0.651822	0.65437
+endf-tools/specs/Ge88.root	upc_brikenV69_wClover.txt	7.306	10.647	0.651157	0.653332
+endf-tools/specs/Ge89.root	upc_brikenV69_wClover.txt	8.966	13.087	0.665418	0.668038
+endf-tools/specs/As84.root	upc_brikenV69_wClover.txt	1.41578	10.0941	0.671558	0.6732
+endf-tools/specs/As85.root	upc_brikenV69_wClover.txt	4.68723	9.22449	0.661989	0.663618
+endf-tools/specs/As86.root	upc_brikenV69_wClover.txt	5.38018	11.541	0.666248	0.669501
+endf-tools/specs/As87.root	upc_brikenV69_wClover.txt	6.81394	10.8082	0.668292	0.670058
+endf-tools/specs/As88.root	upc_brikenV69_wClover.txt	7.467	12.997	0.665924	0.668564
+endf-tools/specs/As89.root	upc_brikenV69_wClover.txt	8.875	12.054	0.663467	0.66481
+endf-tools/specs/As90.root	upc_brikenV69_wClover.txt	9.591	14.597	0.65509	0.656376
+endf-tools/specs/As91.root	upc_brikenV69_wClover.txt	10.959	-1	0.650987	0.653218
+endf-tools/specs/As92.root	upc_brikenV69_wClover.txt	11.285	-1	0.653558	0.655425
+endf-tools/specs/Se87.root	upc_brikenV69_wClover.txt	1.13481	7.46555	0.672832	0.673651
+endf-tools/specs/Se88.root	upc_brikenV69_wClover.txt	1.93616	6.83176	0.671918	0.6732
+endf-tools/specs/Se89.root	upc_brikenV69_wClover.txt	3.65225	9.28187	0.664778	0.667628
+endf-tools/specs/Se90.root	upc_brikenV69_wClover.txt	4.276	8.073	0.660022	0.662553
+endf-tools/specs/Se91.root	upc_brikenV69_wClover.txt	5.591	10.769	0.663009	0.666978
+endf-tools/specs/Se92.root	upc_brikenV69_wClover.txt	6.312	9.509	0.657722	0.660687
+endf-tools/specs/Se93.root	upc_brikenV69_wClover.txt	7.446	12.137	0.663583	0.6654
+endf-tools/specs/Se94.root	upc_brikenV69_wClover.txt	7.978	10.796	0.663402	0.665632
+endf-tools/specs/Br87.root	upc_brikenV69_wClover.txt	1.30267	6.81785	0.672308	0.6732
+endf-tools/specs/Br88.root	upc_brikenV69_wClover.txt	1.92225	8.97533	0.671794	0.6732
+endf-tools/specs/Br89.root	upc_brikenV69_wClover.txt	3.34571	8.26153	0.667054	0.669062
+endf-tools/specs/Br90.root	upc_brikenV69_wClover.txt	4.46417	10.9589	0.66312	0.665671
+endf-tools/specs/Br92.root	upc_brikenV69_wClover.txt	6.66984	12.5365	0.648614	0.652208
+endf-tools/specs/Br93.root	upc_brikenV69_wClover.txt	7.845	11.283	0.664875	0.667199
+endf-tools/specs/Br94.root	upc_brikenV69_wClover.txt	8.465	13.748	0.662783	0.665991
+endf-tools/specs/Br95.root	upc_brikenV69_wClover.txt	9.375	12.258	0.659882	0.662766
+endf-tools/specs/Br96.root	upc_brikenV69_wClover.txt	9.738	14.73	0.658678	0.661447
+endf-tools/specs/Br97.root	upc_brikenV69_wClover.txt	10.497	-1	0.653223	0.655138
+endf-tools/specs/Kr92.root	upc_brikenV69_wClover.txt	0.90584	6.00328	0.67196	0.6732
+endf-tools/specs/Kr93.root	upc_brikenV69_wClover.txt	2.56529	8.48409	0.668755	0.669494
+endf-tools/specs/Kr94.root	upc_brikenV69_wClover.txt	3.20099	7.21422	0.668955	0.669527
+endf-tools/specs/Kr95.root	upc_brikenV69_wClover.txt	4.33176	9.73553	0.666953	0.66951
+endf-tools/specs/Kr96.root	upc_brikenV69_wClover.txt	4.74345	8.27468	0.667125	0.669555
+endf-tools/specs/Kr97.root	upc_brikenV69_wClover.txt	5.85955	11.0947	0.667032	0.669478
+endf-tools/specs/Kr98.root	upc_brikenV69_wClover.txt	5.987	9.571	0.665708	0.668725
+endf-tools/specs/Kr99.root	upc_brikenV69_wClover.txt	7.2	12.461	0.664807	0.667878
+endf-tools/specs/Kr100.root	upc_brikenV69_wClover.txt	7.985	11.383	0.659839	0.662676
+endf-tools/specs/Rb91.root	upc_brikenV69_wClover.txt	0.13159	5.90636	0.673344	0.673177
+endf-tools/specs/Rb92.root	upc_brikenV69_wClover.txt	0.80892	8.09484	0.672524	0.673241
+endf-tools/specs/Rb93.root	upc_brikenV69_wClover.txt	2.17604	7.46598	0.669404	0.669588
+endf-tools/specs/Rb94.root	upc_brikenV69_wClover.txt	3.45276	10.2812	0.668269	0.669517
+endf-tools/specs/Rb95.root	upc_brikenV69_wClover.txt	4.87742	9.22939	0.665435	0.668839
+endf-tools/specs/Rb96.root	upc_brikenV69_wClover.txt	5.69816	11.5786	0.668164	0.669559
+endf-tools/specs/Rb97.root	upc_brikenV69_wClover.txt	6.34345	10.0734	0.666463	0.669055
+endf-tools/specs/Rb98.root	upc_brikenV69_wClover.txt	6.48942	12.4057	0.665586	0.668728
+endf-tools/specs/Rb99.root	upc_brikenV69_wClover.txt	7.14496	11.3092	0.668663	0.67036
+endf-tools/specs/Rb100.root	upc_brikenV69_wClover.txt	7.912	13.287	0.661601	0.663435
+endf-tools/specs/Rb101.root	upc_brikenV69_wClover.txt	8.787	12.59	0.662081	0.663557
+endf-tools/specs/Rb102.root	upc_brikenV69_wClover.txt	9.601	14.507	0.657587	0.660253
+endf-tools/specs/Sr96.root	upc_brikenV69_wClover.txt	0.20886	5.41174	0.673056	0.671819
+endf-tools/specs/Sr97.root	upc_brikenV69_wClover.txt	1.68174	6.87148	0.672266	0.673443
+endf-tools/specs/Sr98.root	upc_brikenV69_wClover.txt	1.62236	5.86711	0.671253	0.6732
+endf-tools/specs/Sr99.root	upc_brikenV69_wClover.txt	1.70286	8.12931	0.672322	0.6732
+endf-tools/specs/Sr100.root	upc_brikenV69_wClover.txt	2.75421	7.50318	0.67089	0.672095
+endf-tools/specs/Sr101.root	upc_brikenV69_wClover.txt	3.69999	9.505	0.666042	0.668563
+endf-tools/specs/Sr102.root	upc_brikenV69_wClover.txt	4.599	8.815	0.666213	0.668425
+endf-tools/specs/Sr103.root	upc_brikenV69_wClover.txt	5.61	10.966	0.666028	0.669408
+endf-tools/specs/Sr104.root	upc_brikenV69_wClover.txt	6.509	10.144	0.666707	0.669456
+endf-tools/specs/Sr105.root	upc_brikenV69_wClover.txt	7.382	12.212	0.666815	0.669558
+endf-tools/specs/Y97.root	upc_brikenV69_wClover.txt	1.24608	6.82124	0.672212	0.673312
+endf-tools/specs/Y98.root	upc_brikenV69_wClover.txt	2.57648	8.99192	0.671843	0.6732
+endf-tools/specs/Y99.root	upc_brikenV69_wClover.txt	2.56546	6.96761	0.668193	0.669514
+endf-tools/specs/Y100.root	upc_brikenV69_wClover.txt	2.21864	9.0479	0.669574	0.669544
+endf-tools/specs/Y101.root	upc_brikenV69_wClover.txt	3.24289	8.10313	0.668274	0.669536
+endf-tools/specs/Y102.root	upc_brikenV69_wClover.txt	3.886	10.379	0.670929	0.6732
+endf-tools/specs/Y103.root	upc_brikenV69_wClover.txt	5.02348	9.32413	0.666203	0.668471
+endf-tools/specs/Y104.root	upc_brikenV69_wClover.txt	5.69	11.67	0.667748	0.670635
+endf-tools/specs/Y105.root	upc_brikenV69_wClover.txt	6.84	10.652	0.665345	0.669449
+endf-tools/specs/Y106.root	upc_brikenV69_wClover.txt	7.35	12.985	0.669137	0.671855
+endf-tools/specs/Y107.root	upc_brikenV69_wClover.txt	8.602	11.904	0.66726	0.669425
+endf-tools/specs/Y108.root	upc_brikenV69_wClover.txt	8.901	14.056	0.667203	0.669506
+endf-tools/specs/Zr103.root	upc_brikenV69_wClover.txt	0.41793	7.19871	0.672995	0.673224
+endf-tools/specs/Zr104.root	upc_brikenV69_wClover.txt	1.21858	6.09495	0.672367	0.6732
+endf-tools/specs/Zr105.root	upc_brikenV69_wClover.txt	2.28288	8.43591	0.67113	0.6732
+endf-tools/specs/Zr106.root	upc_brikenV69_wClover.txt	2.801	7.16	0.670267	0.672218
+endf-tools/specs/Zr107.root	upc_brikenV69_wClover.txt	3.858	9.45	0.669487	0.6732
+endf-tools/specs/Zr108.root	upc_brikenV69_wClover.txt	4.294	8.211	0.667071	0.669482
+endf-tools/specs/Zr109.root	upc_brikenV69_wClover.txt	5.3	10.591	0.667257	0.669588
+endf-tools/specs/Zr110.root	upc_brikenV69_wClover.txt	5.827	9.408	0.664779	0.668202
+endf-tools/specs/Nb103.root	upc_brikenV69_wClover.txt	0.47815	5.94663	0.672767	0.671853
+endf-tools/specs/Nb104.root	upc_brikenV69_wClover.txt	1.07026	8.53065	0.673306	0.673791
+endf-tools/specs/Nb105.root	upc_brikenV69_wClover.txt	2.37761	7.43633	0.672586	0.673305
+endf-tools/specs/Nb106.root	upc_brikenV69_wClover.txt	3.07727	9.94622	0.671407	0.6732
+endf-tools/specs/Nb107.root	upc_brikenV69_wClover.txt	4.35451	8.84294	0.670033	0.67205
+endf-tools/specs/Nb108.root	upc_brikenV69_wClover.txt	4.92561	11.2014	0.668924	0.669545
+endf-tools/specs/Nb109.root	upc_brikenV69_wClover.txt	5.911	9.892	0.667236	0.669428
+endf-tools/specs/Nb110.root	upc_brikenV69_wClover.txt	6.311	12.259	0.665786	0.66836
+endf-tools/specs/Nb111.root	upc_brikenV69_wClover.txt	7.457	11.038	0.669421	0.670278
+endf-tools/specs/Nb112.root	upc_brikenV69_wClover.txt	7.55	13.125	0.668959	0.669577
+endf-tools/specs/Nb113.root	upc_brikenV69_wClover.txt	8.873	12.314	0.664396	0.66667
+endf-tools/specs/Mo109.root	upc_brikenV69_wClover.txt	1.17207	7.60335	0.673662	0.673017
+endf-tools/specs/Mo111.root	upc_brikenV69_wClover.txt	2.897	8.958	0.672271	0.6732
+endf-tools/specs/Mo112.root	upc_brikenV69_wClover.txt	3.383	7.687	0.671037	0.673158
+endf-tools/specs/Mo113.root	upc_brikenV69_wClover.txt	4.245	9.941	0.669688	0.672183
+endf-tools/specs/Mo114.root	upc_brikenV69_wClover.txt	4.813	8.859	0.667907	0.669543
+endf-tools/specs/Mo115.root	upc_brikenV69_wClover.txt	6.032	11.308	0.666909	0.669374
+endf-tools/specs/Tc109.root	upc_brikenV69_wClover.txt	1.30729	6.45563	0.672868	0.673426
+endf-tools/specs/Tc110.root	upc_brikenV69_wClover.txt	1.63261	9.03861	0.672514	0.673543
+endf-tools/specs/Tc111.root	upc_brikenV69_wClover.txt	2.97721	7.76065	0.670025	0.671259
+endf-tools/specs/Tc112.root	upc_brikenV69_wClover.txt	3.45716	10.374	0.669573	0.669946
+endf-tools/specs/Tc113.root	upc_brikenV69_wClover.txt	4.67818	8.99668	0.670914	0.6732
+endf-tools/specs/Tc114.root	upc_brikenV69_wClover.txt	4.951	11.364	0.671019	0.6732
+endf-tools/specs/Tc115.root	upc_brikenV69_wClover.txt	6.087	10.132	0.667239	0.669479
+endf-tools/specs/Tc116.root	upc_brikenV69_wClover.txt	6.663	12.706	0.666971	0.669419
+endf-tools/specs/Tc117.root	upc_brikenV69_wClover.txt	7.708	11.178	0.661153	0.663539
+endf-tools/specs/Tc118.root	upc_brikenV69_wClover.txt	7.699	13.469	0.662022	0.663628
+endf-tools/specs/Ru114.root	upc_brikenV69_wClover.txt	0.48058	5.49773	0.672776	0.671964
+endf-tools/specs/Ru115.root	upc_brikenV69_wClover.txt	1.45232	8.0401	0.672659	0.673526
+endf-tools/specs/Ru116.root	upc_brikenV69_wClover.txt	1.997	6.58	0.672635	0.673733
+endf-tools/specs/Ru117.root	upc_brikenV69_wClover.txt	3.11	9.337	0.671785	0.6732
+endf-tools/specs/Ru118.root	upc_brikenV69_wClover.txt	3.567	7.628	0.670305	0.672022
+endf-tools/specs/Ru119.root	upc_brikenV69_wClover.txt	4.252	10.284	0.6699	0.672768
+endf-tools/specs/Ru120.root	upc_brikenV69_wClover.txt	4.765	8.803	0.668185	0.669559
+endf-tools/specs/Rh115.root	upc_brikenV69_wClover.txt	1.1898	6.19661	0.672094	0.6732
+endf-tools/specs/Rh116.root	upc_brikenV69_wClover.txt	1.6137	9.09021	0.672388	0.6732
+endf-tools/specs/Rh117.root	upc_brikenV69_wClover.txt	2.86295	7.52711	0.669364	0.670858
+endf-tools/specs/Rh118.root	upc_brikenV69_wClover.txt	3.46571	10.5038	0.669717	0.6732
+endf-tools/specs/Rh119.root	upc_brikenV69_wClover.txt	4.472	8.56	0.665436	0.66873
+endf-tools/specs/Rh120.root	upc_brikenV69_wClover.txt	4.522	11.495	0.666985	0.669405
+endf-tools/specs/Rh121.root	upc_brikenV69_wClover.txt	5.809	9.827	0.665036	0.667823
+endf-tools/specs/Rh122.root	upc_brikenV69_wClover.txt	5.789	12.296	0.666195	0.669436
+endf-tools/specs/Rh123.root	upc_brikenV69_wClover.txt	0.006571	0.010562	0.657526	0.659299
+endf-tools/specs/Pd121.root	upc_brikenV69_wClover.txt	1.323	8.146	0.673049	0.672163
+endf-tools/specs/Pd122.root	upc_brikenV69_wClover.txt	1.639	6.414	0.672689	0.673625
+endf-tools/specs/Pd123.root	upc_brikenV69_wClover.txt	2.422	8.936	0.671478	0.6732
+endf-tools/specs/Pd124.root	upc_brikenV69_wClover.txt	2.681	7.404	0.663238	0.66469
+endf-tools/specs/Pd125.root	upc_brikenV69_wClover.txt	0.00324	0.009644	0.672363	0.6732
+endf-tools/specs/Pd126.root	upc_brikenV69_wClover.txt	0.003363	0.007643	0.660816	0.664614
+endf-tools/specs/Ag120.root	upc_brikenV69_wClover.txt	0.25421	8.30585	0.673516	0.673086
+endf-tools/specs/Ag122.root	upc_brikenV69_wClover.txt	1.88032	9.51046	0.672012	0.6732
+endf-tools/specs/Ag123.root	upc_brikenV69_wClover.txt	2.704	7.77063	0.670656	0.671854
+endf-tools/specs/Ag124.root	upc_brikenV69_wClover.txt	3.04726	10.4973	0.668991	0.669582
+endf-tools/specs/Ag125.root	upc_brikenV69_wClover.txt	4.195	8.916	0.663973	0.666158
+endf-tools/specs/Ag126.root	upc_brikenV69_wClover.txt	4.422	11.402	0.660411	0.662783
+endf-tools/specs/Ag127.root	upc_brikenV69_wClover.txt	5.417	9.667	0.650059	0.652504
+endf-tools/specs/Ag128.root	upc_brikenV69_wClover.txt	5.425	12.311	0.656831	0.65823
+endf-tools/specs/Ag129.root	upc_brikenV69_wClover.txt	6.615	10.749	0.654101	0.655542
+endf-tools/specs/Ag130.root	upc_brikenV69_wClover.txt	8.945	15.241	0.666784	0.66949
+endf-tools/specs/Cd127.root	upc_brikenV69_wClover.txt	1.30704	8.45667	0.670068	0.670228
+endf-tools/specs/Cd128.root	upc_brikenV69_wClover.txt	1.57041	7.11031	0.673031	0.673402
+endf-tools/specs/Cd129.root	upc_brikenV69_wClover.txt	2.976	9.5	0.663607	0.66469
+endf-tools/specs/Cd130.root	upc_brikenV69_wClover.txt	3.20423	8.35	0.668781	0.669489
+endf-tools/specs/Cd131.root	upc_brikenV69_wClover.txt	6.44	12.672	0.662983	0.666356
+endf-tools/specs/Cd132.root	upc_brikenV69_wClover.txt	9.11	11.545	0.630579	0.629882
+endf-tools/specs/In128.root	upc_brikenV69_wClover.txt	1.03795	8.9756	0.673165	0.673884
+endf-tools/specs/In129.root	upc_brikenV69_wClover.txt	2.45114	7.7448	0.6663	0.668533
+endf-tools/specs/In130.root	upc_brikenV69_wClover.txt	2.63423	8.30316	0.66653	0.668655
+endf-tools/specs/In131.root	upc_brikenV69_wClover.txt	4.01622	9.222	0.657178	0.657077
+endf-tools/specs/In132.root	upc_brikenV69_wClover.txt	6.78682	14.135	0.645508	0.648281
+endf-tools/specs/In133.root	upc_brikenV69_wClover.txt	10.715	13.085	0.588644	0.584821
+endf-tools/specs/In134.root	upc_brikenV69_wClover.txt	10.752	-1	0.636315	0.635667
+endf-tools/specs/In135.root	upc_brikenV69_wClover.txt	11.053	13.414	0.635101	0.634672
+endf-tools/specs/Sn133.root	upc_brikenV69_wClover.txt	0.75044	8.09561	0.673008	0.672612
+endf-tools/specs/Sn134.root	upc_brikenV69_wClover.txt	4.54778	7.84233	0.66507	0.667897
+endf-tools/specs/Sn135.root	upc_brikenV69_wClover.txt	5.482	-1	0.645127	0.647281
+endf-tools/specs/Sn136.root	upc_brikenV69_wClover.txt	5.416	8.225	0.662413	0.666718
+endf-tools/specs/Sn137.root	upc_brikenV69_wClover.txt	6.143	-1	0.652429	0.654217
+endf-tools/specs/Sb134.root	upc_brikenV69_wClover.txt	0.70746	8.3937	0.672887	0.67376
+endf-tools/specs/Sb135.root	upc_brikenV69_wClover.txt	4.70091	8.1163	0.655971	0.658627
+endf-tools/specs/Sb136.root	upc_brikenV69_wClover.txt	5.308	9.954	0.653578	0.656445
+endf-tools/specs/Sb137.root	upc_brikenV69_wClover.txt	6.01	8.892	0.66032	0.662991
+endf-tools/specs/Sb138.root	upc_brikenV69_wClover.txt	6.371	10.908	0.657201	0.658824
+endf-tools/specs/Sb139.root	upc_brikenV69_wClover.txt	7.364	-1	0.652779	0.654401
+endf-tools/specs/Te136.root	upc_brikenV69_wClover.txt	1.24095	5.09305	0.671123	0.6732
+endf-tools/specs/Te137.root	upc_brikenV69_wClover.txt	2.21067	7.21672	0.668717	0.670372
+endf-tools/specs/Te138.root	upc_brikenV69_wClover.txt	2.68042	6.15	0.66385	0.664988
+endf-tools/specs/Te139.root	upc_brikenV69_wClover.txt	3.445	8.138	0.666335	0.669432
+endf-tools/specs/Te140.root	upc_brikenV69_wClover.txt	3.858	6.998	0.666002	0.669408
+endf-tools/specs/Te141.root	upc_brikenV69_wClover.txt	4.563	9.339	0.661156	0.665078
+endf-tools/specs/Te142.root	upc_brikenV69_wClover.txt	5.329	8.123	0.668964	0.671096
+endf-tools/specs/I137.root	upc_brikenV69_wClover.txt	1.851	5.87653	0.664834	0.666369
+endf-tools/specs/I138.root	upc_brikenV69_wClover.txt	2.407	8.07	0.669426	0.670372
+endf-tools/specs/I139.root	upc_brikenV69_wClover.txt	3.37652	7.11736	0.669157	0.669578
+endf-tools/specs/I140.root	upc_brikenV69_wClover.txt	3.97737	9.39056	0.668574	0.66956
+endf-tools/specs/I141.root	upc_brikenV69_wClover.txt	4.61394	7.8961	0.670642	0.6732
+endf-tools/specs/I142.root	upc_brikenV69_wClover.txt	5.103	10.206	0.66669	0.669347
+endf-tools/specs/I143.root	upc_brikenV69_wClover.txt	6.094	9.138	0.663714	0.667415
+endf-tools/specs/I144.root	upc_brikenV69_wClover.txt	6.357	11.098	0.663726	0.667605
+endf-tools/specs/I145.root	upc_brikenV69_wClover.txt	0.007657	0.010548	0.663262	0.6674
+endf-tools/specs/Xe141.root	upc_brikenV69_wClover.txt	0.78174	6.28305	0.672925	0.673947
+endf-tools/specs/Xe142.root	upc_brikenV69_wClover.txt	1.17939	5.29574	0.672493	0.6732
+endf-tools/specs/Xe143.root	upc_brikenV69_wClover.txt	2.25119	7.47206	0.670288	0.671108
+endf-tools/specs/Xe144.root	upc_brikenV69_wClover.txt	2.73132	6.399	0.666138	0.668542
+endf-tools/specs/Xe145.root	upc_brikenV69_wClover.txt	3.70665	8.56245	0.66536	0.667862
+endf-tools/specs/Xe146.root	upc_brikenV69_wClover.txt	4.02952	7.61423	0.666664	0.668989
+endf-tools/specs/Xe147.root	upc_brikenV69_wClover.txt	4.966	9.486	0.667633	0.669503
+endf-tools/specs/Cs141.root	upc_brikenV69_wClover.txt	0.71865	5.25278	0.672415	0.6732
+endf-tools/specs/Cs142.root	upc_brikenV69_wClover.txt	1.13644	7.31963	0.671656	0.6732
+endf-tools/specs/Cs143.root	upc_brikenV69_wClover.txt	2.09877	6.26222	0.67153	0.6732
+endf-tools/specs/Cs144.root	upc_brikenV69_wClover.txt	2.59454	8.49582	0.670209	0.672565
+endf-tools/specs/Cs145.root	upc_brikenV69_wClover.txt	3.64002	7.46039	0.66993	0.671734
+endf-tools/specs/Cs146.root	upc_brikenV69_wClover.txt	3.87568	9.37152	0.668272	0.669537
+endf-tools/specs/Cs147.root	upc_brikenV69_wClover.txt	4.85148	8.24612	0.665659	0.66878
+endf-tools/specs/Cs148.root	upc_brikenV69_wClover.txt	4.89826	10.2993	0.668071	0.66949
+endf-tools/specs/Cs149.root	upc_brikenV69_wClover.txt	5.677	9.324	0.664878	0.668511
+endf-tools/specs/Cs150.root	upc_brikenV69_wClover.txt	6.134	11.383	0.665912	0.669304
+endf-tools/specs/Cs151.root	upc_brikenV69_wClover.txt	7.214	10.507	0.660992	0.663377
+endf-tools/specs/Ba147.root	upc_brikenV69_wClover.txt	0.71375	6.41436	0.673033	0.673127
+endf-tools/specs/Ba148.root	upc_brikenV69_wClover.txt	1.01334	5.115	0.671166	0.6732
+endf-tools/specs/Ba149.root	upc_brikenV69_wClover.txt	1.468	7.05	0.67217	0.673372
+endf-tools/specs/Ba150.root	upc_brikenV69_wClover.txt	1.801	6.204	0.671187	0.6732
+endf-tools/specs/Ba151.root	upc_brikenV69_wClover.txt	2.911	8.318	0.670883	0.6732
+endf-tools/specs/Ba152.root	upc_brikenV69_wClover.txt	3.451	7.368	0.670203	0.671467
+endf-tools/specs/Ba153.root	upc_brikenV69_wClover.txt	4.495	9.399	0.666942	0.6694
+endf-tools/specs/La147.root	upc_brikenV69_wClover.txt	0.89119	5.33545	0.673119	0.674094
+endf-tools/specs/La148.root	upc_brikenV69_wClover.txt	1.23379	7.68951	0.673149	0.672538
+endf-tools/specs/La149.root	upc_brikenV69_wClover.txt	2.10701	6.45	0.668509	0.669473
+endf-tools/specs/La150.root	upc_brikenV69_wClover.txt	2.048	8.298	0.666712	0.668625
+endf-tools/specs/La151.root	upc_brikenV69_wClover.txt	2.891	7.338	0.667767	0.669473
+endf-tools/specs/La152.root	upc_brikenV69_wClover.txt	3.421	9.576	0.66734	0.669442
+endf-tools/specs/La153.root	upc_brikenV69_wClover.txt	4.672	8.663	0.667062	0.669188
+endf-tools/specs/La154.root	upc_brikenV69_wClover.txt	5.119	10.694	0.666099	0.66829
+endf-tools/specs/La155.root	upc_brikenV69_wClover.txt	6.19	9.781	0.659903	0.662631
+endf-tools/specs/Ce153.root	upc_brikenV69_wClover.txt	0.458	6.353	0.673044	0.671925
+endf-tools/specs/Ce154.root	upc_brikenV69_wClover.txt	0.778	5.463	0.672192	0.6732
+endf-tools/specs/Ce155.root	upc_brikenV69_wClover.txt	1.872	7.526	0.671735	0.6732
+endf-tools/specs/Ce156.root	upc_brikenV69_wClover.txt	2.371	6.576	0.670578	0.6732
+endf-tools/specs/Ce157.root	upc_brikenV69_wClover.txt	3.395	8.523	0.66894	0.669596
+endf-tools/specs/Pr153.root	upc_brikenV69_wClover.txt	0.49876	5.76052	0.672875	0.671549
+endf-tools/specs/Pr154.root	upc_brikenV69_wClover.txt	1.07596	7.49	0.672385	0.6732
+endf-tools/specs/Pr155.root	upc_brikenV69_wClover.txt	1.836	6.689	0.668239	0.669425
+endf-tools/specs/Pr156.root	upc_brikenV69_wClover.txt	2.483	8.611	0.671597	0.673283
+endf-tools/specs/Pr157.root	upc_brikenV69_wClover.txt	3.483	7.825	0.669926	0.670166
+endf-tools/specs/Pr158.root	upc_brikenV69_wClover.txt	3.992	9.669	0.669984	0.673127
+endf-tools/specs/Pr159.root	upc_brikenV69_wClover.txt	4.876	8.765	0.668374	0.669516
+endf-tools/specs/Nd159.root	upc_brikenV69_wClover.txt	0.837	6.599	0.672793	0.673706
+endf-tools/specs/Nd160.root	upc_brikenV69_wClover.txt	1.322	5.682	0.671839	0.6732
+endf-tools/specs/Nd161.root	upc_brikenV69_wClover.txt	2.073	7.471	0.671835	0.6732
+endf-tools/specs/Pm159.root	upc_brikenV69_wClover.txt	0.3179	5.43	0.67311	0.672799
+endf-tools/specs/Pm160.root	upc_brikenV69_wClover.txt	1.07	7.312	0.673075	0.674027
+endf-tools/specs/Pm161.root	upc_brikenV69_wClover.txt	1.914	6.319	0.66686	0.668591
+endf-tools/specs/Pm162.root	upc_brikenV69_wClover.txt	2.374	8.449	0.66874	0.66954
+endf-tools/specs/Sm165.root	upc_brikenV69_wClover.txt	1.548	7.008	0.672934	0.673723
+endf-tools/specs/Eu165.root	upc_brikenV69_wClover.txt	0.98	5.8	0.673162	0.674057
